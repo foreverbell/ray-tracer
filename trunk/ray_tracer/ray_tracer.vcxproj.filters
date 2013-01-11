@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ray.cpp">
+      <Filter>bottom-layer</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="world.cpp">
+      <Filter>bottom-layer</Filter>
+    </ClCompile>
+    <ClCompile Include="surface.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="camera_orthographic.cpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="camera_pinhole.cpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sampler.cpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="sampler_random.cpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="tracer.cpp">
+      <Filter>bottom-layer</Filter>
+    </ClCompile>
+    <ClCompile Include="camera_thinlens.cpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="camera_fisheye.cpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sampler_jittered.cpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF.cpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF_lambertian.cpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="material_matte.cpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_solid_color.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_checker.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="hitInfo.cpp">
+      <Filter>bottom-layer\basis</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_image.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_mapping.cpp">
+      <Filter>bottom-layer\texture\texture_mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_mapping_sphere.cpp">
+      <Filter>bottom-layer\texture\texture_mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="light_point.cpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF_phong.cpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="material_phong.cpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClCompile>
+    <ClCompile Include="fog.cpp">
+      <Filter>bottom-layer</Filter>
+    </ClCompile>
+    <ClCompile Include="light_area.cpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClCompile>
+    <ClCompile Include="sampler_single.cpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="material_mirror.cpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF_reflection.cpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_compound.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>bottom-layer\image</Filter>
+    </ClCompile>
+    <ClCompile Include="image_bmp.cpp">
+      <Filter>bottom-layer\image\bmp</Filter>
+    </ClCompile>
+    <ClCompile Include="quadratic.cpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_disk.cpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_plane.cpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_triangle.cpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_quadratic.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_sphere.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="convexhull.cpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_convexhull.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_regpolyhedron.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_football.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_tetrahedron.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_cube.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_octahedron.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_dodecahedron.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_icosahedron.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="polyvertex_truncated_icosahedron.cpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_planeDIY.cpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3D.cpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2D.cpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="point3D.cpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="point2D.cpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="colorRGB.cpp">
+      <Filter>bottom-layer\basis\color</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix3D.cpp">
+      <Filter>bottom-layer\basis\matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix4D.cpp">
+      <Filter>bottom-layer\basis\matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="transformation.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="scaling_transformation.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="translation_transformation.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="bottom-layer">
+      <UniqueIdentifier>{843912d7-7a13-491e-b8db-d9169720b346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis">
+      <UniqueIdentifier>{52c0a14b-c3e1-4bd5-9965-e418df30bdd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\surface">
+      <UniqueIdentifier>{d4a28d6a-d31e-465c-9826-e52b30aaa697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\camera">
+      <UniqueIdentifier>{8432a768-f6d1-45bf-a97d-9420b946e42e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\light">
+      <UniqueIdentifier>{34306fb5-d86c-456e-8379-dd75ac02b33e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\texture">
+      <UniqueIdentifier>{63482482-2542-416e-a168-f93e10404a1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\texture\texture_mapping">
+      <UniqueIdentifier>{6dac98c8-e650-4673-9560-1fd06bd69f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\image">
+      <UniqueIdentifier>{aff4d6dc-3fbb-46f1-83a9-80541c3fa90a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\image\bmp">
+      <UniqueIdentifier>{12e07f55-8598-48e7-9185-46815f8cb73f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\mathematics">
+      <UniqueIdentifier>{c4faf1f7-0f23-46db-82e9-1810a6442c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\surface\2D">
+      <UniqueIdentifier>{00225c6a-7be4-417e-bc7b-540d0ef81914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\surface\3D">
+      <UniqueIdentifier>{46aceede-5a6c-4125-89f3-1deb9dcf4e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\sampler">
+      <UniqueIdentifier>{8a448816-b8d4-4135-9c04-6f8643151816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\mathematics\polyvertex">
+      <UniqueIdentifier>{1a65341f-5107-4910-9565-87d1cc3c1ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\mathematics\material">
+      <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\mathematics\material\BRDF">
+      <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis\vector">
+      <UniqueIdentifier>{56c7ab71-2843-4e17-a890-3616856a2981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis\color">
+      <UniqueIdentifier>{b66bf6d7-c19f-4745-aa43-9250e91b21a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis\transformation">
+      <UniqueIdentifier>{7814c546-3794-462b-93dc-501ff4c913d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis\matrix">
+      <UniqueIdentifier>{07388b61-a6dd-44be-b280-c9d492bb0928}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ray.hpp">
+      <Filter>bottom-layer</Filter>
+    </ClInclude>
+    <ClInclude Include="world.hpp">
+      <Filter>bottom-layer</Filter>
+    </ClInclude>
+    <ClInclude Include="surface.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.hpp">
+      <Filter>bottom-layer\basis</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_orthographic.hpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_pinhole.hpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sampler.hpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="sampler_random.hpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="tracer.hpp">
+      <Filter>bottom-layer</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_fisheye.hpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sampler_jittered.hpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="material.hpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClInclude>
+    <ClInclude Include="BRDF.hpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="BRDF_lambertian.hpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="material_matte.hpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_solid_color.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_checker.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="hitInfo.hpp">
+      <Filter>bottom-layer\basis</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_image.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_mapping.hpp">
+      <Filter>bottom-layer\texture\texture_mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_mapping_sphere.hpp">
+      <Filter>bottom-layer\texture\texture_mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="light_point.hpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClInclude>
+    <ClInclude Include="light.hpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClInclude>
+    <ClInclude Include="BRDF_phong.hpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="material_phong.hpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClInclude>
+    <ClInclude Include="fog.hpp">
+      <Filter>bottom-layer</Filter>
+    </ClInclude>
+    <ClInclude Include="light_area.hpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClInclude>
+    <ClInclude Include="sampler_single.hpp">
+      <Filter>bottom-layer\sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="material_mirror.hpp">
+      <Filter>bottom-layer\mathematics\material</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_thinlens.hpp">
+      <Filter>bottom-layer\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="BRDF_reflection.hpp">
+      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_compound.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="image.hpp">
+      <Filter>bottom-layer\image</Filter>
+    </ClInclude>
+    <ClInclude Include="image_bmp.hpp">
+      <Filter>bottom-layer\image\bmp</Filter>
+    </ClInclude>
+    <ClInclude Include="quadratic.hpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_disk.hpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_plane.hpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_triangle.hpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_quadratic.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_sphere.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="convexhull.hpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_convexhull.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_hit.hpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_regpolyhedron.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_football.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_tetrahedron.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_cube.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_octahedron.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_dodecahedron.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_icosahedron.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="polyvertex_truncated_icosahedron.hpp">
+      <Filter>bottom-layer\mathematics\polyvertex</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_planeDIY.hpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3D.hpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2D.hpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="point3D.hpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="point2D.hpp">
+      <Filter>bottom-layer\basis\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="colorRGB.hpp">
+      <Filter>bottom-layer\basis\color</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix3D.hpp">
+      <Filter>bottom-layer\basis\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix4D.hpp">
+      <Filter>bottom-layer\basis\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="scaling_transformation.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="translation_transformation.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

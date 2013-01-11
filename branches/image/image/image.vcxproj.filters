@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="image.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="image_bmp.cpp">
+      <Filter>image\bmp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="image">
+      <UniqueIdentifier>{6f9764c6-feaa-47bd-a6fd-a3502dd4df57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="image\bmp">
+      <UniqueIdentifier>{b99a2c0f-0ebc-4f7e-8daa-6900b774497e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="image.hpp">
+      <Filter>image</Filter>
+    </ClInclude>
+    <ClInclude Include="image_bmp.hpp">
+      <Filter>image\bmp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{47689E7F-EA67-4630-A732-7FBD04E414D8}</ProjectGuid>
+    <RootNamespace>ray_tracer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FloatingPointModel>Strict</FloatingPointModel>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>
+      </EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="convexhull.cpp" />
+    <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="polyvertex.cpp" />
+    <ClCompile Include="polyvertex_cube.cpp" />
+    <ClCompile Include="polyvertex_dodecahedron.cpp" />
+    <ClCompile Include="polyvertex_icosahedron.cpp" />
+    <ClCompile Include="polyvertex_octahedron.cpp" />
+    <ClCompile Include="polyvertex_tetrahedron.cpp" />
+    <ClCompile Include="polyvertex_truncated_icosahedron.cpp" />
+    <ClCompile Include="quadratic.cpp" />
+    <ClCompile Include="BRDF.cpp" />
+    <ClCompile Include="BRDF_reflection.cpp" />
+    <ClCompile Include="BRDF_phong.cpp" />
+    <ClCompile Include="BRDF_lambertian.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="camera_fisheye.cpp" />
+    <ClCompile Include="camera_orthographic.cpp" />
+    <ClCompile Include="camera_pinhole.cpp" />
+    <ClCompile Include="camera_thinlens.cpp" />
+    <ClCompile Include="fog.cpp" />
+    <ClCompile Include="hitInfo.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="image_bmp.cpp" />
+    <ClCompile Include="light.cpp" />
+    <ClCompile Include="light_area.cpp" />
+    <ClCompile Include="material_mirror.cpp" />
+    <ClCompile Include="sampler_single.cpp" />
+    <ClCompile Include="scaling_transformation.cpp" />
+    <ClCompile Include="surface_compound.cpp" />
+    <ClCompile Include="surface_convexhull.cpp" />
+    <ClCompile Include="surface_planeDIY.cpp" />
+    <ClCompile Include="surface_quadratic.cpp" />
+    <ClCompile Include="surface_regpolyhedron.cpp" />
+    <ClCompile Include="texture_football.cpp" />
+    <ClCompile Include="texture_mapping.cpp" />
+    <ClCompile Include="texture_mapping_sphere.cpp" />
+    <ClCompile Include="texture_image.cpp" />
+    <ClCompile Include="light_point.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="material_phong.cpp" />
+    <ClCompile Include="material_matte.cpp" />
+    <ClCompile Include="matrix3D.cpp" />
+    <ClCompile Include="point2D.cpp" />
+    <ClCompile Include="point3D.cpp" />
+    <ClCompile Include="sampler.cpp" />
+    <ClCompile Include="sampler_jittered.cpp" />
+    <ClCompile Include="sampler_random.cpp" />
+    <ClCompile Include="surface_disk.cpp" />
+    <ClCompile Include="surface_triangle.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="texture_checker.cpp" />
+    <ClCompile Include="texture_solid_color.cpp" />
+    <ClCompile Include="ray.cpp" />
+    <ClCompile Include="colorRGB.cpp" />
+    <ClCompile Include="surface.cpp" />
+    <ClCompile Include="surface_plane.cpp" />
+    <ClCompile Include="transformation.cpp" />
+    <ClCompile Include="translation_transformation.cpp" />
+    <ClCompile Include="vector2D.cpp" />
+    <ClCompile Include="vector3D.cpp" />
+    <ClCompile Include="tracer.cpp" />
+    <ClCompile Include="surface_sphere.cpp" />
+    <ClInclude Include="convexhull.hpp" />
+    <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="polyvertex.hpp" />
+    <ClInclude Include="polyvertex_cube.hpp" />
+    <ClInclude Include="polyvertex_dodecahedron.hpp" />
+    <ClInclude Include="polyvertex_icosahedron.hpp" />
+    <ClInclude Include="polyvertex_octahedron.hpp" />
+    <ClInclude Include="polyvertex_tetrahedron.hpp" />
+    <ClInclude Include="polyvertex_truncated_icosahedron.hpp" />
+    <ClInclude Include="quadratic.hpp" />
+    <ClInclude Include="BRDF.hpp" />
+    <ClInclude Include="BRDF_reflection.hpp" />
+    <ClInclude Include="BRDF_phong.hpp" />
+    <ClInclude Include="BRDF_lambertian.hpp" />
+    <ClInclude Include="camera.hpp" />
+    <ClInclude Include="camera_fisheye.hpp" />
+    <ClInclude Include="camera_pinhole.hpp" />
+    <ClInclude Include="camera_thinlens.hpp" />
+    <ClInclude Include="colorRGB.hpp" />
+    <ClInclude Include="fog.hpp" />
+    <ClInclude Include="hitInfo.hpp" />
+    <ClInclude Include="camera_orthographic.hpp" />
+    <ClInclude Include="image.hpp" />
+    <ClInclude Include="image_bmp.hpp" />
+    <ClInclude Include="light.hpp" />
+    <ClInclude Include="light_area.hpp" />
+    <ClInclude Include="material_mirror.hpp" />
+    <ClInclude Include="sampler_single.hpp" />
+    <ClInclude Include="scaling_transformation.hpp" />
+    <ClInclude Include="surface_compound.hpp" />
+    <ClInclude Include="surface_convexhull.hpp" />
+    <ClInclude Include="surface_planeDIY.hpp" />
+    <ClInclude Include="surface_quadratic.hpp" />
+    <ClInclude Include="surface_regpolyhedron.hpp" />
+    <ClInclude Include="texture_football.hpp" />
+    <ClInclude Include="texture_mapping.hpp" />
+    <ClInclude Include="texture_mapping_sphere.hpp" />
+    <ClInclude Include="material.hpp" />
+    <ClInclude Include="material_phong.hpp" />
+    <ClInclude Include="material_matte.hpp" />
+    <ClInclude Include="matrix3D.hpp" />
+    <ClInclude Include="point2D.hpp" />
+    <ClInclude Include="point3D.hpp" />
+    <ClInclude Include="sampler.hpp" />
+    <ClInclude Include="sampler_jittered.hpp" />
+    <ClInclude Include="sampler_random.hpp" />
+    <ClInclude Include="surface_disk.hpp" />
+    <ClInclude Include="surface_plane.hpp" />
+    <ClInclude Include="surface_sphere.hpp" />
+    <ClInclude Include="surface.hpp" />
+    <ClCompile Include="world.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="light_point.hpp" />
+    <ClInclude Include="misc.hpp" />
+    <ClInclude Include="surface_triangle.hpp" />
+    <ClInclude Include="texture.hpp" />
+    <ClInclude Include="texture_checker.hpp" />
+    <ClInclude Include="texture_image.hpp" />
+    <ClInclude Include="texture_solid_color.hpp" />
+    <ClInclude Include="ray.hpp" />
+    <ClInclude Include="transformation.hpp" />
+    <ClInclude Include="translation_transformation.hpp" />
+    <ClInclude Include="triangle_hit.hpp" />
+    <ClInclude Include="vector2D.hpp" />
+    <ClInclude Include="vector3D.hpp" />
+    <ClInclude Include="tracer.hpp" />
+    <ClInclude Include="world.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
