@@ -24,11 +24,11 @@ namespace ray_tracer {
 
 	light::~light() { }
 
-	point3D light::get_light_origin(hitInfo *info_ptr) const {
+	point3D light::get_light_origin(hit_info *info_ptr) const {
 		return position;
 	}
 
-	colorRGB light::light_shade(hitInfo *info_ptr) const {
+	colorRGB light::light_shade(hit_info *info_ptr) const {
 		colorRGB ret = color;
 
 		if (spot_enabled) {
@@ -45,13 +45,13 @@ namespace ray_tracer {
 		return ret;
 	}
 
-	bool light::under_shadow(hitInfo *info_ptr) const {
+	bool light::under_shadow(hit_info *info_ptr) const {
 		if (!cast_shadow) {
 			return false;
 		} else {
 			const world *world_ptr = info_ptr->world_ptr;
 			vector3D dir;
-			hitInfo temp;
+			hit_info temp;
 			double dist;
 
 			dir = get_light_origin(info_ptr) - info_ptr->hit_point;
@@ -65,7 +65,7 @@ namespace ray_tracer {
 		}
 	}
 
-	bool light::in_range(hitInfo *info_ptr) const {
+	bool light::in_range(hit_info *info_ptr) const {
 		if (spot_enabled) {
 			return ((info_ptr->hit_point - position).normalized() * spot_direction) > spot_cos_cutoff;
 		} else {

@@ -2,7 +2,7 @@
 #define __FOG_HPP__
 
 #include "colorRGB.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 
 namespace ray_tracer {
 	class fog {
@@ -10,7 +10,7 @@ namespace ray_tracer {
 	public:
 		fog();
 		fog(double, int, const colorRGB &);
-		colorRGB fog_blending(hitInfo *, const point3D &, const colorRGB &) const;
+		colorRGB fog_blending(hit_info *, const point3D &, const colorRGB &) const;
 	private:
 		int exponent;
 		double density;

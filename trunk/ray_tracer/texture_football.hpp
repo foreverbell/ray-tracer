@@ -6,7 +6,7 @@
 namespace ray_tracer {
 	class texture_football : public texture {
 	public:
-		colorRGB texture_shade(hitInfo *) const;
+		colorRGB texture_shade(hit_info *) const;
 	};
 }
 

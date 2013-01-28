@@ -1,6 +1,6 @@
 
 #include "material_mirror.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 
 namespace ray_tracer {
 
@@ -14,7 +14,7 @@ namespace ray_tracer {
 		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(rho_));
 	}
 
-	colorRGB material_mirror::material_shade(hitInfo *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
+	colorRGB material_mirror::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
 		return (reflection_ptr->reflect_f(info_ptr, wout) + diffuse_ptr->f(info_ptr, win, wout)) * surface_color;
 	}
 }

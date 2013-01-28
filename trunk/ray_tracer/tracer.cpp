@@ -2,13 +2,13 @@
 #include <vector>
 #include "light.hpp"
 #include "world.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 #include "tracer.hpp"
 #include "fog.hpp"
 
 namespace ray_tracer {
 
-	colorRGB tracer::process_light(const light *light_ptr, hitInfo *info_ptr, const colorRGB &surface_color, const vector3D &win) const {
+	colorRGB tracer::process_light(const light *light_ptr, hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win) const {
 		double temp;
 		vector3D wout;
 
@@ -27,7 +27,7 @@ namespace ray_tracer {
 		return color_black;
 	}
 
-	colorRGB tracer::ray_color(hitInfo *info_ptr) const {
+	colorRGB tracer::ray_color(hit_info *info_ptr) const {
 		if (info_ptr->ray_tracing_depth == 0) {
 			return color_black;
 		} else {

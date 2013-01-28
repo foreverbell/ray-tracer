@@ -8,7 +8,7 @@ namespace ray_tracer {
 	public:
 		texture_solid_color();
 		texture_solid_color(colorRGB);
-		colorRGB texture_shade(hitInfo *) const;
+		colorRGB texture_shade(hit_info *) const;
 	private:
 		colorRGB solid;
 	};

@@ -11,7 +11,7 @@ namespace ray_tracer {
 	public:
 		camera_orthographic();
 		camera_orthographic(const point3D &, const point3D &, const vector3D &, double, double);
-		colorRGB render_scene(double, double, int, int, hitInfo *) const;
+		colorRGB render_scene(double, double, int, int, hit_info *) const;
 	private:
 		double fov_u, fov_v;
 	};

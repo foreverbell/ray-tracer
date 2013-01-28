@@ -1,6 +1,6 @@
 
 #include "camera.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 #include "matrix3D.hpp"
 #include "world.hpp"
 #include "misc.hpp"
@@ -23,7 +23,7 @@ namespace ray_tracer {
 	
 	camera::~camera() { }
 
-	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, hitInfo *info_ptr, const light *light_ptr) const {
+	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, hit_info *info_ptr, const light *light_ptr) const {
 		const world *world_ptr = info_ptr->world_ptr;
 		ray emission_ray = ray(origin, dir);
 

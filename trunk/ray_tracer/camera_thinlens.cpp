@@ -26,7 +26,7 @@ namespace ray_tracer {
 		spherical = spherical_;
 	}
 
-	colorRGB camera_thinlens::render_scene(double x, double y, int width, int height, hitInfo *info_ptr) const {
+	colorRGB camera_thinlens::render_scene(double x, double y, int width, int height, hit_info *info_ptr) const {
 		double u, v, w;
 		point3D focal_point, origin, origin_fixed;
 		point2D sample_point;

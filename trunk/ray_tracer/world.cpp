@@ -23,7 +23,7 @@ namespace ray_tracer {
 		delete sampler_single_ptr;
 	}
 
-	bool world::get_hit(const ray &emission_ray, hitInfo *info_ptr) const {
+	bool world::get_hit(const ray &emission_ray, hit_info *info_ptr) const {
 		const surface *surface_ptr = NULL;
 		double hit_time;
 
@@ -52,7 +52,7 @@ namespace ray_tracer {
 	void world::render_scene() {
 		colorRGB color;
 		point2D sample_point;
-		hitInfo info;
+		hit_info info;
 		int x, y;
 
 		do {

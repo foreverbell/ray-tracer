@@ -9,12 +9,12 @@ namespace ray_tracer {
 
 	BRDF_reflection::BRDF_reflection(const colorRGB &rho_) : BRDF(rho_) { }
 
-	colorRGB BRDF_reflection::f(hitInfo *info_ptr, const vector3D &win, const vector3D &wout) const {
+	colorRGB BRDF_reflection::f(hit_info *info_ptr, const vector3D &win, const vector3D &wout) const {
 		return rho;
 	}
 
-	colorRGB BRDF_reflection::reflect_f(hitInfo *info_ptr, const vector3D &win) const {
-		hitInfo info = *info_ptr;
+	colorRGB BRDF_reflection::reflect_f(hit_info *info_ptr, const vector3D &win) const {
+		hit_info info = *info_ptr;
 		light_point reflect = light_point(info_ptr->hit_point, rho);
 
 		reflect.inherit_light(info_ptr->light_ptr);

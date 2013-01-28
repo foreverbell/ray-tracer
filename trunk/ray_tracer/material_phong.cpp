@@ -1,6 +1,6 @@
 
 #include "material_phong.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 
 namespace ray_tracer {
 	
@@ -15,7 +15,7 @@ namespace ray_tracer {
 		set_specular_shininess(shininess_);
 	}
 
-	colorRGB material_phong::material_shade(hitInfo *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
+	colorRGB material_phong::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
 		return diffuse_ptr->f(info_ptr, win, wout) * surface_color + specular_ptr->f(info_ptr, win, wout);
 	}
 }

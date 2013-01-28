@@ -1,13 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ray.cpp">
-      <Filter>bottom-layer</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="world.cpp">
-      <Filter>bottom-layer</Filter>
-    </ClCompile>
     <ClCompile Include="surface.cpp">
       <Filter>bottom-layer\surface</Filter>
     </ClCompile>
@@ -25,9 +19,6 @@
     </ClCompile>
     <ClCompile Include="sampler_random.cpp">
       <Filter>bottom-layer\sampler</Filter>
-    </ClCompile>
-    <ClCompile Include="tracer.cpp">
-      <Filter>bottom-layer</Filter>
     </ClCompile>
     <ClCompile Include="camera_thinlens.cpp">
       <Filter>bottom-layer\camera</Filter>
@@ -59,9 +50,6 @@
     <ClCompile Include="texture_checker.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
-    <ClCompile Include="hitInfo.cpp">
-      <Filter>bottom-layer\basis</Filter>
-    </ClCompile>
     <ClCompile Include="texture_image.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
@@ -82,9 +70,6 @@
     </ClCompile>
     <ClCompile Include="material_phong.cpp">
       <Filter>bottom-layer\mathematics\material</Filter>
-    </ClCompile>
-    <ClCompile Include="fog.cpp">
-      <Filter>bottom-layer</Filter>
     </ClCompile>
     <ClCompile Include="light_area.cpp">
       <Filter>bottom-layer\light</Filter>
@@ -191,6 +176,21 @@
     <ClCompile Include="translation_transformation.cpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClCompile>
+    <ClCompile Include="fog.cpp">
+      <Filter>bottom-layer\atmosphere</Filter>
+    </ClCompile>
+    <ClCompile Include="ray.cpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="tracer.cpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="world.cpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="hit_info.cpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -253,14 +253,14 @@
     <Filter Include="bottom-layer\basis\matrix">
       <UniqueIdentifier>{07388b61-a6dd-44be-b280-c9d492bb0928}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bottom-layer\atmosphere">
+      <UniqueIdentifier>{d81bf495-7fe1-4d9e-875e-372a4e582299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\trace">
+      <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ray.hpp">
-      <Filter>bottom-layer</Filter>
-    </ClInclude>
-    <ClInclude Include="world.hpp">
-      <Filter>bottom-layer</Filter>
-    </ClInclude>
     <ClInclude Include="surface.hpp">
       <Filter>bottom-layer\surface</Filter>
     </ClInclude>
@@ -281,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="sampler_random.hpp">
       <Filter>bottom-layer\sampler</Filter>
-    </ClInclude>
-    <ClInclude Include="tracer.hpp">
-      <Filter>bottom-layer</Filter>
     </ClInclude>
     <ClInclude Include="camera_fisheye.hpp">
       <Filter>bottom-layer\camera</Filter>
@@ -312,9 +309,6 @@
     <ClInclude Include="texture_checker.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
-    <ClInclude Include="hitInfo.hpp">
-      <Filter>bottom-layer\basis</Filter>
-    </ClInclude>
     <ClInclude Include="texture_image.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
@@ -335,9 +329,6 @@
     </ClInclude>
     <ClInclude Include="material_phong.hpp">
       <Filter>bottom-layer\mathematics\material</Filter>
-    </ClInclude>
-    <ClInclude Include="fog.hpp">
-      <Filter>bottom-layer</Filter>
     </ClInclude>
     <ClInclude Include="light_area.hpp">
       <Filter>bottom-layer\light</Filter>
@@ -449,6 +440,21 @@
     </ClInclude>
     <ClInclude Include="translation_transformation.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="fog.hpp">
+      <Filter>bottom-layer\atmosphere</Filter>
+    </ClInclude>
+    <ClInclude Include="ray.hpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="tracer.hpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="world.hpp">
+      <Filter>bottom-layer\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="hit_info.hpp">
+      <Filter>bottom-layer\trace</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

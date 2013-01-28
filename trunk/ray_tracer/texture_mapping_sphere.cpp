@@ -4,7 +4,7 @@
 
 namespace ray_tracer {
 
-	point2D texture_mapping_sphere::get_coordinate(hitInfo *info_ptr) const {
+	point2D texture_mapping_sphere::get_coordinate(hit_info *info_ptr) const {
 		const surface_sphere *sphere_ptr = dynamic_cast<const surface_sphere *>(info_ptr->surface_ptr);
 		vector3D p = (info_ptr->hit_point - sphere_ptr->center).normalized();
 		double alpha, beta;

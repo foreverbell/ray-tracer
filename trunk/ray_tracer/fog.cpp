@@ -16,7 +16,7 @@ namespace ray_tracer {
 		fog_color = fog_color_;
 	}
 
-	colorRGB fog::fog_blending(hitInfo *info_ptr, const point3D &origin, const colorRGB &color) const {
+	colorRGB fog::fog_blending(hit_info *info_ptr, const point3D &origin, const colorRGB &color) const {
 		double z = (info_ptr->hit_point - origin).length();
 		double f = exp(-pow(density * z, exponent));
 

@@ -97,7 +97,7 @@
     <ClCompile Include="camera_pinhole.cpp" />
     <ClCompile Include="camera_thinlens.cpp" />
     <ClCompile Include="fog.cpp" />
-    <ClCompile Include="hitInfo.cpp" />
+    <ClCompile Include="hit_info.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="image_bmp.cpp" />
     <ClCompile Include="light.cpp" />
@@ -160,7 +160,7 @@
     <ClInclude Include="camera_thinlens.hpp" />
     <ClInclude Include="colorRGB.hpp" />
     <ClInclude Include="fog.hpp" />
-    <ClInclude Include="hitInfo.hpp" />
+    <ClInclude Include="hit_info.hpp" />
     <ClInclude Include="camera_orthographic.hpp" />
     <ClInclude Include="image.hpp" />
     <ClInclude Include="image_bmp.hpp" />

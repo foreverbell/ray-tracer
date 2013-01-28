@@ -1,5 +1,5 @@
 
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 #include "vector3D.hpp"
 #include "point3D.hpp"
 #include "surface.hpp"
@@ -8,7 +8,7 @@
 
 namespace ray_tracer {
 
-	hitInfo::hitInfo() { 
+	hit_info::hit_info() { 
 		hit_time = huge_double;
 		hit_point = point3D(0, 0, 0);
 		normal = vector3D(0, 0, 0);

@@ -5,7 +5,7 @@
 #include "vector3D.hpp"
 #include "point3D.hpp"
 #include "colorRGB.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 #include "ray.hpp"
 #include "material.hpp"
 #include "texture.hpp"
@@ -24,9 +24,9 @@ namespace ray_tracer {
 		/** Hit surface pointer remains unchanged if not compound. */
 		virtual double hit(const ray &, const surface **) const; 
 		virtual vector3D atnormal(const point3D &) const;
-		colorRGB material_shade(hitInfo *, const colorRGB &, const vector3D &, const vector3D &) const;
+		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &) const;
 		virtual void set_material(const material *);
-		colorRGB texture_shade(hitInfo *) const;
+		colorRGB texture_shade(hit_info *) const;
 		virtual void set_texture(const texture *);
 		virtual void set_bifaced(bool);
 		virtual void set_transform_center(const point3D &);

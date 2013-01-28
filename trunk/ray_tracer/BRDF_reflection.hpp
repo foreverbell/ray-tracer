@@ -7,8 +7,8 @@ namespace ray_tracer {
 	class BRDF_reflection : public BRDF {
 	public:
 		BRDF_reflection(const colorRGB &);
-		colorRGB f(hitInfo *, const vector3D &, const vector3D &) const;
-		colorRGB reflect_f(hitInfo *, const vector3D &) const;
+		colorRGB f(hit_info *, const vector3D &, const vector3D &) const;
+		colorRGB reflect_f(hit_info *, const vector3D &) const;
 	};
 }
 

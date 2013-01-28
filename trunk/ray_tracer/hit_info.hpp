@@ -1,5 +1,5 @@
-#ifndef __HITINFO_HPP__
-#define __HITINFO_HPP__
+#ifndef __HIT_INFO_HPP__
+#define __HIT_INFO_HPP__
 
 #include "vector3D.hpp"
 #include "point3D.hpp"
@@ -13,9 +13,9 @@ namespace ray_tracer {
 	class light;
 	class sampler_iterator;
 
-	class hitInfo {
+	class hit_info {
 	public:
-		hitInfo();
+		hit_info();
 	public:
 		double hit_time;
 		point3D hit_point;

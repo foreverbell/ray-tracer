@@ -5,7 +5,7 @@
 
 namespace ray_tracer {
 
-	colorRGB texture_football::texture_shade(hitInfo *info_ptr) const {
+	colorRGB texture_football::texture_shade(hit_info *info_ptr) const {
 		const surface_triangle *tri_ptr;
 		const surface_convexhull *hull_ptr;
 		std::unordered_map<const surface_triangle *, int>::const_iterator it;

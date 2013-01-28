@@ -3,7 +3,7 @@
 
 #include "misc.hpp"
 #include "colorRGB.hpp"
-#include "hitInfo.hpp"
+#include "hit_info.hpp"
 
 namespace ray_tracer {
 
@@ -11,9 +11,9 @@ namespace ray_tracer {
 
 	class tracer {
 	public:	
-		colorRGB ray_color(hitInfo *) const;
+		colorRGB ray_color(hit_info *) const;
 	private:
-		colorRGB process_light(const light *, hitInfo *, const colorRGB &, const vector3D &) const;
+		colorRGB process_light(const light *, hit_info *, const colorRGB &, const vector3D &) const;
 	};
 }
 
