@@ -6,17 +6,22 @@
 namespace ray_tracer {
 
 	surface_triangle::surface_triangle() {
-		v0 = point3D(0, 0, 1);
-		v1 = point3D(0, 1, 0);
-		v2 = point3D(1, 0, 0);
+		v0 = point3D(0, 0, 1), v1 = point3D(0, 1, 0), v2 = point3D(1, 0, 0);
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
+		smooth_normal = false;
 	}
 
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
-		v0 = v0_;
-		v1 = v1_;
-		v2 = v2_;
+		v0 = v0_, v1 = v1_, v2 = v2_;
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
+		smooth_normal = false;
+	}
+
+	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_,
+		const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
+		v0 = v0_, v1 = v1_, v2 = v2_;
+		n0 = n0_, n1 = n1_, n2 = n2_;
+		smooth_normal = true;
 	}
 
 	double surface_triangle::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
@@ -45,13 +50,29 @@ namespace ray_tracer {
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {
-		return normal;
+		if (smooth_normal) {
+			double a = point.x - v0.x, b = v1.x - v0.x, c = v2.x - v0.x;
+			double d = point.y - v0.y, e = v1.y - v0.y, f = v2.y - v0.y;
+			double beta = (a * f - d * c) / (b * f - e * c);
+			double gamma = (a * e - d * b) / (c * e - f * b);
+
+			return (n0 * (1 - beta - gamma) + n1 * beta + n2 * gamma).normalized();
+		} else {
+			return normal;
+		}
 	}
 
 	void surface_triangle::apply_transformation(const transformation &transform) {
 		v0 = transform_center + transform.get_matrix() * (v0 - transform_center);
 		v1 = transform_center + transform.get_matrix() * (v1 - transform_center);
 		v2 = transform_center + transform.get_matrix() * (v2 - transform_center);
-		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
+		if (smooth_normal) {
+			/* TODO: the correctness of this code is not verified. */
+			n0 = (transform.get_matrix() ^ n0).normalized();
+			n1 = (transform.get_matrix() ^ n1).normalized();
+			n2 = (transform.get_matrix() ^ n2).normalized();
+		} else {
+			normal = ((v1 - v0) ^ (v2 - v0)).normalized();
+		}
 	}
 }
