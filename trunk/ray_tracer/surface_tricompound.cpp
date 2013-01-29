@@ -3,6 +3,7 @@
 #include "ray.hpp"
 #include "surface_tricompound.hpp"
 #include <algorithm>
+#include <queue>
 #include <utility>
 
 namespace ray_tracer {
@@ -28,58 +29,106 @@ namespace ray_tracer {
 
 		std::vector<int> surfaces_list;
 		for (size_t i = 0; i < surfaces.size(); ++i) surfaces_list.push_back(i);
-		kdtree_root_ptr = build_kdtree(rand() % 3, surfaces_list);
+		kdtree_root_ptr = build_kdtree(surfaces_list);
 
 		std::pair<point3D, double> sphere = get_minimum_circumsphere();
 		bound_sphere = surface_sphere(sphere.first, sphere.second);
 	}
 
-	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(int dim, std::vector<int> surfaces_list) {
+	std::pair<double, int> surface_tricompound::select_best_median(int dim, const std::vector<int> &surfaces_list) {
+		std::vector<std::pair<double, double> > interval;
+		std::vector<double> x_cords;
+
+		for (std::vector<int>::const_iterator it = surfaces_list.begin(); it != surfaces_list.end(); ++it) {
+			double min_x, max_x;
+			if (dim == 0) {
+				min_x = surfaces[*it]->v0.x;
+				min_x = std::min(min_x, surfaces[*it]->v1.x);
+				min_x = std::min(min_x, surfaces[*it]->v2.x);
+				max_x = surfaces[*it]->v0.x;
+				max_x = std::max(max_x, surfaces[*it]->v1.x);
+				max_x = std::max(max_x, surfaces[*it]->v2.x);
+			} else if (dim == 1) {
+				min_x = surfaces[*it]->v0.y;
+				min_x = std::min(min_x, surfaces[*it]->v1.y);
+				min_x = std::min(min_x, surfaces[*it]->v2.y);
+				max_x = surfaces[*it]->v0.y;
+				max_x = std::max(max_x, surfaces[*it]->v1.y);
+				max_x = std::max(max_x, surfaces[*it]->v2.y);
+			} else {
+				min_x = surfaces[*it]->v0.z;
+				min_x = std::min(min_x, surfaces[*it]->v1.z);
+				min_x = std::min(min_x, surfaces[*it]->v2.z);
+				max_x = surfaces[*it]->v0.z;
+				max_x = std::max(max_x, surfaces[*it]->v1.z);
+				max_x = std::max(max_x, surfaces[*it]->v2.z);
+			}
+			interval.push_back(std::make_pair(min_x, max_x));
+			x_cords.push_back(min_x);
+			x_cords.push_back(max_x);
+		}
+		std::sort(interval.begin(), interval.end());
+		std::sort(x_cords.begin(), x_cords.end());
+
+		auto lambda_func = [&](const int &a, const int &b) -> bool {
+			return interval[a].second > interval[b].second;
+		};
+		std::priority_queue<int, std::vector<int>, decltype(lambda_func)> heap(lambda_func);
+		int lsize = 0, rsize = surfaces_list.size(), msize = 0, curr_value, best_value = INT32_MAX;
+		size_t curr_iter = 0;
+		double x_pos = -HUGE_DOUBLE;
+
+		for (std::vector<double>::iterator it = x_cords.begin(); it != x_cords.end(); ++it) {
+			while (curr_iter < surfaces_list.size() && interval[curr_iter].first < *it) {
+				++msize, --rsize;
+				heap.push(curr_iter);
+				++curr_iter;
+			}
+			while (!heap.empty()) {
+				int top = heap.top();
+				if (interval[top].second < *it) {
+					heap.pop();
+					--msize, ++lsize;
+				} else {
+					break;
+				}
+			}
+			curr_value = (rsize > lsize ? rsize - lsize : lsize - rsize) + msize;
+			if (curr_value < best_value) {
+				best_value = curr_value;
+				x_pos = *it;
+			}
+		}
+		return std::make_pair(x_pos, best_value);
+	}
+
+	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> surfaces_list) {
 		if (surfaces_list.size() == 0) return nullptr;
 		
-		std::vector<std::pair<point3D, int> > points;
 		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
-		double median = 0;
+		std::pair<double, int> m0 = select_best_median(0, surfaces_list);
+		std::pair<double, int> m1 = select_best_median(1, surfaces_list);
+		std::pair<double, int> m2 = select_best_median(2, surfaces_list);
+		double median;
 
-		for (std::vector<int>::iterator it = surfaces_list.begin(); it != surfaces_list.end(); ++it) {
-			points.push_back(std::make_pair(surfaces[*it]->v0, *it));
-			points.push_back(std::make_pair(surfaces[*it]->v1, *it));
-			points.push_back(std::make_pair(surfaces[*it]->v2, *it));
-		}
-		if (dim == 0) {
-			std::nth_element(points.begin(), points.end(), points.begin() + points.size() / 2, 
-				[](const std::pair<point3D, int> &a, const std::pair<point3D, int> &b) -> bool {
-					return a.first.x < b.first.x;
-			});
-			median = (points.begin() + points.size() / 2)->first.x;
+		if (m0.second <= m1.second && m0.second <= m2.second) {
+			median = m0.first;
 			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(median, 0, 0), vector3D(1, 0, 0)));
-		} else if (dim == 1) {
-			std::nth_element(points.begin(), points.end(), points.begin() + points.size() / 2, 
-				[](const std::pair<point3D, int> &a, const std::pair<point3D, int> &b) -> bool {
-					return a.first.y < b.first.y;
-			});
-			median = (points.begin() + points.size() / 2)->first.y;
+		} else if (m1.second <= m0.second && m1.second <= m2.second) {
+			median = m1.first;
 			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(0, median, 0), vector3D(0, 1, 0)));
 		} else {
-			std::nth_element(points.begin(), points.end(), points.begin() + points.size() / 2, 
-				[](const std::pair<point3D, int> &a, const std::pair<point3D, int> &b) -> bool {
-					return a.first.z < b.first.z;
-			});
-			median = (points.begin() + points.size() / 2)->first.z;
+			median = m2.first;
 			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(0, 0, median), vector3D(0, 0, 1)));
 		}
 
 		std::vector<int> left_surfaces, right_surfaces, middle_surfaces;
 		int sgn0, sgn1, sgn2;
-		point3D v0, v1, v2;
 
 		for (std::vector<int>::iterator it = surfaces_list.begin(); it != surfaces_list.end(); ++it) {
-			v0 = surfaces[*it]->v0;
-			v1 = surfaces[*it]->v1;
-			v2 = surfaces[*it]->v2;
-			sgn0 = DBLCMP((v0 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
-			sgn1 = DBLCMP((v1 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
-			sgn2 = DBLCMP((v2 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
+			sgn0 = DBLCMP((surfaces[*it]->v0 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
+			sgn1 = DBLCMP((surfaces[*it]->v1 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
+			sgn2 = DBLCMP((surfaces[*it]->v2 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
 			if (sgn0 < 0 && sgn1 < 0 && sgn2 < 0) {
 				left_surfaces.push_back(*it);
 			} else if (sgn0 > 0 && sgn1 > 0 && sgn2 > 0) {
@@ -88,8 +137,9 @@ namespace ray_tracer {
 				middle_surfaces.push_back(*it);
 			}
 		}
-		node_ptr->lchild_ptr = build_kdtree(rand() % 3, left_surfaces);
-		node_ptr->rchild_ptr = build_kdtree(rand() % 3, right_surfaces);
+		// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
+		node_ptr->lchild_ptr = build_kdtree(left_surfaces);
+		node_ptr->rchild_ptr = build_kdtree(right_surfaces);
 		node_ptr->cross_surfaces = middle_surfaces;
 
 		return node_ptr;
@@ -97,18 +147,18 @@ namespace ray_tracer {
 
 	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, const kdtree_node *node_ptr) const {
 		if (node_ptr == NULL) return std::make_pair(HUGE_DOUBLE, -1);
+	
+		std::pair<double, int> result = std::make_pair(HUGE_DOUBLE, -1), tresult;
+
+		double temp_t;
+		for (std::vector<int>::const_iterator it = node_ptr->cross_surfaces.begin(); it != node_ptr->cross_surfaces.end(); ++it) {
+			temp_t = surfaces[*it]->hit(emission_ray, NULL);
+			if (temp_t > EPSILON && temp_t < result.first) result = std::make_pair(temp_t, *it);
+		}
 
 		int side = DBLCMP((emission_ray.origin - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
 		if (side == 0) {
 			side = DBLCMP(emission_ray.dir * node_ptr->divide_plane_ptr->normal);
-		}
-		
-		double temp_t;
-		std::pair<double, int> result = std::make_pair(HUGE_DOUBLE, -1), tresult;
-
-		for (std::vector<int>::const_iterator it = node_ptr->cross_surfaces.begin(); it != node_ptr->cross_surfaces.end(); ++it) {
-			temp_t = surfaces[*it]->hit(emission_ray, NULL);
-			if (temp_t > EPSILON && temp_t < result.first) result = std::make_pair(temp_t, *it);
 		}
 
 		if (side == -1) {
@@ -150,7 +200,7 @@ namespace ray_tracer {
 			points.push_back((*it)->v1);
 			points.push_back((*it)->v2);
 		}
-		for (int iter_times = 0; iter_times < 100000; ++iter_times) {
+		for (int iter_times = 0; iter_times < 10000; ++iter_times) {
 			maxd = 0;
 			for (std::vector<point3D>::iterator it = points.begin(); it != points.end(); ++it) {
 				d = (center - *it).length_squared();
@@ -159,8 +209,8 @@ namespace ray_tracer {
 					it_pos = it;
 				}
 			}
-			if (iter_times != 99999) center += delta * (*it_pos - center);
-			delta *= 0.999;
+			if (iter_times != 9999) center += delta * (*it_pos - center);
+			delta *= 0.99;
 		}
 		return std::make_pair(center, sqrt(maxd));
 	}

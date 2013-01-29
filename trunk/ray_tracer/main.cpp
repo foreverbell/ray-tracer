@@ -75,7 +75,7 @@ void render(world &world, SDL_Surface *screen) {
 		SDL_UnlockSurface(screen);
 	}
 	SDL_UpdateRect(screen, 0, 0, width, height);
-	SDL_SaveBMP(screen, "C:\\Users\\ForeverBell\\Desktop\\a.bmp");
+	SDL_SaveBMP(screen, "D:\\a.bmp");
 }
 
 /*
