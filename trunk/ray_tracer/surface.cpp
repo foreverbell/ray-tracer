@@ -4,8 +4,7 @@
 namespace ray_tracer {
 
 	surface::surface() {
-		bounding_surface_ptr = NULL;
-		attached_surface_ptr = NULL;
+		shading_surface_ptr = NULL;
 		material_ptr = NULL;
 		texture_ptr = NULL;
 		bifaced = false;
@@ -14,8 +13,8 @@ namespace ray_tracer {
 
 	surface::~surface() { }
 
-	void surface::attach(const surface *attached_surface_ptr_) {
-		attached_surface_ptr = attached_surface_ptr_;
+	void surface::attach_shading_surface(const surface *shading_surface_ptr_) {
+		shading_surface_ptr = shading_surface_ptr_;
 	}
 
 	double surface::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
@@ -54,16 +53,16 @@ namespace ray_tracer {
 	}
 
 	colorRGB surface::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
-		if (attached_surface_ptr != NULL) {
-			return attached_surface_ptr->material_shade(info_ptr, surface_color, win, wout);
+		if (shading_surface_ptr != NULL) {
+			return shading_surface_ptr->material_shade(info_ptr, surface_color, win, wout);
 		} else {
 			return material_ptr->material_shade(info_ptr, surface_color, win, wout);
 		}
 	}
 
 	colorRGB surface::texture_shade(hit_info *info_ptr) const {
-		if (attached_surface_ptr != NULL) {
-			return attached_surface_ptr->texture_shade(info_ptr);
+		if (shading_surface_ptr != NULL) {
+			return shading_surface_ptr->texture_shade(info_ptr);
 		} else {
 			return texture_ptr->texture_shade(info_ptr);
 		}

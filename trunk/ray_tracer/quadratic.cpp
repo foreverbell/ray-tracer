@@ -6,8 +6,8 @@ namespace ray_tracer {
 
 	quadratic::quadratic() {
 		coef_xx = coef_yy = coef_zz = coef_xy = coef_xz = coef_yz = coef_x = coef_y = coef_z = coef_const = 0;
-		xmin = ymin = zmin = -huge_double;
-		xmax = ymax = zmax = huge_double;
+		xmin = ymin = zmin = -HUGE_DOUBLE;
+		xmax = ymax = zmax = HUGE_DOUBLE;
 	}
 
 	bool quadratic::check_range(const point3D &p) const {
@@ -111,8 +111,8 @@ namespace ray_tracer {
 			value2 = ((-quad_b + delta) / quad_a / 2 - p.x) / v.x;
 			if (value1 > value2) std::swap(value1, value2);
 			/* Epsilon: Avoid hit itself. */
-			valid1 = (value1 > epsilon) && check_range(p_ + v_ * value1);
-			valid2 = (value2 > epsilon) && check_range(p_ + v_ * value2);
+			valid1 = (value1 > EPSILON) && check_range(p_ + v_ * value1);
+			valid2 = (value2 > EPSILON) && check_range(p_ + v_ * value2);
 			if (valid1) {
 				return value1;
 			} else if (valid2) {

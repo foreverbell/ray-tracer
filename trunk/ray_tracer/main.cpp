@@ -17,11 +17,11 @@
 #include "surface_disk.hpp"
 #include "surface_convexhull.hpp"
 #include "surface_regpolyhedron.hpp"
+#include "surface_glteapot.hpp"
 #include "texture.hpp"
 #include "texture_checker.hpp"
-#include "texture_football.hpp"
 #include "texture_image.hpp"
-#include "texture_solid_color.hpp"
+#include "texture_solid.hpp"
 #include "texture_mapping.hpp"
 #include "texture_mapping_sphere.hpp"
 #include "fog.hpp"
@@ -40,6 +40,8 @@
 #include "transformation.hpp"
 #include "scaling_transformation.hpp"
 #include "translation_transformation.hpp"
+
+#include <Windows.h>
 
 using namespace ray_tracer;
 
@@ -109,23 +111,23 @@ void test1(SDL_Surface *screen) {
 	texture *t1, *t2, *t3, *t4;
 	light *l, *l2;
 
-	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), pi / 2);
+	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), PI / 2);
 	// cam = new camera_thinlens(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), 35, 3.5, true);
 	// cam = new camera_orthographic(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), 40, 40);
 	cam = new camera_pinhole(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), true);
-	// cam->rotate(pi / 4);
+	// cam->rotate(PI / 4);
 
 	s1 = new surface_sphere(point3D(15, -7, 0), 9);
 	// m1 = new material_matte;
 	m1 = new material_mirror(colorRGB(0.2, 0.6, 0.8));
-	t1 = new texture_solid_color(colorRGB(0.2, 0.6, 0.8));
+	t1 = new texture_solid(colorRGB(0.2, 0.6, 0.8));
 	s1->set_material(m1);
 	s1->set_texture(t1);
 	s2 = new surface_sphere(point3D(30, 9, 0), 11);
 	// m2 = new material_phong;
 	// m2->set_specular_shininess(50);
 	m2 = new material_mirror(colorRGB(0.8, 0.2, 0.8));
-	t2 = new texture_solid_color(colorRGB(0.8, 0.2, 0.8));
+	t2 = new texture_solid(colorRGB(0.8, 0.2, 0.8));
 
 	s2->set_material(m2);
 	s2->set_texture(t2);
@@ -143,7 +145,7 @@ void test1(SDL_Surface *screen) {
 	sc = new surface_compound();
 	sc->add_surface(s4);
 	sc->add_surface(s5);
-	t4 = new texture_solid_color(colorRGB(0.7, 0.7, 0.0));
+	t4 = new texture_solid(colorRGB(0.7, 0.7, 0.0));
 	sc->set_material(m2);
 	sc->set_texture(t4);
 
@@ -160,17 +162,18 @@ void test1(SDL_Surface *screen) {
 	s6->set_material(m1);
 	s6->set_texture(t1);
 
-	surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
+	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
+	surface_glteapot *s7 = new surface_glteapot();
 	s7->set_material(m3);
 	s7->set_texture(t1);
 
-	surface_regpolyhedron *s8 = new surface_regpolyhedron(5, point3D(5, -5, -5), 32);
+	surface_regpolyhedron *s8 = new surface_regpolyhedron(5, point3D(5, -5, -5), 20);
 	s8->set_material(m3);
-	s8->set_texture(new texture_football);
+	s8->set_texture(t2);
 
 	// l = new light_point(point3D(0, 0, 0), color_white);
 	l = new light_point(point3D(-20, 0, 10), color_white);
-	// l->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
+	// l->set_spot(true, vector3D(30, 9, -30), PI / 3, 5);
 	l->set_attenuation(true, 1, 0.0001, 0.00005);
 	l2 = new light_point(point3D(-10, 0, 30), color_white);
 	l2->set_attenuation(true, 1, 0.0001, 0.00005);
@@ -179,12 +182,12 @@ void test1(SDL_Surface *screen) {
 	world.set_sampler(new sampler_jittered(25));
 	world.set_camera(cam);
 	world.set_fog(new fog(0.01, 1, color_white));
-	world.add_surface(s1);
-	world.add_surface(s2);
+	//world.add_surface(s1);
+	//world.add_surface(s2);
 	world.add_surface(s3);
 	// world.add_surface(sc);
 	world.add_surface(s7);
-	world.add_surface(s8);
+	// world.add_surface(s8);
 	world.add_light(l);
 	//	world.add_light(l2);
 

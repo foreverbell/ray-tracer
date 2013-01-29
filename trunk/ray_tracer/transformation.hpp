@@ -10,6 +10,7 @@ namespace ray_tracer {
 		friend class ray;
 	public:
 		transformation();
+		matrix4D get_matrix() const;
 		virtual ~transformation();
 		transformation revert() const;
 		friend transformation operator*(const transformation &, const transformation &);

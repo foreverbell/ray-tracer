@@ -9,7 +9,7 @@
 namespace ray_tracer {
 
 	hit_info::hit_info() { 
-		hit_time = huge_double;
+		hit_time = HUGE_DOUBLE;
 		hit_point = point3D(0, 0, 0);
 		normal = vector3D(0, 0, 0);
 		world_ptr = NULL;

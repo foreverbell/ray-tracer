@@ -1,16 +1,17 @@
 #ifndef __MISC_HPP__
 #define __MISC_HPP__
 
+#include <cassert>
 #include <cstdlib>
 #include <cmath>
 
 namespace ray_tracer {
 
-	const double pi = acos(-1.0);
-	const double e = exp(1.0);
-	const double epsilon = 1e-6;
-	const double huge_double = 10e10;
-	#define dblcmp(_x_) ((_x_) < -epsilon ? -1 : ((_x_) > (epsilon ? 1 : 0)))
+	const double PI = acos(-1.0);
+	const double E = exp(1.0);
+	const double EPSILON = 1e-6;
+	const double HUGE_DOUBLE = 10e10;
+	#define DBLCMP(_x_) ((_x_) < -EPSILON ? -1 : ((_x_) > EPSILON ? 1 : 0))
 	
 	inline double pow(double base, int power) {
 		if (power <= 0) {
@@ -18,7 +19,7 @@ namespace ray_tracer {
 		} else {
 			double result = 1;
 
-			while (power > 0 && result > epsilon) {
+			while (power > 0 && result > EPSILON) {
 				if (power & 1) result *= base;
 				power >>= 1;
 				base *= base;

@@ -16,11 +16,11 @@ namespace ray_tracer {
 		if (light_ptr->in_range(info_ptr) && !light_ptr->under_shadow(info_ptr)) {
 			wout = (light_ptr->get_light_origin(info_ptr) - info_ptr->hit_point).normalized();
 			temp = info_ptr->normal * wout; 
-			if (temp < epsilon && info_ptr->surface_ptr->bifaced) {
+			if (temp < EPSILON && info_ptr->surface_ptr->bifaced) {
 				info_ptr->normal = -info_ptr->normal;
 				temp = -temp;
 			}
-			if (temp > epsilon) {
+			if (temp > EPSILON) {
 				return light_ptr->light_shade(info_ptr) * temp * info_ptr->surface_ptr->material_shade(info_ptr, surface_color, win, wout);
 			}
 		}

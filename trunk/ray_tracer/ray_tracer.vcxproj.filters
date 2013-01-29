@@ -44,9 +44,6 @@
     <ClCompile Include="texture.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
-    <ClCompile Include="texture_solid_color.cpp">
-      <Filter>bottom-layer\texture</Filter>
-    </ClCompile>
     <ClCompile Include="texture_checker.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
@@ -119,9 +116,6 @@
     <ClCompile Include="surface_regpolyhedron.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
-    <ClCompile Include="texture_football.cpp">
-      <Filter>bottom-layer\texture</Filter>
-    </ClCompile>
     <ClCompile Include="polyvertex.cpp">
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
     </ClCompile>
@@ -138,9 +132,6 @@
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
     </ClCompile>
     <ClCompile Include="polyvertex_icosahedron.cpp">
-      <Filter>bottom-layer\mathematics\polyvertex</Filter>
-    </ClCompile>
-    <ClCompile Include="polyvertex_truncated_icosahedron.cpp">
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
     </ClCompile>
     <ClCompile Include="surface_planeDIY.cpp">
@@ -190,6 +181,15 @@
     </ClCompile>
     <ClCompile Include="hit_info.cpp">
       <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_solid.cpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_tricompound.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_glteapot.cpp">
+      <Filter>bottom-layer\surface\3D\glteapot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +259,9 @@
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bottom-layer\surface\3D\glteapot">
+      <UniqueIdentifier>{2eeaac51-d170-4d9a-b88c-5dc17f632afa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="surface.hpp">
@@ -301,9 +304,6 @@
       <Filter>bottom-layer\mathematics\material</Filter>
     </ClInclude>
     <ClInclude Include="texture.hpp">
-      <Filter>bottom-layer\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="texture_solid_color.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
     <ClInclude Include="texture_checker.hpp">
@@ -378,14 +378,8 @@
     <ClInclude Include="surface_convexhull.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="triangle_hit.hpp">
-      <Filter>bottom-layer\mathematics</Filter>
-    </ClInclude>
     <ClInclude Include="surface_regpolyhedron.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="texture_football.hpp">
-      <Filter>bottom-layer\texture</Filter>
     </ClInclude>
     <ClInclude Include="polyvertex.hpp">
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
@@ -403,9 +397,6 @@
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
     </ClInclude>
     <ClInclude Include="polyvertex_icosahedron.hpp">
-      <Filter>bottom-layer\mathematics\polyvertex</Filter>
-    </ClInclude>
-    <ClInclude Include="polyvertex_truncated_icosahedron.hpp">
       <Filter>bottom-layer\mathematics\polyvertex</Filter>
     </ClInclude>
     <ClInclude Include="surface_planeDIY.hpp">
@@ -455,6 +446,15 @@
     </ClInclude>
     <ClInclude Include="hit_info.hpp">
       <Filter>bottom-layer\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_glteapot.hpp">
+      <Filter>bottom-layer\surface\3D\glteapot</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_solid.hpp">
+      <Filter>bottom-layer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_tricompound.hpp">
+      <Filter>bottom-layer\surface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

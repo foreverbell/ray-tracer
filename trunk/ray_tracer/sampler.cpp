@@ -36,7 +36,7 @@ namespace ray_tracer {
 					angle = 6 - x / y;
 				}
 			}
-			angle = angle * pi / 4;
+			angle = angle * PI / 4;
 			r /= 2;
 			samples_disk.push_back(point2D(r * cos(angle) + 0.5, r * sin(angle) + 0.5));
 		}

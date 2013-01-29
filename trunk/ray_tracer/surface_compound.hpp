@@ -22,9 +22,8 @@ namespace ray_tracer {
 		void set_transform_center(const point3D &, int);
 		void clear_transformation(int);
 		void apply_transformation(const transformation &, int);
-	private:
-		std::vector<surface *> surfaces;
 	protected:
+		std::vector<surface *> surfaces;
 		bool global_surface;
 	};
 }

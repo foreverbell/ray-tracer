@@ -10,7 +10,7 @@ namespace ray_tracer {
 		double alpha, beta;
 
 		alpha = acos(p.z), beta = atan2(p.x, p.y);
-		if (beta < 0) beta += pi * 2;
-		return point2D(beta / 2 / pi, alpha / pi);
+		if (beta < 0) beta += PI * 2;
+		return point2D(beta / 2 / PI, alpha / PI);
 	}
 }

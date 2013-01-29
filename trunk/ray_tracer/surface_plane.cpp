@@ -18,7 +18,7 @@ namespace ray_tracer {
 	double surface_plane::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
 		double deno = normal * emission_ray.dir;
 
-		if (dblcmp(deno) == 0) return -1;
+		if (DBLCMP(deno) == 0) return -1;
 		return (point_on_plane - emission_ray.origin) * normal / deno;
 	}
 

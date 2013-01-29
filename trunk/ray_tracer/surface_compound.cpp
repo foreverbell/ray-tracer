@@ -57,7 +57,7 @@ namespace ray_tracer {
 
 	double surface_compound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
 		bool hit_flag = false;
-		double t, hit_time = huge_double;
+		double t, hit_t = HUGE_DOUBLE;
 		const surface *surface_ptr, *temp_surface_ptr;
 		ray emission_ray2, emission_ray3;
 
@@ -66,24 +66,15 @@ namespace ray_tracer {
 			surface_ptr = *iter;
 			temp_surface_ptr = NULL;
 			emission_ray3 = (surface_ptr->transformed ? emission_ray2.inv_transform(surface_ptr->transform, surface_ptr->transform_center) : emission_ray2);
-			/* Use bounding sphere / box to improve efficiency. */
-			if (surface_ptr->bounding_surface_ptr != NULL) {
-				t = surface_ptr->bounding_surface_ptr->hit(emission_ray3, &temp_surface_ptr);
-				if (t > epsilon && t < hit_time) {
-					t = surface_ptr->hit(emission_ray3, &temp_surface_ptr);
-				}
-			} else {
-				t = surface_ptr->hit(emission_ray3, &temp_surface_ptr);
-			}
-
+			t = surface_ptr->hit(emission_ray3, &temp_surface_ptr);
 			if (temp_surface_ptr != NULL) surface_ptr = temp_surface_ptr;
 			/* Avoid hiting the surface which shots this ray. */
-			if (t > epsilon && t < hit_time) {
-				hit_time = t;
+			if (t > EPSILON && t < hit_t) {
+				hit_t = t;
 				*hit_surface_ptr = surface_ptr;
 				hit_flag = true;
 			}
 		}
-		return hit_flag ? hit_time : -1;
+		return hit_flag ? hit_t : -1;
 	}
 }

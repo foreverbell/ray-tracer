@@ -26,10 +26,10 @@ namespace ray_tracer {
 		double delta = a * a - d2 * (cc2 - radius_squared);
 		double t;
 
-		if (delta < 0) {
+		if (delta < EPSILON) {
 			return -1;
 		} else {
-			if (cc2 < radius_squared + epsilon) {
+			if (cc2 < radius_squared + EPSILON) {
 				t = (-a + sqrt(delta)) / d2;
 			} else {
 				t = (-a - sqrt(delta)) / d2;

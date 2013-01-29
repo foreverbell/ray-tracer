@@ -17,4 +17,8 @@ namespace ray_tracer {
 		ret.inv_matrix = matrix;
 		return ret;
 	}
+
+	matrix4D transformation::get_matrix() const {
+		return matrix;
+	}
 }

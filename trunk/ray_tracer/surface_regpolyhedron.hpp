@@ -12,6 +12,9 @@ namespace ray_tracer {
 	class surface_regpolyhedron : public surface_convexhull {
 	public:
 		surface_regpolyhedron(double, const point3D &, int, int = 0);
+		double hit(const ray &, const surface **) const;
+	private:
+		std::unique_ptr<const surface> bounding_surface_ptr;
 	};
 }
 

@@ -12,7 +12,6 @@
 #include "polyvertex_octahedron.hpp"
 #include "polyvertex_dodecahedron.hpp"
 #include "polyvertex_icosahedron.hpp"
-#include "polyvertex_truncated_icosahedron.hpp"
 
 // Reference: http://caterpillar.onlyfun.net/Gossip/ComputerGraphics/VetexOfPolyhedron.htm
 
@@ -32,8 +31,8 @@ namespace ray_tracer {
 			vertices_ptr = std::unique_ptr<polyvertex>(new polyvertex_dodecahedron);
 		} else if (face == 20) {
 			vertices_ptr = std::unique_ptr<polyvertex>(new polyvertex_icosahedron);
-		} else if (face == 32) {
-			vertices_ptr = std::unique_ptr<polyvertex>(new polyvertex_truncated_icosahedron);
+		} else {
+			throw "unknown regular polyhedron code.";
 		}
 		if (div > 0) vertices_ptr->subdivide(div);
 		vertices = vertices_ptr->get_vertices();
@@ -43,4 +42,9 @@ namespace ray_tracer {
 		bounding_surface_ptr = std::unique_ptr<const surface>(new surface_sphere(center, radius));
 	}
 
+	double surface_regpolyhedron::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+		double t;
+		if ((t = bounding_surface_ptr->hit(emission_ray, hit_surface_ptr)) < EPSILON) return t;
+		return surface_convexhull::hit(emission_ray, hit_surface_ptr);
+	}
 }

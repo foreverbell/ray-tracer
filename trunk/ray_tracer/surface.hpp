@@ -15,13 +15,14 @@ namespace ray_tracer {
 	class surface {
 		friend class surface_compound;
 		friend class tracer;
-		friend class texture_football;
 	public:
 		surface();
 		virtual ~surface() = 0;
-		void attach(const surface *);
-		/** Return a negative value if missed. */
-		/** Hit surface pointer remains unchanged if not compound. */
+		void attach_shading_surface(const surface *);
+		/**
+			Return a negative value if the ray doesn't hit any surface.
+			Hit surface pointer remains unchanged if not compounded. 
+		*/
 		virtual double hit(const ray &, const surface **) const; 
 		virtual vector3D atnormal(const point3D &) const;
 		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &) const;
@@ -33,8 +34,7 @@ namespace ray_tracer {
 		virtual void clear_transformation();
 		virtual void apply_transformation(const transformation &);
 	protected:
-		std::unique_ptr<const surface> bounding_surface_ptr;
-		const surface *attached_surface_ptr;
+		const surface *shading_surface_ptr;
 		const material *material_ptr;
 		const texture *texture_ptr;
 		bool bifaced, transformed;

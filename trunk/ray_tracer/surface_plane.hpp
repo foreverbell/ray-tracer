@@ -5,6 +5,7 @@
 
 namespace ray_tracer {
 	class surface_plane : public surface {
+		friend class surface_tricompound;
 	public:
 		surface_plane();
 		surface_plane(const point3D &, const vector3D &);

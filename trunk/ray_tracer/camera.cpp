@@ -65,7 +65,7 @@ namespace ray_tracer {
 	void camera::compute_axis() {
 		axis_w = (eye - lookat).normalized();
 		axis_v = -up.normalized();
-		if (dblcmp(axis_w * axis_v) != 0) throw "invalid axis";
+		if (DBLCMP(axis_w * axis_v) != 0) throw "invalid camera axis.";
 		axis_u = axis_v ^ axis_w;
 	}
 }

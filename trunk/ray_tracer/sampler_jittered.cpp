@@ -11,7 +11,7 @@ namespace ray_tracer {
 	}
 
 	bool sampler_jittered::is_squared(int number, int &root) {
-		root = (int)floor(sqrt((double)number) + epsilon);
+		root = (int)floor(sqrt((double)number) + 0.5);
 		return root * root == number;
 	}
 

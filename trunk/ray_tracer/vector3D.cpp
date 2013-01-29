@@ -1,6 +1,7 @@
 
 #include "vector3D.hpp"
 #include "point3D.hpp"
+#include "misc.hpp"
 
 namespace ray_tracer {
 
@@ -16,19 +17,19 @@ namespace ray_tracer {
 		vector3D v1 = *this;
 		vector3D v2, v3;
 
-		if (dblcmp(v1.x) == 0 && dblcmp(v1.y) == 0 && dblcmp(v1.z) == 0) {
-			return v1;
+		if (DBLCMP(v1.x) == 0 && DBLCMP(v1.y) == 0 && DBLCMP(v1.z) == 0) {
+			throw "can't create vertical vector of a zero vector.";
 		} else {
 			while (true) {
 				v2.x = rand();
 				v2.y = rand();
 				v2.z = rand();
 				v3 = v1 ^ v2;
-				if (dblcmp(v3.length()) != 0) {
+				if (DBLCMP(v3.length()) != 0) {
 					return v3.normalized();
 				}
 			}
 		}
-		return vector3D(0, 0, 0); // never be here
+		assert(0);
 	}
 }

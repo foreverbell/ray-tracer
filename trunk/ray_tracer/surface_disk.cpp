@@ -24,7 +24,7 @@ namespace ray_tracer {
 		double t = (center - emission_ray.origin) * normal / deno;
 		point3D p;
 
-		if (dblcmp(deno) == 0) return -1;
+		if (DBLCMP(deno) == 0) return -1;
 		p = emission_ray.at(t);
 		if ((center - p).length_squared() > radius_squared) return -1;
 		return t;

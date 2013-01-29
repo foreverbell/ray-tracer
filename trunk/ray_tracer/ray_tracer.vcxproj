@@ -85,7 +85,6 @@
     <ClCompile Include="polyvertex_icosahedron.cpp" />
     <ClCompile Include="polyvertex_octahedron.cpp" />
     <ClCompile Include="polyvertex_tetrahedron.cpp" />
-    <ClCompile Include="polyvertex_truncated_icosahedron.cpp" />
     <ClCompile Include="quadratic.cpp" />
     <ClCompile Include="BRDF.cpp" />
     <ClCompile Include="BRDF_reflection.cpp" />
@@ -107,10 +106,11 @@
     <ClCompile Include="scaling_transformation.cpp" />
     <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
+    <ClCompile Include="surface_glteapot.cpp" />
     <ClCompile Include="surface_planeDIY.cpp" />
     <ClCompile Include="surface_quadratic.cpp" />
     <ClCompile Include="surface_regpolyhedron.cpp" />
-    <ClCompile Include="texture_football.cpp" />
+    <ClCompile Include="surface_tricompound.cpp" />
     <ClCompile Include="texture_mapping.cpp" />
     <ClCompile Include="texture_mapping_sphere.cpp" />
     <ClCompile Include="texture_image.cpp" />
@@ -129,7 +129,7 @@
     <ClCompile Include="surface_triangle.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="texture_checker.cpp" />
-    <ClCompile Include="texture_solid_color.cpp" />
+    <ClCompile Include="texture_solid.cpp" />
     <ClCompile Include="ray.cpp" />
     <ClCompile Include="colorRGB.cpp" />
     <ClCompile Include="surface.cpp" />
@@ -148,7 +148,6 @@
     <ClInclude Include="polyvertex_icosahedron.hpp" />
     <ClInclude Include="polyvertex_octahedron.hpp" />
     <ClInclude Include="polyvertex_tetrahedron.hpp" />
-    <ClInclude Include="polyvertex_truncated_icosahedron.hpp" />
     <ClInclude Include="quadratic.hpp" />
     <ClInclude Include="BRDF.hpp" />
     <ClInclude Include="BRDF_reflection.hpp" />
@@ -171,10 +170,11 @@
     <ClInclude Include="scaling_transformation.hpp" />
     <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
+    <ClInclude Include="surface_glteapot.hpp" />
     <ClInclude Include="surface_planeDIY.hpp" />
     <ClInclude Include="surface_quadratic.hpp" />
     <ClInclude Include="surface_regpolyhedron.hpp" />
-    <ClInclude Include="texture_football.hpp" />
+    <ClInclude Include="surface_tricompound.hpp" />
     <ClInclude Include="texture_mapping.hpp" />
     <ClInclude Include="texture_mapping_sphere.hpp" />
     <ClInclude Include="material.hpp" />
@@ -199,11 +199,10 @@
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="texture_checker.hpp" />
     <ClInclude Include="texture_image.hpp" />
-    <ClInclude Include="texture_solid_color.hpp" />
+    <ClInclude Include="texture_solid.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="transformation.hpp" />
     <ClInclude Include="translation_transformation.hpp" />
-    <ClInclude Include="triangle_hit.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />

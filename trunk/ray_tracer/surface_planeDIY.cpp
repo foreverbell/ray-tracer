@@ -16,7 +16,7 @@ namespace ray_tracer {
 		point3D hit_point;
 		double x, y;
 
-		if (t < epsilon) return -1;
+		if (t < EPSILON) return -1;
 		hit_point = emission_ray.at(t);
 		x = (hit_point - point_on_plane) * axis_x;
 		y = (hit_point - point_on_plane) * axis_y;
