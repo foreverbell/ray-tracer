@@ -103,7 +103,7 @@
     <ClCompile Include="light_area.cpp" />
     <ClCompile Include="material_mirror.cpp" />
     <ClCompile Include="sampler_single.cpp" />
-    <ClCompile Include="scaling_transformation.cpp" />
+    <ClCompile Include="transformation_scaling.cpp" />
     <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
@@ -135,7 +135,7 @@
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_plane.cpp" />
     <ClCompile Include="transformation.cpp" />
-    <ClCompile Include="translation_transformation.cpp" />
+    <ClCompile Include="transformation_translation.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="light_area.hpp" />
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="sampler_single.hpp" />
-    <ClInclude Include="scaling_transformation.hpp" />
+    <ClInclude Include="transformation_scaling.hpp" />
     <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
@@ -202,7 +202,7 @@
     <ClInclude Include="texture_solid.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="transformation.hpp" />
-    <ClInclude Include="translation_transformation.hpp" />
+    <ClInclude Include="transformation_translation.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />

@@ -38,8 +38,8 @@
 #include "sampler_random.hpp"
 #include "sampler_jittered.hpp"
 #include "transformation.hpp"
-#include "scaling_transformation.hpp"
-#include "translation_transformation.hpp"
+#include "transformation_scaling.hpp"
+#include "transformation_translation.hpp"
 
 #include <Windows.h>
 

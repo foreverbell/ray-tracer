@@ -161,12 +161,6 @@
     <ClCompile Include="transformation.cpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClCompile>
-    <ClCompile Include="scaling_transformation.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
-    <ClCompile Include="translation_transformation.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
     <ClCompile Include="fog.cpp">
       <Filter>bottom-layer\atmosphere</Filter>
     </ClCompile>
@@ -190,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="surface_glteapot.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="transformation_translation.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="transformation_scaling.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -423,12 +423,6 @@
     <ClInclude Include="transformation.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClInclude>
-    <ClInclude Include="scaling_transformation.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="translation_transformation.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
     <ClInclude Include="fog.hpp">
       <Filter>bottom-layer\atmosphere</Filter>
     </ClInclude>
@@ -452,6 +446,12 @@
     </ClInclude>
     <ClInclude Include="surface_glteapot.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation_translation.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation_scaling.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
