@@ -189,7 +189,7 @@
       <Filter>bottom-layer\surface</Filter>
     </ClCompile>
     <ClCompile Include="surface_glteapot.cpp">
-      <Filter>bottom-layer\surface\3D\glteapot</Filter>
+      <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,9 +258,6 @@
     </Filter>
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\surface\3D\glteapot">
-      <UniqueIdentifier>{2eeaac51-d170-4d9a-b88c-5dc17f632afa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -447,14 +444,14 @@
     <ClInclude Include="hit_info.hpp">
       <Filter>bottom-layer\trace</Filter>
     </ClInclude>
-    <ClInclude Include="surface_glteapot.hpp">
-      <Filter>bottom-layer\surface\3D\glteapot</Filter>
-    </ClInclude>
     <ClInclude Include="texture_solid.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
     <ClInclude Include="surface_tricompound.hpp">
       <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_glteapot.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

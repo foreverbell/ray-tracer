@@ -166,11 +166,9 @@ namespace ray_tracer {
 	}
 
 	double surface_tricompound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		ray emission_ray2 = (transformed ? emission_ray.inv_transform(transform, transform_center) : emission_ray);
-		
-		if (bound_sphere.hit(emission_ray2, NULL) < EPSILON) return -1;
+		if (bound_sphere.hit(emission_ray, NULL) < EPSILON) return -1;
 		else {
-			std::pair<double, int> result = search_kdtree(emission_ray2, kdtree_root_ptr.get());
+			std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root_ptr.get());
 			if (result.second == -1) {
 				return -1;
 			} else {
