@@ -1,5 +1,5 @@
-#ifndef __SURFACE_FASTTRI_COMPOUND_HPP__
-#define __SURFACE_FASTTRI_COMPOUND_HPP__
+#ifndef __SURFACE_TRICOMPOUND_HPP__
+#define __SURFACE_TRICOMPOUND_HPP__
 
 #include <vector>
 #include <memory>
