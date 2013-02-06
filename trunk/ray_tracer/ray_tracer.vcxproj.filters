@@ -30,16 +30,16 @@
       <Filter>bottom-layer\sampler</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClCompile>
     <ClCompile Include="BRDF.cpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClCompile>
     <ClCompile Include="BRDF_lambertian.cpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClCompile>
     <ClCompile Include="material_matte.cpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>bottom-layer\texture</Filter>
@@ -63,10 +63,10 @@
       <Filter>bottom-layer\light</Filter>
     </ClCompile>
     <ClCompile Include="BRDF_phong.cpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClCompile>
     <ClCompile Include="material_phong.cpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClCompile>
     <ClCompile Include="light_area.cpp">
       <Filter>bottom-layer\light</Filter>
@@ -75,10 +75,10 @@
       <Filter>bottom-layer\sampler</Filter>
     </ClCompile>
     <ClCompile Include="material_mirror.cpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClCompile>
     <ClCompile Include="BRDF_reflection.cpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClCompile>
     <ClCompile Include="surface_compound.cpp">
       <Filter>bottom-layer\surface</Filter>
@@ -191,6 +191,9 @@
     <ClCompile Include="transformation_scaling.cpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClCompile>
+    <ClCompile Include="light_reflect.cpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -235,12 +238,6 @@
     <Filter Include="bottom-layer\mathematics\polyvertex">
       <UniqueIdentifier>{1a65341f-5107-4910-9565-87d1cc3c1ba6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bottom-layer\mathematics\material">
-      <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\mathematics\material\BRDF">
-      <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\basis\vector">
       <UniqueIdentifier>{56c7ab71-2843-4e17-a890-3616856a2981}</UniqueIdentifier>
     </Filter>
@@ -258,6 +255,12 @@
     </Filter>
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\material">
+      <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\material\BRDF">
+      <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -289,16 +292,16 @@
       <Filter>bottom-layer\sampler</Filter>
     </ClInclude>
     <ClInclude Include="material.hpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClInclude>
     <ClInclude Include="BRDF.hpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClInclude>
     <ClInclude Include="BRDF_lambertian.hpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClInclude>
     <ClInclude Include="material_matte.hpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClInclude>
     <ClInclude Include="texture.hpp">
       <Filter>bottom-layer\texture</Filter>
@@ -322,10 +325,10 @@
       <Filter>bottom-layer\light</Filter>
     </ClInclude>
     <ClInclude Include="BRDF_phong.hpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClInclude>
     <ClInclude Include="material_phong.hpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClInclude>
     <ClInclude Include="light_area.hpp">
       <Filter>bottom-layer\light</Filter>
@@ -334,13 +337,13 @@
       <Filter>bottom-layer\sampler</Filter>
     </ClInclude>
     <ClInclude Include="material_mirror.hpp">
-      <Filter>bottom-layer\mathematics\material</Filter>
+      <Filter>bottom-layer\material</Filter>
     </ClInclude>
     <ClInclude Include="camera_thinlens.hpp">
       <Filter>bottom-layer\camera</Filter>
     </ClInclude>
     <ClInclude Include="BRDF_reflection.hpp">
-      <Filter>bottom-layer\mathematics\material\BRDF</Filter>
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClInclude>
     <ClInclude Include="surface_compound.hpp">
       <Filter>bottom-layer\surface</Filter>
@@ -452,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="transformation_scaling.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="light_reflect.hpp">
+      <Filter>bottom-layer\light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

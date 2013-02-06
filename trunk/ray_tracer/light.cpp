@@ -10,7 +10,7 @@ namespace ray_tracer {
 		set_shadow(true);
 		set_spot(false);
 		set_attenuation(false);
-		traveled_dist = 0;
+		ray_length = 0;
 	}
 
 	light::light(const point3D &position_, const colorRGB &color_) {
@@ -19,7 +19,7 @@ namespace ray_tracer {
 		set_shadow(true);
 		set_spot(false);
 		set_attenuation(false);
-		traveled_dist = 0;
+		ray_length = 0;
 	}
 
 	light::~light() { }
@@ -37,7 +37,7 @@ namespace ray_tracer {
 			ret = vdotd > 0 ? ret * pow(vdotd, spot_exponent) : color_black;
 		}
 		if (attenuation_enabled) {
-			double d = (info_ptr->hit_point - get_light_origin(info_ptr)).length() + traveled_dist;
+			double d = (info_ptr->hit_point - get_light_origin(info_ptr)).length() + ray_length;
 			double f = 1 / (attenuation_constant + attenuation_linear * d + attenuation_quadratic * d * d);
 
 			ret = f * ret;
@@ -71,14 +71,5 @@ namespace ray_tracer {
 		} else {
 			return true;
 		}
-	}
-
-	void light::inherit_light(const light *light_ptr) {
-		this->attenuation_enabled = light_ptr->attenuation_enabled;
-		this->attenuation_constant = light_ptr->attenuation_constant;
-		this->attenuation_linear = light_ptr->attenuation_linear;
-		this->attenuation_quadratic = light_ptr->attenuation_quadratic;
-		this->cast_shadow = light_ptr->cast_shadow;
-		this->traveled_dist = light_ptr->traveled_dist + (light_ptr->position - this->position).length();
 	}
 }

@@ -14,22 +14,13 @@ namespace ray_tracer {
 	}
 
 	vector3D vector3D::create_vertical() const {
-		vector3D v1 = *this;
-		vector3D v2, v3;
+		vector3D v1 = *this, v2;
 
 		if (DBLCMP(v1.x) == 0 && DBLCMP(v1.y) == 0 && DBLCMP(v1.z) == 0) {
 			throw "can't create vertical vector of a zero vector.";
 		} else {
-			while (true) {
-				v2.x = rand();
-				v2.y = rand();
-				v2.z = rand();
-				v3 = v1 ^ v2;
-				if (DBLCMP(v3.length()) != 0) {
-					return v3.normalized();
-				}
-			}
+			v2 = v1 + vector3D(E, PI, E + PI);
+			return (v1 ^ v2).normalized();
 		}
-		assert(0);
 	}
 }

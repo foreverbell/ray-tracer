@@ -11,7 +11,7 @@ namespace ray_tracer {
 		return rho;
 	}
 
-	colorRGB BRDF::reflect_f(hit_info *info_ptr, const vector3D &win) const {
+	colorRGB BRDF::sample_f(hit_info *info_ptr, const vector3D &win) const {
 		return color_black;
 	}
 }

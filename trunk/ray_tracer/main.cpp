@@ -41,8 +41,6 @@
 #include "transformation_scaling.hpp"
 #include "transformation_translation.hpp"
 
-#include <Windows.h>
-
 using namespace ray_tracer;
 
 const int width = 500, height = 500, max_thread_count = 4;

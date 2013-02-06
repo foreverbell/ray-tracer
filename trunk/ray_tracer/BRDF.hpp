@@ -11,7 +11,7 @@ namespace ray_tracer {
 		BRDF(const colorRGB &);
 		/** win & wout should be unit vector */
 		virtual colorRGB f(hit_info *, const vector3D &, const vector3D &) const;
-		virtual colorRGB reflect_f(hit_info *, const vector3D &) const;
+		virtual colorRGB sample_f(hit_info *, const vector3D &) const;
 	protected:
 		colorRGB rho;
 	};

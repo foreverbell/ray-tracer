@@ -8,6 +8,7 @@
 
 namespace ray_tracer {
 	class light {
+		friend class light_reflect;
 	public:
 		light();
 		light(const point3D &, const colorRGB &);
@@ -21,21 +22,18 @@ namespace ray_tracer {
 		bool under_shadow(hit_info *) const;
 		virtual colorRGB light_shade(hit_info *) const;
 		bool in_range(hit_info *) const;
-		void inherit_light(const light *);
 	protected:
 		point3D position;
 		colorRGB color;
-	private:
-		// Inherits information
-		double traveled_dist;
-		// Attitudes
+		// attitudes
 		bool cast_shadow, spot_enabled, attenuation_enabled;
-		// Spot
+		// spot
 		vector3D spot_direction;
 		double spot_cutoff, spot_cos_cutoff;
 		int spot_exponent;
-		// Attenuation
+		// attenuation
 		double attenuation_constant, attenuation_linear, attenuation_quadratic;
+		double ray_length;
 	};
 
 	inline void light::set_position(const point3D &position_) {

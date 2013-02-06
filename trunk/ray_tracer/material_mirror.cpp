@@ -15,6 +15,6 @@ namespace ray_tracer {
 	}
 
 	colorRGB material_mirror::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
-		return (reflection_ptr->reflect_f(info_ptr, wout) + diffuse_ptr->f(info_ptr, win, wout)) * surface_color;
+		return (reflection_ptr->sample_f(info_ptr, wout) + diffuse_ptr->f(info_ptr, win, wout)) * surface_color;
 	}
 }

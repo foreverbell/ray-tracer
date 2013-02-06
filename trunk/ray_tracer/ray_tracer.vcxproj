@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="convexhull.cpp" />
+    <ClCompile Include="light_reflect.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
     <ClCompile Include="polyvertex_cube.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="tracer.cpp" />
     <ClCompile Include="surface_sphere.cpp" />
     <ClInclude Include="convexhull.hpp" />
+    <ClInclude Include="light_reflect.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
     <ClInclude Include="polyvertex_cube.hpp" />
