@@ -18,6 +18,7 @@
 #include "surface_convexhull.hpp"
 #include "surface_regpolyhedron.hpp"
 #include "surface_glteapot.hpp"
+#include "surface_plymesh.hpp"
 #include "texture.hpp"
 #include "texture_checker.hpp"
 #include "texture_image.hpp"
@@ -38,12 +39,13 @@
 #include "sampler_random.hpp"
 #include "sampler_jittered.hpp"
 #include "transformation.hpp"
-#include "transformation_scaling.hpp"
-#include "transformation_translation.hpp"
+#include "transformation_scale.hpp"
+#include "transformation_translate.hpp"
+#include "transformation_rotate.hpp"
 
 using namespace ray_tracer;
 
-const int width = 500, height = 500, max_thread_count = 4;
+const int width = 350, height = 350, max_thread_count = 4;
 
 void render_callback(int x, int y, const colorRGB &color, void *pixel_ptr) {
 	char *p = (char *)pixel_ptr;
@@ -161,8 +163,14 @@ void test1(SDL_Surface *screen) {
 	s6->set_texture(t1);
 
 	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
-	surface_glteapot *s7 = new surface_glteapot();
-	s7->set_material(m1);
+	// surface_glteapot *s7 = new surface_glteapot();
+	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper.ply");
+	s7->apply_transformation(transformation_rotate('x', -PI / 2));
+	s7->apply_transformation(transformation_rotate('z', -PI / 2));
+	s7->apply_transformation(transformation_scale(65, 65, 65));
+	s7->apply_transformation(transformation_translate(0, 2, -8));
+
+	s7->set_material(m3);
 	s7->set_texture(t1);
 
 	surface_regpolyhedron *s8 = new surface_regpolyhedron(5, point3D(5, -5, -5), 20);
@@ -177,7 +185,7 @@ void test1(SDL_Surface *screen) {
 	l2->set_attenuation(true, 1, 0.0001, 0.00005);
 
 	world.set_ambient(color_white / 5);
-	world.set_sampler(new sampler_jittered(25));
+	world.set_sampler(new sampler_jittered(16));
 	world.set_camera(cam);
 	world.set_fog(new fog(0.01, 1, color_white));
 	//world.add_surface(s1);

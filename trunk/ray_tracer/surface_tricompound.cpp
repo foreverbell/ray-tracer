@@ -21,6 +21,7 @@ namespace ray_tracer {
 	void surface_tricompound::add_surface(surface_triangle *surface_) {
 		if (islocked) throw "compound has locked.";
 		surface_->attach_shading_surface(this);
+		surface_->set_bifaced(true);
 		surfaces.push_back(surface_);
 	}
 
@@ -200,7 +201,7 @@ namespace ray_tracer {
 			points.push_back((*it)->v1);
 			points.push_back((*it)->v2);
 		}
-		for (int iter_times = 0; iter_times < 10000; ++iter_times) {
+		for (int iter_times = 0; iter_times < 1000; ++iter_times) {
 			maxd = 0;
 			for (std::vector<point3D>::iterator it = points.begin(); it != points.end(); ++it) {
 				d = (center - *it).length_squared();
@@ -209,8 +210,8 @@ namespace ray_tracer {
 					it_pos = it;
 				}
 			}
-			if (iter_times != 9999) center += delta * (*it_pos - center);
-			delta *= 0.99;
+			if (iter_times != 999) center += delta * (*it_pos - center);
+			delta *= 0.9;
 		}
 		return std::make_pair(center, sqrt(maxd));
 	}

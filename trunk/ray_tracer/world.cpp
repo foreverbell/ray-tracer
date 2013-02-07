@@ -65,6 +65,7 @@ namespace ray_tracer {
 				current_x += 1;
 				if (current_x == dest_w) current_x = 0, current_y += 1;
 				x = current_x, y = current_y;
+				fprintf(stderr, "rendering %d %d\n", x, y);
 				coordinate_mutex.unlock();
 			}
 			/* Sampling for anti-aliasing. */

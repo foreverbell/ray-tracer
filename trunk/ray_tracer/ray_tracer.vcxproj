@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ply-1.1\plyfile.c" />
     <ClCompile Include="convexhull.cpp" />
     <ClCompile Include="light_reflect.cpp" />
     <ClCompile Include="matrix4D.cpp" />
@@ -104,7 +105,9 @@
     <ClCompile Include="light_area.cpp" />
     <ClCompile Include="material_mirror.cpp" />
     <ClCompile Include="sampler_single.cpp" />
-    <ClCompile Include="transformation_scaling.cpp" />
+    <ClCompile Include="surface_plymesh.cpp" />
+    <ClCompile Include="transformation_rotate.cpp" />
+    <ClCompile Include="transformation_scale.cpp" />
     <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
@@ -136,7 +139,7 @@
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_plane.cpp" />
     <ClCompile Include="transformation.cpp" />
-    <ClCompile Include="transformation_translation.cpp" />
+    <ClCompile Include="transformation_translate.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
@@ -169,7 +172,8 @@
     <ClInclude Include="light_area.hpp" />
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="sampler_single.hpp" />
-    <ClInclude Include="transformation_scaling.hpp" />
+    <ClInclude Include="transformation_rotate.hpp" />
+    <ClInclude Include="transformation_scale.hpp" />
     <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
@@ -204,11 +208,14 @@
     <ClInclude Include="texture_solid.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="transformation.hpp" />
-    <ClInclude Include="transformation_translation.hpp" />
+    <ClInclude Include="transformation_translate.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />
     <ClInclude Include="world.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="surface_plymesh.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

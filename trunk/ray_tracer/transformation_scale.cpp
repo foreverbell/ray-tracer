@@ -1,9 +1,9 @@
 
-#include "transformation_scaling.hpp"
+#include "transformation_scale.hpp"
 
 namespace ray_tracer {
 
-	transformation_scaling::transformation_scaling(double x, double y, double z) {
+	transformation_scale::transformation_scale(double x, double y, double z) {
 		matrix.value[0][0] = x;
 		matrix.value[1][1] = y;
 		matrix.value[2][2] = z;

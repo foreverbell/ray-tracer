@@ -1,9 +1,9 @@
 
-#include "transformation_translation.hpp"
+#include "transformation_translate.hpp"
 
 namespace ray_tracer {
 
-	transformation_translation::transformation_translation(double x, double y, double z) {
+	transformation_translate::transformation_translate(double x, double y, double z) {
 		matrix.value[0][0] = 1;
 		matrix.value[1][1] = 1;
 		matrix.value[2][2] = 1;
