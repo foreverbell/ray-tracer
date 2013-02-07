@@ -8,11 +8,9 @@
 namespace ray_tracer {
 	typedef struct Vertex {
 		float x,y,z;             /* the usual 3-space position of a vertex */
-		float confidence, intensity;
 	} Vertex;
 
 	typedef struct Face {
-		// unsigned char intensity; /* this user attaches intensity to faces */
 		unsigned char nverts;    /* number of vertex indices in list */
 		int *verts;              /* vertex index list */
 	} Face;
@@ -21,12 +19,9 @@ namespace ray_tracer {
 		{"x", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, x), 0, 0, 0, 0},
 		{"y", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, y), 0, 0, 0, 0},
 		{"z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, z), 0, 0, 0, 0},
-		{"confidence", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, confidence), 0, 0, 0, 0},
-		{"intensity", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, intensity), 0, 0, 0, 0},
 	};
 
 	PlyProperty face_props[] = { /* list of property information for a vertex */
-		// {"intensity", PLY_UCHAR, PLY_UCHAR, offsetof(Face, intensity), 0, 0, 0, 0},
 		{"vertex_indices", PLY_INT, PLY_INT, offsetof(Face, verts),
 		1, PLY_UCHAR, PLY_UCHAR, offsetof(Face, nverts)},
 	};
@@ -52,8 +47,6 @@ namespace ray_tracer {
 				ply_get_property(ply_ptr, elem_name, &vert_props[0]);
 				ply_get_property(ply_ptr, elem_name, &vert_props[1]);
 				ply_get_property(ply_ptr, elem_name, &vert_props[2]);
-				// ply_get_property(ply_ptr, elem_name, &vert_props[3]);
-				// ply_get_property(ply_ptr, elem_name, &vert_props[4]);
 				for (int j = 0; j < num_elems; ++j) {
 					ply_get_element(ply_ptr, &vert);
 					vertices.push_back(point3D(vert.x, vert.y, vert.z));
