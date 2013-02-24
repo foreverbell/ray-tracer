@@ -164,11 +164,11 @@ void test1(SDL_Surface *screen) {
 
 	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
 	// surface_glteapot *s7 = new surface_glteapot();
-	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper.ply");
-	s7->apply_transformation(transformation_rotate('x', -PI / 2));
-	s7->apply_transformation(transformation_rotate('z', -PI / 2));
+	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper_res4.ply");
 	s7->apply_transformation(transformation_scale(65, 65, 65));
-	s7->apply_transformation(transformation_translate(0, 2, -8));
+	s7->apply_transformation(transformation_rotate('x', -PI / 2));
+	s7->apply_transformation(transformation_rotate('z', PI / 2));
+	s7->apply_transformation(transformation_translate(0, 0, -8));
 
 	s7->set_material(m3);
 	s7->set_texture(t1);

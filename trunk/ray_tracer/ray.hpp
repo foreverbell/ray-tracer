@@ -14,11 +14,11 @@ namespace ray_tracer {
 		ray();
 		ray(const point3D &, const vector3D &);
 		point3D at(double) const;
-		ray inv_transform(const transformation &, const point3D &) const;
+		ray inverse_transform(const transformation &, const point3D &) const;
 	public:
 		point3D origin;
 		vector3D dir;
-		const light *attached_light_ptr;
+		const light *bind_light_ptr;
 	};
 }
 

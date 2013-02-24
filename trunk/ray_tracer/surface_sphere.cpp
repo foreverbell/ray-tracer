@@ -20,20 +20,19 @@ namespace ray_tracer {
 	double surface_sphere::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
 		point3D o = emission_ray.origin, c = center;
 		vector3D d = emission_ray.dir;
-		double a = d * (o - c), d2 = d.length_squared();
+		double a = d * (o - c), d2 = d.length2();
 		vector3D cc = o - c;
-		double cc2 = cc.length_squared();
+		double cc2 = cc.length2();
 		double delta = a * a - d2 * (cc2 - radius_squared);
 		double t;
 
-		if (delta < EPSILON) {
+		if (delta < 0) {
 			return -1;
 		} else {
-			if (cc2 < radius_squared + EPSILON) {
-				t = (-a + sqrt(delta)) / d2;
-			} else {
-				t = (-a - sqrt(delta)) / d2;
-			}
+			double sqrt_delta = sqrt(delta);
+
+			t = (-a - sqrt_delta) / d2;
+			if (t < EPSILON) t = (-a + sqrt_delta) / d2;
 			return t;
 		}
 	}

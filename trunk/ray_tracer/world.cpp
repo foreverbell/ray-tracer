@@ -10,7 +10,6 @@
 namespace ray_tracer {
 
 	world::world() {
-		surfaces.global_surface = true;
 		tracer_ptr = new tracer;
 		sampler_ptr = NULL;
 		sampler_single_ptr = new sampler_single(1);
@@ -65,7 +64,6 @@ namespace ray_tracer {
 				current_x += 1;
 				if (current_x == dest_w) current_x = 0, current_y += 1;
 				x = current_x, y = current_y;
-				fprintf(stderr, "rendering %d %d\n", x, y);
 				coordinate_mutex.unlock();
 			}
 			/* Sampling for anti-aliasing. */

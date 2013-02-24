@@ -28,7 +28,7 @@ namespace ray_tracer {
 		ray emission_ray = ray(origin, dir);
 
 		info_ptr->camera_ptr = this;
-		emission_ray.attached_light_ptr = light_ptr;
+		emission_ray.bind_light_ptr = light_ptr;
 		if (world_ptr->get_hit(emission_ray, info_ptr)) {
 			return world_ptr->tracer_ptr->ray_color(info_ptr);
 		} else {

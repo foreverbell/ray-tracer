@@ -13,7 +13,7 @@ namespace ray_tracer {
 
 	surface::~surface() { }
 
-	void surface::attach_shading_surface(const surface *shading_surface_ptr_) {
+	void surface::bind_shading_surface(const surface *shading_surface_ptr_) {
 		shading_surface_ptr = shading_surface_ptr_;
 	}
 

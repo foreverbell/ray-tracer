@@ -7,6 +7,15 @@
 namespace ray_tracer {
 	class surface_plymesh : public surface_tricompound {
 	public:
+		/**
+			ply file should have the following header format:
+			vertex property:
+				float x
+				float y
+				float z
+			face property:
+				list uchar int vertex_index
+		*/
 		surface_plymesh(const char *);
 	};
 }

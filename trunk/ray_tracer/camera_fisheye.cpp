@@ -18,8 +18,8 @@ namespace ray_tracer {
 	colorRGB camera_fisheye::render_scene(double x, double y, int width, int height, hit_info *info_ptr) const {
 		point2D pp = point2D((x / width - 0.5) * 2, (y / height - 0.5) * 2);
 
-		if (pp.length_squared() <= 1) {
-			double inv_r = pp.inv_length();
+		if (pp.length2() <= 1) {
+			double inv_r = pp.inverse_length();
 			double r = pp.length();
 			double sin_alpha = pp.y * inv_r, cos_alpha = pp.x * inv_r;
 			double sin_beta = sin(r * fov), cos_beta = cos(r * fov);

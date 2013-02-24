@@ -55,7 +55,7 @@ namespace ray_tracer {
 			double dist;
 
 			dir = get_light_origin(info_ptr) - info_ptr->hit_point;
-			dist = 1 / dir.inv_length();
+			dist = dir.length();
 			dir = dir.normalized();
 			if (world_ptr->get_hit(ray(info_ptr->hit_point, dir), &temp)) {
 				return temp.hit_time < dist;

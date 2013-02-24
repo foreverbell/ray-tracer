@@ -13,7 +13,7 @@ namespace ray_tracer {
 	private:
 		point3D center;
 		vector3D normal;
-		double radius, radius_squared;
+		double radius, radius2;
 	};
 }
 

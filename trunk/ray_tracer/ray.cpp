@@ -6,6 +6,7 @@ namespace ray_tracer {
 	ray::ray() {
 		origin = point3D(0, 0, 0);
 		dir = vector3D(0, 0, 1);
+		bind_light_ptr = NULL;
 	}
 
 	ray::ray(const point3D &origin_, const vector3D &dir_) { 
@@ -17,7 +18,9 @@ namespace ray_tracer {
 		return origin + t_ * dir;
 	}
 
-	ray ray::inv_transform(const transformation &trans, const point3D &center) const {
-		return ray(center + trans.inv_matrix * (origin - center), trans.inv_matrix ^ dir);
+	ray ray::inverse_transform(const transformation &trans, const point3D &center) const {
+		ray r = ray(center + trans.inv_matrix * (origin - center), trans.inv_matrix ^ dir);
+		r.bind_light_ptr = bind_light_ptr;
+		return r;
 	}
 }

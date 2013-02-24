@@ -18,7 +18,7 @@ namespace ray_tracer {
 	public:
 		surface();
 		virtual ~surface() = 0;
-		void attach_shading_surface(const surface *);
+		void bind_shading_surface(const surface *);
 		/**
 			Return a negative value if the ray doesn't hit any surface.
 			Hit surface pointer remains unchanged if not compounded. 

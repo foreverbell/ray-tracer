@@ -4,10 +4,6 @@
 #include "surface_compound.hpp"
 
 namespace ray_tracer {
-
-	surface_compound::surface_compound() {
-		global_surface = false; // True only if it is managed under world
-	}
 	
 	void surface_compound::add_surface(surface *surface_) {
 		surfaces.push_back(surface_);
@@ -56,25 +52,26 @@ namespace ray_tracer {
 	}
 
 	double surface_compound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		bool hit_flag = false;
-		double t, hit_t = HUGE_DOUBLE;
+		bool ishit = false;
+		double t, result_t = -1;
 		const surface *surface_ptr, *temp_surface_ptr;
-		ray emission_ray2, emission_ray3;
 
-		emission_ray2 = (global_surface && transformed ? emission_ray.inv_transform(transform, transform_center) : emission_ray);
 		for (std::vector<surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
 			surface_ptr = *iter;
 			temp_surface_ptr = NULL;
-			emission_ray3 = (surface_ptr->transformed ? emission_ray2.inv_transform(surface_ptr->transform, surface_ptr->transform_center) : emission_ray2);
-			t = surface_ptr->hit(emission_ray3, &temp_surface_ptr);
+			if (surface_ptr->transformed) {
+				t = surface_ptr->hit(emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center), &temp_surface_ptr);
+			} else {
+				t = surface_ptr->hit(emission_ray, &temp_surface_ptr);
+			}
 			if (temp_surface_ptr != NULL) surface_ptr = temp_surface_ptr;
 			/* Avoid hiting the surface which shots this ray. */
-			if (t > EPSILON && t < hit_t) {
-				hit_t = t;
+			if (t > EPSILON && (t < result_t || result_t == -1)) {
+				result_t = t;
 				*hit_surface_ptr = surface_ptr;
-				hit_flag = true;
+				ishit = true;
 			}
 		}
-		return hit_flag ? hit_t : -1;
+		return ishit ? result_t : -1;
 	}
 }

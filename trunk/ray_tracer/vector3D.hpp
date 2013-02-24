@@ -10,8 +10,8 @@ namespace ray_tracer {
 		vector3D();
 		vector3D(double, double, double);
 		double length() const;
-		double length_squared() const;
-		double inv_length() const;
+		double length2() const;
+		double inverse_length() const;
 		vector3D normalized() const;
 		vector3D create_vertical() const;
 		friend vector3D operator+(const vector3D &, const vector3D &);
@@ -31,16 +31,16 @@ namespace ray_tracer {
 		return sqrt(x * x + y * y + z * z);
 	}
 
-	inline double vector3D::length_squared() const {
+	inline double vector3D::length2() const {
 		return x * x + y * y + z * z;
 	}
 
-	inline double vector3D::inv_length() const {
-		return inv_sqrt(x * x + y * y + z * z);
+	inline double vector3D::inverse_length() const {
+		return inverse_sqrt(x * x + y * y + z * z);
 	}
 
 	inline vector3D vector3D::normalized() const {
-		double l = inv_length();
+		double l = inverse_length();
 		return vector3D(x * l, y * l, z * l);
 	}
 

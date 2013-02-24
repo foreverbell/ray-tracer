@@ -61,18 +61,4 @@ namespace ray_tracer {
 			return normal;
 		}
 	}
-
-	void surface_triangle::apply_transformation(const transformation &transform) {
-		v0 = transform_center + transform.get_matrix() * (v0 - transform_center);
-		v1 = transform_center + transform.get_matrix() * (v1 - transform_center);
-		v2 = transform_center + transform.get_matrix() * (v2 - transform_center);
-		if (smooth_normal) {
-			/* TODO: the correctness of this code is not verified. */
-			n0 = (transform.get_matrix() ^ n0).normalized();
-			n1 = (transform.get_matrix() ^ n1).normalized();
-			n2 = (transform.get_matrix() ^ n2).normalized();
-		} else {
-			normal = ((v1 - v0) ^ (v2 - v0)).normalized();
-		}
-	}
 }

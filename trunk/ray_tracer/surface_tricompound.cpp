@@ -19,8 +19,8 @@ namespace ray_tracer {
 	}	
 
 	void surface_tricompound::add_surface(surface_triangle *surface_) {
-		if (islocked) throw "compound has locked.";
-		surface_->attach_shading_surface(this);
+		assert(!islocked);
+		surface_->bind_shading_surface(this);
 		surface_->set_bifaced(true);
 		surfaces.push_back(surface_);
 	}
@@ -77,7 +77,7 @@ namespace ray_tracer {
 		std::priority_queue<int, std::vector<int>, decltype(lambda_func)> heap(lambda_func);
 		int lsize = 0, rsize = surfaces_list.size(), msize = 0, curr_value, best_value = INT32_MAX;
 		size_t curr_iter = 0;
-		double x_pos = -HUGE_DOUBLE;
+		double x_pos = 0;
 
 		for (std::vector<double>::iterator it = x_cords.begin(); it != x_cords.end(); ++it) {
 			while (curr_iter < surfaces_list.size() && interval[curr_iter].first < *it) {
@@ -204,7 +204,7 @@ namespace ray_tracer {
 		for (int iter_times = 0; iter_times < 1000; ++iter_times) {
 			maxd = 0;
 			for (std::vector<point3D>::iterator it = points.begin(); it != points.end(); ++it) {
-				d = (center - *it).length_squared();
+				d = (center - *it).length2();
 				if (d > maxd) {
 					maxd = d;
 					it_pos = it;
