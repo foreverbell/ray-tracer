@@ -2,46 +2,7 @@
 #include <thread>
 #include <Windows.h>
 #include <SDL.h>
-#include "vector3D.hpp"
-#include "image.hpp"
-#include "material.hpp"
-#include "material_phong.hpp"
-#include "material_matte.hpp"
-#include "material_mirror.hpp"
-#include "surface.hpp"
-#include "surface_sphere.hpp"
-#include "surface_plane.hpp"
-#include "surface_planeDIY.hpp"
-#include "surface_triangle.hpp"
-#include "surface_quadratic.hpp"
-#include "surface_disk.hpp"
-#include "surface_convexhull.hpp"
-#include "surface_regpolyhedron.hpp"
-#include "surface_glteapot.hpp"
-#include "surface_plymesh.hpp"
-#include "texture.hpp"
-#include "texture_checker.hpp"
-#include "texture_image.hpp"
-#include "texture_solid.hpp"
-#include "texture_mapping.hpp"
-#include "texture_mapping_sphere.hpp"
-#include "fog.hpp"
-#include "world.hpp"
-#include "light.hpp"
-#include "light_point.hpp"
-#include "light_area.hpp"
-#include "camera.hpp"
-#include "camera_orthographic.hpp"
-#include "camera_pinhole.hpp"
-#include "camera_thinlens.hpp"
-#include "camera_fisheye.hpp"
-#include "sampler.hpp"
-#include "sampler_random.hpp"
-#include "sampler_jittered.hpp"
-#include "transformation.hpp"
-#include "transformation_scale.hpp"
-#include "transformation_translate.hpp"
-#include "transformation_rotate.hpp"
+#include "rtlib.hpp"
 
 using namespace ray_tracer;
 
@@ -164,11 +125,13 @@ void test1(SDL_Surface *screen) {
 
 	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
 	// surface_glteapot *s7 = new surface_glteapot();
-	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper_res4.ply");
+	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper_res2.ply");
 	s7->apply_transformation(transformation_scale(65, 65, 65));
 	s7->apply_transformation(transformation_rotate('x', -PI / 2));
 	s7->apply_transformation(transformation_rotate('z', PI / 2));
+	s7->apply_transformation(transformation_reflect('y'));
 	s7->apply_transformation(transformation_translate(0, 0, -8));
+	
 
 	s7->set_material(m3);
 	s7->set_texture(t1);

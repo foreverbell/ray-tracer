@@ -203,6 +203,9 @@
     <ClCompile Include="transformation_rotate.cpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClCompile>
+    <ClCompile Include="transformation_reflect.cpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -273,6 +276,9 @@
     </Filter>
     <Filter Include="ply">
       <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{0343058c-9cae-4304-af8a-bc263a780c15}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +479,33 @@
     </ClInclude>
     <ClInclude Include="transformation_rotate.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation_reflect.hpp">
+      <Filter>bottom-layer\basis\transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="include_camera.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_transformation.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_texture.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_surface.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_sampler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_material.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include_light.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="rtlib.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

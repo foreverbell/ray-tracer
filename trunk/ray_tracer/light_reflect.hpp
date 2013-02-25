@@ -1,3 +1,7 @@
+/**
+	users shouldn`t include this file.
+*/
+
 #ifndef __LIGHT_REFLECT_HPP__
 #define __LIGHT_REFLECT_HPP__
 
