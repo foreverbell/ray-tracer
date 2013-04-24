@@ -268,17 +268,17 @@
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bottom-layer\material">
-      <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\material\BRDF">
-      <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ply">
       <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="include">
       <UniqueIdentifier>{0343058c-9cae-4304-af8a-bc263a780c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\material">
+      <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\material\BRDF">
+      <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
