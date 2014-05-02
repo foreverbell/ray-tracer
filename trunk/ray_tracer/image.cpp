@@ -1,6 +1,7 @@
 
 #include "image.hpp"
 #include "image_bmp.hpp"
+#include <cstdio>
 
 namespace ray_tracer {
 

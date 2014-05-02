@@ -1,7 +1,6 @@
 
 #include <thread>
-#include <Windows.h>
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include "rtlib.hpp"
 
 using namespace ray_tracer;
@@ -36,7 +35,7 @@ void render(world &world, SDL_Surface *screen) {
 		SDL_UnlockSurface(screen);
 	}
 	SDL_UpdateRect(screen, 0, 0, width, height);
-	SDL_SaveBMP(screen, "D:\\a.bmp");
+	SDL_SaveBMP(screen, "rt_render.bmp");
 }
 
 /*
@@ -124,13 +123,13 @@ void test1(SDL_Surface *screen) {
 	s6->set_texture(t1);
 
 	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
-	// surface_glteapot *s7 = new surface_glteapot();
-	surface_plymesh *s7 = new surface_plymesh("D:\\bun_zipper.ply");
-	s7->apply_transformation(transformation_scale(65, 65, 65));
-	s7->apply_transformation(transformation_rotate('x', -PI / 2));
-	s7->apply_transformation(transformation_rotate('z', PI / 2));
-	s7->apply_transformation(transformation_reflect('y'));
-	s7->apply_transformation(transformation_translate(0, 0, -8));
+	surface_glteapot *s7 = new surface_glteapot();
+	// surface_plymesh *s7 = new surface_plymesh("bun_zipper.ply");
+	// s7->apply_transformation(transformation_scale(65, 65, 65));
+	// s7->apply_transformation(transformation_rotate('x', -PI / 2));
+	// s7->apply_transformation(transformation_rotate('z', PI / 2));
+	// s7->apply_transformation(transformation_reflect('y'));
+	// s7->apply_transformation(transformation_translate(0, 0, -8));
 	
 
 	s7->set_material(m3);
@@ -176,7 +175,7 @@ void test2(SDL_Surface *screen) {
 
 	s = new surface_sphere(point3D(25, 0, 0), 10);
 	m = new material_matte(color_white);
-	t = new texture_image(image_file_create("C:\\Users\\ForeverBell\\Desktop\\earth.bmp", image_type_bmp), new texture_mapping_sphere());
+	t = new texture_image(image_file_create("earth.bmp", image_type_bmp), new texture_mapping_sphere());
 	s->set_material(m);
 	s->set_texture(t);
 
@@ -234,12 +233,17 @@ int main() {
 		return 0;
 	}
 
-	DWORD old_time = GetTickCount();
+	clock_t old_time = clock();
 	test1(screen);
-	printf("Total time used: %dms.\n", GetTickCount() - old_time);
+	printf("Total time used: %us.\n", int((clock() - old_time) / CLOCKS_PER_SEC));
 
 	SDL_Event event;
-	while (SDL_WaitEvent(&event));
-	SDL_Quit();
+	while (SDL_WaitEvent(&event) >= 0) {
+		if (event.type == SDL_QUIT) {
+			SDL_Quit();
+			break;
+		}
+	}
+	
 	return 0;
 }

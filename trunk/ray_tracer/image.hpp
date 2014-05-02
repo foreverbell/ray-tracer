@@ -1,7 +1,7 @@
 #ifndef __IMAGE_HPP__
 #define __IMAGE_HPP__
 
-#include <filesystem>
+#include <cstdio>
 
 namespace ray_tracer {
 
@@ -23,6 +23,9 @@ namespace ray_tracer {
 	protected:
 		FILE *imgfile_ptr;
 	};
+	
+	image *image_file_create(const char *, image_file_type);
+	void image_file_destroy(image *);
 }
 
 #endif
