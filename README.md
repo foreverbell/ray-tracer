@@ -12,7 +12,7 @@ Microsoft Visual C++ 2010 & 2012 are currently supported. To compile, please ope
 
 ## Under Linux
 
-To compile, please type `make` in the folder `/ray_tracer`, then the file `rt` will be generated in this folder. You should have the SDL library installed first.
+To compile, please type `make` in the folder `/ray_tracer`, then the file `rt` will be generated in this folder. You should have the SDL library installed first. (You can download SDL library from http://www.libsdl.org/download-1.2.php)
 
 # Reference Book
 
