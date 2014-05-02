@@ -225,7 +225,11 @@ void test3(SDL_Surface *screen) {
 	render(world, screen);
 }
 
-int main() {
+// known issue in SDL 1.2, fix it with brute force.
+// see http://www.cplusplus.com/forum/general/11692/
+#define SDL_main main 
+
+int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) { 
 		printf("Could not initialize SDL: %s.\n", SDL_GetError());
 		return 0;
