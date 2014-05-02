@@ -1,6 +1,10 @@
 
 #include <thread>
+#ifdef _MSC_VER	// for MSVC
+#include <SDL.h>
+#else			// for GNU make
 #include <SDL/SDL.h>
+#endif
 #include "rtlib.hpp"
 
 using namespace ray_tracer;
