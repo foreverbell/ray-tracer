@@ -191,6 +191,15 @@
     <ClCompile Include="polyvertex.cpp">
       <Filter>bottom-layer\mathematics</Filter>
     </ClCompile>
+    <ClCompile Include="demo\demo_1.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="demo\demo_2.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="demo\demo_3.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -253,14 +262,14 @@
     <Filter Include="ply">
       <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{0343058c-9cae-4304-af8a-bc263a780c15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\material">
       <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\material\BRDF">
       <UniqueIdentifier>{5a781ca3-da1d-4507-b98b-7d4733377557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="demo">
+      <UniqueIdentifier>{1ccaba6d-6965-418f-bb8c-fed9478d19cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -447,33 +456,13 @@
     <ClInclude Include="transformation_reflect.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClInclude>
-    <ClInclude Include="include_camera.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_transformation.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_texture.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_surface.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_sampler.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_material.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include_light.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="rtlib.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="polyvertex.hpp">
       <Filter>bottom-layer\mathematics</Filter>
     </ClInclude>
+    <ClInclude Include="demo\demo.hpp">
+      <Filter>demo</Filter>
+    </ClInclude>
+    <ClInclude Include="rtlib.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="surface_plymesh.hpp">

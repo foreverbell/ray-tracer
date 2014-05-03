@@ -79,6 +79,9 @@
   <ItemGroup>
     <ClCompile Include="..\ply-1.1\plyfile.c" />
     <ClCompile Include="convexhull.cpp" />
+    <ClCompile Include="demo\demo_1.cpp" />
+    <ClCompile Include="demo\demo_2.cpp" />
+    <ClCompile Include="demo\demo_3.cpp" />
     <ClCompile Include="light_reflect.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
@@ -140,11 +143,9 @@
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
     <ClCompile Include="surface_sphere.cpp" />
-    <ClInclude Include="include_camera.hpp" />
+    <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
-    <ClInclude Include="include_light.hpp" />
     <ClInclude Include="light_reflect.hpp" />
-    <ClInclude Include="include_material.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
     <ClInclude Include="quadratic.hpp" />
@@ -166,11 +167,7 @@
     <ClInclude Include="light_area.hpp" />
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="rtlib.hpp" />
-    <ClInclude Include="include_sampler.hpp" />
     <ClInclude Include="sampler_single.hpp" />
-    <ClInclude Include="include_surface.hpp" />
-    <ClInclude Include="include_texture.hpp" />
-    <ClInclude Include="include_transformation.hpp" />
     <ClInclude Include="transformation_reflect.hpp" />
     <ClInclude Include="transformation_rotate.hpp" />
     <ClInclude Include="transformation_scale.hpp" />
