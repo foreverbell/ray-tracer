@@ -9,12 +9,66 @@
 #include "point2D.hpp"
 #include "image.hpp"
 
-#include "include_camera.hpp"
-#include "include_light.hpp"
-#include "include_material.hpp"
-#include "include_sampler.hpp"
-#include "include_surface.hpp"
-#include "include_texture.hpp"
-#include "include_transformation.hpp"
+/// {{{ headers for camera
+#include "camera.hpp"
+#include "camera_fisheye.hpp"
+#include "camera_orthographic.hpp"
+#include "camera_pinhole.hpp"
+#include "camera_thinlens.hpp"
+/// }}}
+
+/// {{{ headers for light
+#include "light.hpp"
+#include "light_point.hpp"
+#include "light_area.hpp"
+/// }}}
+
+/// {{{ headers for material
+#include "material.hpp"
+#include "material_phong.hpp"
+#include "material_matte.hpp"
+#include "material_mirror.hpp"
+/// }}}
+
+/// {{{ headers for sampler
+#include "sampler.hpp"
+#include "sampler_random.hpp"
+#include "sampler_jittered.hpp"
+#include "sampler_single.hpp"
+/// }}}
+
+/// {{{ headers for surface
+#include "surface.hpp"
+#include "surface_compound.hpp"
+#include "surface_convexhull.hpp"
+#include "surface_disk.hpp"
+#include "surface_glteapot.hpp"
+#include "surface_plane.hpp"
+#include "surface_planeDIY.hpp"
+#include "surface_plymesh.hpp"
+#include "surface_quadratic.hpp"
+#include "surface_regpolyhedron.hpp"
+#include "surface_sphere.hpp"
+#include "surface_triangle.hpp"
+#include "surface_tricompound.hpp"
+/// }}}
+
+/// {{{ headers for texture & mapping
+#include "texture.hpp"
+#include "texture_checker.hpp"
+#include "texture_image.hpp"
+#include "texture_solid.hpp"
+
+#include "texture_mapping.hpp"
+#include "texture_mapping_sphere.hpp"
+/// }}}
+
+/// {{{ headers for transformation
+#include "transformation.hpp"
+#include "transformation_reflect.hpp"
+#include "transformation_rotate.hpp"
+#include "transformation_scale.hpp"
+#include "transformation_translate.hpp"
+/// }}}
 
 #endif

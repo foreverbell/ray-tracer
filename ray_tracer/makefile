@@ -12,7 +12,7 @@ FILES = BRDF.cpp BRDF_lambertian.cpp BRDF_phong.cpp BRDF_reflection.cpp \
 	material.cpp material_matte.cpp material_mirror.cpp material_phong.cpp \
 	matrix3D.cpp matrix4D.cpp \
 	point2D.cpp point3D.cpp \
-	polyvertex.cpp polyvertex_cube.cpp polyvertex_dodecahedron.cpp polyvertex_icosahedron.cpp polyvertex_octahedron.cpp polyvertex_tetrahedron.cpp \
+	polyvertex.cpp \
 	quadratic.cpp \
 	ray.cpp \
 	sampler.cpp sampler_jittered.cpp sampler_random.cpp sampler_single.cpp \

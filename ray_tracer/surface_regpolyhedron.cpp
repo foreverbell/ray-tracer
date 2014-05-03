@@ -7,11 +7,6 @@
 #include "surface_regpolyhedron.hpp"
 #include "surface_sphere.hpp"
 #include "polyvertex.hpp"
-#include "polyvertex_tetrahedron.hpp"
-#include "polyvertex_cube.hpp"
-#include "polyvertex_octahedron.hpp"
-#include "polyvertex_dodecahedron.hpp"
-#include "polyvertex_icosahedron.hpp"
 
 // Reference: http://caterpillar.onlyfun.net/Gossip/ComputerGraphics/VetexOfPolyhedron.htm
 
