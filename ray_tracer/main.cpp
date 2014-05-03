@@ -126,8 +126,8 @@ void test1(SDL_Surface *screen) {
 	s6->set_material(m1);
 	s6->set_texture(t1);
 
-	surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
-	// surface_glteapot *s7 = new surface_glteapot();
+	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
+	surface_glteapot *s7 = new surface_glteapot();
 	// surface_plymesh *s7 = new surface_plymesh("bun_zipper.ply");
 	// s7->apply_transformation(transformation_scale(65, 65, 65));
 	// s7->apply_transformation(transformation_rotate('x', -PI / 2));
