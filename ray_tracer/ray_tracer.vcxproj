@@ -82,11 +82,6 @@
     <ClCompile Include="light_reflect.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
-    <ClCompile Include="polyvertex_cube.cpp" />
-    <ClCompile Include="polyvertex_dodecahedron.cpp" />
-    <ClCompile Include="polyvertex_icosahedron.cpp" />
-    <ClCompile Include="polyvertex_octahedron.cpp" />
-    <ClCompile Include="polyvertex_tetrahedron.cpp" />
     <ClCompile Include="quadratic.cpp" />
     <ClCompile Include="BRDF.cpp" />
     <ClCompile Include="BRDF_reflection.cpp" />
@@ -152,11 +147,6 @@
     <ClInclude Include="include_material.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
-    <ClInclude Include="polyvertex_cube.hpp" />
-    <ClInclude Include="polyvertex_dodecahedron.hpp" />
-    <ClInclude Include="polyvertex_icosahedron.hpp" />
-    <ClInclude Include="polyvertex_octahedron.hpp" />
-    <ClInclude Include="polyvertex_tetrahedron.hpp" />
     <ClInclude Include="quadratic.hpp" />
     <ClInclude Include="BRDF.hpp" />
     <ClInclude Include="BRDF_reflection.hpp" />
