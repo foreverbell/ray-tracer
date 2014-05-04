@@ -63,7 +63,6 @@ int main(int argc, char *argv[]) {
 	int demo_id = 2;
 	clock_t old_time = clock();
 	demo *dm = NULL;
-	world *wld = NULL;
 
 	switch (demo_id) {
 	case 1:
@@ -89,6 +88,7 @@ int main(int argc, char *argv[]) {
 		switch (event.type) {
 		case SDL_QUIT:	
 			SDL_Quit();
+			exit(0);
 			break;
 		case SDL_KEYDOWN:
 			bool updated = false;
@@ -104,6 +104,8 @@ int main(int argc, char *argv[]) {
 				break;
 			case SDLK_DOWN:
 				updated = dm->keybd(down);
+				break;
+			default:
 				break;
 			}
 			if (updated) render(&dm->wld, screen);
