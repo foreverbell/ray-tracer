@@ -26,7 +26,6 @@ void demo_2::set_world() {
 	l->set_shadow(false);
 
 	wld.set_ambient(color_white / 10);
-	wld.set_sampler(new sampler_single(1));
 	wld.set_camera(cam);
 	wld.add_surface(s);
 	wld.add_light(l);

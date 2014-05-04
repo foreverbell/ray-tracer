@@ -6,7 +6,7 @@
 namespace ray_tracer {
 	class sampler_single : public sampler {
 	public:
-		sampler_single(int);
+		sampler_single();
 	protected:
 		void generate(int);
 	};

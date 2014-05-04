@@ -20,8 +20,8 @@ void demo_1::set_world() {
 	// cam->rotate(PI / 4);
 
 	s1 = new surface_sphere(point3D(15, -7, 0), 9);
-	m1 = new material_mirror(colorRGB(0.2, 0.6, 0.8));
-	t1 = new texture_solid(colorRGB(0.2, 0.6, 0.8));
+	m1 = new material_mirror(color_azure);
+	t1 = new texture_solid(color_azure);
 	s1->set_material(m1);
 	s1->set_texture(t1);
 	s2 = new surface_sphere(point3D(30, 9, 0), 11);
@@ -33,7 +33,7 @@ void demo_1::set_world() {
 	s2->set_material(m2);
 	s2->set_texture(t2);
 
-	s3 = new surface_plane(point3D(10, 0, -10), vector3D(0, 0, 1));
+	s3 = new surface_plane(point3D(0, 0, -3), vector3D(0, 0, 1));
 	m3 = new material_matte;
 	s3->set_material(m3);
 	t3 = new texture_checker;
@@ -50,34 +50,20 @@ void demo_1::set_world() {
 	sc->set_material(m2);
 	sc->set_texture(t4);
 
-	std::vector<point3D> vertices;
-	vertices.push_back(point3D(0, 5, -10));
-	vertices.push_back(point3D(10, 5, -10));
-	vertices.push_back(point3D(0, 15, -10));
-	vertices.push_back(point3D(10, 15, -10));
-	vertices.push_back(point3D(0, 5, 0));
-	vertices.push_back(point3D(10, 5, 0));
-	vertices.push_back(point3D(0, 15, 0));
-	vertices.push_back(point3D(10, 15, 0));
-	surface_convexhull *s6 = new surface_convexhull(vertices);
-	s6->set_material(m1);
-	s6->set_texture(t1);
-
-	// surface_regpolyhedron *s7 = new surface_regpolyhedron(5, point3D(5, 5, -5), 4, 1);
 	surface_glteapot *s7 = new surface_glteapot();
+	s7->apply_transformation(transformation_translate(-3, -3, 0));
+	s7->set_material(new material_mirror(color_skyblue));
+	s7->set_texture(new texture_solid(color_skyblue));
 
-	s7->set_material(m3);
-	s7->set_texture(t1);
+	surface_glteapot *s8 = new surface_glteapot();
+	s8->apply_transformation(transformation_translate(3, 3, 0));
+	s8->set_material(new material_mirror(color_palegreen));
+	s8->set_texture(new texture_solid(color_palegreen));
 
-	surface_regpolyhedron *s8 = new surface_regpolyhedron(5, point3D(5, -5, -5), 20);
-	s8->set_material(m3);
-	s8->set_texture(t2);
-
-	// l1 = new light_point(point3D(0, 0, 0), color_white);
-	l1 = new light_point(point3D(-20, 0, 10), color_white);
+	l1 = new light_area(point3D(-20, 0, 10), color_white / 1.8, 3, vector3D(20, 0, -10));
 	// l1->set_spot(true, vector3D(30, 9, -30), PI / 3, 5);
 	l1->set_attenuation(true, 1, 0.0001, 0.00005);
-	l2 = new light_point(point3D(-10, 0, 30), color_white);
+	l2 = new light_point(point3D(0, 0, 30), color_white / 5);
 	l2->set_attenuation(true, 1, 0.0001, 0.00005);
 
 	wld.set_ambient(color_white / 5);
@@ -89,7 +75,7 @@ void demo_1::set_world() {
 	wld.add_surface(s3);
 	// wld.add_surface(sc);
 	wld.add_surface(s7);
-	// wld.add_surface(s8);
+	wld.add_surface(s8);
 	wld.add_light(l1);
-	//	wld.add_light(l2);
+	wld.add_light(l2);
 }

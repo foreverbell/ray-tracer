@@ -86,8 +86,8 @@ namespace ray_tracer {
 	colorRGB color_greenyellow = colorRGB(0.678431372549, 1.0, 0.18431372549);
 	colorRGB color_honeydew = colorRGB(0.941176470588, 1.0, 0.941176470588);
 	colorRGB color_hotpink = colorRGB(1.0, 0.411764705882, 0.705882352941);
-	colorRGB color_indianred  = colorRGB(0.803921568627, 0.360784313725, 0.360784313725);
-	colorRGB color_indigo   = colorRGB(0.294117647059, 0.0, 0.509803921569);
+	colorRGB color_indianred = colorRGB(0.803921568627, 0.360784313725, 0.360784313725);
+	colorRGB color_indigo = colorRGB(0.294117647059, 0.0, 0.509803921569);
 	colorRGB color_ivory = colorRGB(1.0, 1.0, 0.941176470588);
 	colorRGB color_khaki = colorRGB(0.941176470588, 0.901960784314, 0.549019607843);
 	colorRGB color_lavender = colorRGB(0.901960784314, 0.901960784314, 0.980392156863);

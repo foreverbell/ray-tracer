@@ -106,8 +106,8 @@ namespace ray_tracer {
 	extern colorRGB color_greenyellow;
 	extern colorRGB color_honeydew;
 	extern colorRGB color_hotpink;
-	extern colorRGB color_indianred ;
-	extern colorRGB color_indigo  ;
+	extern colorRGB color_indianred;
+	extern colorRGB color_indigo;
 	extern colorRGB color_ivory;
 	extern colorRGB color_khaki;
 	extern colorRGB color_lavender;

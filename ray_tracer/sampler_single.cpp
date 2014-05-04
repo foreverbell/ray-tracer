@@ -4,8 +4,8 @@
 
 namespace ray_tracer {
 
-	sampler_single::sampler_single(int num) : sampler(num) { 
-		generate(num);
+	sampler_single::sampler_single() : sampler(1) { 
+		generate(1);
 		map_sample_to_disk();
 	}
 

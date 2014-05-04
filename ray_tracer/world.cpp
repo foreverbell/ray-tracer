@@ -12,7 +12,7 @@ namespace ray_tracer {
 	world::world() {
 		tracer_ptr = new tracer;
 		sampler_ptr = NULL;
-		sampler_single_ptr = new sampler_single(1);
+		sampler_single_ptr = new sampler_single();
 		fog_ptr = NULL;
 		set_ambient(color_white / 5);
 	}
@@ -33,7 +33,6 @@ namespace ray_tracer {
 			info_ptr->hit_point = emission_ray.at(info_ptr->hit_time);
 			info_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center).at(info_ptr->hit_time);
 			info_ptr->normal = (surface_ptr->transform.get_matrix() ^ surface_ptr->atnormal(info_ptr->hit_local_point)).normalized();
-			// info_ptr->normal = surface_ptr->atnormal(info_ptr->hit_local_point);
 			info_ptr->emission_ray = emission_ray;
 			return true;
 		} else {

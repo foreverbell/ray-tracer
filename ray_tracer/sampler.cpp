@@ -12,7 +12,7 @@ namespace ray_tracer {
 	sampler::~sampler() { }
 
 	/*
-		Origin: Shirley and Chiu(1997).
+		Code from: Shirley and Chiu(1997).
 		See book <Ray Tracing From The Ground Up>.
 	*/
 	void sampler::map_sample_to_disk() {
