@@ -3,26 +3,6 @@
 
 using namespace ray_tracer;
 
-/*
-bool in_sierpinski(int depth, const point2D &v1, const point2D &v2, const point2D &v3, const point2D &v0) {
-	if (dblcmp((v2 - v1) ^ (v0 - v1)) < 0) return false;
-	if (dblcmp((v3 - v2) ^ (v0 - v2)) < 0) return false;
-	if (dblcmp((v1 - v3) ^ (v0 - v3)) < 0) return false;
-	if (depth == 0) return true;
-	point2D v4 = (v1 + v2) / 2, v5 = (v2 + v3) / 2, v6 = (v3 + v1) / 2;
-	if (in_sierpinski(depth - 1, v1, v4, v6, v0)) return true;
-	if (in_sierpinski(depth - 1, v4, v2, v5, v0)) return true;
-	if (in_sierpinski(depth - 1, v6, v5, v3, v0)) return true;
-	return false;
-}
-
-const double triradius = 25, sqrt3 = sqrt(3);
-
-bool func(double x, double y) {
-	return in_sierpinski(5, point2D(0, triradius), point2D(-triradius * sqrt3 / 2, -triradius / 2), point2D(triradius * sqrt3 / 2, -triradius / 2), point2D(x, y));
-}
-*/
-
 void demo_1::set_world() {
 	surface *s1, *s2, *s3, *s5;
 	surface_quadratic *s4;

@@ -44,7 +44,6 @@
 #include "surface_disk.hpp"
 #include "surface_glteapot.hpp"
 #include "surface_plane.hpp"
-#include "surface_planeDIY.hpp"
 #include "surface_plymesh.hpp"
 #include "surface_quadratic.hpp"
 #include "surface_regpolyhedron.hpp"

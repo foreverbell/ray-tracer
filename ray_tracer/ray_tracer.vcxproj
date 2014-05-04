@@ -110,7 +110,6 @@
     <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
-    <ClCompile Include="surface_planeDIY.cpp" />
     <ClCompile Include="surface_quadratic.cpp" />
     <ClCompile Include="surface_regpolyhedron.cpp" />
     <ClCompile Include="surface_tricompound.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
-    <ClInclude Include="surface_planeDIY.hpp" />
     <ClInclude Include="surface_quadratic.hpp" />
     <ClInclude Include="surface_regpolyhedron.hpp" />
     <ClInclude Include="surface_tricompound.hpp" />
