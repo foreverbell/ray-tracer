@@ -10,7 +10,7 @@ namespace ray_tracer {
 	public:
 		matrix4D();
 		matrix4D transpose() const;
-		// matrix3D convert3D() const;
+		matrix3D convert3D() const;
 		friend matrix4D operator*(const matrix4D &, const matrix4D &);
 		/* W = 1, [Vx, Vy, Vz, 1]T */
 		friend vector3D operator*(const matrix4D &, const vector3D &);

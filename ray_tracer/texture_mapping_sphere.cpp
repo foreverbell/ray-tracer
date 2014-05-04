@@ -4,13 +4,15 @@
 
 namespace ray_tracer {
 
+#define sqr(x) (x) * (x)
+
 	point2D texture_mapping_sphere::get_coordinate(hit_info *info_ptr) const {
 		const surface_sphere *sphere_ptr = dynamic_cast<const surface_sphere *>(info_ptr->surface_ptr);
-		vector3D p = (info_ptr->hit_point - sphere_ptr->center).normalized();
-		double alpha, beta;
+		vector3D p = (info_ptr->hit_local_point - sphere_ptr->center).normalized();
+		
+		double u = 0.5 + atan2(p.x, p.y) / 2 / PI;
+		double v = 0.5 - asin(p.z) / PI;
 
-		alpha = acos(p.z), beta = atan2(p.x, p.y);
-		if (beta < 0) beta += PI * 2;
-		return point2D(beta / 2 / PI, alpha / PI);
+		return point2D(u, v);
 	}
 }

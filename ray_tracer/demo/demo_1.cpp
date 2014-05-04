@@ -24,7 +24,6 @@ bool func(double x, double y) {
 */
 
 void demo_1::set_world() {
-	camera *cam;
 	surface *s1, *s2, *s3, *s5;
 	surface_quadratic *s4;
 	surface_compound *sc;

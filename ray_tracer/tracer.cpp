@@ -46,7 +46,7 @@ namespace ray_tracer {
 				result += process_light(info_ptr->emission_ray.bind_light_ptr, info_ptr, surface_color, win);
 			}
 			if (world_ptr->fog_ptr) {
-				result = world_ptr->fog_ptr->fog_blending(info_ptr, world_ptr->camera_ptr->get_view_point(), result);
+				result = world_ptr->fog_ptr->fog_blending(info_ptr, world_ptr->camera_ptr->get_eye(), result);
 			}
 			return result;
 		}

@@ -4,7 +4,6 @@
 using namespace ray_tracer;
 
 void demo_3::set_world() {
-	camera *cam;
 	surface *s;
 	material_phong *m;
 	texture *t;

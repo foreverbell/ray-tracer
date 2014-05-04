@@ -17,8 +17,11 @@ namespace ray_tracer {
 		colorRGB texture_shade(hit_info *) const;
 		void set_bifaced(bool);
 		void set_bifaced(bool, int);
+		void set_transform_center(const point3D &);
 		void set_transform_center(const point3D &, int);
+		void clear_transformation();
 		void clear_transformation(int);
+		void apply_transformation(const transformation &);
 		void apply_transformation(const transformation &, int);
 	protected:
 		std::vector<surface *> surfaces;

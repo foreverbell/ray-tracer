@@ -15,6 +15,7 @@ namespace ray_tracer {
 	class surface {
 		friend class surface_compound;
 		friend class tracer;
+		friend class world;
 	public:
 		surface();
 		virtual ~surface() = 0;

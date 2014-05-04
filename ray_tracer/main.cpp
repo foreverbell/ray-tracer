@@ -41,7 +41,7 @@ void render(world *world, SDL_Surface *screen) {
 		SDL_UnlockSurface(screen);
 	}
 	SDL_UpdateRect(screen, 0, 0, width, height);
-	SDL_SaveBMP(screen, "rt_render.bmp");
+	// SDL_SaveBMP(screen, "rt_render.bmp");
 }
 
 // known issue in SDL 1.2, fix it with brute force.
@@ -86,8 +86,27 @@ int main(int argc, char *argv[]) {
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {
-		if (event.type == SDL_QUIT) {
+		switch (event.type) {
+		case SDL_QUIT:	
 			SDL_Quit();
+			break;
+		case SDL_KEYDOWN:
+			bool updated = false;
+			switch (event.key.keysym.sym) {
+			case SDLK_LEFT:
+				updated = dm->keybd(left);
+				break;
+			case SDLK_RIGHT:
+				updated = dm->keybd(right);
+				break;
+			case SDLK_UP:
+				updated = dm->keybd(up);
+				break;
+			case SDLK_DOWN:
+				updated = dm->keybd(down);
+				break;
+			}
+			if (updated) render(&dm->wld, screen);
 			break;
 		}
 	}

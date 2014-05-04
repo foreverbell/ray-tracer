@@ -228,4 +228,32 @@ namespace ray_tracer {
 			}
 		}
 	}
+
+	void surface_tricompound::set_bifaced(bool twoface_) {
+		for (std::vector<surface_triangle *>::iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
+			(*it)->set_bifaced(twoface_);
+		}
+		surface::set_bifaced(twoface_);
+	}
+
+	void surface_tricompound::set_transform_center(const point3D &center_) {
+		for (std::vector<surface_triangle *>::iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
+			(*it)->set_transform_center(center_);
+		}
+		surface::set_transform_center(center_);
+	}
+
+	void surface_tricompound::clear_transformation() {
+		for (std::vector<surface_triangle *>::iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
+			(*it)->clear_transformation();
+		}
+		surface::clear_transformation();
+	}
+
+	void surface_tricompound::apply_transformation(const transformation &transformation_) {
+		for (std::vector<surface_triangle *>::iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
+			(*it)->apply_transformation(transformation_);
+		}
+		surface::apply_transformation(transformation_);
+	}
 }

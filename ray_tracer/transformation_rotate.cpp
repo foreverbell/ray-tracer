@@ -60,9 +60,9 @@ namespace ray_tracer {
 		mat2.value[2][0] = (1 - c) * normal_axis.x * normal_axis.z - s * normal_axis.y;
 		mat2.value[2][1] = (1 - c) * normal_axis.y * normal_axis.z + s * normal_axis.x;
 		mat2.value[2][2] = c + (1 - c) * normal_axis.z * normal_axis.z;
-		mat2.value[0][3] = 1;
-		mat2.value[1][3] = 1;
-		mat2.value[2][3] = 1;
+		// mat2.value[0][3] = 1; bug?
+		// mat2.value[1][3] = 1;
+		// mat2.value[2][3] = 1;
 		mat2.value[3][3] = 1;
 		matrix = mat1 * mat2 * mat3;
 
@@ -76,9 +76,9 @@ namespace ray_tracer {
 		mat2.value[2][0] = (1 - c) * normal_axis.x * normal_axis.z - s * normal_axis.y;
 		mat2.value[2][1] = (1 - c) * normal_axis.y * normal_axis.z + s * normal_axis.x;
 		mat2.value[2][2] = c + (1 - c) * normal_axis.z * normal_axis.z;
-		mat2.value[0][3] = 1;
-		mat2.value[1][3] = 1;
-		mat2.value[2][3] = 1;
+		// mat2.value[0][3] = 1;
+		// mat2.value[1][3] = 1;
+		// mat2.value[2][3] = 1;
 		mat2.value[3][3] = 1;
 		inv_matrix = mat1 * mat2 * mat3;
 	}
