@@ -82,6 +82,7 @@
     <ClCompile Include="demo\demo_1.cpp" />
     <ClCompile Include="demo\demo_2.cpp" />
     <ClCompile Include="demo\demo_3.cpp" />
+    <ClCompile Include="demo\demo_4.cpp" />
     <ClCompile Include="light_reflect.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />

@@ -8,7 +8,7 @@ FILES = BRDF.cpp BRDF_lambertian.cpp BRDF_phong.cpp BRDF_reflection.cpp \
 	hit_info.cpp \
 	image.cpp image_bmp.cpp \
 	light.cpp light_area.cpp light_point.cpp light_reflect.cpp \
-	main.cpp demo/demo_1.cpp demo/demo_2.cpp demo/demo_3.cpp \
+	main.cpp demo/demo_1.cpp demo/demo_2.cpp demo/demo_3.cpp demo/demo_4.cpp \
 	material.cpp material_matte.cpp material_mirror.cpp material_phong.cpp \
 	matrix3D.cpp matrix4D.cpp \
 	point2D.cpp point3D.cpp \

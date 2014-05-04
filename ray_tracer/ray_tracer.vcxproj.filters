@@ -197,6 +197,9 @@
     <ClCompile Include="demo\demo_3.cpp">
       <Filter>demo</Filter>
     </ClCompile>
+    <ClCompile Include="demo\demo_4.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">

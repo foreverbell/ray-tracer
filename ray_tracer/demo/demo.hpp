@@ -42,6 +42,11 @@ namespace ray_tracer {
 	public:
 		void set_world();
 	};
+
+	class demo_4 : public demo {
+	public:
+		void set_world();
+	};
 }
 
 #endif
