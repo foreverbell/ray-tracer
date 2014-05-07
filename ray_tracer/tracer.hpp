@@ -13,7 +13,7 @@ namespace ray_tracer {
 	public:	
 		colorRGB ray_color(hit_info *) const;
 	private:
-		colorRGB process_light(const light *, hit_info *, const colorRGB &, const vector3D &) const;
+		colorRGB deal_light(const light *, hit_info *, const colorRGB &, const vector3D &) const;
 	};
 }
 

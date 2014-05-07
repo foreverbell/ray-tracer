@@ -9,6 +9,7 @@
 namespace ray_tracer {
 
 	hit_info::hit_info() { 
+#ifdef DEBUG
 		hit_time = HUGE_DOUBLE;
 		hit_point = point3D(0, 0, 0);
 		normal = vector3D(0, 0, 0);
@@ -17,6 +18,7 @@ namespace ray_tracer {
 		light_ptr = NULL;
 		sampler_iterator_ptr = NULL;
 		emission_ray = ray();
+#endif
 		ray_tracing_depth = 3;
 	}
 }

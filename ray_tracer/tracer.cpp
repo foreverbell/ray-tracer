@@ -8,7 +8,7 @@
 
 namespace ray_tracer {
 
-	colorRGB tracer::process_light(const light *light_ptr, hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win) const {
+	colorRGB tracer::deal_light(const light *light_ptr, hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win) const {
 		double temp;
 		vector3D wout;
 
@@ -36,10 +36,10 @@ namespace ray_tracer {
 			win = (info_ptr->emission_ray.origin - info_ptr->hit_point).normalized();
 			result = info_ptr->world_ptr->ambient * surface_color;
 			for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
-				result += process_light(*iter, info_ptr, surface_color, win);
+				result += deal_light(*iter, info_ptr, surface_color, win);
 			}
 			if (info_ptr->emission_ray.bind_light_ptr != NULL) {
-				result += process_light(info_ptr->emission_ray.bind_light_ptr, info_ptr, surface_color, win);
+				result += deal_light(info_ptr->emission_ray.bind_light_ptr, info_ptr, surface_color, win);
 			}
 			if (world_ptr->fog_ptr) {
 				result = world_ptr->fog_ptr->fog_blending(info_ptr, world_ptr->camera_ptr->get_eye(), result);

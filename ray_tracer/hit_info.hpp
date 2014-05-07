@@ -17,16 +17,25 @@ namespace ray_tracer {
 	public:
 		hit_info();
 	public:
+		// initialized at world::get_hit()
 		double hit_time;
+		const surface *surface_ptr;
 		point3D hit_point;
 		point3D hit_local_point;
 		vector3D normal;
-		const world *world_ptr;
-		const surface *surface_ptr;
-		const camera *camera_ptr;
-		const light *light_ptr;
-		sampler_iterator *sampler_iterator_ptr;
 		ray emission_ray;
+
+		// initilized at world::render_scene()
+		const world *world_ptr;
+		sampler_iterator *sampler_iterator_ptr;
+
+		// initilized at camera::render_scene()
+		const camera *camera_ptr;
+
+		// initilized at tracer::deal_light()  (dynamically)
+		const light *light_ptr;
+		
+		// initilized at constructor()
 		int ray_tracing_depth;
 	};
 }
