@@ -30,7 +30,6 @@ namespace ray_tracer {
 		virtual void set_material(const material *);
 		colorRGB texture_shade(hit_info *) const;
 		virtual void set_texture(const texture *);
-		virtual void set_bifaced(bool);
 		virtual void set_transform_center(const point3D &);
 		virtual void clear_transformation();
 		virtual void apply_transformation(const transformation &);
@@ -38,7 +37,7 @@ namespace ray_tracer {
 		const surface *shading_surface_ptr;
 		const material *material_ptr;
 		const texture *texture_ptr;
-		bool bifaced, transformed;
+		bool transformed;
 		point3D transform_center;
 		transformation transform;
 	};

@@ -7,7 +7,6 @@ namespace ray_tracer {
 		shading_surface_ptr = NULL;
 		material_ptr = NULL;
 		texture_ptr = NULL;
-		bifaced = false;
 		clear_transformation();
 	}
 
@@ -31,10 +30,6 @@ namespace ray_tracer {
 
 	void surface::set_texture(const texture *texture_ptr_) {
 		texture_ptr = texture_ptr_;
-	}
-
-	void surface::set_bifaced(bool twoface_) {
-		bifaced = twoface_;
 	}
 
 	void surface::set_transform_center(const point3D &center_) {

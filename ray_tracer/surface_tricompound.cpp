@@ -21,7 +21,6 @@ namespace ray_tracer {
 	void surface_tricompound::add_surface(surface_triangle *surface_) {
 		assert(!islocked);
 		surface_->bind_shading_surface(this);
-		surface_->set_bifaced(true);
 		surfaces.push_back(surface_);
 	}
 
@@ -227,13 +226,6 @@ namespace ray_tracer {
 				return result.first;
 			}
 		}
-	}
-
-	void surface_tricompound::set_bifaced(bool twoface_) {
-		for (std::vector<surface_triangle *>::iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
-			(*it)->set_bifaced(twoface_);
-		}
-		surface::set_bifaced(twoface_);
 	}
 
 	void surface_tricompound::set_transform_center(const point3D &center_) {

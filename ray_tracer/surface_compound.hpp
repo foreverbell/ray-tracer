@@ -15,8 +15,6 @@ namespace ray_tracer {
 		void set_texture(const texture *);
 		void set_texture(const texture *, int);
 		colorRGB texture_shade(hit_info *) const;
-		void set_bifaced(bool);
-		void set_bifaced(bool, int);
 		void set_transform_center(const point3D &);
 		void set_transform_center(const point3D &, int);
 		void clear_transformation();

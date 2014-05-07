@@ -29,16 +29,6 @@ namespace ray_tracer {
 		surfaces[index_]->set_texture(texture_ptr_);
 	}
 
-	void surface_compound::set_bifaced(bool twoface_) {
-		for (std::vector<surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
-			(*iter)->set_bifaced(twoface_);
-		}
-	}
-
-	void surface_compound::set_bifaced(bool twoface_, int index_) {
-		surfaces[index_]->set_bifaced(twoface_);
-	}
-
 	void surface_compound::set_transform_center(const point3D &center_) {
 		for (std::vector<surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
 			(*iter)->set_transform_center(center_);
