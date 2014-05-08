@@ -36,7 +36,7 @@ namespace ray_tracer {
 		std::pair<point3D, double> get_minimum_circumsphere() const;
 		std::unique_ptr<kdtree_node> build_kdtree(std::vector<int> surfaces_list);
 		std::pair<double, int> search_kdtree(const ray &, const kdtree_node *) const;
-		std::pair<double, int> select_best_median(int dim, const std::vector<int> &surfaces_list);
+		std::pair<point3D, int> get_division(const vector3D &normal, const std::vector<int> &surfaces_list);
 	};
 }
 

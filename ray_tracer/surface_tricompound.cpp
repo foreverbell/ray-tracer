@@ -35,40 +35,29 @@ namespace ray_tracer {
 		bound_sphere = surface_sphere(sphere.first, sphere.second);
 	}
 
-	std::pair<double, int> surface_tricompound::select_best_median(int dim, const std::vector<int> &surfaces_list) {
+	std::pair<point3D, int> surface_tricompound::get_division(const vector3D &normal, const std::vector<int> &surfaces_list) {
 		std::vector<std::pair<double, double> > interval;
-		std::vector<double> x_cords;
+		std::vector<std::pair<double, point3D> > cords;
 
 		for (std::vector<int>::const_iterator it = surfaces_list.begin(); it != surfaces_list.end(); ++it) {
-			double min_x, max_x;
-			if (dim == 0) {
-				min_x = surfaces[*it]->v0.x;
-				min_x = std::min(min_x, surfaces[*it]->v1.x);
-				min_x = std::min(min_x, surfaces[*it]->v2.x);
-				max_x = surfaces[*it]->v0.x;
-				max_x = std::max(max_x, surfaces[*it]->v1.x);
-				max_x = std::max(max_x, surfaces[*it]->v2.x);
-			} else if (dim == 1) {
-				min_x = surfaces[*it]->v0.y;
-				min_x = std::min(min_x, surfaces[*it]->v1.y);
-				min_x = std::min(min_x, surfaces[*it]->v2.y);
-				max_x = surfaces[*it]->v0.y;
-				max_x = std::max(max_x, surfaces[*it]->v1.y);
-				max_x = std::max(max_x, surfaces[*it]->v2.y);
-			} else {
-				min_x = surfaces[*it]->v0.z;
-				min_x = std::min(min_x, surfaces[*it]->v1.z);
-				min_x = std::min(min_x, surfaces[*it]->v2.z);
-				max_x = surfaces[*it]->v0.z;
-				max_x = std::max(max_x, surfaces[*it]->v1.z);
-				max_x = std::max(max_x, surfaces[*it]->v2.z);
+			double v[3] = {surfaces[*it]->v0 * normal, surfaces[*it]->v1 * normal, surfaces[*it]->v2 * normal};
+			point3D pt[3] = {surfaces[*it]->v0, surfaces[*it]->v1, surfaces[*it]->v2};
+
+			int small = 0, big = 0;
+
+			for (int i = 1; i < 3; ++i) {
+				if (v[i] < v[small]) small = i;
+				if (v[i] > v[big]) big = i;
 			}
-			interval.push_back(std::make_pair(min_x, max_x));
-			x_cords.push_back(min_x);
-			x_cords.push_back(max_x);
+
+			interval.push_back(std::make_pair(v[small], v[big]));
+			cords.push_back(std::make_pair(v[small], pt[small]));
+			cords.push_back(std::make_pair(v[big], pt[big]));
 		}
 		std::sort(interval.begin(), interval.end());
-		std::sort(x_cords.begin(), x_cords.end());
+		std::sort(cords.begin(), cords.end(), [&](const std::pair<double, point3D> &a, const std::pair<double, point3D> &b) -> bool {
+			return a.first < b.first;
+		});
 
 		auto lambda_func = [&](const int &a, const int &b) -> bool {
 			return interval[a].second > interval[b].second;
@@ -76,17 +65,17 @@ namespace ray_tracer {
 		std::priority_queue<int, std::vector<int>, decltype(lambda_func)> heap(lambda_func);
 		int lsize = 0, rsize = surfaces_list.size(), msize = 0, curr_value, best_value = INT32_MAX;
 		size_t curr_iter = 0;
-		double x_pos = 0;
+		point3D pos = point3D(0, 0, 0);
 
-		for (std::vector<double>::iterator it = x_cords.begin(); it != x_cords.end(); ++it) {
-			while (curr_iter < surfaces_list.size() && interval[curr_iter].first < *it) {
+		for (std::vector<std::pair<double, point3D> >::iterator it = cords.begin(); it != cords.end(); ++it) {
+			while (curr_iter < surfaces_list.size() && interval[curr_iter].first < it->first) {
 				++msize, --rsize;
 				heap.push(curr_iter);
 				++curr_iter;
 			}
 			while (!heap.empty()) {
 				int top = heap.top();
-				if (interval[top].second < *it) {
+				if (interval[top].second < it->first) {
 					heap.pop();
 					--msize, ++lsize;
 				} else {
@@ -96,31 +85,46 @@ namespace ray_tracer {
 			curr_value = (rsize > lsize ? rsize - lsize : lsize - rsize) + msize;
 			if (curr_value < best_value) {
 				best_value = curr_value;
-				x_pos = *it;
+				pos = it->second;
 			}
 		}
-		return std::make_pair(x_pos, best_value);
+		return std::make_pair(pos, best_value);
 	}
 
 	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> surfaces_list) {
 		if (surfaces_list.size() == 0) return nullptr;
-		
-		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
-		std::pair<double, int> m0 = select_best_median(0, surfaces_list);
-		std::pair<double, int> m1 = select_best_median(1, surfaces_list);
-		std::pair<double, int> m2 = select_best_median(2, surfaces_list);
-		double median;
 
-		if (m0.second <= m1.second && m0.second <= m2.second) {
-			median = m0.first;
-			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(median, 0, 0), vector3D(1, 0, 0)));
-		} else if (m1.second <= m0.second && m1.second <= m2.second) {
-			median = m1.first;
-			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(0, median, 0), vector3D(0, 1, 0)));
-		} else {
-			median = m2.first;
-			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(point3D(0, 0, median), vector3D(0, 0, 1)));
+		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
+
+		if (surfaces_list.size() < 50) {
+			node_ptr->lchild_ptr = nullptr;
+			node_ptr->rchild_ptr = nullptr;
+			node_ptr->divide_plane_ptr = nullptr;
+			node_ptr->cross_surfaces = surfaces_list;
+			
+			return node_ptr;
 		}
+
+		vector3D best_normal = vector3D(0, 0, 0);
+		point3D median = point3D(0, 0, 0);
+		int best_val = INT_MAX;
+
+		for (int iter = 0; iter < 3; ++iter) {
+			vector3D normal;
+			if (iter == 0) normal = vector3D(1, 0, 0);
+			else if (iter == 1) normal = vector3D(0, 1, 0);
+			else normal = vector3D(0, 0, 1);
+
+			std::pair<point3D, int> tmp = get_division(normal, surfaces_list);
+
+			if (tmp.second < best_val) {
+				best_val = tmp.second;
+				median = tmp.first;
+				best_normal = normal;
+			}
+		}
+
+		node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(median, best_normal));
 
 		std::vector<int> left_surfaces, right_surfaces, middle_surfaces;
 		int sgn0, sgn1, sgn2;
@@ -147,7 +151,7 @@ namespace ray_tracer {
 
 	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, const kdtree_node *node_ptr) const {
 		if (node_ptr == NULL) return std::make_pair(HUGE_DOUBLE, -1);
-	
+
 		std::pair<double, int> result = std::make_pair(HUGE_DOUBLE, -1), tresult;
 
 		double temp_t;
@@ -155,6 +159,8 @@ namespace ray_tracer {
 			temp_t = surfaces[*it]->hit(emission_ray, NULL);
 			if (temp_t > EPSILON && temp_t < result.first) result = std::make_pair(temp_t, *it);
 		}
+
+		if (node_ptr->divide_plane_ptr == NULL) return result;
 
 		int side = DBLCMP((emission_ray.origin - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
 		if (side == 0) {
