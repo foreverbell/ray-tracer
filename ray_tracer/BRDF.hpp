@@ -3,15 +3,15 @@
 
 #include "colorRGB.hpp"
 #include "vector3D.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 
 namespace ray_tracer {
 	class BRDF {
 	public:
 		BRDF(const colorRGB &);
 		/** win & wout should be unit vector */
-		virtual colorRGB f(hit_info *, const vector3D &, const vector3D &) const;
-		virtual colorRGB sample_f(hit_info *, const vector3D &) const;
+		virtual colorRGB f(shade_context *, const vector3D &, const vector3D &) const;
+		virtual colorRGB sample_f(shade_context *, const vector3D &) const;
 	protected:
 		colorRGB rho;
 	};

@@ -152,9 +152,6 @@
     <ClCompile Include="world.cpp">
       <Filter>bottom-layer\trace</Filter>
     </ClCompile>
-    <ClCompile Include="hit_info.cpp">
-      <Filter>bottom-layer\trace</Filter>
-    </ClCompile>
     <ClCompile Include="texture_solid.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
@@ -202,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="material_transparent.cpp">
       <Filter>bottom-layer\material</Filter>
+    </ClCompile>
+    <ClCompile Include="shade_context.cpp">
+      <Filter>bottom-layer\trace</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -429,9 +429,6 @@
     <ClInclude Include="world.hpp">
       <Filter>bottom-layer\trace</Filter>
     </ClInclude>
-    <ClInclude Include="hit_info.hpp">
-      <Filter>bottom-layer\trace</Filter>
-    </ClInclude>
     <ClInclude Include="texture_solid.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
@@ -465,6 +462,9 @@
     </ClInclude>
     <ClInclude Include="material_transparent.hpp">
       <Filter>bottom-layer\material</Filter>
+    </ClInclude>
+    <ClInclude Include="shade_context.hpp">
+      <Filter>bottom-layer\trace</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

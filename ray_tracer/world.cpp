@@ -22,18 +22,18 @@ namespace ray_tracer {
 		delete sampler_single_ptr;
 	}
 
-	bool world::get_hit(const ray &emission_ray, hit_info *info_ptr) const {
+	bool world::get_hit(const ray &emission_ray, shade_context *context_ptr) const {
 		const surface *surface_ptr = NULL;
 		double hit_time;
 
 		hit_time = surfaces.hit(emission_ray, &surface_ptr);
 		if (surface_ptr != NULL) { 
-			info_ptr->hit_time = hit_time;
-			info_ptr->surface_ptr = surface_ptr;
-			info_ptr->hit_point = emission_ray.at(info_ptr->hit_time);
-			info_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center).at(info_ptr->hit_time);
-			info_ptr->normal = (surface_ptr->transform.get_matrix() ^ surface_ptr->atnormal(info_ptr->hit_local_point)).normalized();
-			info_ptr->emission_ray = emission_ray;
+			context_ptr->hit_time = hit_time;
+			context_ptr->surface_ptr = surface_ptr;
+			context_ptr->hit_point = emission_ray.at(context_ptr->hit_time);
+			context_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center).at(context_ptr->hit_time);
+			context_ptr->normal = (surface_ptr->transform.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
+			context_ptr->emission_ray = emission_ray;
 			return true;
 		} else {
 			return false;
@@ -52,7 +52,7 @@ namespace ray_tracer {
 	void world::render_scene() {
 		colorRGB color;
 		point2D sample_point;
-		hit_info info;
+		shade_context info;
 		int x, y;
 
 		do {

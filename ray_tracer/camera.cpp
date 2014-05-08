@@ -1,6 +1,6 @@
 
 #include "camera.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 #include "matrix3D.hpp"
 #include "world.hpp"
 #include "misc.hpp"
@@ -24,13 +24,13 @@ namespace ray_tracer {
 	
 	camera::~camera() { }
 
-	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, hit_info *info_ptr) const {
-		const world *world_ptr = info_ptr->world_ptr;
+	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, shade_context *context_ptr) const {
+		const world *world_ptr = context_ptr->world_ptr;
 		ray emission_ray = ray(origin, dir);
 
-		info_ptr->camera_ptr = this;
-		if (world_ptr->get_hit(emission_ray, info_ptr)) {
-			return world_ptr->tracer_ptr->ray_color(info_ptr);
+		context_ptr->camera_ptr = this;
+		if (world_ptr->get_hit(emission_ray, context_ptr)) {
+			return world_ptr->tracer_ptr->ray_color(context_ptr);
 		} else {
 			return world_ptr->get_background();
 		}

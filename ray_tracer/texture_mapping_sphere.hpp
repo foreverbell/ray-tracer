@@ -6,7 +6,7 @@
 namespace ray_tracer {
 	class texture_mapping_sphere : public texture_mapping {
 	public:
-		point2D get_coordinate(hit_info *) const;
+		point2D get_coordinate(shade_context *) const;
 	};
 }
 

@@ -7,10 +7,10 @@ namespace ray_tracer {
 
 	BRDF_phong::BRDF_phong(const colorRGB &rho_) : BRDF(rho_) { }
 
-	colorRGB BRDF_phong::f(hit_info *info_ptr, const vector3D &win, const vector3D &wout) const {
+	colorRGB BRDF_phong::f(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
 		double temp;
 
-		temp = info_ptr->normal * (win + wout).normalized();
+		temp = context_ptr->normal * (win + wout).normalized();
 		if (temp > 0.0) {
 			temp = pow(temp, shininess);
 			return colorRGB(temp, temp, temp) * rho;

@@ -1,5 +1,5 @@
-#ifndef __HIT_INFO_HPP__
-#define __HIT_INFO_HPP__
+#ifndef __shade_context_HPP__
+#define __shade_context_HPP__
 
 #include "vector3D.hpp"
 #include "point3D.hpp"
@@ -15,9 +15,9 @@ namespace ray_tracer {
 	class light;
 	class sampler_iterator;
 
-	class hit_info {
+	class shade_context {
 	public:
-		hit_info();
+		shade_context();
 	public:
 		// initialized at world::get_hit()
 		double hit_time;

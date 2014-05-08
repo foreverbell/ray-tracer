@@ -11,10 +11,10 @@ namespace ray_tracer {
 		double hit(const ray &, const surface **) const;
 		void set_material(const material *);
 		void set_material(const material *, int);
-		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &) const;
+		colorRGB material_shade(shade_context *, const colorRGB &, const vector3D &, const vector3D &) const;
 		void set_texture(const texture *);
 		void set_texture(const texture *, int);
-		colorRGB texture_shade(hit_info *) const;
+		colorRGB texture_shade(shade_context *) const;
 		void set_transform_center(const point3D &);
 		void set_transform_center(const point3D &, int);
 		void clear_transformation();

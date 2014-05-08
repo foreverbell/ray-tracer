@@ -13,9 +13,9 @@ namespace ray_tracer {
 		color2 = color2_;
 	}
 
-	colorRGB texture_checker::texture_shade(hit_info *info_ptr) const {
+	colorRGB texture_checker::texture_shade(shade_context *context_ptr) const {
 		const int sz = 4;
-		point3D p = info_ptr->hit_point;
+		point3D p = context_ptr->hit_point;
 		int x = (int)floor(p.x / sz);
 		int y = (int)floor(p.y / sz);
 		int z = (int)floor(p.z / sz);

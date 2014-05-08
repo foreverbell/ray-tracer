@@ -8,8 +8,8 @@ namespace ray_tracer {
 		mapping_ptr = mapping_ptr_;
 	}
 
-	colorRGB texture_image::texture_shade(hit_info *info_ptr) const {
-		point2D coord = mapping_ptr->get_coordinate(info_ptr);
+	colorRGB texture_image::texture_shade(shade_context *context_ptr) const {
+		point2D coord = mapping_ptr->get_coordinate(context_ptr);
 		int x, y;
 
 		x = (int)((image_ptr->get_width() - 1) * coord.x);

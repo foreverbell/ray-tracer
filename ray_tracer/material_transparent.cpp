@@ -1,6 +1,6 @@
 
 #include "material_transparent.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 
 namespace ray_tracer {
 
@@ -14,7 +14,7 @@ namespace ray_tracer {
 		refraction_ptr = std::unique_ptr<BRDF_refraction>(new BRDF_refraction(rho2, eta));
 	}
 
-	colorRGB material_transparent::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
-		return (reflection_ptr->sample_f(info_ptr, win) + refraction_ptr->sample_f(info_ptr, win)) * surface_color;
+	colorRGB material_transparent::material_shade(shade_context *context_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
+		return (reflection_ptr->sample_f(context_ptr, win) + refraction_ptr->sample_f(context_ptr, win)) * surface_color;
 	}
 }

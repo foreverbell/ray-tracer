@@ -4,7 +4,7 @@
 #include "vector3D.hpp"
 #include "point3D.hpp"
 #include "colorRGB.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 
 namespace ray_tracer {
 	class world;
@@ -13,8 +13,8 @@ namespace ray_tracer {
 		camera();
 		camera(const point3D &, const point3D &, const vector3D &);
 		virtual ~camera() = 0;
-		virtual colorRGB render_scene(double, double, int, int, hit_info *) const = 0;
-		colorRGB render_scene(const point3D &, const vector3D &, hit_info *) const;
+		virtual colorRGB render_scene(double, double, int, int, shade_context *) const = 0;
+		colorRGB render_scene(const point3D &, const vector3D &, shade_context *) const;
 		point3D get_eye() const;
 		void roll(double);
 		void rotate(double);

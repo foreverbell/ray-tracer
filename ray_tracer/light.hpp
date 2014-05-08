@@ -3,7 +3,7 @@
 
 #include "point3D.hpp"
 #include "colorRGB.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 #include "ray.hpp"
 
 namespace ray_tracer {
@@ -13,15 +13,15 @@ namespace ray_tracer {
 		light();
 		light(const point3D &, const colorRGB &);
 		virtual ~light();
-		virtual point3D get_light_origin(hit_info *) const;
+		virtual point3D get_light_origin(shade_context *) const;
 		void set_position(const point3D &);
 		void set_color(const colorRGB &);
 		void set_shadow(bool);
 		void set_spot(bool, const vector3D &, double, int);
 		void set_attenuation(bool, double, double, double);
-		bool under_shadow(hit_info *) const;
-		virtual colorRGB light_shade(hit_info *) const;
-		bool in_range(hit_info *) const;
+		bool under_shadow(shade_context *) const;
+		virtual colorRGB light_shade(shade_context *) const;
+		bool in_range(shade_context *) const;
 	protected:
 		point3D position;
 		colorRGB color;

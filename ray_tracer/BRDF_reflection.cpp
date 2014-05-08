@@ -8,15 +8,15 @@ namespace ray_tracer {
 
 	BRDF_reflection::BRDF_reflection(const colorRGB &rho_) : BRDF(rho_) { }
 
-	colorRGB BRDF_reflection::sample_f(hit_info *info_ptr, const vector3D &win) const {
-		hit_info info = *info_ptr;
+	colorRGB BRDF_reflection::sample_f(shade_context *context_ptr, const vector3D &win) const {
+		shade_context info = *context_ptr;
 
-		info.trace_depth = info_ptr->trace_depth - 1;
+		info.trace_depth = context_ptr->trace_depth - 1;
 
-		if (info_ptr->normal * win > 0) {
-			return rho * info_ptr->camera_ptr->render_scene(info_ptr->hit_point, 2 * info_ptr->normal - win, &info);
+		if (context_ptr->normal * win > 0) {
+			return rho * context_ptr->camera_ptr->render_scene(context_ptr->hit_point, 2 * context_ptr->normal - win, &info);
 		} else {
-			return rho * info_ptr->camera_ptr->render_scene(info_ptr->hit_point, -2 * info_ptr->normal - win, &info); 
+			return rho * context_ptr->camera_ptr->render_scene(context_ptr->hit_point, -2 * context_ptr->normal - win, &info); 
 		}
 	}
 }

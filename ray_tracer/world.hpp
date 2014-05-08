@@ -6,7 +6,7 @@
 #include "colorRGB.hpp"
 #include "vector3D.hpp"
 #include "point3D.hpp"
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 #include "ray.hpp"
 #include "light.hpp"
 #include "surface.hpp"
@@ -33,7 +33,7 @@ namespace ray_tracer {
 		void add_surface(const surface *);
 		void set_fog(const fog *);
 		void set_camera(const camera *);
-		bool get_hit(const ray &, hit_info *) const;
+		bool get_hit(const ray &, shade_context *) const;
 		void render_begin(int, int, const render_callback_func, void *); // Dimension: pixal
 		void render_scene();
 	private:

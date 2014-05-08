@@ -1,5 +1,5 @@
 
-#include "hit_info.hpp"
+#include "shade_context.hpp"
 #include "vector3D.hpp"
 #include "point3D.hpp"
 #include "surface.hpp"
@@ -8,7 +8,7 @@
 
 namespace ray_tracer {
 
-	hit_info::hit_info() { 
+	shade_context::shade_context() { 
 #ifdef DEBUG
 		hit_time = HUGE_DOUBLE;
 		hit_point = point3D(0, 0, 0);
