@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <queue>
 #include <utility>
+#include <climits>
 
 namespace ray_tracer {
 
