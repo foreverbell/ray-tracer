@@ -47,11 +47,11 @@ namespace ray_tracer {
 		transform = transform_ * transform;
 	}
 
-	colorRGB surface::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
+	colorRGB surface::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
 		if (shading_surface_ptr != NULL) {
-			return shading_surface_ptr->material_shade(info_ptr, surface_color, win, wout);
+			return shading_surface_ptr->material_shade(info_ptr, surface_color, win, wout, sample_only);
 		} else {
-			return material_ptr->material_shade(info_ptr, surface_color, win, wout);
+			return material_ptr->material_shade(info_ptr, surface_color, win, wout, sample_only);
 		}
 	}
 

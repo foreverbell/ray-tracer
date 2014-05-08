@@ -78,12 +78,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ply-1.1\plyfile.c" />
+    <ClCompile Include="BRDF_refraction.cpp" />
     <ClCompile Include="convexhull.cpp" />
     <ClCompile Include="demo\demo_1.cpp" />
     <ClCompile Include="demo\demo_2.cpp" />
     <ClCompile Include="demo\demo_3.cpp" />
     <ClCompile Include="demo\demo_4.cpp" />
-    <ClCompile Include="light_reflect.cpp" />
+    <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
     <ClCompile Include="quadratic.cpp" />
@@ -143,9 +144,10 @@
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
     <ClCompile Include="surface_sphere.cpp" />
+    <ClInclude Include="BRDF_refraction.hpp" />
     <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
-    <ClInclude Include="light_reflect.hpp" />
+    <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
     <ClInclude Include="quadratic.hpp" />

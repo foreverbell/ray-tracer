@@ -164,9 +164,6 @@
     <ClCompile Include="surface_glteapot.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
-    <ClCompile Include="light_reflect.cpp">
-      <Filter>bottom-layer\light</Filter>
-    </ClCompile>
     <ClCompile Include="..\ply-1.1\plyfile.c">
       <Filter>ply</Filter>
     </ClCompile>
@@ -199,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="demo\demo_4.cpp">
       <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF_refraction.cpp">
+      <Filter>bottom-layer\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="material_transparent.cpp">
+      <Filter>bottom-layer\material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -438,9 +441,6 @@
     <ClInclude Include="surface_glteapot.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="light_reflect.hpp">
-      <Filter>bottom-layer\light</Filter>
-    </ClInclude>
     <ClInclude Include="transformation_scale.hpp">
       <Filter>bottom-layer\basis\transformation</Filter>
     </ClInclude>
@@ -460,6 +460,12 @@
       <Filter>demo</Filter>
     </ClInclude>
     <ClInclude Include="rtlib.hpp" />
+    <ClInclude Include="BRDF_refraction.hpp">
+      <Filter>bottom-layer\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="material_transparent.hpp">
+      <Filter>bottom-layer\material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="surface_plymesh.hpp">

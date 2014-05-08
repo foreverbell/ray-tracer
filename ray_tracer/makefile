@@ -1,15 +1,15 @@
 TARGET = rt
 
-FILES = BRDF.cpp BRDF_lambertian.cpp BRDF_phong.cpp BRDF_reflection.cpp \
+FILES = BRDF.cpp BRDF_lambertian.cpp BRDF_phong.cpp BRDF_reflection.cpp BRDF_refraction.cpp \
 	camera.cpp camera_fisheye.cpp camera_orthographic.cpp camera_pinhole.cpp camera_thinlens.cpp \
 	colorRGB.cpp \
 	convexhull.cpp \
 	fog.cpp \
 	hit_info.cpp \
 	image.cpp image_bmp.cpp \
-	light.cpp light_area.cpp light_point.cpp light_reflect.cpp \
+	light.cpp light_area.cpp light_point.cpp \
 	main.cpp demo/demo_1.cpp demo/demo_2.cpp demo/demo_3.cpp demo/demo_4.cpp \
-	material.cpp material_matte.cpp material_mirror.cpp material_phong.cpp \
+	material.cpp material_matte.cpp material_mirror.cpp material_phong.cpp material_transparent.cpp \
 	matrix3D.cpp matrix4D.cpp \
 	point2D.cpp point3D.cpp \
 	polyvertex.cpp \

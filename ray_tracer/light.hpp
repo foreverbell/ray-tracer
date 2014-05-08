@@ -25,7 +25,7 @@ namespace ray_tracer {
 	protected:
 		point3D position;
 		colorRGB color;
-		// attitudes
+		// attributes
 		bool cast_shadow, spot_enabled, attenuation_enabled;
 		// spot
 		vector3D spot_direction;
@@ -33,7 +33,6 @@ namespace ray_tracer {
 		int spot_exponent;
 		// attenuation
 		double attenuation_constant, attenuation_linear, attenuation_quadratic;
-		double ray_length;
 	};
 
 	inline void light::set_position(const point3D &position_) {

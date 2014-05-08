@@ -1,21 +1,21 @@
-#ifndef __MATERIAL_MIRROR_HPP__
-#define __MATERIAL_MIRROR_HPP__
+#ifndef __MATERIAL_TRANSPARENT_HPP__
+#define __MATERIAL_TRANSPARENT_HPP__
 
 #include "material.hpp"
 #include "BRDF.hpp"
 #include "BRDF_reflection.hpp"
-#include "BRDF_lambertian.hpp"
+#include "BRDF_refraction.hpp"
 #include <memory>
 
 namespace ray_tracer {
-	class material_mirror : public material  {
+	class material_transparent : public material  {
 	public:
-		material_mirror();
-		material_mirror(const colorRGB &);
+		material_transparent();
+		material_transparent(const colorRGB &, const colorRGB &, double);
 		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &, bool) const;
 	private:
 		std::unique_ptr<BRDF_reflection> reflection_ptr;
-		std::unique_ptr<BRDF_lambertian> diffuse_ptr;
+		std::unique_ptr<BRDF_refraction> refraction_ptr;
 	};
 }
 

@@ -24,12 +24,11 @@ namespace ray_tracer {
 	
 	camera::~camera() { }
 
-	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, hit_info *info_ptr, const light *light_ptr) const {
+	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, hit_info *info_ptr) const {
 		const world *world_ptr = info_ptr->world_ptr;
 		ray emission_ray = ray(origin, dir);
 
 		info_ptr->camera_ptr = this;
-		emission_ray.bind_light_ptr = light_ptr;
 		if (world_ptr->get_hit(emission_ray, info_ptr)) {
 			return world_ptr->tracer_ptr->ray_color(info_ptr);
 		} else {

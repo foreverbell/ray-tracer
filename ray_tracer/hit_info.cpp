@@ -19,6 +19,6 @@ namespace ray_tracer {
 		sampler_iterator_ptr = NULL;
 		emission_ray = ray();
 #endif
-		ray_tracing_depth = 3;
+		trace_depth = TRACE_MAX_DEPTH;
 	}
 }

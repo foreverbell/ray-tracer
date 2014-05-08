@@ -16,15 +16,16 @@ namespace ray_tracer {
 		if (light_ptr->in_range(info_ptr) && !light_ptr->under_shadow(info_ptr)) {
 			wout = (light_ptr->get_light_origin(info_ptr) - info_ptr->hit_point).normalized();
 			temp = info_ptr->normal * wout; 
+
 			if (temp > 0) {
-				return light_ptr->light_shade(info_ptr) * temp * info_ptr->surface_ptr->material_shade(info_ptr, surface_color, win, wout);
+				return light_ptr->light_shade(info_ptr) * temp * info_ptr->surface_ptr->material_shade(info_ptr, surface_color, win, wout, false);
 			}
 		}
 		return color_black;
 	}
 
 	colorRGB tracer::ray_color(hit_info *info_ptr) const {
-		if (info_ptr->ray_tracing_depth == 0) {
+		if (info_ptr->trace_depth == 0) {
 			return color_black;
 		} else {
 			const world *world_ptr;
@@ -34,12 +35,10 @@ namespace ray_tracer {
 			world_ptr = info_ptr->world_ptr;
 			surface_color = info_ptr->surface_ptr->texture_shade(info_ptr);
 			win = (info_ptr->emission_ray.origin - info_ptr->hit_point).normalized();
-			result = info_ptr->world_ptr->ambient * surface_color;
+			result = info_ptr->world_ptr->ambient * info_ptr->surface_ptr->material_shade(info_ptr, surface_color, win, vector3D(0, 0, 0), true);
+			result += info_ptr->world_ptr->ambient * surface_color;
 			for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
 				result += deal_light(*iter, info_ptr, surface_color, win);
-			}
-			if (info_ptr->emission_ray.bind_light_ptr != NULL) {
-				result += deal_light(info_ptr->emission_ray.bind_light_ptr, info_ptr, surface_color, win);
 			}
 			if (world_ptr->fog_ptr) {
 				result = world_ptr->fog_ptr->fog_blending(info_ptr, world_ptr->camera_ptr->get_eye(), result);

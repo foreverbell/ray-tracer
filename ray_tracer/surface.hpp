@@ -26,7 +26,7 @@ namespace ray_tracer {
 		*/
 		virtual double hit(const ray &, const surface **) const; 
 		virtual vector3D atnormal(const point3D &) const;
-		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &) const;
+		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &, bool) const;
 		virtual void set_material(const material *);
 		colorRGB texture_shade(hit_info *) const;
 		virtual void set_texture(const texture *);

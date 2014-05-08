@@ -7,8 +7,6 @@
 
 namespace ray_tracer {
 
-	class light;
-
 	class ray {
 	public:
 		ray();
@@ -18,7 +16,6 @@ namespace ray_tracer {
 	public:
 		point3D origin;
 		vector3D dir;
-		const light *bind_light_ptr;
 	};
 }
 

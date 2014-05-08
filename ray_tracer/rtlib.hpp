@@ -28,6 +28,7 @@
 #include "material_phong.hpp"
 #include "material_matte.hpp"
 #include "material_mirror.hpp"
+#include "material_transparent.hpp"
 /// }}}
 
 /// {{{ headers for sampler

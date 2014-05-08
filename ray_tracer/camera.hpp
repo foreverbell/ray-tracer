@@ -14,7 +14,7 @@ namespace ray_tracer {
 		camera(const point3D &, const point3D &, const vector3D &);
 		virtual ~camera() = 0;
 		virtual colorRGB render_scene(double, double, int, int, hit_info *) const = 0;
-		colorRGB render_scene(const point3D &, const vector3D &, hit_info *, const light * = NULL) const;
+		colorRGB render_scene(const point3D &, const vector3D &, hit_info *) const;
 		point3D get_eye() const;
 		void roll(double);
 		void rotate(double);

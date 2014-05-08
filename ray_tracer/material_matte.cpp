@@ -12,7 +12,8 @@ namespace ray_tracer {
 		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(rho_));
 	}
 
-	colorRGB material_matte::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout) const {
-		return diffuse_ptr->f(info_ptr, win, wout) * surface_color;
+	colorRGB material_matte::material_shade(hit_info *info_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
+		if (!sample_only) return diffuse_ptr->f(info_ptr, win, wout) * surface_color;
+		return color_black;
 	}
 }

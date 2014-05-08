@@ -11,7 +11,7 @@ namespace ray_tracer {
 	public:
 		material_matte();
 		material_matte(const colorRGB &);
-		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &) const;
+		colorRGB material_shade(hit_info *, const colorRGB &, const vector3D &, const vector3D &, bool) const;
 	private:
 		std::unique_ptr<BRDF_lambertian> diffuse_ptr;
 	};

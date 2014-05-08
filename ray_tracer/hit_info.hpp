@@ -7,6 +7,8 @@
 
 namespace ray_tracer {
 
+	const int TRACE_MAX_DEPTH = 3;
+
 	class world;
 	class surface;
 	class camera;
@@ -35,8 +37,8 @@ namespace ray_tracer {
 		// initilized at tracer::deal_light()  (dynamically)
 		const light *light_ptr;
 		
-		// initilized at constructor()
-		int ray_tracing_depth;
+		// initilized at constructor() || BRDF
+		int trace_depth;
 	};
 }
 
