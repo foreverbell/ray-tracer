@@ -26,7 +26,7 @@ The second demo presents the Earth with texture. This is a real-time demo, you c
 
 The third demo presents a quadratic surface.
 
-The forth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the ply file format in '/ray_tracer/demos/stanford_bunny.ply'.
+The forth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the ply file format in `/ray_tracer/demos/stanford_bunny.ply`.
 
 # Reference
 
