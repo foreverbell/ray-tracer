@@ -6,6 +6,7 @@
 #include <queue>
 #include <utility>
 #include <climits>
+#include <cfloat>
 
 namespace ray_tracer {
 
@@ -248,7 +249,7 @@ namespace ray_tracer {
 		point3D o = emission_ray.origin;
 		vector3D d = emission_ray.dir;
 
-		point3D c = c = bs_center;
+		point3D c = bs_center;
 		double a = d * (o - c), d2 = d.length2();
 		double delta = a * a - d2 * ((o - c).length2() - bs_radius * bs_radius);
 
