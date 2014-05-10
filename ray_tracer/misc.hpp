@@ -10,7 +10,6 @@ namespace ray_tracer {
 	const double PI = acos(-1.0);
 	const double E = exp(1.0);
 	const double EPSILON = 1e-8;
-	const double HUGE_DOUBLE = 10e10;
 	#define DBLCMP(_x_) ((_x_) < -EPSILON ? -1 : ((_x_) > EPSILON ? 1 : 0))
 	
 	inline double pow(double base, int power) {

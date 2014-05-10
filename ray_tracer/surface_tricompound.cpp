@@ -151,9 +151,9 @@ namespace ray_tracer {
 	}
 
 	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, const kdtree_node *node_ptr) const {
-		if (node_ptr == NULL) return std::make_pair(HUGE_DOUBLE, -1);
+		if (node_ptr == NULL) return std::make_pair(DBL_MAX, -1);
 
-		std::pair<double, int> result = std::make_pair(HUGE_DOUBLE, -1), tresult;
+		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), tresult;
 
 		double temp_t;
 		for (std::vector<int>::const_iterator it = node_ptr->cross_surfaces.begin(); it != node_ptr->cross_surfaces.end(); ++it) {
@@ -240,7 +240,6 @@ namespace ray_tracer {
 			bb_zmin = std::min(bb_zmin, (*it)->v1.z), bb_zmax = std::max(bb_zmax, (*it)->v1.z);
 			bb_zmin = std::min(bb_zmin, (*it)->v2.z), bb_zmax = std::max(bb_zmax, (*it)->v2.z);
 		}
-
 		bb_p1 = point3D(bb_xmin, bb_ymin, bb_zmin);
 		bb_p2 = point3D(bb_xmax, bb_ymax, bb_zmax);
 	}
@@ -268,9 +267,9 @@ namespace ray_tracer {
 		vector3D d = emission_ray.dir;
 
 #define CHECK(p) \
-	(p.x >= bb_xmin && p.x <= bb_xmax) && \
-	(p.y >= bb_ymin && p.y <= bb_ymax) && \
-	(p.z >= bb_zmin && p.z <= bb_zmax)
+	(p.x >= bb_xmin - EPSILON && p.x <= bb_xmax + EPSILON) && \
+	(p.y >= bb_ymin - EPSILON && p.y <= bb_ymax + EPSILON) && \
+	(p.z >= bb_zmin - EPSILON && p.z <= bb_zmax + EPSILON)
 
 		vector3D normal;
 		point3D hit;

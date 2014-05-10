@@ -1,13 +1,14 @@
 
 #include "quadratic.hpp"
 #include <algorithm>
+#include <climits>
 
 namespace ray_tracer {
 
 	quadratic::quadratic() {
 		coef_xx = coef_yy = coef_zz = coef_xy = coef_xz = coef_yz = coef_x = coef_y = coef_z = coef_const = 0;
-		xmin = ymin = zmin = -HUGE_DOUBLE;
-		xmax = ymax = zmax = HUGE_DOUBLE;
+		xmin = ymin = zmin = -DBL_MAX;
+		xmax = ymax = zmax = DBL_MAX;
 	}
 
 	bool quadratic::check_range(const point3D &p) const {
