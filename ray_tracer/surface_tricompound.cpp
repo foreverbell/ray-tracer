@@ -32,8 +32,8 @@ namespace ray_tracer {
 		for (size_t i = 0; i < surfaces.size(); ++i) surfaces_list.push_back(i);
 		kdtree_root_ptr = build_kdtree(surfaces_list);
 
-		std::pair<point3D, double> sphere = get_minimum_circumsphere();
-		bound_sphere = surface_sphere(sphere.first, sphere.second);
+		init_circumsphere();
+		init_boundbox();
 	}
 
 	std::pair<point3D, int> surface_tricompound::get_division(const vector3D &normal, const std::vector<int> &surfaces_list) {
@@ -102,7 +102,7 @@ namespace ray_tracer {
 			node_ptr->rchild_ptr = nullptr;
 			node_ptr->divide_plane_ptr = nullptr;
 			node_ptr->cross_surfaces = surfaces_list;
-			
+
 			return node_ptr;
 		}
 
@@ -131,9 +131,9 @@ namespace ray_tracer {
 		int sgn0, sgn1, sgn2;
 
 		for (std::vector<int>::iterator it = surfaces_list.begin(); it != surfaces_list.end(); ++it) {
-			sgn0 = DBLCMP((surfaces[*it]->v0 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
-			sgn1 = DBLCMP((surfaces[*it]->v1 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
-			sgn2 = DBLCMP((surfaces[*it]->v2 - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
+			sgn0 = DBLCMP((surfaces[*it]->v0 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
+			sgn1 = DBLCMP((surfaces[*it]->v1 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
+			sgn2 = DBLCMP((surfaces[*it]->v2 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
 			if (sgn0 < 0 && sgn1 < 0 && sgn2 < 0) {
 				left_surfaces.push_back(*it);
 			} else if (sgn0 > 0 && sgn1 > 0 && sgn2 > 0) {
@@ -163,7 +163,7 @@ namespace ray_tracer {
 
 		if (node_ptr->divide_plane_ptr == NULL) return result;
 
-		int side = DBLCMP((emission_ray.origin - node_ptr->divide_plane_ptr->point_on_plane) * node_ptr->divide_plane_ptr->normal);
+		int side = DBLCMP((emission_ray.origin - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
 		if (side == 0) {
 			side = DBLCMP(emission_ray.dir * node_ptr->divide_plane_ptr->normal);
 		}
@@ -196,7 +196,7 @@ namespace ray_tracer {
 		return result;
 	}
 
-	std::pair<point3D, double> surface_tricompound::get_minimum_circumsphere() const {
+	void surface_tricompound::init_circumsphere() {
 		std::vector<point3D> points;
 		double delta = 1, maxd = 0, d;
 		point3D center;
@@ -219,19 +219,93 @@ namespace ray_tracer {
 			if (iter_times != 999) center += delta * (*it_pos - center);
 			delta *= 0.9;
 		}
-		return std::make_pair(center, sqrt(maxd));
+
+		bs_center = center;
+		bs_radius = sqrt(maxd);
+	}
+
+	void surface_tricompound::init_boundbox() {
+		bb_xmin = bb_xmax = surfaces[0]->v0.x;
+		bb_ymin = bb_ymax = surfaces[0]->v0.y;
+		bb_zmin = bb_zmax = surfaces[0]->v0.z;
+
+		for (std::vector<surface_triangle *>::const_iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
+			bb_xmin = std::min(bb_xmin, (*it)->v0.x), bb_xmax = std::max(bb_xmax, (*it)->v0.x);
+			bb_xmin = std::min(bb_xmin, (*it)->v1.x), bb_xmax = std::max(bb_xmax, (*it)->v1.x);
+			bb_xmin = std::min(bb_xmin, (*it)->v2.x), bb_xmax = std::max(bb_xmax, (*it)->v2.x);
+			bb_ymin = std::min(bb_ymin, (*it)->v0.y), bb_ymax = std::max(bb_ymax, (*it)->v0.y);
+			bb_ymin = std::min(bb_ymin, (*it)->v1.y), bb_ymax = std::max(bb_ymax, (*it)->v1.y);
+			bb_ymin = std::min(bb_ymin, (*it)->v2.y), bb_ymax = std::max(bb_ymax, (*it)->v2.y);
+			bb_zmin = std::min(bb_zmin, (*it)->v0.z), bb_zmax = std::max(bb_zmax, (*it)->v0.z);
+			bb_zmin = std::min(bb_zmin, (*it)->v1.z), bb_zmax = std::max(bb_zmax, (*it)->v1.z);
+			bb_zmin = std::min(bb_zmin, (*it)->v2.z), bb_zmax = std::max(bb_zmax, (*it)->v2.z);
+		}
+
+		bb_p1 = point3D(bb_xmin, bb_ymin, bb_zmin);
+		bb_p2 = point3D(bb_xmax, bb_ymax, bb_zmax);
+	}
+
+	bool surface_tricompound::hit_sphere(const ray &emission_ray) const {
+		point3D o = emission_ray.origin;
+		vector3D d = emission_ray.dir;
+
+		point3D c = c = bs_center;
+		double a = d * (o - c), d2 = d.length2();
+		double delta = a * a - d2 * ((o - c).length2() - bs_radius * bs_radius);
+
+		if (delta >= 0) {
+			delta = sqrt(delta);
+			double t = (-a - delta) / d2;
+			if (t < EPSILON) t = (-a + delta) / d2;
+			if (t > EPSILON) return true;
+		}
+		
+		return false;
+	}
+
+	bool surface_tricompound::hit_box(const ray &emission_ray) const {
+		point3D o = emission_ray.origin;
+		vector3D d = emission_ray.dir;
+
+#define CHECK(p) \
+	(p.x >= bb_xmin && p.x <= bb_xmax) && \
+	(p.y >= bb_ymin && p.y <= bb_ymax) && \
+	(p.z >= bb_zmin && p.z <= bb_zmax)
+
+		vector3D normal;
+		point3D hit;
+		double deno, t;
+
+		for (int norm = 0; norm < 3; ++norm) {
+			if (norm == 0) normal = vector3D(1, 0, 0);
+			else if (norm == 1) normal = vector3D(0, 1, 0);
+			else normal = vector3D(0, 0, 1);
+
+			deno = normal * d;
+
+			if (DBLCMP(deno) != 0) {
+				t = (bb_p1 - o) * normal / deno;
+				hit = o + d * t;
+				if (CHECK(hit)) return true;
+
+				t = (bb_p2 - o) * normal / deno;
+				hit = o + d * t;
+				if (CHECK(hit)) return true;
+			}
+		}
+		
+		return false;
 	}
 
 	double surface_tricompound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		if (bound_sphere.hit(emission_ray, NULL) < EPSILON) return -1;
-		else {
-			std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root_ptr.get());
-			if (result.second == -1) {
-				return -1;
-			} else {
-				*hit_surface_ptr = surfaces[result.second];
-				return result.first;
-			}
+		if (!hit_sphere(emission_ray) || !hit_box(emission_ray)) return -1;
+
+		std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root_ptr.get());
+		if (result.second == -1) {
+			return -1;
+		} else {
+			*hit_surface_ptr = surfaces[result.second];
+			return result.first;
 		}
 	}
 

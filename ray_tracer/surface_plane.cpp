@@ -6,12 +6,12 @@
 namespace ray_tracer {
 
 	surface_plane::surface_plane() {
-		point_on_plane = point3D(0, 0, 0);
+		base = point3D(0, 0, 0);
 		normal = vector3D(0, 0, 1);
 	}
 
-	surface_plane::surface_plane(const point3D &point_, const vector3D &normal_) {
-		point_on_plane = point_;
+	surface_plane::surface_plane(const point3D &base_, const vector3D &normal_) {
+		base = base_;
 		normal = normal_.normalized();
 	}
 
@@ -19,7 +19,7 @@ namespace ray_tracer {
 		double deno = normal * emission_ray.dir;
 
 		if (DBLCMP(deno) == 0) return -1;
-		return (point_on_plane - emission_ray.origin) * normal / deno;
+		return (base - emission_ray.origin) * normal / deno;
 	}
 
 	vector3D surface_plane::atnormal(const point3D &point) const {

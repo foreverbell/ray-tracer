@@ -13,7 +13,7 @@ namespace ray_tracer {
 		vector3D atnormal(const point3D &) const;
 	private:
 		point3D center;
-		double radius, radius_squared;
+		double radius, radius2;
 	};
 }
 

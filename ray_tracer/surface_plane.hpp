@@ -12,7 +12,7 @@ namespace ray_tracer {
 		double hit(const ray &, const surface **) const;
 		vector3D atnormal(const point3D &) const;
 	protected:
-		point3D point_on_plane;
+		point3D base;
 		vector3D normal;
 	};
 }
