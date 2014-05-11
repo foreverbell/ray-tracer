@@ -1,10 +1,10 @@
 
-#include "transformation_rotate.hpp"
-#include "transformation_translate.hpp"
+#include "transform_rotate.hpp"
+#include "transform_translate.hpp"
 
 namespace ray_tracer {
 
-	transformation_rotate::transformation_rotate(char axis, double angle) {
+	transform_rotate::transform_rotate(char axis, double angle) {
 		matrix.value[0][0] = 1;
 		matrix.value[1][1] = 1;
 		matrix.value[2][2] = 1;
@@ -43,10 +43,10 @@ namespace ray_tracer {
 		}
 	}
 	
-	transformation_rotate::transformation_rotate(const point3D &centre, const vector3D &axis, double angle) {
+	transform_rotate::transform_rotate(const point3D &centre, const vector3D &axis, double angle) {
 		vector3D normal_axis = axis.normalized();
 		matrix4D mat1, mat2, mat3;
-		transformation_translate translate = transformation_translate(centre.x, centre.y, centre.z);
+		transform_translate translate = transform_translate(centre.x, centre.y, centre.z);
 		double c = cos(angle), s = sin(angle);
 
 		mat1 = translate.get_matrix();

@@ -31,8 +31,8 @@ namespace ray_tracer {
 			context_ptr->hit_time = hit_time;
 			context_ptr->surface_ptr = surface_ptr;
 			context_ptr->hit_point = emission_ray.at(context_ptr->hit_time);
-			context_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center).at(context_ptr->hit_time);
-			context_ptr->normal = (surface_ptr->transform.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
+			context_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform_matrix, surface_ptr->transform_center).at(context_ptr->hit_time);
+			context_ptr->normal = (surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
 			context_ptr->emission_ray = emission_ray;
 			return true;
 		} else {

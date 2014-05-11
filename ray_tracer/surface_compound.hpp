@@ -17,10 +17,10 @@ namespace ray_tracer {
 		colorRGB texture_shade(shade_context *) const;
 		void set_transform_center(const point3D &);
 		void set_transform_center(const point3D &, int);
-		void clear_transformation();
-		void clear_transformation(int);
-		void apply_transformation(const transformation &);
-		void apply_transformation(const transformation &, int);
+		void clear_transform();
+		void clear_transform(int);
+		void apply_transform(const transform &);
+		void apply_transform(const transform &, int);
 	protected:
 		std::vector<surface *> surfaces;
 	};

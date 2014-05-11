@@ -17,7 +17,7 @@ namespace ray_tracer {
 		return origin + t_ * dir;
 	}
 
-	ray ray::inverse_transform(const transformation &trans, const point3D &center) const {
+	ray ray::inverse_transform(const transform &trans, const point3D &center) const {
 		ray r = ray(center + trans.inv_matrix * (origin - center), trans.inv_matrix ^ dir);
 		return r;
 	}

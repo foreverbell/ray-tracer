@@ -9,6 +9,7 @@ void demo_1::set_world() {
 	surface_compound *sc;
 	light *l1, *l2;
 
+
 	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), PI / 2);
 	// cam = new camera_thinlens(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), 35, 3.5, true);
 	// cam = new camera_orthographic(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), 40, 40);
@@ -37,12 +38,12 @@ void demo_1::set_world() {
 	sc->set_texture(new texture_solid(colorRGB(0.7, 0.7, 0.0)));
 
 	surface_glteapot *s7 = new surface_glteapot();
-	s7->apply_transformation(transformation_translate(-3, -3, 0));
+	s7->apply_transform(transform_translate(-3, -3, 0));
 	s7->set_material(new material_transparent(color_white, color_white, 0.8));
 	s7->set_texture(new texture_solid(color_skyblue));
 
 	surface_glteapot *s8 = new surface_glteapot();
-	s8->apply_transformation(transformation_translate(3, 0, 0));
+	s8->apply_transform(transform_translate(3, 0, 0));
 	s8->set_material(new material_transparent(color_white, color_white, 0.8));
 	s8->set_texture(new texture_solid(color_palegreen));
 

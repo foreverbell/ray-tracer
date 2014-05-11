@@ -9,7 +9,7 @@
 #include "ray.hpp"
 #include "material.hpp"
 #include "texture.hpp"
-#include "transformation.hpp"
+#include "transform.hpp"
 
 namespace ray_tracer {
 	class surface {
@@ -31,15 +31,15 @@ namespace ray_tracer {
 		colorRGB texture_shade(shade_context *) const;
 		virtual void set_texture(const texture *);
 		virtual void set_transform_center(const point3D &);
-		virtual void clear_transformation();
-		virtual void apply_transformation(const transformation &);
+		virtual void clear_transform();
+		virtual void apply_transform(const transform &);
 	protected:
 		const surface *shading_surface_ptr;
 		const material *material_ptr;
 		const texture *texture_ptr;
 		bool transformed;
 		point3D transform_center;
-		transformation transform;
+		transform transform_matrix;
 	};
 }
 

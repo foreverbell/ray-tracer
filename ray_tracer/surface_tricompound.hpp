@@ -22,8 +22,8 @@ namespace ray_tracer {
 		~surface_tricompound();
 		double hit(const ray &, const surface **) const;
 		void set_transform_center(const point3D &);
-		void clear_transformation();
-		void apply_transformation(const transformation &);
+		void clear_transform();
+		void apply_transform(const transform &);
 	protected:
 		void add_surface(surface_triangle *);
 		void lock();

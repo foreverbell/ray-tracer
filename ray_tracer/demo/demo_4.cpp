@@ -11,11 +11,11 @@ void demo_4::set_world() {
 	splane->set_texture(new texture_checker());
 
 	surface_plymesh *sbunny = new surface_plymesh("demo/stanford_bunny.ply");
-	sbunny->apply_transformation(transformation_scale(65, 65, 65));
-	sbunny->apply_transformation(transformation_rotate('x', -PI / 2));
-	sbunny->apply_transformation(transformation_rotate('z', PI / 2));
-	sbunny->apply_transformation(transformation_reflect('y'));
-	sbunny->apply_transformation(transformation_translate(0, 2, -8));
+	sbunny->apply_transform(transform_scale(65, 65, 65));
+	sbunny->apply_transform(transform_rotate('x', -PI / 2));
+	sbunny->apply_transform(transform_rotate('z', PI / 2));
+	sbunny->apply_transform(transform_reflect('y'));
+	sbunny->apply_transform(transform_translate(0, 2, -8));
 	sbunny->set_material(new material_matte());
 	sbunny->set_texture(new texture_solid(color_royalblue));
 

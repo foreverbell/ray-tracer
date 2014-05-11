@@ -3,7 +3,7 @@
 
 #include "vector3D.hpp"
 #include "point3D.hpp"
-#include "transformation.hpp"
+#include "transform.hpp"
 
 namespace ray_tracer {
 
@@ -12,7 +12,7 @@ namespace ray_tracer {
 		ray();
 		ray(const point3D &, const vector3D &);
 		point3D at(double) const;
-		ray inverse_transform(const transformation &, const point3D &) const;
+		ray inverse_transform(const transform &, const point3D &) const;
 	public:
 		point3D origin;
 		vector3D dir;

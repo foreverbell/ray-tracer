@@ -39,24 +39,24 @@ namespace ray_tracer {
 		surfaces[index_]->set_transform_center(center_);
 	}
 
-	void surface_compound::clear_transformation() {
+	void surface_compound::clear_transform() {
 		for (std::vector<surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
-			(*iter)->clear_transformation();
+			(*iter)->clear_transform();
 		}
 	}
 
-	void surface_compound::clear_transformation(int index_) {
-		surfaces[index_]->clear_transformation();
+	void surface_compound::clear_transform(int index_) {
+		surfaces[index_]->clear_transform();
 	}
 
-	void surface_compound::apply_transformation(const transformation &transformation_) {
+	void surface_compound::apply_transform(const transform &transform_) {
 		for (std::vector<surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
-			(*iter)->apply_transformation(transformation_);
+			(*iter)->apply_transform(transform_);
 		}
 	}
 
-	void surface_compound::apply_transformation(const transformation &transformation_, int index_) {
-		surfaces[index_]->apply_transformation(transformation_);
+	void surface_compound::apply_transform(const transform &transform_, int index_) {
+		surfaces[index_]->apply_transform(transform_);
 	}
 
 	double surface_compound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
@@ -68,7 +68,7 @@ namespace ray_tracer {
 			surface_ptr = *iter;
 			temp_surface_ptr = NULL;
 			if (surface_ptr->transformed) {
-				t = surface_ptr->hit(emission_ray.inverse_transform(surface_ptr->transform, surface_ptr->transform_center), &temp_surface_ptr);
+				t = surface_ptr->hit(emission_ray.inverse_transform(surface_ptr->transform_matrix, surface_ptr->transform_center), &temp_surface_ptr);
 			} else {
 				t = surface_ptr->hit(emission_ray, &temp_surface_ptr);
 			}

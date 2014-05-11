@@ -137,9 +137,6 @@
     <ClCompile Include="matrix4D.cpp">
       <Filter>bottom-layer\basis\matrix</Filter>
     </ClCompile>
-    <ClCompile Include="transformation.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
     <ClCompile Include="fog.cpp">
       <Filter>bottom-layer\atmosphere</Filter>
     </ClCompile>
@@ -167,18 +164,6 @@
     <ClCompile Include="surface_plymesh.cpp">
       <Filter>bottom-layer\surface</Filter>
     </ClCompile>
-    <ClCompile Include="transformation_scale.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
-    <ClCompile Include="transformation_translate.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
-    <ClCompile Include="transformation_rotate.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
-    <ClCompile Include="transformation_reflect.cpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClCompile>
     <ClCompile Include="polyvertex.cpp">
       <Filter>bottom-layer\mathematics</Filter>
     </ClCompile>
@@ -202,6 +187,21 @@
     </ClCompile>
     <ClCompile Include="shade_context.cpp">
       <Filter>bottom-layer\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_reflect.cpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_rotate.cpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_scale.cpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_translate.cpp">
+      <Filter>bottom-layer\basis\transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,9 +250,6 @@
     <Filter Include="bottom-layer\basis\color">
       <UniqueIdentifier>{b66bf6d7-c19f-4745-aa43-9250e91b21a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bottom-layer\basis\transformation">
-      <UniqueIdentifier>{7814c546-3794-462b-93dc-501ff4c913d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\basis\matrix">
       <UniqueIdentifier>{07388b61-a6dd-44be-b280-c9d492bb0928}</UniqueIdentifier>
     </Filter>
@@ -273,6 +270,9 @@
     </Filter>
     <Filter Include="demo">
       <UniqueIdentifier>{1ccaba6d-6965-418f-bb8c-fed9478d19cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\basis\transform">
+      <UniqueIdentifier>{7814c546-3794-462b-93dc-501ff4c913d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -414,9 +414,6 @@
     <ClInclude Include="matrix4D.hpp">
       <Filter>bottom-layer\basis\matrix</Filter>
     </ClInclude>
-    <ClInclude Include="transformation.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
     <ClInclude Include="fog.hpp">
       <Filter>bottom-layer\atmosphere</Filter>
     </ClInclude>
@@ -438,18 +435,6 @@
     <ClInclude Include="surface_glteapot.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="transformation_scale.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="transformation_translate.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="transformation_rotate.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="transformation_reflect.hpp">
-      <Filter>bottom-layer\basis\transformation</Filter>
-    </ClInclude>
     <ClInclude Include="polyvertex.hpp">
       <Filter>bottom-layer\mathematics</Filter>
     </ClInclude>
@@ -465,6 +450,21 @@
     </ClInclude>
     <ClInclude Include="shade_context.hpp">
       <Filter>bottom-layer\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.hpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_reflect.hpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_rotate.hpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_scale.hpp">
+      <Filter>bottom-layer\basis\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_translate.hpp">
+      <Filter>bottom-layer\basis\transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 
-#include "transformation_reflect.hpp"
+#include "transform_reflect.hpp"
 
 namespace ray_tracer {
 
-	transformation_reflect::transformation_reflect(char axis) {
+	transform_reflect::transform_reflect(char axis) {
 		matrix.value[0][0] = 1;
 		matrix.value[1][1] = 1;
 		matrix.value[2][2] = 1;

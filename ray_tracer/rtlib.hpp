@@ -63,12 +63,12 @@
 #include "texture_mapping_sphere.hpp"
 /// }}}
 
-/// {{{ headers for transformation
-#include "transformation.hpp"
-#include "transformation_reflect.hpp"
-#include "transformation_rotate.hpp"
-#include "transformation_scale.hpp"
-#include "transformation_translate.hpp"
+/// {{{ headers for transform
+#include "transform.hpp"
+#include "transform_reflect.hpp"
+#include "transform_rotate.hpp"
+#include "transform_scale.hpp"
+#include "transform_translate.hpp"
 /// }}}
 
 #endif

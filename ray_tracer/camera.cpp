@@ -4,7 +4,7 @@
 #include "matrix3D.hpp"
 #include "world.hpp"
 #include "misc.hpp"
-#include "transformation_rotate.hpp"
+#include "transform_rotate.hpp"
 
 namespace ray_tracer {
 
@@ -37,18 +37,18 @@ namespace ray_tracer {
 	}
 
 	void camera::roll(double angle) {
-		matrix3D mat = transformation_rotate(eye, axis_w, angle).get_matrix().convert3D();
+		matrix3D mat = transform_rotate(eye, axis_w, angle).get_matrix().convert3D();
 
 		axis_u = mat * axis_u;
 		axis_v = mat * axis_v;
 		axis_w = mat * axis_w;
-		/* actually, eye is fix point in this transformation. */
+		/* actually, eye is fix point in this transform. */
 		// eye = lookat + mat * (eye - lookat);
 		up = mat * up;
 	}
 
 	void camera::rotate(double angle) {
-		matrix3D mat = transformation_rotate(lookat, up, angle).get_matrix().convert3D();
+		matrix3D mat = transform_rotate(lookat, up, angle).get_matrix().convert3D();
 
 		axis_u = mat * axis_u;
 		axis_v = mat * axis_v;

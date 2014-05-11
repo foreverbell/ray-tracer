@@ -106,9 +106,9 @@
     <ClCompile Include="material_mirror.cpp" />
     <ClCompile Include="sampler_single.cpp" />
     <ClCompile Include="surface_plymesh.cpp" />
-    <ClCompile Include="transformation_reflect.cpp" />
-    <ClCompile Include="transformation_rotate.cpp" />
-    <ClCompile Include="transformation_scale.cpp" />
+    <ClCompile Include="transform_reflect.cpp" />
+    <ClCompile Include="transform_rotate.cpp" />
+    <ClCompile Include="transform_scale.cpp" />
     <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
@@ -138,8 +138,8 @@
     <ClCompile Include="colorRGB.cpp" />
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_plane.cpp" />
-    <ClCompile Include="transformation.cpp" />
-    <ClCompile Include="transformation_translate.cpp" />
+    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="transform_translate.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
@@ -170,9 +170,9 @@
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="rtlib.hpp" />
     <ClInclude Include="sampler_single.hpp" />
-    <ClInclude Include="transformation_reflect.hpp" />
-    <ClInclude Include="transformation_rotate.hpp" />
-    <ClInclude Include="transformation_scale.hpp" />
+    <ClInclude Include="transform_reflect.hpp" />
+    <ClInclude Include="transform_rotate.hpp" />
+    <ClInclude Include="transform_scale.hpp" />
     <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
@@ -205,8 +205,8 @@
     <ClInclude Include="texture_image.hpp" />
     <ClInclude Include="texture_solid.hpp" />
     <ClInclude Include="ray.hpp" />
-    <ClInclude Include="transformation.hpp" />
-    <ClInclude Include="transformation_translate.hpp" />
+    <ClInclude Include="transform.hpp" />
+    <ClInclude Include="transform_translate.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />
