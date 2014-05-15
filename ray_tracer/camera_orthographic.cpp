@@ -13,11 +13,13 @@ namespace ray_tracer {
 		fov_v = fov_v_;
 	}
 	
-	colorRGB camera_orthographic::render_scene(double x, double y, int width, int height, shade_context *context_ptr) const {
+	bool camera_orthographic::get_ray(double x, double y, int width, int height, ray *ray_ptr, shade_context *context_ptr) const {
 		double u = (x / width - 0.5) * fov_u;
 		double v = (y / height - 0.5) * fov_v;
-		double w = -1;
 
-		return camera::render_scene(eye + u * axis_u + v * axis_v, w * axis_w, context_ptr);
+		ray_ptr->origin = eye + u * axis_u + v * axis_v;
+		ray_ptr->dir = -axis_w;
+
+		return true;
 	}
 }

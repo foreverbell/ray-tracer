@@ -24,18 +24,6 @@ namespace ray_tracer {
 	
 	camera::~camera() { }
 
-	colorRGB camera::render_scene(const point3D &origin, const vector3D &dir, shade_context *context_ptr) const {
-		const world *world_ptr = context_ptr->world_ptr;
-		ray emission_ray = ray(origin, dir);
-
-		context_ptr->camera_ptr = this;
-		if (world_ptr->get_hit(emission_ray, context_ptr)) {
-			return world_ptr->tracer_ptr->ray_color(context_ptr);
-		} else {
-			return world_ptr->get_background();
-		}
-	}
-
 	void camera::roll(double angle) {
 		matrix3D mat = transform_rotate(eye, axis_w, angle).get_matrix().convert3D();
 

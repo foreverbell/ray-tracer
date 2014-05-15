@@ -30,6 +30,6 @@ namespace ray_tracer {
 		cos_theta2 = sqrt(cos_theta2);
 		vector3D wout = -win / _eta - normal * (cos_theta2 - cos_theta_i / _eta);
 
- 		return rho * context_ptr->camera_ptr->render_scene(context_ptr->hit_point, wout, &info);
+ 		return rho * context_ptr->tracer_ptr->trace_ray(ray(context_ptr->hit_point, wout), &info);
 	}
 }

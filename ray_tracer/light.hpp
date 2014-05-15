@@ -8,7 +8,6 @@
 
 namespace ray_tracer {
 	class light {
-		friend class light_reflect;
 	public:
 		light();
 		light(const point3D &, const colorRGB &);

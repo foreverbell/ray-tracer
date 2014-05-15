@@ -11,7 +11,7 @@ namespace ray_tracer {
 	public:
 		camera_fisheye();
 		camera_fisheye(const point3D &, const point3D &, const vector3D &, double);
-		colorRGB render_scene(double, double, int, int, shade_context *) const;
+		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:
 		double fov; // field of view, ranged in (0, PI]
 	};

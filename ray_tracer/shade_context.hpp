@@ -11,7 +11,7 @@ namespace ray_tracer {
 
 	class world;
 	class surface;
-	class camera;
+	class tracer;
 	class light;
 	class sampler_iterator;
 
@@ -30,15 +30,13 @@ namespace ray_tracer {
 		// initilized at world::render_scene()
 		const world *world_ptr;
 		sampler_iterator *sampler_iterator_ptr;
+		const tracer *tracer_ptr;
 
-		// initilized at camera::render_scene()
-		const camera *camera_ptr;
-
-		// initilized at tracer::deal_light()  (dynamically)
+		// initilized at tracer::shade_light()  (dynamically)
 		const light *light_ptr;
 		
 		// initilized at constructor() || BRDF
-		int trace_depth;
+		int trace_depth;		
 	};
 }
 

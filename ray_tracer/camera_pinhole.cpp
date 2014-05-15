@@ -22,7 +22,7 @@ namespace ray_tracer {
 		spherical = spherical_;
 	}
 	
-	colorRGB camera_pinhole::render_scene(double x, double y, int width, int height, shade_context *context_ptr) const {
+	bool camera_pinhole::get_ray(double x, double y, int width, int height, ray *ray_ptr, shade_context *context_ptr) const {
 		double u, v, w;
 		
 		if (!spherical) {
@@ -37,6 +37,10 @@ namespace ray_tracer {
 			v = cos(beta);
 			w = sin(beta) * cos(alpha);
 		}
-		return camera::render_scene(eye, (u * axis_u + v * axis_v + w * axis_w).normalized(), context_ptr);
+
+		ray_ptr->origin = eye;
+		ray_ptr->dir = (u * axis_u + v * axis_v + w * axis_w).normalized();
+
+		return true;
 	}
 }

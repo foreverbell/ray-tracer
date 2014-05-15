@@ -4,6 +4,7 @@
 #include "misc.hpp"
 #include "colorRGB.hpp"
 #include "shade_context.hpp"
+#include "ray.hpp"
 
 namespace ray_tracer {
 
@@ -11,9 +12,10 @@ namespace ray_tracer {
 
 	class tracer {
 	public:	
-		colorRGB ray_color(shade_context *) const;
+		colorRGB tracer::trace_ray(const ray &, shade_context *context_ptr) const; 
 	private:
-		colorRGB deal_light(const light *, shade_context *, const colorRGB &, const vector3D &) const;
+		colorRGB shade(shade_context *) const;
+		colorRGB shade_light(const light *, shade_context *, const colorRGB &, const vector3D &) const;
 	};
 }
 

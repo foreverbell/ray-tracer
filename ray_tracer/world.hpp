@@ -22,7 +22,6 @@ namespace ray_tracer {
 
 	class world {
 		friend class tracer;
-		friend class camera;
 	public:
 		world();
 		~world();

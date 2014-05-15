@@ -11,7 +11,7 @@ namespace ray_tracer {
 	public:
 		camera_pinhole();
 		camera_pinhole(const point3D &, const point3D &, const vector3D &, double, double, bool);
-		colorRGB render_scene(double, double, int, int, shade_context *) const;
+		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:
 		double fov_u, fov_v, tan_fov_u_coef, tan_fov_v_coef;
 		bool spherical;

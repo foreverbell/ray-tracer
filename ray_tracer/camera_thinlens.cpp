@@ -26,7 +26,7 @@ namespace ray_tracer {
 		spherical = spherical_;
 	}
 
-	colorRGB camera_thinlens::render_scene(double x, double y, int width, int height, shade_context *context_ptr) const {
+	bool camera_thinlens::get_ray(double x, double y, int width, int height, ray *ray_ptr, shade_context *context_ptr) const {
 		double u, v, w;
 		point3D focal_point, origin, origin_fixed;
 		point2D sample_point;
@@ -47,6 +47,10 @@ namespace ray_tracer {
 		origin = eye - 0.5 * axis_u - 0.5 * axis_v;
 		sample_point = context_ptr->sampler_iterator_ptr->get_sampler_disk_zoomed(sampler_set_camera_thinlens, lens_radius);
 		origin_fixed = origin + sample_point.x * axis_u + sample_point.y * axis_v;
-		return camera::render_scene(origin_fixed, (focal_point - origin_fixed).normalized(), context_ptr);
+
+		ray_ptr->origin = origin_fixed;
+		ray_ptr->dir = (focal_point - origin_fixed).normalized();
+
+		return true;
 	}
 }

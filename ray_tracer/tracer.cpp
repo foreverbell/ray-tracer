@@ -8,7 +8,7 @@
 
 namespace ray_tracer {
 
-	colorRGB tracer::deal_light(const light *light_ptr, shade_context *context_ptr, const colorRGB &surface_color, const vector3D &win) const {
+	colorRGB tracer::shade_light(const light *light_ptr, shade_context *context_ptr, const colorRGB &surface_color, const vector3D &win) const {
 		double temp;
 		vector3D wout;
 
@@ -23,8 +23,18 @@ namespace ray_tracer {
 		}
 		return color_black;
 	}
+	
+	colorRGB tracer::trace_ray(const ray &emission_ray, shade_context *context_ptr) const {
+		const world *world_ptr = context_ptr->world_ptr;
 
-	colorRGB tracer::ray_color(shade_context *context_ptr) const {
+		if (world_ptr->get_hit(emission_ray, context_ptr)) {
+			return shade(context_ptr);
+		} else {
+			return world_ptr->get_background();
+		}
+	}
+
+	colorRGB tracer::shade(shade_context *context_ptr) const {
 		if (context_ptr->trace_depth == 0) {
 			return color_black;
 		} else {
@@ -38,7 +48,7 @@ namespace ray_tracer {
 			result = context_ptr->world_ptr->ambient * context_ptr->surface_ptr->material_shade(context_ptr, surface_color, win, vector3D(0, 0, 0), true);
 			result += context_ptr->world_ptr->ambient * surface_color;
 			for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
-				result += deal_light(*iter, context_ptr, surface_color, win);
+				result += shade_light(*iter, context_ptr, surface_color, win);
 			}
 			if (world_ptr->fog_ptr) {
 				result = world_ptr->fog_ptr->fog_blending(context_ptr, world_ptr->camera_ptr->get_eye(), result);

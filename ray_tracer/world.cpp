@@ -53,6 +53,7 @@ namespace ray_tracer {
 		colorRGB color;
 		point2D sample_point;
 		shade_context info;
+		ray emission_ray;
 		int x, y;
 
 		do {
@@ -74,9 +75,14 @@ namespace ray_tracer {
 			for (int i = 0; i < number_sample; i += 1) {
 				info.world_ptr = this;
 				info.sampler_iterator_ptr = &sam_iter;
+				info.tracer_ptr = tracer_ptr;
+
 				sam_iter.next_sampler();
 				sample_point = sam_iter.get_sampler_unit(sampler_set_anti_aliasing);
-				color += camera_ptr->render_scene(x + sample_point.x, y + sample_point.y, dest_w, dest_h, &info);
+
+				if (camera_ptr->get_ray(x + sample_point.x, y + sample_point.y, dest_w, dest_h, &emission_ray, &info)) {
+					color += tracer_ptr->trace_ray(emission_ray, &info);
+				}
 			}
 			color = color / number_sample;
 			color = color.clamp();
