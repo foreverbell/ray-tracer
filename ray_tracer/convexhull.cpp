@@ -1,7 +1,7 @@
 
 #include <algorithm>
 #include "convexhull.hpp"
-#include "misc.hpp"
+#include "toolkit.hpp"
 
 namespace ray_tracer {
 

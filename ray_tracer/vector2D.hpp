@@ -1,7 +1,7 @@
 #ifndef __VECTOR2D_HPP__
 #define __VECTOR2D_HPP__
 
-#include "misc.hpp"
+#include "toolkit.hpp"
 
 namespace ray_tracer {
 	class point2D;
@@ -35,7 +35,7 @@ namespace ray_tracer {
 	}
 
 	inline double vector2D::inverse_length() const {
-		return inverse_sqrt(x * x + y * y);
+		return 1 / sqrt(x * x + y * y);
 	}
 
 	inline vector2D vector2D::normalized() const {

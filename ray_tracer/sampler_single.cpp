@@ -1,6 +1,5 @@
 
 #include "sampler_single.hpp"
-#include "misc.hpp"
 
 namespace ray_tracer {
 

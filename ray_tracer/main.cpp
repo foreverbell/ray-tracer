@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	int demo_id = 1;
+	int demo_id = 5;
 	clock_t old_time = clock();
 	demo *dm = NULL;
 
@@ -77,6 +77,9 @@ int main(int argc, char *argv[]) {
 		break;
 	case 4:
 		dm = new demo_4();
+		break;
+	case 5:
+		dm = new demo_5();
 		break;
 	default:
 		printf("Unknown demo id.\n");

@@ -51,6 +51,7 @@
 #include "surface_sphere.hpp"
 #include "surface_triangle.hpp"
 #include "surface_tricompound.hpp"
+#include "surface_mobius.hpp"
 /// }}}
 
 /// {{{ headers for texture & mapping

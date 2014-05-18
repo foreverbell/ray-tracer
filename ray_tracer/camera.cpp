@@ -3,7 +3,7 @@
 #include "shade_context.hpp"
 #include "matrix3D.hpp"
 #include "world.hpp"
-#include "misc.hpp"
+#include "toolkit.hpp"
 #include "transform_rotate.hpp"
 
 namespace ray_tracer {

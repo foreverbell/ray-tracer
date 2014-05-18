@@ -5,7 +5,6 @@
 #include "surface.hpp"
 #include "ray.hpp"
 #include "tracer.hpp"
-#include "misc.hpp"
 
 namespace ray_tracer {
 

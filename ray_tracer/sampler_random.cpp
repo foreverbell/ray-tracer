@@ -1,6 +1,6 @@
 
 #include "sampler_random.hpp"
-#include "misc.hpp"
+#include <cstdlib>
 
 namespace ray_tracer {
 
@@ -11,7 +11,7 @@ namespace ray_tracer {
 
 	void sampler_random::generate(int num) {
 		for (int i = 0; i < number_samples; i += 1) {
-			samples.push_back(point2D((double)rand() / RAND_MAX, (double)rand() / RAND_MAX));
+			samples.push_back(point2D((double) rand() / RAND_MAX, (double) rand() / RAND_MAX));
 		}
 	}
 }

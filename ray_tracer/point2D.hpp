@@ -1,7 +1,7 @@
 #ifndef __POINT2D_HPP__
 #define __POINT2D_HPP__
 
-#include "misc.hpp"
+#include "toolkit.hpp"
 #include "vector2D.hpp"
 
 namespace ray_tracer {
@@ -36,7 +36,7 @@ namespace ray_tracer {
 	}
 
 	inline double point2D::inverse_length() const {
-		return inverse_sqrt(x * x + y * y);
+		return 1 / sqrt(x * x + y * y);
 	}
 
 	inline point2D point2D::normalized() const {

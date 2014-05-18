@@ -1,7 +1,7 @@
 
 #include "BRDF_phong.hpp"
 #include "vector3D.hpp"
-#include "misc.hpp"
+#include <cmath>
 
 namespace ray_tracer {
 

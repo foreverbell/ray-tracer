@@ -1,6 +1,6 @@
 
 #include "fog.hpp"
-#include "misc.hpp"
+#include <cmath>
 
 namespace ray_tracer {
 

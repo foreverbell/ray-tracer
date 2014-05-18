@@ -1,5 +1,5 @@
 
-#include "misc.hpp"
+#include "toolkit.hpp"
 #include "ray.hpp"
 #include "surface_tricompound.hpp"
 #include <algorithm>
@@ -7,6 +7,7 @@
 #include <utility>
 #include <climits>
 #include <cfloat>
+#include <cassert>
 
 namespace ray_tracer {
 

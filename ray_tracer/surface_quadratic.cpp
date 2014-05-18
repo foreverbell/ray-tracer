@@ -1,5 +1,4 @@
 
-#include "misc.hpp"
 #include "ray.hpp"
 #include "surface_quadratic.hpp"
 

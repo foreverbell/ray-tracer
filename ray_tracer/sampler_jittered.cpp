@@ -1,6 +1,6 @@
 
 #include "sampler_jittered.hpp"
-#include "misc.hpp"
+#include <cstdlib>
 #include <algorithm>
 
 namespace ray_tracer {
@@ -20,7 +20,7 @@ namespace ray_tracer {
 		if (is_squared(num, root)) {
 			for (int i = 0; i < root; i += 1) {
 				for (int j = 0; j < root; j += 1) {
-					samples.push_back(point2D((i + (double)rand() / RAND_MAX) / root, (j + (double)rand() / RAND_MAX) / root));
+					samples.push_back(point2D((i + (double) rand() / RAND_MAX) / root, (j + (double) rand() / RAND_MAX) / root));
 				}
 			}
 			std::random_shuffle(samples.begin(), samples.end());

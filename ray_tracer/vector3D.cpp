@@ -1,7 +1,8 @@
 
 #include "vector3D.hpp"
 #include "point3D.hpp"
-#include "misc.hpp"
+#include "toolkit.hpp"
+#include <cassert>
 
 namespace ray_tracer {
 
