@@ -224,82 +224,36 @@ namespace ray_tracer {
 
 		bs_center = center;
 		bs_radius = sqrt(maxd);
+
+		bs_have = true;
 	}
 
 	void surface_tricompound::init_boundbox() {
-		bb_xmin = bb_xmax = surfaces[0]->v0.x;
-		bb_ymin = bb_ymax = surfaces[0]->v0.y;
-		bb_zmin = bb_zmax = surfaces[0]->v0.z;
+		double xmin, xmax, ymin, ymax, zmin, zmax;
+
+		xmin = xmax = surfaces[0]->v0.x;
+		ymin = ymax = surfaces[0]->v0.y;
+		zmin = zmax = surfaces[0]->v0.z;
 
 		for (std::vector<surface_triangle *>::const_iterator it = surfaces.begin(); it != surfaces.end(); ++it) {
-			bb_xmin = std::min(bb_xmin, (*it)->v0.x), bb_xmax = std::max(bb_xmax, (*it)->v0.x);
-			bb_xmin = std::min(bb_xmin, (*it)->v1.x), bb_xmax = std::max(bb_xmax, (*it)->v1.x);
-			bb_xmin = std::min(bb_xmin, (*it)->v2.x), bb_xmax = std::max(bb_xmax, (*it)->v2.x);
-			bb_ymin = std::min(bb_ymin, (*it)->v0.y), bb_ymax = std::max(bb_ymax, (*it)->v0.y);
-			bb_ymin = std::min(bb_ymin, (*it)->v1.y), bb_ymax = std::max(bb_ymax, (*it)->v1.y);
-			bb_ymin = std::min(bb_ymin, (*it)->v2.y), bb_ymax = std::max(bb_ymax, (*it)->v2.y);
-			bb_zmin = std::min(bb_zmin, (*it)->v0.z), bb_zmax = std::max(bb_zmax, (*it)->v0.z);
-			bb_zmin = std::min(bb_zmin, (*it)->v1.z), bb_zmax = std::max(bb_zmax, (*it)->v1.z);
-			bb_zmin = std::min(bb_zmin, (*it)->v2.z), bb_zmax = std::max(bb_zmax, (*it)->v2.z);
+			xmin = std::min(xmin, (*it)->v0.x), xmax = std::max(xmax, (*it)->v0.x);
+			xmin = std::min(xmin, (*it)->v1.x), xmax = std::max(xmax, (*it)->v1.x);
+			xmin = std::min(xmin, (*it)->v2.x), xmax = std::max(xmax, (*it)->v2.x);
+			ymin = std::min(ymin, (*it)->v0.y), ymax = std::max(ymax, (*it)->v0.y);
+			ymin = std::min(ymin, (*it)->v1.y), ymax = std::max(ymax, (*it)->v1.y);
+			ymin = std::min(ymin, (*it)->v2.y), ymax = std::max(ymax, (*it)->v2.y);
+			zmin = std::min(zmin, (*it)->v0.z), zmax = std::max(zmax, (*it)->v0.z);
+			zmin = std::min(zmin, (*it)->v1.z), zmax = std::max(zmax, (*it)->v1.z);
+			zmin = std::min(zmin, (*it)->v2.z), zmax = std::max(zmax, (*it)->v2.z);
 		}
-		bb_p1 = point3D(bb_xmin, bb_ymin, bb_zmin);
-		bb_p2 = point3D(bb_xmax, bb_ymax, bb_zmax);
-	}
+		bb_p1 = point3D(xmin, ymin, zmin);
+		bb_p2 = point3D(xmax, ymax, zmax);
 
-	bool surface_tricompound::hit_sphere(const ray &emission_ray) const {
-		point3D o = emission_ray.origin;
-		vector3D d = emission_ray.dir;
-
-		point3D c = bs_center;
-		double a = d * (o - c), d2 = d.length2();
-		double delta = a * a - d2 * ((o - c).length2() - bs_radius * bs_radius);
-
-		if (delta >= 0) {
-			delta = sqrt(delta);
-			double t = (-a - delta) / d2;
-			if (t < EPSILON) t = (-a + delta) / d2;
-			if (t > EPSILON) return true;
-		}
-		
-		return false;
-	}
-
-	bool surface_tricompound::hit_box(const ray &emission_ray) const {
-		point3D o = emission_ray.origin;
-		vector3D d = emission_ray.dir;
-
-#define CHECK(p) \
-	(p.x >= bb_xmin - EPSILON && p.x <= bb_xmax + EPSILON) && \
-	(p.y >= bb_ymin - EPSILON && p.y <= bb_ymax + EPSILON) && \
-	(p.z >= bb_zmin - EPSILON && p.z <= bb_zmax + EPSILON)
-
-		vector3D normal;
-		point3D hit;
-		double deno, t;
-
-		for (int norm = 0; norm < 3; ++norm) {
-			if (norm == 0) normal = vector3D(1, 0, 0);
-			else if (norm == 1) normal = vector3D(0, 1, 0);
-			else normal = vector3D(0, 0, 1);
-
-			deno = normal * d;
-
-			if (DBLCMP(deno) != 0) {
-				t = (bb_p1 - o) * normal / deno;
-				hit = o + d * t;
-				if (CHECK(hit)) return true;
-
-				t = (bb_p2 - o) * normal / deno;
-				hit = o + d * t;
-				if (CHECK(hit)) return true;
-			}
-		}
-		
-		return false;
+		bb_have = true;
 	}
 
 	double surface_tricompound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		if (!hit_sphere(emission_ray) || !hit_box(emission_ray)) return -1;
+		if (!hit_bound(emission_ray)) return -1;
 
 		std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root_ptr.get());
 		if (result.second == -1) {

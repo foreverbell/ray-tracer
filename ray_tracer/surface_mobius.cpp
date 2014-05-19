@@ -8,33 +8,50 @@
 namespace ray_tracer {
 
 	surface_mobius::surface_mobius() {
-		radius = 3;
-		half_width = 1;
+		surface_mobius(3, 1);
 	}
 
 	surface_mobius::surface_mobius(double radius_, double half_width_) {
 		radius = radius_;
 		half_width = half_width_;
+
+		double xy = radius + half_width;
+		double z = half_width;
+
+		bb_p1 = point3D(-xy, -xy, -z);
+		bb_p2 = point3D(xy, xy, z);
+
+		bb_have = true;
 	}
 
 	bool surface_mobius::inrange(const point3D &pt) const {
 		double x = pt.x, y = pt.y, z = pt.z;
-
 		double t = atan2(y, x), s;
 
-		if (t < 0) t += 2 * PI;
-		s = z / sin(t / 2);
-
+		if (DBLCMP(sin(t / 2)) != 0) {
+			s = z / sin(t / 2);
+		} else {
+			if (DBLCMP(cos(t)) != 0) {
+				s = (x / cos(t) - radius) / cos(t / 2);
+			} else {
+				s = (y / sin(t) - radius) / cos(t / 2);
+			}
+		}
+		
 		x -= (radius + s * cos(t / 2)) * cos(t);
 		y -= (radius + s * cos(t / 2)) * sin(t);
 		z -= s * sin(t / 2);
 
-		if (DBLCMP(x) != 0 || DBLCMP(y) != 0 || DBLCMP(z) != 0) return false;
+		if (DBLCMP(x * x + y * y + z * z) != 0) {
+			return false;
+		}	
 
-		return (s >= -half_width  && s <= half_width);
+		return (s >= -half_width - EPSILON  && s <= half_width + EPSILON);
 	}
 
 	double surface_mobius::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+		if (!hit_bound(emission_ray)) return -1;
+
 		double ox = emission_ray.origin.x;
 		double oy = emission_ray.origin.y;
 		double oz = emission_ray.origin.z;
@@ -58,9 +75,7 @@ namespace ray_tracer {
 		coef.push_back(coef_3);
 
 		result = equation_solve(coef, 3);
-		
-		std::sort(result.begin(), result.end());
-		
+
 		for (std::vector<double>::iterator iter = result.begin(); iter != result.end(); ++iter) {
 			if (*iter > EPSILON && inrange(emission_ray.at(*iter))) {
 				return *iter;

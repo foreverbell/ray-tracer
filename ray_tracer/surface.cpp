@@ -4,24 +4,83 @@
 namespace ray_tracer {
 
 	surface::surface() {
+		bs_have = false;
+		bb_have = false;
+
 		shading_surface_ptr = NULL;
 		material_ptr = NULL;
 		texture_ptr = NULL;
+		
 		clear_transform();
 	}
 
 	surface::~surface() { }
+	
+	bool surface::hit_sphere(const ray &emission_ray) const {
+		point3D o = emission_ray.origin;
+		vector3D d = emission_ray.dir;
 
-	void surface::bind_shading_surface(const surface *shading_surface_ptr_) {
-		shading_surface_ptr = shading_surface_ptr_;
+		point3D c = bs_center;
+		double a = d * (o - c), d2 = d.length2();
+		double delta = a * a - d2 * ((o - c).length2() - bs_radius * bs_radius);
+
+		if (delta >= 0) {
+			delta = sqrt(delta);
+			double t = (-a - delta) / d2;
+			if (t < EPSILON) t = (-a + delta) / d2;
+			if (t > EPSILON) return true;
+		}
+		
+		return false;
 	}
 
-	double surface::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		return -1;
+	bool surface::hit_box(const ray &emission_ray) const {
+		point3D o = emission_ray.origin;
+		vector3D d = emission_ray.dir;
+
+#define CHECK(p) \
+	(p.x >= bb_p1.x - EPSILON && p.x <= bb_p2.x + EPSILON) && \
+	(p.y >= bb_p1.y - EPSILON && p.y <= bb_p2.y + EPSILON) && \
+	(p.z >= bb_p1.z - EPSILON && p.z <= bb_p2.z + EPSILON)
+
+		vector3D normal;
+		point3D hit;
+		double deno, t;
+
+		for (int norm = 0; norm < 3; ++norm) {
+			if (norm == 0) normal = vector3D(1, 0, 0);
+			else if (norm == 1) normal = vector3D(0, 1, 0);
+			else normal = vector3D(0, 0, 1);
+
+			deno = normal * d;
+
+			if (DBLCMP(deno) != 0) {
+				t = (bb_p1 - o) * normal / deno;
+				hit = o + d * t;
+				if (CHECK(hit)) return true;
+
+				t = (bb_p2 - o) * normal / deno;
+				hit = o + d * t;
+				if (CHECK(hit)) return true;
+			}
+		}
+		
+		return false;
+	}
+
+	bool surface::hit_bound(const ray &emission_ray) const {
+		if (bb_have && !hit_box(emission_ray)) return false;
+		if (bs_have && !hit_sphere(emission_ray)) return false;
+
+		return true;
 	}
 
 	vector3D surface::atnormal(const point3D &point) const {
-		return vector3D(0, 0, 1);
+		return vector3D(1, 0, 0);
+	}
+
+	void surface::bind_shading_surface(const surface *shading_surface_ptr_) {
+		shading_surface_ptr = shading_surface_ptr_;
 	}
 
 	void surface::set_material(const material *material_ptr_) {

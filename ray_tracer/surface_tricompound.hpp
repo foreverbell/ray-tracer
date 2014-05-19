@@ -31,14 +31,9 @@ namespace ray_tracer {
 		std::vector<surface_triangle *> surfaces;
 		bool islocked;
 		std::unique_ptr<kdtree_node> kdtree_root_ptr;
-		// bounding sphere & box
-		point3D bs_center, bb_p1, bb_p2;
-		double bs_radius, bb_xmin, bb_xmax, bb_ymin, bb_ymax, bb_zmin, bb_zmax;
 	private:
 		void init_circumsphere();
 		void init_boundbox();
-		bool hit_sphere(const ray &) const;
-		bool hit_box(const ray &) const;
 		std::unique_ptr<kdtree_node> build_kdtree(std::vector<int> surfaces_list);
 		std::pair<double, int> search_kdtree(const ray &, const kdtree_node *) const;
 		std::pair<point3D, int> get_division(const vector3D &normal, const std::vector<int> &surfaces_list);
