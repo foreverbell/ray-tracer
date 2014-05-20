@@ -67,7 +67,7 @@ namespace ray_tracer {
 	inline std::vector<double> equation_solve(const std::vector<double> &coef, int n) {
 		std::vector<double> ret; 
 
-		assert(coef.size() == n + 1);
+		assert((int) coef.size() == n + 1);
 
 		while (n > 1 && DBLCMP(coef[n]) == 0) {
 			n -= 1;
