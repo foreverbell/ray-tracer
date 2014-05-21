@@ -222,10 +222,7 @@ namespace ray_tracer {
 			delta *= 0.9;
 		}
 
-		bs_center = center;
-		bs_radius = sqrt(maxd);
-
-		bs_have = true;
+		set_bsphere(center, sqrt(maxd));
 	}
 
 	void surface_tricompound::init_boundbox() {
@@ -246,10 +243,8 @@ namespace ray_tracer {
 			zmin = std::min(zmin, (*it)->v1.z), zmax = std::max(zmax, (*it)->v1.z);
 			zmin = std::min(zmin, (*it)->v2.z), zmax = std::max(zmax, (*it)->v2.z);
 		}
-		bb_p1 = point3D(xmin, ymin, zmin);
-		bb_p2 = point3D(xmax, ymax, zmax);
 
-		bb_have = true;
+		set_bbox(xmin, ymin, zmin, xmax, ymax, zmax);
 	}
 
 	double surface_tricompound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {

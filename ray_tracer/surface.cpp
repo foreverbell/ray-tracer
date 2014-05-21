@@ -16,7 +16,19 @@ namespace ray_tracer {
 
 	surface::~surface() { }
 	
-	bool surface::hit_sphere(const ray &emission_ray) const {
+	void surface::set_bbox(double xmin, double ymin, double zmin, double xmax, double ymax, double zmax) {
+		bb_have = true;
+		bb_p1 = point3D(xmin, ymin, zmin);
+		bb_p2 = point3D(xmax, ymax, zmax);
+	}
+	
+	void surface::set_bsphere(const point3D &center, double radius) {
+		bs_have = true;
+		bs_center = center;
+		bs_radius = radius;
+	}
+	
+	bool surface::hit_bsphere(const ray &emission_ray) const {
 		point3D o = emission_ray.origin;
 		vector3D d = emission_ray.dir;
 
@@ -34,7 +46,7 @@ namespace ray_tracer {
 		return false;
 	}
 
-	bool surface::hit_box(const ray &emission_ray) const {
+	bool surface::hit_bbox(const ray &emission_ray) const {
 		point3D o = emission_ray.origin;
 		vector3D d = emission_ray.dir;
 
@@ -69,8 +81,8 @@ namespace ray_tracer {
 	}
 
 	bool surface::hit_bound(const ray &emission_ray) const {
-		if (bb_have && !hit_box(emission_ray)) return false;
-		if (bs_have && !hit_sphere(emission_ray)) return false;
+		if (bb_have && !hit_bbox(emission_ray)) return false;
+		if (bs_have && !hit_bsphere(emission_ray)) return false;
 
 		return true;
 	}

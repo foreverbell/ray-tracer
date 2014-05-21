@@ -41,9 +41,12 @@ namespace ray_tracer {
 
 	protected:
 		bool hit_bound(const ray &) const;
+		void set_bbox(double, double, double, double, double, double);
+		void set_bsphere(const point3D &, double);
+
 	private:
-		bool hit_sphere(const ray &) const;
-		bool hit_box(const ray &) const; 
+		bool hit_bsphere(const ray &) const;
+		bool hit_bbox(const ray &) const; 
 
 	protected:
 		// shading
@@ -56,6 +59,7 @@ namespace ray_tracer {
 		point3D transform_center;
 		transform transform_matrix;
 
+	private:
 		// bounding sphere & box
 		bool bs_have, bb_have;
 		point3D bs_center, bb_p1, bb_p2;

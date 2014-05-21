@@ -18,10 +18,7 @@ namespace ray_tracer {
 		double xy = radius + half_width;
 		double z = half_width;
 
-		bb_p1 = point3D(-xy, -xy, -z);
-		bb_p2 = point3D(xy, xy, z);
-
-		bb_have = true;
+		set_bbox(-xy, -xy, -z, xy, xy, z);
 	}
 
 	bool surface_mobius::inrange(const point3D &pt) const {

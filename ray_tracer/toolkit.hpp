@@ -14,21 +14,6 @@ namespace ray_tracer {
 
 	#define DBLCMP(_x_) ((_x_) < -EPSILON ? -1 : ((_x_) > EPSILON ? 1 : 0))
 
-	inline double pow(double base, int power) {
-		if (power <= 0) {
-			return 1;
-		} else {
-			double result = 1;
-
-			while (power > 0 && result > EPSILON) {
-				if (power & 1) result *= base;
-				power >>= 1;
-				base *= base;
-			}
-			return result;
-		}
-	}
-
 	/* private marcos. */
 	#define __ROOT_RANGE__ 1e10
 
