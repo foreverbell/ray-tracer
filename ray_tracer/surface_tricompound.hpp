@@ -4,7 +4,6 @@
 #include <vector>
 #include <memory>
 #include "surface.hpp"
-#include "surface_compound.hpp"
 #include "surface_triangle.hpp"
 #include "surface_plane.hpp"
 #include "surface_sphere.hpp"
@@ -21,9 +20,6 @@ namespace ray_tracer {
 		surface_tricompound();
 		~surface_tricompound();
 		double hit(const ray &, const surface **) const;
-		void set_transform_center(const point3D &);
-		void clear_transform();
-		void apply_transform(const transform &);
 	protected:
 		void add_surface(surface_triangle *);
 		void lock();

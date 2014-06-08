@@ -113,7 +113,6 @@
     <ClCompile Include="transform_reflect.cpp" />
     <ClCompile Include="transform_rotate.cpp" />
     <ClCompile Include="transform_scale.cpp" />
-    <ClCompile Include="surface_compound.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
     <ClCompile Include="surface_quadratic.cpp" />
@@ -179,7 +178,6 @@
     <ClInclude Include="transform_reflect.hpp" />
     <ClInclude Include="transform_rotate.hpp" />
     <ClInclude Include="transform_scale.hpp" />
-    <ClInclude Include="surface_compound.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
     <ClInclude Include="surface_quadratic.hpp" />

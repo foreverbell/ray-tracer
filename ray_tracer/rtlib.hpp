@@ -40,7 +40,6 @@
 
 /// {{{ headers for surface
 #include "surface.hpp"
-#include "surface_compound.hpp"
 #include "surface_convexhull.hpp"
 #include "surface_disk.hpp"
 #include "surface_glteapot.hpp"

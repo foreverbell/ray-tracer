@@ -23,21 +23,39 @@ namespace ray_tracer {
 	}
 
 	bool world::get_hit(const ray &emission_ray, shade_context *context_ptr) const {
-		const surface *surface_ptr = NULL;
-		double hit_time;
+		bool was = false;
+		double t, result_t = -1;
+		const surface *cur_surface_ptr, *real_surface_ptr;
+		const surface *surface_ptr, *father_surface_ptr;
 
-		hit_time = surfaces.hit(emission_ray, &surface_ptr);
-		if (surface_ptr != NULL) { 
-			context_ptr->hit_time = hit_time;
-			context_ptr->surface_ptr = surface_ptr;
-			context_ptr->hit_point = emission_ray.at(context_ptr->hit_time);
-			context_ptr->hit_local_point = emission_ray.inverse_transform(surface_ptr->transform_matrix, surface_ptr->transform_center).at(context_ptr->hit_time);
-			context_ptr->normal = (surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
-			context_ptr->emission_ray = emission_ray;
-			return true;
-		} else {
-			return false;
+		for (std::vector<const surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
+			cur_surface_ptr = *iter;
+			real_surface_ptr = NULL;
+			if (cur_surface_ptr->transformed) {
+				t = cur_surface_ptr->hit(emission_ray.inverse_transform(cur_surface_ptr->transform_matrix, cur_surface_ptr->transform_center), &real_surface_ptr);
+			} else {
+				t = cur_surface_ptr->hit(emission_ray, &real_surface_ptr);
+			}
+			if (t > EPSILON && (t < result_t || result_t == -1)) {
+				result_t = t;
+				surface_ptr = (real_surface_ptr != NULL ? real_surface_ptr : cur_surface_ptr);
+				father_surface_ptr = cur_surface_ptr;
+				was = true;
+			}
 		}
+
+		if (!was) return false;
+
+		// notice that only father surface stores the transformation info.
+
+		context_ptr->hit_time = result_t;
+		context_ptr->surface_ptr = surface_ptr;
+		context_ptr->hit_point = emission_ray.at(context_ptr->hit_time);
+		context_ptr->hit_local_point = emission_ray.inverse_transform(father_surface_ptr->transform_matrix, father_surface_ptr->transform_center).at(context_ptr->hit_time);
+		context_ptr->normal = (father_surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
+		context_ptr->emission_ray = emission_ray;
+
+		return true;
 	}
 
 	void world::render_begin(int w_, int h_, const render_callback_func callback_func_, void *callback_param_ptr_) {

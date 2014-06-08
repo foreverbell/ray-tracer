@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	int demo_id = 6;
+	int demo_id = 1;
 	clock_t old_time = clock();
 	demo *dm = NULL;
 

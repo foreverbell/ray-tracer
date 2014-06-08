@@ -10,7 +10,6 @@
 #include "ray.hpp"
 #include "light.hpp"
 #include "surface.hpp"
-#include "surface_compound.hpp"
 #include "fog.hpp"
 #include "camera.hpp"
 #include "tracer.hpp"
@@ -38,7 +37,7 @@ namespace ray_tracer {
 	private:
 		colorRGB ambient;
 		std::vector<const light *> lights;
-		surface_compound surfaces;
+		std::vector<const surface *> surfaces;
 		const fog *fog_ptr;
 		const camera *camera_ptr;
 		const tracer *tracer_ptr;
@@ -66,7 +65,7 @@ namespace ray_tracer {
 	}
 
 	inline void world::add_surface(const surface *surface_ptr_) {
-		surfaces.add_surface(const_cast<surface *>(surface_ptr_));
+		surfaces.push_back(surface_ptr_);
 	}
 
 	inline void world::set_fog(const fog *fog_ptr_) {

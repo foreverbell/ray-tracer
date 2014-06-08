@@ -4,11 +4,8 @@
 using namespace ray_tracer;
 
 void demo_1::set_world() {
-	surface *s1, *s2, *s3, *s5;
-	surface_quadratic *s4;
-	surface_compound *sc;
+	surface *s1, *s2, *s3;
 	light *l1, *l2;
-
 
 	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), PI / 2);
 	// cam = new camera_thinlens(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), 35, 3.5, true);
@@ -26,16 +23,6 @@ void demo_1::set_world() {
 	s3 = new surface_plane(point3D(0, 0, -3), vector3D(0, 0, 1));
 	s3->set_material(new material_matte());
 	s3->set_texture(new texture_checker());
-
-	s4 = new surface_quadratic();
-	s4->coef_xx = 1, s4->coef_yy = 1, s4->coef_y = -5, s4->coef_const = -8;
-	s4->set_range_z(-3, 5);
-	s5 = new surface_disk(point3D(0, 2.5, 5), vector3D(0, 0, 1), 3.77491);
-	sc = new surface_compound();
-	sc->add_surface(s4);
-	sc->add_surface(s5);
-	sc->set_material(new material_mirror(colorRGB(0.8, 0.2, 0.8)));
-	sc->set_texture(new texture_solid(colorRGB(0.7, 0.7, 0.0)));
 
 	surface_glteapot *s7 = new surface_glteapot();
 	s7->apply_transform(transform_translate(-3, -3, 0));
@@ -60,7 +47,6 @@ void demo_1::set_world() {
 	// wld.add_surface(s1);
 	// wld.add_surface(s2);
 	wld.add_surface(s3);
-	// wld.add_surface(s4);
 	wld.add_surface(s7);
 	wld.add_surface(s8);
 	wld.add_light(l1);
