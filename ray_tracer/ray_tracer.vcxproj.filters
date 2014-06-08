@@ -209,6 +209,12 @@
     <ClCompile Include="demo\demo_5.cpp">
       <Filter>demo</Filter>
     </ClCompile>
+    <ClCompile Include="surface_fractal_terrain.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="demo\demo_6.cpp">
+      <Filter>demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -474,6 +480,9 @@
     </ClInclude>
     <ClInclude Include="toolkit.hpp">
       <Filter>bottom-layer\basis</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_fractal_terrain.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

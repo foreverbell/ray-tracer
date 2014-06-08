@@ -52,6 +52,7 @@
 #include "surface_triangle.hpp"
 #include "surface_tricompound.hpp"
 #include "surface_mobius.hpp"
+#include "surface_fractal_terrain.hpp"
 /// }}}
 
 /// {{{ headers for texture & mapping
