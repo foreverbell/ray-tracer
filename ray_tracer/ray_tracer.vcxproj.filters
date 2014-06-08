@@ -50,12 +50,6 @@
     <ClCompile Include="texture_image.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
-    <ClCompile Include="texture_mapping.cpp">
-      <Filter>bottom-layer\texture\texture_mapping</Filter>
-    </ClCompile>
-    <ClCompile Include="texture_mapping_sphere.cpp">
-      <Filter>bottom-layer\texture\texture_mapping</Filter>
-    </ClCompile>
     <ClCompile Include="light_point.cpp">
       <Filter>bottom-layer\light</Filter>
     </ClCompile>
@@ -232,9 +226,6 @@
     <Filter Include="bottom-layer\texture">
       <UniqueIdentifier>{63482482-2542-416e-a168-f93e10404a1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bottom-layer\texture\texture_mapping">
-      <UniqueIdentifier>{6dac98c8-e650-4673-9560-1fd06bd69f9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\image">
       <UniqueIdentifier>{aff4d6dc-3fbb-46f1-83a9-80541c3fa90a}</UniqueIdentifier>
     </Filter>
@@ -332,12 +323,6 @@
     </ClInclude>
     <ClInclude Include="texture_image.hpp">
       <Filter>bottom-layer\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="texture_mapping.hpp">
-      <Filter>bottom-layer\texture\texture_mapping</Filter>
-    </ClInclude>
-    <ClInclude Include="texture_mapping_sphere.hpp">
-      <Filter>bottom-layer\texture\texture_mapping</Filter>
     </ClInclude>
     <ClInclude Include="light_point.hpp">
       <Filter>bottom-layer\light</Filter>

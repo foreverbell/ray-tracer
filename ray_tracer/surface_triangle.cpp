@@ -8,19 +8,14 @@ namespace ray_tracer {
 		v0 = point3D(0, 0, 1), v1 = point3D(0, 1, 0), v2 = point3D(1, 0, 0);
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
 		smooth_normal = false;
+		hasUV = false;
 	}
 
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
 		v0 = v0_, v1 = v1_, v2 = v2_;
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
 		smooth_normal = false;
-	}
-
-	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_,
-		const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
-		v0 = v0_, v1 = v1_, v2 = v2_;
-		n0 = n0_, n1 = n1_, n2 = n2_;
-		smooth_normal = true;
+		hasUV = false;
 	}
 
 	double surface_triangle::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
@@ -59,5 +54,30 @@ namespace ray_tracer {
 		} else {
 			return normal;
 		}
+	}	
+	
+	void surface_triangle::setnormal(const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
+		n0 = n0_, n1 = n1_, n2 = n2_;
+		smooth_normal = true;
+	}
+
+	point2D surface_triangle::atUV(shade_context *context_ptr) const {
+		if (!hasUV) {
+			return surface::atUV(context_ptr);
+		} else {
+			point3D point = context_ptr->hit_local_point;
+
+			double a = point.x - v0.x, b = v1.x - v0.x, c = v2.x - v0.x;
+			double d = point.y - v0.y, e = v1.y - v0.y, f = v2.y - v0.y;
+			double beta = (a * f - d * c) / (b * f - e * c);
+			double gamma = (a * e - d * b) / (c * e - f * b);
+
+			return (uv0 * (1 - beta - gamma) + uv1 * beta + uv2 * gamma);
+		}
+	}
+
+	void surface_triangle::setUV(const point2D &uv0_, const point2D &uv1_, const point2D &uv2_) {
+		uv0 = uv0_, uv1 = uv1_, uv2 = uv2_;
+		hasUV = true;
 	}
 }

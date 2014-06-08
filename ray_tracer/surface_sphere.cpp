@@ -33,4 +33,13 @@ namespace ray_tracer {
 	vector3D surface_sphere::atnormal(const point3D &point) const {
 		return (point - center).normalized();
 	}
+
+	point2D surface_sphere::atUV(shade_context *context_ptr) const {
+		vector3D p = (context_ptr->hit_local_point - center).normalized();
+		
+		double u = 0.5 + atan2(p.x, p.y) / 2 / PI;
+		double v = 0.5 - asin(p.z) / PI;
+
+		return point2D(u, v);
+	}
 }

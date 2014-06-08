@@ -4,6 +4,7 @@
 #include <memory>
 #include "vector3D.hpp"
 #include "point3D.hpp"
+#include "point2D.hpp"
 #include "colorRGB.hpp"
 #include "shade_context.hpp"
 #include "ray.hpp"
@@ -29,15 +30,18 @@ namespace ray_tracer {
 		// normals && shading
 		virtual vector3D atnormal(const point3D &) const;
 		colorRGB material_shade(shade_context *, const colorRGB &, const vector3D &, const vector3D &, bool) const;
-		virtual void set_material(const material *);
+		void set_material(const material *);
 		colorRGB texture_shade(shade_context *) const;
-		virtual void set_texture(const texture *);
-		void bind_shading_surface(const surface *);
+		void set_texture(const texture *);
+		void set_shading_surface(const surface *);
+
+		// texture mapping (UV mapping)
+		virtual point2D atUV(shade_context *) const;
 
 		// transformation
-		virtual void set_transform_center(const point3D &);
-		virtual void clear_transform();
-		virtual void apply_transform(const transform &);
+		void set_transform_center(const point3D &);
+		void clear_transform();
+		void apply_transform(const transform &);
 
 	protected:
 		bool hit_bound(const ray &) const;

@@ -91,16 +91,20 @@ namespace ray_tracer {
 		return vector3D(1, 0, 0);
 	}
 
-	void surface::bind_shading_surface(const surface *shading_surface_ptr_) {
-		shading_surface_ptr = shading_surface_ptr_;
-	}
-
 	void surface::set_material(const material *material_ptr_) {
 		material_ptr = material_ptr_;
 	}
 
 	void surface::set_texture(const texture *texture_ptr_) {
 		texture_ptr = texture_ptr_;
+	}
+	
+	void surface::set_shading_surface(const surface *shading_surface_ptr_) {
+		shading_surface_ptr = shading_surface_ptr_;
+	}
+
+	point2D surface::atUV(shade_context *context_ptr) const {
+		return point2D(0, 0);
 	}
 
 	void surface::set_transform_center(const point3D &center_) {

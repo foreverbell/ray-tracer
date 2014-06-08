@@ -11,6 +11,7 @@ namespace ray_tracer {
 		surface_sphere(const point3D &, double);
 		double hit(const ray &, const surface **) const;
 		vector3D atnormal(const point3D &) const;
+		point2D atUV(shade_context *) const;
 	private:
 		point3D center;
 		double radius, radius2;

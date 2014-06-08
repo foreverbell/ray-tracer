@@ -22,8 +22,10 @@ namespace ray_tracer {
 	}	
 
 	void surface_tricompound::add_surface(surface_triangle *surface_) {
-		assert(!islocked);
-		surface_->bind_shading_surface(this);
+		if (islocked) {
+			throw "triangle array is locked.";
+		}
+		surface_->set_shading_surface(this);
 		surfaces.push_back(surface_);
 	}
 

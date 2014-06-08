@@ -54,14 +54,11 @@
 #include "surface_fractal_terrain.hpp"
 /// }}}
 
-/// {{{ headers for texture & mapping
+/// {{{ headers for texture
 #include "texture.hpp"
 #include "texture_checker.hpp"
 #include "texture_image.hpp"
 #include "texture_solid.hpp"
-
-#include "texture_mapping.hpp"
-#include "texture_mapping_sphere.hpp"
 /// }}}
 
 /// {{{ headers for transform

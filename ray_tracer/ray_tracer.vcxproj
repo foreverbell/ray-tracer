@@ -118,8 +118,6 @@
     <ClCompile Include="surface_quadratic.cpp" />
     <ClCompile Include="surface_regpolyhedron.cpp" />
     <ClCompile Include="surface_tricompound.cpp" />
-    <ClCompile Include="texture_mapping.cpp" />
-    <ClCompile Include="texture_mapping_sphere.cpp" />
     <ClCompile Include="texture_image.cpp" />
     <ClCompile Include="light_point.cpp" />
     <ClCompile Include="main.cpp" />
@@ -183,8 +181,6 @@
     <ClInclude Include="surface_quadratic.hpp" />
     <ClInclude Include="surface_regpolyhedron.hpp" />
     <ClInclude Include="surface_tricompound.hpp" />
-    <ClInclude Include="texture_mapping.hpp" />
-    <ClInclude Include="texture_mapping_sphere.hpp" />
     <ClInclude Include="material.hpp" />
     <ClInclude Include="material_phong.hpp" />
     <ClInclude Include="material_matte.hpp" />

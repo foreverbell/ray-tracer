@@ -1,5 +1,6 @@
 
 #include "surface_fractal_terrain.hpp"
+#include "point2D.hpp"
 
 /*
  * http://gameprogrammer.com/fractal.html
@@ -82,19 +83,25 @@ namespace ray_tracer {
 	}
 
 	void surface_fractal_terrain::generate_mesh(const std::vector<std::vector<double> > &height, int size, double sidelen) {
-		double scale = sidelen / size;
+		surface_triangle *triangle;
+		double scale = sidelen / size, delta = 1.0 / size;
 
 		for (int i = 0; i < size; ++i) {
 			for (int j = 0; j < size; ++j) {
 				double x = i * scale, y = j * scale;
-				add_surface(new surface_triangle(
-							point3D(x, y, height[i][j]),
-							point3D(x + scale, y, height[i + 1][j]),
-							point3D(x, y + scale, height[i][j + 1])));
-				add_surface(new surface_triangle(
-							point3D(x + scale, y, height[i + 1][j]),
-							point3D(x + scale, y + scale, height[i + 1][j + 1]),
-							point3D(x, y + scale, height[i][j + 1])));
+				double u = i * delta, v = j * delta;
+
+				triangle = new surface_triangle(point3D(x, y, height[i][j]),
+					point3D(x + scale, y, height[i + 1][j]),
+					point3D(x, y + scale, height[i][j + 1]));
+				triangle->setUV(point2D(u, v), point2D(u + delta, v), point2D(u, v + delta));
+				add_surface(triangle);
+
+				triangle = new surface_triangle(point3D(x + scale, y, height[i + 1][j]),
+					point3D(x + scale, y + scale, height[i + 1][j + 1]),
+					point3D(x, y + scale, height[i][j + 1]));
+				triangle->setUV(point2D(u + delta, v), point2D(u + delta, v + delta), point2D(u, v + delta));
+				add_surface(triangle);
 			}
 		}
 		lock();
