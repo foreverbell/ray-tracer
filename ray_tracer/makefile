@@ -38,3 +38,5 @@ $(PLY_DIR)/plyfile.o: $(PLY_DIR)/plyfile.c
 # Clean
 clean:
 	rm -f $(PROJECT) $(OBJECTS)
+
+.PHONY: clean
