@@ -3,6 +3,7 @@
 
 #include <mutex>
 #include <vector>
+#include <memory>
 #include "colorRGB.hpp"
 #include "vector3D.hpp"
 #include "point3D.hpp"
@@ -22,6 +23,14 @@ namespace ray_tracer {
 
 	class world {
 		friend class tracer;
+		
+	public:
+		enum pixel_traversal_mode {
+			trivial,
+			snake,
+			hilbert
+		};
+
 	public:
 		world();
 		~world();
@@ -33,19 +42,54 @@ namespace ray_tracer {
 		void set_fog(const fog *);
 		void set_camera(const camera *);
 		bool get_hit(const ray &, shade_context *) const;
-		void render_begin(int, int, const render_callback_func, void *, bool = false); // Dimension: pixal
-		void render_scene();
+		void render_begin(int, int, const render_callback_func, void *, pixel_traversal_mode); // Dimension: pixal
+		void render();
+		void render_end();
+
 	private:
+		class pixel_traversal {
+		public:
+			virtual ~pixel_traversal() = 0;
+			virtual void init(int, int);
+			virtual bool next(int &, int &) = 0;
+		protected:
+			int width, height;
+		};
+
+		class pixel_traversal_trivial : public pixel_traversal {
+		public:
+			void init(int, int);
+			bool next(int &, int &);
+		private:
+			int x, y;
+		};
+
+		class pixel_traversal_snake : public pixel_traversal {
+		public:
+			void init(int, int);
+			bool next(int &, int &);
+		private:
+			int x, y, goright;
+		};
+
+		class pixel_traversal_hilbert : public pixel_traversal {
+		public:
+			void init(int, int);
+			bool next(int &, int &);
+		private:
+			hilbert_curve hcurve;
+		};
+
+	private:
+		int dest_w, dest_h;
 		colorRGB ambient;
 		std::vector<const light *> lights;
 		std::vector<const surface *> surfaces;
+		std::unique_ptr<tracer> tracer_ptr;
 		const fog *fog_ptr;
 		const camera *camera_ptr;
-		const tracer *tracer_ptr;
-		const sampler *sampler_ptr, *sampler_single_ptr;
-		bool hilbert;
-		hilbert_curve hcurve;
-		int dest_w, dest_h, current_x, current_y;
+		const sampler *sampler_ptr;
+		std::unique_ptr<pixel_traversal> pixel_traversal_ptr;
 		render_callback_func callback_func;
 		void *callback_param_ptr;
 		std::mutex mutex;

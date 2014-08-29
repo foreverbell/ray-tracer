@@ -9,19 +9,16 @@
 
 namespace ray_tracer {
 
+	const sampler *sampler_default_instance = new sampler_single();
+
 	world::world() {
-		tracer_ptr = new tracer;
-		sampler_ptr = NULL;
-		sampler_single_ptr = new sampler_single();
+		tracer_ptr = std::unique_ptr<tracer>(new tracer());
+		sampler_ptr = sampler_default_instance;
 		fog_ptr = NULL;
-		hilbert = false;
 		set_ambient(color_white / 5);
 	}
 
-	world::~world() {
-		delete tracer_ptr;
-		delete sampler_single_ptr;
-	}
+	world::~world() { }
 
 	bool world::get_hit(const ray &emission_ray, shade_context *context_ptr) const {
 		bool was = false;
@@ -59,68 +56,48 @@ namespace ray_tracer {
 		return true;
 	}
 
-	void world::render_begin(int w_, int h_, const render_callback_func callback_func_, void *callback_param_ptr_, bool horder) {
-		dest_w = w_;
-		dest_h = h_;
+	void world::render_begin(int w, int h, const render_callback_func callback_func_, void *callback_param_ptr_, pixel_traversal_mode traversal) {
+		dest_w = w;
+		dest_h = h;
 		callback_func = callback_func_;
 		callback_param_ptr = callback_param_ptr_;
-		current_x = -1;
-		current_y = 0;
-		hilbert = horder;
-		if (hilbert) {
-			int n = dest_w > dest_h ? dest_w : dest_h;
-			int order = 0;
-			while ((1 << order) < n) {
-				order += 1;
-			}
-			hcurve.init(order);
+
+		if (traversal == trivial) {
+			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_trivial());
+		} else if (traversal == snake) {
+			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_snake());
+		} else if (traversal == hilbert) {
+			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_hilbert());
+		} else {
+			throw "unknown traversal mode.";
 		}
+		pixel_traversal_ptr->init(w, h);
 	}
 
-	void world::render_scene() {
+	void world::render() {
 		colorRGB color;
 		point2D sample_point;
 		shade_context info;
 		ray emission_ray;
 		int x, y;
-		bool isdone = false;
 
 		do {
 			/* Get current rendering coordinate. */
 			mutex.lock();
-			if (hilbert) {
-				do {
-					if (!hcurve.next(current_x, current_y)) {
-						isdone = true;
-						break;
-					}
-					current_x -= 1;
-					current_y -= 1;
-				} while (!(current_x >= 0 && current_x < dest_w && current_y >= 0 && current_y < dest_h));
-			} else {
-				current_x += 1;
-				if (current_x == dest_w) {
-					current_x = 0;
-					current_y += 1;
-				}
-				if (current_y >= dest_h) {
-					isdone = true;
-				}
-			}
-			x = current_x;
-			y = current_y;
-			mutex.unlock();
-			if (isdone) {
+			if (!pixel_traversal_ptr->next(x, y)) {
+				mutex.unlock();
 				break;
+			} else {
+				mutex.unlock();
 			}
 			/* Sampling for anti-aliasing. */
-			sampler_iterator sam_iter(sampler_ptr == NULL ? sampler_single_ptr : sampler_ptr);
+			sampler_iterator sam_iter(sampler_ptr);
 			int number_sample = sam_iter.get_sampler_count();
 			color = color_black;
 			for (int i = 0; i < number_sample; i += 1) {
 				info.world_ptr = this;
 				info.sampler_iterator_ptr = &sam_iter;
-				info.tracer_ptr = tracer_ptr;
+				info.tracer_ptr = tracer_ptr.get();
 
 				sam_iter.next_sampler();
 				sample_point = sam_iter.get_sampler_unit(sampler_set_anti_aliasing);
@@ -133,5 +110,88 @@ namespace ray_tracer {
 			color = color.clamp();
 			callback_func(x, y, color, callback_param_ptr);
 		} while (true);
+	}
+
+	void world::render_end() {
+		// 
+	}
+
+	void world::pixel_traversal::init(int w, int h) {
+		width = w;
+		height = h;
+	}
+
+	world::pixel_traversal::~pixel_traversal() { }
+
+	void world::pixel_traversal_trivial::init(int w, int h) {
+		pixel_traversal::init(w, h);
+		x = -1;
+		y = 0;
+	}
+
+	bool world::pixel_traversal_trivial::next(int &out_x, int &out_y) {
+		x += 1;
+		if (x == width) {
+			x = 0;
+			y += 1;
+		}
+		out_x = x; 
+		out_y = y;
+		return (y < height);
+	}
+
+	void world::pixel_traversal_snake::init(int w, int h) {
+		pixel_traversal::init(w, h);
+		x = -1;
+		y = 0;
+		goright = 1;
+	}
+
+	bool world::pixel_traversal_snake::next(int &out_x, int &out_y) {
+		bool scroll = false;
+
+		if (goright) {
+			x += 1;
+			if (x == width) {
+				scroll = true;
+			}
+		} else {
+			x -= 1;
+			if (x < 0) {
+				scroll = true;
+			}
+		}
+		if (scroll) {
+			x = (goright ? width - 1 : 0);
+			goright ^= 1;
+			y += 1;
+		}
+		out_x = x; 
+		out_y = y;
+		return (y < height);
+	}
+
+	void world::pixel_traversal_hilbert::init(int w, int h) {
+		pixel_traversal::init(w, h);
+
+		int n = w > h ? w : h;
+		int order = 0;
+
+		while ((1 << order) < n) {
+			order += 1;
+		}
+		hcurve.init(order);
+	}
+
+	bool world::pixel_traversal_hilbert::next(int &out_x, int &out_y) {
+		int x, y;
+		do {
+			if (!hcurve.next(x, y)) {
+				return false;
+			}
+		} while (!(x >= 1 && x <= width && y >= 1 && y <= height));
+		out_x = x - 1;
+		out_y = y - 1;
+		return true;
 	}
 }

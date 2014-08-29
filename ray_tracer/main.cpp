@@ -30,14 +30,15 @@ void render(world *world, SDL_Surface *screen) {
 			return;
 		}
 	}
-	world->render_begin(width, height, render_callback, screen->pixels);
+	world->render_begin(width, height, render_callback, screen->pixels, world::hilbert);
 	std::thread thr[max_thread_count];
 	for (int i = 0; i < max_thread_count; i += 1) {
-		thr[i] = std::thread([&]{ world->render_scene(); });
+		thr[i] = std::thread([&]{ world->render(); });
 	}
 	for (int i = 0; i < max_thread_count; i += 1) {
 		thr[i].join();
 	}
+	world->render_end();
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
@@ -61,7 +62,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	int demo_id = 6;
+	int demo_id = 4;
 	clock_t old_time = clock();
 	demo *dm = NULL;
 
