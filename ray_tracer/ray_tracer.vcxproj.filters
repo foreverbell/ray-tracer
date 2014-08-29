@@ -206,6 +206,9 @@
     <ClCompile Include="surface_plymesh.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
+    <ClCompile Include="hilbert_curve.cpp">
+      <Filter>bottom-layer\mathematics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -465,6 +468,9 @@
     </ClInclude>
     <ClInclude Include="surface_tricompound.hpp">
       <Filter>bottom-layer\surface\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="hilbert_curve.hpp">
+      <Filter>bottom-layer\mathematics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

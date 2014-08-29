@@ -14,6 +14,7 @@
 #include "camera.hpp"
 #include "tracer.hpp"
 #include "sampler.hpp"
+#include "hilbert_curve.hpp"
 
 namespace ray_tracer {
 
@@ -32,7 +33,7 @@ namespace ray_tracer {
 		void set_fog(const fog *);
 		void set_camera(const camera *);
 		bool get_hit(const ray &, shade_context *) const;
-		void render_begin(int, int, const render_callback_func, void *); // Dimension: pixal
+		void render_begin(int, int, const render_callback_func, void *, bool = false); // Dimension: pixal
 		void render_scene();
 	private:
 		colorRGB ambient;
@@ -42,10 +43,12 @@ namespace ray_tracer {
 		const camera *camera_ptr;
 		const tracer *tracer_ptr;
 		const sampler *sampler_ptr, *sampler_single_ptr;
+		bool hilbert;
+		hilbert_curve hcurve;
 		int dest_w, dest_h, current_x, current_y;
 		render_callback_func callback_func;
 		void *callback_param_ptr;
-		std::mutex coordinate_mutex;
+		std::mutex mutex;
 	};
 
 	inline colorRGB world::get_background() const {

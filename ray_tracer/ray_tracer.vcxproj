@@ -86,6 +86,7 @@
     <ClCompile Include="demo\demo_4.cpp" />
     <ClCompile Include="demo\demo_5.cpp" />
     <ClCompile Include="demo\demo_6.cpp" />
+    <ClCompile Include="hilbert_curve.cpp" />
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="BRDF_refraction.hpp" />
     <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
+    <ClInclude Include="hilbert_curve.hpp" />
     <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />

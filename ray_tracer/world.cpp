@@ -58,13 +58,22 @@ namespace ray_tracer {
 		return true;
 	}
 
-	void world::render_begin(int w_, int h_, const render_callback_func callback_func_, void *callback_param_ptr_) {
+	void world::render_begin(int w_, int h_, const render_callback_func callback_func_, void *callback_param_ptr_, bool horder) {
 		dest_w = w_;
 		dest_h = h_;
 		callback_func = callback_func_;
 		callback_param_ptr = callback_param_ptr_;
 		current_x = -1;
 		current_y = 0;
+		hilbert = horder;
+		if (hilbert) {
+			int n = dest_w > dest_h ? dest_w : dest_h;
+			int order = 0;
+			while ((1 << order) < n) {
+				order += 1;
+			}
+			hcurve.init(order);
+		}
 	}
 
 	void world::render_scene() {
@@ -73,18 +82,36 @@ namespace ray_tracer {
 		shade_context info;
 		ray emission_ray;
 		int x, y;
+		bool isdone = false;
 
 		do {
 			/* Get current rendering coordinate. */
-			coordinate_mutex.lock();
-			if (current_y == dest_h) {
-				coordinate_mutex.unlock();
-				break;
+			mutex.lock();
+			if (hilbert) {
+				do {
+					if (!hcurve.next(current_x, current_y)) {
+						isdone = true;
+						break;
+					}
+					current_x -= 1;
+					current_y -= 1;
+				} while (!(current_x >= 0 && current_x < dest_w && current_y >= 0 && current_y < dest_h));
 			} else {
-				current_x += 1;
-				if (current_x == dest_w) current_x = 0, current_y += 1;
-				x = current_x, y = current_y;
-				coordinate_mutex.unlock();
+				if (current_y == dest_h) {
+					isdone = true;
+				} else {
+					current_x += 1;
+					if (current_x == dest_w) {
+						current_x = 0;
+						current_y += 1;
+					}
+				}
+			}
+			x = current_x;
+			y = current_y;
+			mutex.unlock();
+			if (isdone) {
+				break;
 			}
 			/* Sampling for anti-aliasing. */
 			sampler_iterator sam_iter(sampler_ptr == NULL ? sampler_single_ptr : sampler_ptr);
