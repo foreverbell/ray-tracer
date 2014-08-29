@@ -10,11 +10,11 @@ namespace ray_tracer {
 		bool next(int &, int &);
 		bool eof() const;
 	private:
-		typedef std::vector<std::pair<int, int>> point_container_t;
+		typedef std::vector<std::pair<int, int> > point_container_t;
 		typedef std::pair<int, int> point_t;
 
-		point_container_t hilbert_curve::aftrans(int, int, point_container_t, int, int);
-		point_container_t hilbert_curve::hilbert(int);
+		point_container_t aftrans(int, int, point_container_t, int, int);
+		point_container_t hilbert(int);
 
 	private:
 		point_container_t curve;

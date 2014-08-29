@@ -14,6 +14,7 @@ namespace ray_tracer {
 		sampler_ptr = NULL;
 		sampler_single_ptr = new sampler_single();
 		fog_ptr = NULL;
+		hilbert = false;
 		set_ambient(color_white / 5);
 	}
 
