@@ -98,14 +98,13 @@ namespace ray_tracer {
 					current_y -= 1;
 				} while (!(current_x >= 0 && current_x < dest_w && current_y >= 0 && current_y < dest_h));
 			} else {
-				if (current_y == dest_h) {
+				current_x += 1;
+				if (current_x == dest_w) {
+					current_x = 0;
+					current_y += 1;
+				}
+				if (current_y >= dest_h) {
 					isdone = true;
-				} else {
-					current_x += 1;
-					if (current_x == dest_w) {
-						current_x = 0;
-						current_y += 1;
-					}
 				}
 			}
 			x = current_x;
