@@ -108,7 +108,7 @@ namespace ray_tracer {
 			node_ptr->lchild_ptr = nullptr;
 			node_ptr->rchild_ptr = nullptr;
 			node_ptr->divide_plane_ptr = nullptr;
-			for (int i = 0; i < indexes.size(); ++i) {
+			for (size_t i = 0; i < indexes.size(); ++i) {
 				node_ptr->add(ptr);
 				map[indexes[i]] = ptr;
 				ptr += 1;
