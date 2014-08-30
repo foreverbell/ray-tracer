@@ -65,9 +65,9 @@ namespace ray_tracer {
 			int nverts = it->first;
 			int *vert_ptr = it->second;
 			for (int i = 1; i < nverts - 1; ++i) {
-				add_surface(new surface_triangle(vertices[vert_ptr[0]], vertices[vert_ptr[i]], vertices[vert_ptr[i + 1]]));
+				add_surface(surface_triangle(vertices[vert_ptr[0]], vertices[vert_ptr[i]], vertices[vert_ptr[i + 1]]));
 			}
 		}
-		lock();
+		setup();
 	}
 }

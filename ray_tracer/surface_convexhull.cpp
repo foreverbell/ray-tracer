@@ -19,8 +19,8 @@ namespace ray_tracer {
 		hull = convexhull(points).construct_hull();
 		for (std::vector<face_t>::const_iterator it = hull.first.begin(); it != hull.first.end(); ++it) {
 			v0 = points[std::get<0>(*it)], v1 = points[std::get<1>(*it)], v2 = points[std::get<2>(*it)];
-			add_surface(new surface_triangle(v0, v1, v2)); 
+			add_surface(surface_triangle(v0, v1, v2)); 
 		}
-		lock();
+		setup();
 	}
 }
