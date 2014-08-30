@@ -39,4 +39,7 @@ $(PLY_DIR)/plyfile.o: $(PLY_DIR)/plyfile.c
 clean:
 	rm -f $(PROJECT) $(OBJECTS)
 
+run: $(PROJECT)
+	./$(PROJECT)
+
 .PHONY: clean

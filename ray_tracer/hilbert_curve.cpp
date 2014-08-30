@@ -14,11 +14,9 @@ namespace ray_tracer {
 		for (int i = 0; i < m; ++i) {
 			if (dir == 0) {
 				result[i] = std::make_pair(pt[i].second, n - pt[i].first + 1);
-			}
-			else if (dir == 1 || dir == 2) {
+			} else if (dir == 1 || dir == 2) {
 				result[i] = pt[i];
-			}
-			else {
+			} else {
 				result[i] = std::make_pair(pt[i].second, pt[i].first);
 			}
 			result[i].first += dx;
