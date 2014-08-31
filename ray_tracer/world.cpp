@@ -62,8 +62,8 @@ namespace ray_tracer {
 		callback_func = callback_func_;
 		callback_param_ptr = callback_param_ptr_;
 
-		if (traversal == trivial) {
-			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_trivial());
+		if (traversal == naive) {
+			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_naive());
 		} else if (traversal == snake) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_snake());
 		} else if (traversal == hilbert) {
@@ -123,13 +123,13 @@ namespace ray_tracer {
 
 	world::pixel_traversal::~pixel_traversal() { }
 
-	void world::pixel_traversal_trivial::init(int w, int h) {
+	void world::pixel_traversal_naive::init(int w, int h) {
 		pixel_traversal::init(w, h);
 		x = -1;
 		y = 0;
 	}
 
-	bool world::pixel_traversal_trivial::next(int &out_x, int &out_y) {
+	bool world::pixel_traversal_naive::next(int &out_x, int &out_y) {
 		x += 1;
 		if (x == width) {
 			x = 0;

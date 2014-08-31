@@ -26,7 +26,7 @@ namespace ray_tracer {
 		
 	public:
 		enum pixel_traversal_mode {
-			trivial,
+			naive,
 			snake,
 			hilbert
 		};
@@ -56,7 +56,7 @@ namespace ray_tracer {
 			int width, height;
 		};
 
-		class pixel_traversal_trivial : public pixel_traversal {
+		class pixel_traversal_naive : public pixel_traversal {
 		public:
 			void init(int, int);
 			bool next(int &, int &);
