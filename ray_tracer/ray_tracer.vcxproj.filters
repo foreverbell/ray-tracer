@@ -81,7 +81,7 @@
       <Filter>bottom-layer\image\bmp</Filter>
     </ClCompile>
     <ClCompile Include="quadratic.cpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClCompile>
     <ClCompile Include="surface_disk.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
@@ -99,7 +99,7 @@
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
     <ClCompile Include="convexhull.cpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClCompile>
     <ClCompile Include="surface_convexhull.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
@@ -150,7 +150,7 @@
       <Filter>ply</Filter>
     </ClCompile>
     <ClCompile Include="polyvertex.cpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClCompile>
     <ClCompile Include="demo\demo_1.cpp">
       <Filter>demo</Filter>
@@ -207,7 +207,7 @@
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
     <ClCompile Include="hilbert_curve.cpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,9 +234,6 @@
     </Filter>
     <Filter Include="bottom-layer\image\bmp">
       <UniqueIdentifier>{12e07f55-8598-48e7-9185-46815f8cb73f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\mathematics">
-      <UniqueIdentifier>{c4faf1f7-0f23-46db-82e9-1810a6442c79}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\surface\2D">
       <UniqueIdentifier>{00225c6a-7be4-417e-bc7b-540d0ef81914}</UniqueIdentifier>
@@ -279,6 +276,9 @@
     </Filter>
     <Filter Include="bottom-layer\surface\abstract">
       <UniqueIdentifier>{edea90b0-77a7-4f3e-b2dc-be0f223bdf1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\utility">
+      <UniqueIdentifier>{c4faf1f7-0f23-46db-82e9-1810a6442c79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -361,7 +361,7 @@
       <Filter>bottom-layer\image\bmp</Filter>
     </ClInclude>
     <ClInclude Include="quadratic.hpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
     <ClInclude Include="surface_disk.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
@@ -379,7 +379,7 @@
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
     <ClInclude Include="convexhull.hpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
     <ClInclude Include="surface_convexhull.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
@@ -427,7 +427,7 @@
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
     <ClInclude Include="polyvertex.hpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
     <ClInclude Include="demo\demo.hpp">
       <Filter>demo</Filter>
@@ -470,7 +470,10 @@
       <Filter>bottom-layer\surface\abstract</Filter>
     </ClInclude>
     <ClInclude Include="hilbert_curve.hpp">
-      <Filter>bottom-layer\mathematics</Filter>
+      <Filter>bottom-layer\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive_is.hpp">
+      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

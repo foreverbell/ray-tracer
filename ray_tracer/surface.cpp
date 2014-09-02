@@ -1,5 +1,6 @@
 
 #include "surface.hpp"
+#include "primitive_is.hpp"
 
 namespace ray_tracer {
 
@@ -16,10 +17,10 @@ namespace ray_tracer {
 
 	surface::~surface() { }
 	
-	void surface::set_bbox(double xmin, double ymin, double zmin, double xmax, double ymax, double zmax) {
+	void surface::set_bbox(const point3D &p1, const point3D &p2) {
 		bb_have = true;
-		bb_p1 = point3D(xmin, ymin, zmin);
-		bb_p2 = point3D(xmax, ymax, zmax);
+		bb_p1 = p1;
+		bb_p2 = p2;
 	}
 	
 	void surface::set_bsphere(const point3D &center, double radius) {
@@ -28,62 +29,17 @@ namespace ray_tracer {
 		bs_radius = radius;
 	}
 	
-	bool surface::hit_bsphere(const ray &emission_ray) const {
-		point3D o = emission_ray.origin;
-		vector3D d = emission_ray.dir;
-
-		point3D c = bs_center;
-		double a = d * (o - c), d2 = d.length2();
-		double delta = a * a - d2 * ((o - c).length2() - bs_radius * bs_radius);
-
-		if (delta >= 0) {
-			delta = sqrt(delta);
-			double t = (-a - delta) / d2;
-			if (t < EPSILON) t = (-a + delta) / d2;
-			if (t > EPSILON) return true;
-		}
-		
-		return false;
-	}
-
-	bool surface::hit_bbox(const ray &emission_ray) const {
-		point3D o = emission_ray.origin;
-		vector3D d = emission_ray.dir;
-
-#define CHECK(p) \
-	(p.x >= bb_p1.x - EPSILON && p.x <= bb_p2.x + EPSILON) && \
-	(p.y >= bb_p1.y - EPSILON && p.y <= bb_p2.y + EPSILON) && \
-	(p.z >= bb_p1.z - EPSILON && p.z <= bb_p2.z + EPSILON)
-
-		vector3D normal;
-		point3D hit;
-		double deno, t;
-
-		for (int norm = 0; norm < 3; ++norm) {
-			if (norm == 0) normal = vector3D(1, 0, 0);
-			else if (norm == 1) normal = vector3D(0, 1, 0);
-			else normal = vector3D(0, 0, 1);
-
-			deno = normal * d;
-
-			if (DBLCMP(deno) != 0) {
-				t = (bb_p1 - o) * normal / deno;
-				hit = o + d * t;
-				if (CHECK(hit)) return true;
-
-				t = (bb_p2 - o) * normal / deno;
-				hit = o + d * t;
-				if (CHECK(hit)) return true;
+	bool surface::hit_bound(const ray &emission_ray) const {
+		if (bb_have) {
+			if (!box_intersection(bb_p1, bb_p2, emission_ray)) {
+				return false;
 			}
 		}
-		
-		return false;
-	}
-
-	bool surface::hit_bound(const ray &emission_ray) const {
-		if (bb_have && !hit_bbox(emission_ray)) return false;
-		if (bs_have && !hit_bsphere(emission_ray)) return false;
-
+		if (bs_have) {
+			if (!sphere_intersection(bs_center, bs_radius, emission_ray)) {
+				return false;
+			}
+		}
 		return true;
 	}
 

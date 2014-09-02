@@ -153,6 +153,7 @@
     <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
+    <ClInclude Include="primitive_is.hpp" />
     <ClInclude Include="quadratic.hpp" />
     <ClInclude Include="BRDF.hpp" />
     <ClInclude Include="BRDF_reflection.hpp" />
