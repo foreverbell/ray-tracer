@@ -12,9 +12,8 @@ void demo_3::set_world() {
 	cam = new camera_pinhole(point3D(-20, 0, 10), point3D(0, 0, 0), vector3D(0.5, 0, 1), atan(2), atan(2), false);
 	// cam = new camera_orthographic(point3D(20, 0, 0), point3D(0, 0, 0), vector3D(0, 0, 1), 40, 40);
 
-	s = new surface_quadratic();
-	s->coef_xx = 0.5, s->coef_yy = 0.5, s->coef_zz = -0.1, s->coef_const = -1;
-	s->set_range_z(-30, 18);
+	s = new surface_quadratic(0.5, 0.5, -0.1, 0, 0, 0, 0, 0, 0, -1);
+	s->rangeZ(-30, 18);
 	m = new material_matte(color_azure);
 	t = new texture_solid(color_azure);
 	s->set_material(m);

@@ -7,11 +7,11 @@ void demo_1::set_world() {
 	surface *s1, *s2, *s3;
 	light *l1, *l2;
 
-	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), PI / 2);
+	// cam = new camera_fisheye(point3D(0, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), pi / 2);
 	// cam = new camera_thinlens(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), 35, 3.5, true);
 	// cam = new camera_orthographic(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), 40, 40);
 	cam = new camera_pinhole(point3D(-10, 0, 0), point3D(1, 0, 0), vector3D(0, 0, 1), atan(2.0), atan(2.0), true);
-	// cam->rotate(PI / 4);
+	// cam->rotate(pi / 4);
 
 	s1 = new surface_sphere(point3D(15, -7, 0), 9);
 	s1->set_material(new material_mirror(color_azure));
@@ -35,7 +35,7 @@ void demo_1::set_world() {
 	s8->set_texture(new texture_solid(color_palegreen));
 
 	l1 = new light_area(point3D(-20, 0, 10), color_white / 1.8, 3, vector3D(20, 0, -10));
-	// l1->set_spot(true, vector3D(30, 9, -30), PI / 3, 5);
+	// l1->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
 	l1->set_attenuation(true, 1, 0.0001, 0.00005);
 	l2 = new light_point(point3D(0, 0, 30), color_white / 3);
 	l2->set_attenuation(true, 1, 0.0001, 0.00005);

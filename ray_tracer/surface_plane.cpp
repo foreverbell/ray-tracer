@@ -1,5 +1,5 @@
 
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 #include "ray.hpp"
 #include "surface_plane.hpp"
 
@@ -18,7 +18,9 @@ namespace ray_tracer {
 	double surface_plane::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
 		double deno = normal * emission_ray.dir;
 
-		if (DBLCMP(deno) == 0) return -1;
+		if (dblsgn(deno) == 0) {
+			return -1;
+		}
 		return (base - emission_ray.origin) * normal / deno;
 	}
 

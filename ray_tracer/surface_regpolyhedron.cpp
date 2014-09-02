@@ -29,7 +29,9 @@ namespace ray_tracer {
 		} else {
 			throw "unknown regular polyhedron code.";
 		}
-		if (div > 0) vertices_ptr->subdivide(div);
+		if (div > 0) {
+			vertices_ptr->subdivide(div);
+		}
 		vertices = vertices_ptr->get_vertices();
 		std::transform(vertices.begin(), vertices.end(), vertices.begin(), [=](const point3D &p) { return radius * p.normalized() + center; });
 		construct(vertices);
@@ -39,7 +41,10 @@ namespace ray_tracer {
 
 	double surface_regpolyhedron::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
 		double t;
-		if ((t = bounding_surface_ptr->hit(emission_ray, hit_surface_ptr)) < EPSILON) return t;
+
+		if ((t = bounding_surface_ptr->hit(emission_ray, hit_surface_ptr)) < epsilon) {
+			return t;
+		}
 		return surface_convexhull::hit(emission_ray, hit_surface_ptr);
 	}
 }

@@ -3,7 +3,7 @@
 #include "shade_context.hpp"
 #include "matrix3D.hpp"
 #include "world.hpp"
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 #include "transform_rotate.hpp"
 
 namespace ray_tracer {
@@ -49,7 +49,7 @@ namespace ray_tracer {
 	void camera::compute_axis() {
 		axis_w = (eye - lookat).normalized();
 		axis_v = -up.normalized();
-		if (DBLCMP(axis_w * axis_v) != 0) throw "invalid camera axis.";
+		if (dblsgn(axis_w * axis_v) != 0) throw "invalid camera axis.";
 		axis_u = axis_v ^ axis_w;
 	}
 }

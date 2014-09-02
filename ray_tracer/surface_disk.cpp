@@ -1,5 +1,5 @@
 
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 #include "ray.hpp"
 #include "surface_disk.hpp"
 
@@ -24,9 +24,13 @@ namespace ray_tracer {
 		double t = (center - emission_ray.origin) * normal / deno;
 		point3D p;
 
-		if (DBLCMP(deno) == 0) return -1;
+		if (dblsgn(deno) == 0) {
+			return -1;
+		}
 		p = emission_ray.at(t);
-		if ((center - p).length2() > radius2) return -1;
+		if ((center - p).length2() > radius2) {
+			return -1;
+		}
 		return t;
 	}
 

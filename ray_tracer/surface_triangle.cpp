@@ -28,19 +28,22 @@ namespace ray_tracer {
 		double e1 = d * m - b * n - c * p;
 		double beta = e1 * inv_deno;
 
-		if (beta < 0) return -1;
+		if (beta < 0) {
+			return -1;
+		}
 
 		double r = e * l - h * i;
 		double e2 = a * n + d * q + c * r;
 		double gamma = e2 * inv_deno;
 
-		if (gamma < 0) return -1;
-		if (gamma + beta > 1) return -1;
+		if (gamma < 0 || gamma + beta > 1) {
+			return -1;
+		}
 
 		double e3 = a * p - b * r + d * s;
 		double t = e3 * inv_deno;
 
-		return t < EPSILON ? -1 : t;
+		return t < epsilon ? -1 : t;
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {

@@ -1,7 +1,7 @@
 #ifndef __VECTOR2D_HPP__
 #define __VECTOR2D_HPP__
 
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 	class point2D;

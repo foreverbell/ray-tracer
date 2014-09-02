@@ -8,17 +8,16 @@
 
 namespace ray_tracer {
 
-	const double PI = acos(-1.0);
-	const double E = exp(1.0);
-	const double EPSILON = 1e-8;
+	const double pi = acos(-1.0);
+	const double epsilon = 1e-8;
 
-	#define DBLCMP(_x_) ((_x_) < -EPSILON ? -1 : ((_x_) > EPSILON ? 1 : 0))
+	#define dblsgn(x) ((x) < -epsilon ? -1 : ((x) > epsilon ? 1 : 0))
 
 	/* private marcos. */
-	#define __ROOT_RANGE__ 1e10
+	const double __root_range = 1e10;
 
 	/* private functions. */
-	inline double __root_cal__(const std::vector<double> &coef, double x) {
+	inline double __root_cal(const std::vector<double> &coef, double x) {
 		double e = 1, s = 0;
 
 		for (int i = 0; i < (int) coef.size(); ++i) {
@@ -30,16 +29,16 @@ namespace ray_tracer {
 	}
 
 	/* private functions. */
-	inline double __root_find__(const std::vector<double> &coef, double l, double r) {
-		int sl = DBLCMP(__root_cal__(coef, l)), sr = DBLCMP(__root_cal__(coef, r));
+	inline double __root_find(const std::vector<double> &coef, double l, double r) {
+		int sl = dblsgn(__root_cal(coef, l)), sr = dblsgn(__root_cal(coef, r));
 
 		if (sl == 0) return l;
 		if (sr == 0) return r;
-		if (sl * sr > 0) return __ROOT_RANGE__;
+		if (sl * sr > 0) return __root_range;
 
-		for (int tt = 0; tt < 64 && r - l > EPSILON; ++tt) {
+		for (int tt = 0; tt < 64 && r - l > epsilon; ++tt) {
 			double mid = l / 2 + r / 2;
-			int smid = DBLCMP(__root_cal__(coef, mid));
+			int smid = dblsgn(__root_cal(coef, mid));
 			if (smid == 0) return mid;
 			if (sl * smid < 0) r = mid;
 			else l = mid;
@@ -54,12 +53,12 @@ namespace ray_tracer {
 
 		assert((int) coef.size() == n + 1);
 
-		while (n > 1 && DBLCMP(coef[n]) == 0) {
+		while (n > 1 && dblsgn(coef[n]) == 0) {
 			n -= 1;
 		}
 
 		if (n == 1) {
-			if (DBLCMP(coef[1]) != 0) ret.push_back(-coef[0] / coef[1]);
+			if (dblsgn(coef[1]) != 0) ret.push_back(-coef[0] / coef[1]);
 			return ret;
 		}
 
@@ -81,12 +80,12 @@ namespace ray_tracer {
 		for (int i = 0; i < n; ++i) dcoef[i] = coef[i + 1] * (i + 1);
 
 		std::vector<double> droot = equation_solve(dcoef, n - 1);
-		droot.insert(droot.begin(), -__ROOT_RANGE__);
-		droot.push_back(__ROOT_RANGE__);
+		droot.insert(droot.begin(), -__root_range);
+		droot.push_back(__root_range);
 
 		for (int i = 0; i + 1 < (int) droot.size(); ++i) {
-			double tmp = __root_find__(coef, droot[i], droot[i + 1]);
-			if (fabs(tmp) < __ROOT_RANGE__) ret.push_back(tmp);
+			double tmp = __root_find(coef, droot[i], droot[i + 1]);
+			if (fabs(tmp) < __root_range) ret.push_back(tmp);
 		}
 
 		return ret;

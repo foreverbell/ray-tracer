@@ -1,6 +1,6 @@
 
 #include "sampler.hpp"
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 
@@ -36,7 +36,7 @@ namespace ray_tracer {
 					angle = 6 - x / y;
 				}
 			}
-			angle = angle * PI / 4;
+			angle = angle * pi / 4;
 			r /= 2;
 			samples_disk.push_back(point2D(r * cos(angle) + 0.5, r * sin(angle) + 0.5));
 		}

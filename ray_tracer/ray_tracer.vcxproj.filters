@@ -80,9 +80,6 @@
     <ClCompile Include="image_bmp.cpp">
       <Filter>bottom-layer\image\bmp</Filter>
     </ClCompile>
-    <ClCompile Include="quadratic.cpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClCompile>
     <ClCompile Include="surface_disk.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClCompile>
@@ -360,9 +357,6 @@
     <ClInclude Include="image_bmp.hpp">
       <Filter>bottom-layer\image\bmp</Filter>
     </ClInclude>
-    <ClInclude Include="quadratic.hpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClInclude>
     <ClInclude Include="surface_disk.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClInclude>
@@ -460,9 +454,6 @@
     <ClInclude Include="surface_mobius.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClInclude>
-    <ClInclude Include="toolkit.hpp">
-      <Filter>bottom-layer\basis</Filter>
-    </ClInclude>
     <ClInclude Include="surface_fractal_terrain.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
@@ -474,6 +465,9 @@
     </ClInclude>
     <ClInclude Include="primitive_is.hpp">
       <Filter>bottom-layer\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="miscellaneous.hpp">
+      <Filter>bottom-layer\basis</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

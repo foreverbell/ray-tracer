@@ -23,10 +23,14 @@ namespace ray_tracer {
 		double delta = a * a - d2 * ((o - c).length2() - radius2);
 		double t;
 
-		if (delta < 0) return -1;
+		if (delta < 0) {
+			return -1;
+		}
 		delta = sqrt(delta);
 		t = (-a - delta) / d2;
-		if (t < EPSILON) t = (-a + delta) / d2;
+		if (t < epsilon) {
+			t = (-a + delta) / d2;
+		}
 		return t;
 	}
 
@@ -37,8 +41,8 @@ namespace ray_tracer {
 	point2D surface_sphere::atUV(shade_context *context_ptr) const {
 		vector3D p = (context_ptr->hit_local_point - center).normalized();
 		
-		double u = 0.5 + atan2(p.x, p.y) / 2 / PI;
-		double v = 0.5 - asin(p.z) / PI;
+		double u = 0.5 + atan2(p.x, p.y) / 2 / pi;
+		double v = 0.5 - asin(p.z) / pi;
 
 		return point2D(u, v);
 	}

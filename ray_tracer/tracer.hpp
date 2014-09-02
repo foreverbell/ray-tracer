@@ -1,7 +1,7 @@
 #ifndef __TRACER_HPP__
 #define __TRACER_HPP__
 
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 #include "colorRGB.hpp"
 #include "shade_context.hpp"
 #include "ray.hpp"

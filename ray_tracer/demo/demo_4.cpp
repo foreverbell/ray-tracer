@@ -12,15 +12,15 @@ void demo_4::set_world() {
 
 	surface_plymesh *sbunny = new surface_plymesh("demo/stanford_bunny.ply");
 	sbunny->apply_transform(transform_scale(65, 65, 65));
-	sbunny->apply_transform(transform_rotate('x', -PI / 2));
-	sbunny->apply_transform(transform_rotate('z', PI / 2));
+	sbunny->apply_transform(transform_rotate('x', -pi / 2));
+	sbunny->apply_transform(transform_rotate('z', pi / 2));
 	sbunny->apply_transform(transform_reflect('y'));
 	sbunny->apply_transform(transform_translate(0, 2, -8));
 	sbunny->set_material(new material_matte());
 	sbunny->set_texture(new texture_solid(color_royalblue));
 
 	light *l = new light_point(point3D(-20, 0, 10), color_white);
-	l->set_spot(true, vector3D(30, 9, -30), PI / 3, 5);
+	l->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
 	l->set_attenuation(true, 1, 0.0001, 0.00005);
 	l->set_shadow(false);
 

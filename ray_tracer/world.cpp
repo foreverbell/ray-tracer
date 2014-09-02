@@ -34,7 +34,7 @@ namespace ray_tracer {
 			} else {
 				t = cur_surface_ptr->hit(emission_ray, &real_surface_ptr);
 			}
-			if (t > EPSILON && (t < result_t || result_t == -1)) {
+			if (t > epsilon && (t < result_t || result_t == -1)) {
 				result_t = t;
 				surface_ptr = (real_surface_ptr != NULL ? real_surface_ptr : cur_surface_ptr);
 				father_surface_ptr = cur_surface_ptr;

@@ -1,7 +1,7 @@
 
 #include <algorithm>
 #include "convexhull.hpp"
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 
@@ -11,7 +11,7 @@ namespace ray_tracer {
 		int f = belong[std::make_pair(b, a)];
 
 		if (faces[f].second) {
-			if (DBLCMP(mixed_product(points[p], points[std::get<0>(faces[f].first)], points[std::get<1>(faces[f].first)], points[std::get<2>(faces[f].first)])) >= 0) {
+			if (dblsgn(mixed_product(points[p], points[std::get<0>(faces[f].first)], points[std::get<1>(faces[f].first)], points[std::get<2>(faces[f].first)])) >= 0) {
 				return true;
 			} else {
 				belong[std::make_pair(a, b)] = faces.size();
@@ -42,7 +42,7 @@ namespace ray_tracer {
 		/* Ensure the first four vertices which don't share the same face. */
 		/* Co-point? */
 		for (int i = 1; i < n; ++i) {
-			if (DBLCMP((points[i] - points[0]).length()) > 0) {
+			if (dblsgn((points[i] - points[0]).length()) > 0) {
 				std::swap(points[i], points[1]);
 				flag |= 1;
 				break;
@@ -50,7 +50,7 @@ namespace ray_tracer {
 		}
 		/* Co-line? */
 		for (int i = 2; i < n; ++i) {
-			if (DBLCMP(fabs((points[1] - points[0]) * (points[i] - points[0]))) > 0) {
+			if (dblsgn(fabs((points[1] - points[0]) * (points[i] - points[0]))) > 0) {
 				std::swap(points[i], points[2]);
 				flag |= 2;
 				break;
@@ -58,7 +58,7 @@ namespace ray_tracer {
 		}
 		/* Co-face? */
 		for (int i = 3; i < n; ++i) {
-			if (DBLCMP(fabs(mixed_product(points[0], points[1], points[2], points[i]))) > 0) {
+			if (dblsgn(fabs(mixed_product(points[0], points[1], points[2], points[i]))) > 0) {
 				std::swap(points[i], points[3]);
 				flag |= 4;
 				break;
@@ -68,7 +68,7 @@ namespace ray_tracer {
 		/* Init the first face. */
 		for (int i = 0; i < 4; ++i) {
 			std::get<0>(f) = (i + 1) % 4, std::get<1>(f) = (i + 2) % 4, std::get<2>(f) = (i + 3) % 4;
-			if (DBLCMP(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) > 0) {
+			if (dblsgn(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) > 0) {
 				std::swap(std::get<0>(f), std::get<1>(f));
 			}
 			belong[std::make_pair(std::get<0>(f), std::get<1>(f))] = faces.size();
@@ -83,7 +83,7 @@ namespace ray_tracer {
 			for (int j = 0; j < sz; ++j) {
 				if (faces[j].second) {
 					f = faces[j].first;
-					if (DBLCMP(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) >= 0) {
+					if (dblsgn(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) >= 0) {
 						walk_face(i, j);
 						break;
 					}

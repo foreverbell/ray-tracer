@@ -1,5 +1,5 @@
 
-#include "toolkit.hpp"
+#include "miscellaneous.hpp"
 #include "ray.hpp"
 #include "surface_mobius.hpp"
 #include <vector>
@@ -25,10 +25,10 @@ namespace ray_tracer {
 		double x = pt.x, y = pt.y, z = pt.z;
 		double t = atan2(y, x), s;
 
-		if (DBLCMP(sin(t / 2)) != 0) {
+		if (dblsgn(sin(t / 2)) != 0) {
 			s = z / sin(t / 2);
 		} else {
-			if (DBLCMP(cos(t)) != 0) {
+			if (dblsgn(cos(t)) != 0) {
 				s = (x / cos(t) - radius) / cos(t / 2);
 			} else {
 				s = (y / sin(t) - radius) / cos(t / 2);
@@ -39,15 +39,17 @@ namespace ray_tracer {
 		y -= (radius + s * cos(t / 2)) * sin(t);
 		z -= s * sin(t / 2);
 
-		if (DBLCMP(x * x + y * y + z * z) != 0) {
+		if (dblsgn(x * x + y * y + z * z) != 0) {
 			return false;
 		}	
 
-		return (s >= -half_width - EPSILON  && s <= half_width + EPSILON);
+		return (s >= -half_width - epsilon  && s <= half_width + epsilon);
 	}
 
 	double surface_mobius::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		if (!hit_bound(emission_ray)) return -1;
+		if (!hit_bound(emission_ray)) {
+			return -1;
+		}
 
 		double ox = emission_ray.origin.x;
 		double oy = emission_ray.origin.y;
@@ -74,7 +76,7 @@ namespace ray_tracer {
 		result = equation_solve(coef, 3);
 
 		for (std::vector<double>::iterator iter = result.begin(); iter != result.end(); ++iter) {
-			if (*iter > EPSILON && inrange(emission_ray.at(*iter))) {
+			if (*iter > epsilon && inrange(emission_ray.at(*iter))) {
 				return *iter;
 			}
 		}

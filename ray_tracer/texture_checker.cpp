@@ -21,9 +21,13 @@ namespace ray_tracer {
 		int sum = x + y + z;
 
 		sum %= 2;
-		if (sum < 0) sum += 2;
-		
-		if (sum == 0) return color1;
-		else return color2;
+		if (sum < 0) {
+			sum += 2;
+		}
+
+		if (sum == 0) {
+			return color1;
+		}
+		return color2;
 	}
 }

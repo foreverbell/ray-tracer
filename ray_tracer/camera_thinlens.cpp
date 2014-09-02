@@ -7,8 +7,8 @@
 namespace ray_tracer {
 
 	camera_thinlens::camera_thinlens() {
-		fov_u = PI / 4;
-		fov_v = PI / 4;
+		fov_u = pi / 4;
+		fov_v = pi / 4;
 		focal_dist = 100;
 		lens_radius = 1;
 		tan_fov_u_coef = 2 * tan(fov_u);
@@ -36,8 +36,8 @@ namespace ray_tracer {
 			v = (y / height - 0.5) * tan_fov_v_coef;
 			w = -1;
 		} else {
-			double alpha = PI - (x / width - 0.5) * 2 * fov_u;
-			double beta = PI / 2 - (y / height - 0.5) * 2 * fov_v;
+			double alpha = pi - (x / width - 0.5) * 2 * fov_u;
+			double beta = pi / 2 - (y / height - 0.5) * 2 * fov_v;
 		
 			u = sin(beta) * sin(alpha);
 			v = cos(beta);

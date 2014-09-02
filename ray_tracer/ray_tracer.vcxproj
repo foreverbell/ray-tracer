@@ -90,7 +90,6 @@
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="polyvertex.cpp" />
-    <ClCompile Include="quadratic.cpp" />
     <ClCompile Include="BRDF.cpp" />
     <ClCompile Include="BRDF_reflection.cpp" />
     <ClCompile Include="BRDF_phong.cpp" />
@@ -154,7 +153,6 @@
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="polyvertex.hpp" />
     <ClInclude Include="primitive_is.hpp" />
-    <ClInclude Include="quadratic.hpp" />
     <ClInclude Include="BRDF.hpp" />
     <ClInclude Include="BRDF_reflection.hpp" />
     <ClInclude Include="BRDF_phong.hpp" />
@@ -201,7 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="light_point.hpp" />
-    <ClInclude Include="toolkit.hpp" />
+    <ClInclude Include="miscellaneous.hpp" />
     <ClInclude Include="surface_triangle.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="texture_checker.hpp" />

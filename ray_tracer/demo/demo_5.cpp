@@ -15,7 +15,7 @@ void demo_5::set_world() {
 	smobius->set_texture(new texture_solid(color_royalblue));
 
 	light *l = new light_point(point3D(-20, 0, 10), color_white);
-	l->set_spot(true, vector3D(30, 9, -30), PI / 3, 5);
+	l->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
 	l->set_attenuation(true, 1, 0.0001, 0.00005);
 	l->set_shadow(true);
 

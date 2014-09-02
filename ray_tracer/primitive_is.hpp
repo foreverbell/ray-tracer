@@ -19,10 +19,10 @@ namespace ray_tracer {
 
 			double t = (-a - delta) / d2;
 
-			if (t < EPSILON) {
+			if (t < epsilon) {
 				t = (-a + delta) / d2;
 			}
-			if (t > EPSILON) {
+			if (t > epsilon) {
 				return true;
 			}
 		}
@@ -30,14 +30,14 @@ namespace ray_tracer {
 		return false;
 	}
 	
-#define __within(x, l, r) (((x) >= ((l) - EPSILON)) && ((x) <= ((r) + EPSILON)))
+#define __within(x, l, r) (((x) >= ((l) - epsilon)) && ((x) <= ((r) + epsilon)))
 	template<int x0, int y0, int z0>
 	bool __boxcheck(const point3D &o, const vector3D &d, const point3D &p1, const point3D & p2) {
 		vector3D normal = vector3D(x0, y0, z0);
 		point3D hit;
 		double deno = normal * d;
 
-		if (DBLCMP(deno) != 0) {
+		if (dblsgn(deno) != 0) {
 			for (int i = 0; i < 2; ++i) {
 				bool inside = true;
 				if (i == 0) {

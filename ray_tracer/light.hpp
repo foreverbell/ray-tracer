@@ -46,7 +46,7 @@ namespace ray_tracer {
 		cast_shadow = shadow_;
 	}
 
-	inline void light::set_spot(bool enabled_, const vector3D &direction_ = vector3D(0, 0, 1), double cutoff_ = PI / 2, int exponent_ = 1) {
+	inline void light::set_spot(bool enabled_, const vector3D &direction_ = vector3D(0, 0, 1), double cutoff_ = pi / 2, int exponent_ = 1) {
 		spot_enabled = enabled_;
 		spot_direction = direction_.normalized();
 		spot_cutoff = cutoff_;
