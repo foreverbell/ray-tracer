@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)SDL-1.2.15\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)SDL-1.2.15\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\SDL-1.2.15\lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -77,7 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\ply-1.1\plyfile.c" />
+    <ClCompile Include="..\lib\ply-1.1\plyfile.c" />
     <ClCompile Include="BRDF_refraction.cpp" />
     <ClCompile Include="convexhull.cpp" />
     <ClCompile Include="demo\demo_1.cpp" />

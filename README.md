@@ -14,7 +14,7 @@ Please, switch to the `Release` mode to improve the efficiency of the program.
 
 ## Under Linux
 
-To compile, please type `make` in the folder `/ray_tracer`, then the file `rt` will be generated in this folder. You should have the SDL library installed first. (You can download SDL library from http://www.libsdl.org/download-1.2.php)
+To compile, please type `make` in the folder `/src`, then the file `rt` will be generated in this folder. You should have the SDL library installed first. (You can download SDL library from http://www.libsdl.org/download-1.2.php)
 
 # Demos
 
@@ -26,7 +26,7 @@ The second demo presents the Earth with texture. This is a real-time demo, you c
 
 The third demo presents a quadratic surface.
 
-The forth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the ply file format in `/ray_tracer/demos/stanford_bunny.ply`.
+The forth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the ply file format in `/src/demos/stanford_bunny.ply`.
 
 The fifth demo presents a mobius strip.
 

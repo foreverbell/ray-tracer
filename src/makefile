@@ -14,7 +14,7 @@ SUBDIRS := $(shell ls -F | grep "\/" )
 DIRS := ./ $(SUBDIRS) 
 SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)*.cpp) )
 
-PLY_DIR = ../ply-1.1
+PLY_DIR = ../lib/ply-1.1
 
 # Create an object file of every cpp file
 OBJECTS  = $(patsubst %.cpp, %.o, $(SOURCE_FILES)) 

@@ -2,7 +2,7 @@
 #include <vector>
 #include "ray.hpp"
 #include "surface_plymesh.hpp"
-#include "../ply-1.1/ply.h"
+#include "../lib/ply-1.1/ply.h"
 
 namespace ray_tracer {
 	typedef struct Vertex {
