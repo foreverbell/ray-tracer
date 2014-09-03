@@ -1,6 +1,5 @@
 
 #include "surface.hpp"
-#include "primitive_is.hpp"
 
 namespace ray_tracer {
 

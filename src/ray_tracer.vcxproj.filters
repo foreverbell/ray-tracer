@@ -463,9 +463,6 @@
     <ClInclude Include="hilbert_curve.hpp">
       <Filter>bottom-layer\utility</Filter>
     </ClInclude>
-    <ClInclude Include="primitive_is.hpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClInclude>
     <ClInclude Include="miscellaneous.hpp">
       <Filter>bottom-layer\basis</Filter>
     </ClInclude>
