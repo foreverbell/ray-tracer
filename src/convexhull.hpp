@@ -15,10 +15,10 @@ namespace ray_tracer {
 	class convexhull {
 	public:
 		convexhull(std::vector<point3D> &);
-		std::pair<std::vector<face_t>, std::vector<edge_t> > construct_hull();
+		std::pair<std::vector<face_t>, std::vector<edge_t> > construct();
 	private:
-		bool remove_face(int, int, int);
-		void walk_face(int, int);
+		bool remove(int, int, int);
+		void walk(int, int);
 		double mixed_product(const point3D &, const point3D &, const point3D &, const point3D &);
 	private:
 		std::vector<std::pair<face_t, bool> > faces;

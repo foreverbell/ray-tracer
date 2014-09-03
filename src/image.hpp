@@ -5,13 +5,13 @@
 
 namespace ray_tracer {
 
-	enum image_file_type {
-		image_type_bmp
+	enum class image_type {
+		image_bmp
 	};
 
 	class image {
 	public:
-		friend image *image_file_create(const char *, image_file_type);
+		friend image *image_file_create(const char *, image_type);
 		friend void image_file_destroy(image *);
 		/* Destructor is forbidden, plz implement destroy instead. */
 		virtual bool create() = 0;
@@ -24,7 +24,7 @@ namespace ray_tracer {
 		FILE *imgfile_ptr;
 	};
 	
-	image *image_file_create(const char *, image_file_type);
+	image *image_file_create(const char *, image_type);
 	void image_file_destroy(image *);
 }
 

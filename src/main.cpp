@@ -1,6 +1,7 @@
 
 #include <thread>
 #include <cstdint>
+#include <chrono>
 #include "rtlib.hpp"
 #include "demo/demo.hpp"
 
@@ -18,9 +19,9 @@ void render_callback(int x, int y, const colorRGB &color, void *pixel_ptr) {
 	char *p = (char *)pixel_ptr;
 
 	p += (y * width + x) << 2;
-	*p++ = static_cast<uint8_t>(color.b * 255);
-	*p++ = static_cast<uint8_t>(color.g * 255);
-	*p++ = static_cast<uint8_t>(color.r * 255);
+	*p++ = (char) (color.b * 255);
+	*p++ = (char) (color.g * 255);
+	*p++ = (char) (color.r * 255);
 }
 
 void render(world *world, SDL_Surface *screen) {
@@ -30,7 +31,7 @@ void render(world *world, SDL_Surface *screen) {
 			return;
 		}
 	}
-	world->render_begin(width, height, render_callback, screen->pixels, world::hilbert);
+	world->render_begin(width, height, render_callback, screen->pixels, world::pixel_traversal_mode::hilbert);
 	std::thread thr[max_thread_count];
 	for (int i = 0; i < max_thread_count; i += 1) {
 		thr[i] = std::thread([&]{ world->render(); });
@@ -61,9 +62,10 @@ int main(int argc, char *argv[]) {
 		printf("Couldn't set destination video mode: %s.\n", SDL_GetError());
 		return 0;
 	}
-
+	
+	auto clock = []() -> std::chrono::system_clock::time_point { return std::chrono::high_resolution_clock::now(); };
 	int demo_id = 4;
-	clock_t old_time = clock();
+	auto old_time = clock();
 	demo *dm = NULL;
 
 	switch (demo_id) {
@@ -92,7 +94,8 @@ int main(int argc, char *argv[]) {
 	dm->set_world();
 	render(&dm->wld, screen);
 
-	printf("Total time used: %us.\n", int((clock() - old_time) / CLOCKS_PER_SEC));
+	auto cur_time = clock();
+	printf("Total time used: %llds.\n", std::chrono::duration_cast<std::chrono::seconds>(cur_time - old_time).count());
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {
@@ -105,16 +108,16 @@ int main(int argc, char *argv[]) {
 			bool updated = false;
 			switch (event.key.keysym.sym) {
 			case SDLK_LEFT:
-				updated = dm->keybd(left);
+				updated = dm->keybd(keybd_code::left);
 				break;
 			case SDLK_RIGHT:
-				updated = dm->keybd(right);
+				updated = dm->keybd(keybd_code::right);
 				break;
 			case SDLK_UP:
-				updated = dm->keybd(up);
+				updated = dm->keybd(keybd_code::up);
 				break;
 			case SDLK_DOWN:
-				updated = dm->keybd(down);
+				updated = dm->keybd(keybd_code::down);
 				break;
 			default:
 				break;

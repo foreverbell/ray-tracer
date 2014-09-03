@@ -34,7 +34,7 @@ namespace ray_tracer {
 		void set_material(const material *);
 		colorRGB texture_shade(shade_context *) const;
 		void set_texture(const texture *);
-		void set_shading_surface(const surface *);
+		void set_shading(const surface *);
 
 		// texture mapping (UV mapping)
 		virtual point2D atUV(shade_context *) const;
@@ -51,7 +51,7 @@ namespace ray_tracer {
 
 	protected:
 		// shading
-		const surface *shading_surface_ptr;
+		const surface *shading_ptr;
 		const material *material_ptr;
 		const texture *texture_ptr;
 

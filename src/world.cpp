@@ -62,11 +62,11 @@ namespace ray_tracer {
 		callback_func = callback_func_;
 		callback_param_ptr = callback_param_ptr_;
 
-		if (traversal == naive) {
+		if (traversal == pixel_traversal_mode::naive) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_naive());
-		} else if (traversal == snake) {
+		} else if (traversal == pixel_traversal_mode::snake) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_snake());
-		} else if (traversal == hilbert) {
+		} else if (traversal == pixel_traversal_mode::hilbert) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_hilbert());
 		} else {
 			throw "unknown traversal mode.";

@@ -11,7 +11,13 @@ namespace ray_tracer {
 	const double pi = acos(-1.0);
 	const double epsilon = 1e-8;
 
-	#define dblsgn(x) ((x) < -epsilon ? -1 : ((x) > epsilon ? 1 : 0))
+	inline int dblsgn(double x) {
+		return (x < -epsilon) ? (-1) : (x > epsilon); 
+	}
+
+	inline int isqrt(int x) {
+		return (int) sqrt((double) x);
+	}
 
 	/* private marcos. */
 	const double __root_range = 1e10;

@@ -25,7 +25,7 @@ namespace ray_tracer {
 		friend class tracer;
 		
 	public:
-		enum pixel_traversal_mode {
+		enum class pixel_traversal_mode {
 			naive,
 			snake,
 			hilbert

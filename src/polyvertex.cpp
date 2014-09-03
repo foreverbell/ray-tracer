@@ -22,11 +22,13 @@ namespace ray_tracer {
 
 	void polyvertex::subdivide(int depth) {
 		std::vector<edge_t> edges;
+		int a, b;
 
 		do {
-			edges = convexhull(vertices).construct_hull().second;
+			edges = convexhull(vertices).construct().second;
 			for (std::vector<edge_t>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-				vertices.push_back((vertices[std::get<0>(*it)] + vertices[std::get<1>(*it)]).normalized());
+				std::tie(a, b) = *it;
+				vertices.push_back((vertices[a] + vertices[b]).normalized());
 			}
 		} while (--depth != 0);
 	}

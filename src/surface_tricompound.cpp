@@ -11,13 +11,13 @@
 #include <functional>
 
 namespace ray_tracer {
-
+	
 	void surface_tricompound::add_surface(const surface_triangle &triangle) {
 		surfaces.push_back(triangle);
-		surfaces.back().set_shading_surface(this);
+		surfaces.back().set_shading(this);
 	}
 
-	void surface_tricompound::setup() {
+	void surface_tricompound::setup(int leaf) {
 		std::vector<int> surfaces_indexes, surface_map(surfaces.size());
 		std::vector<surface_triangle> swap_surfaces(surfaces.size());
 		int ptr = 0;
@@ -26,7 +26,7 @@ namespace ray_tracer {
 			surfaces_indexes.push_back(i);
 		}
 
-		kdtree_root_ptr = build_kdtree(surfaces_indexes, surface_map, ptr);
+		kdtree_root_ptr = build_kdtree(surfaces_indexes, surface_map, ptr, leaf == 0 ? isqrt(surfaces.size()) : leaf);
 
 		/* Reorder the meta triangles to build the cache-efficient layout. */
 		for (size_t i = 0; i < surfaces.size(); ++i) {
@@ -75,6 +75,7 @@ namespace ray_tracer {
 			cords.push_back(std::make_pair(v[small], pt[small]));
 			cords.push_back(std::make_pair(v[big], pt[big]));
 		}
+
 		std::sort(interval.begin(), interval.end());
 		std::sort(cords.begin(), cords.end(), [&](const std::pair<double, point3D> &a, const std::pair<double, point3D> &b) -> bool {
 			return a.first < b.first;
@@ -112,14 +113,14 @@ namespace ray_tracer {
 		return std::make_pair(pos, best_value);
 	}
 
-	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> indexes, std::vector<int> &map, int &ptr) const {
+	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> indexes, std::vector<int> &map, int &ptr, int leaf) const {
 		if (indexes.size() == 0) {
 			return nullptr;
 		}
 
 		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
 
-		if (indexes.size() < 50) {
+		if ((int) indexes.size() < leaf) {
 
 			node_ptr->lchild_ptr = nullptr;
 			node_ptr->rchild_ptr = nullptr;
@@ -175,8 +176,8 @@ namespace ray_tracer {
 				}
 			}
 			// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
-			node_ptr->lchild_ptr = build_kdtree(lsurfaces, map, ptr);
-			node_ptr->rchild_ptr = build_kdtree(rsurfaces, map, ptr);
+			node_ptr->lchild_ptr = build_kdtree(lsurfaces, map, ptr, leaf);
+			node_ptr->rchild_ptr = build_kdtree(rsurfaces, map, ptr, leaf);
 
 		}
 
@@ -197,7 +198,7 @@ namespace ray_tracer {
 			}
 		}
 
-		if (node_ptr->divide_plane_ptr == NULL) {
+		if (node_ptr->divide_plane_ptr == nullptr) {
 			return result;
 		}
 
@@ -207,13 +208,13 @@ namespace ray_tracer {
 		}
 
 		if (side == -1) {
-			if (node_ptr->lchild_ptr != NULL) {
+			if (node_ptr->lchild_ptr != nullptr) {
 				tresult = search_kdtree(emission_ray, node_ptr->lchild_ptr.get());
 				if (tresult < result) {
 					result = tresult;
 				}
 			} 
-			if (node_ptr->rchild_ptr != NULL) {
+			if (node_ptr->rchild_ptr != nullptr) {
 				double plane_t = node_ptr->divide_plane_ptr->hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node_ptr->rchild_ptr.get());
@@ -223,13 +224,13 @@ namespace ray_tracer {
 				}
 			}
 		} else if (side == 1) {
-			if (node_ptr->rchild_ptr != NULL) {
+			if (node_ptr->rchild_ptr != nullptr) {
 				tresult = search_kdtree(emission_ray, node_ptr->rchild_ptr.get());
 				if (tresult < result) {
 					result = tresult;
 				}
 			} 
-			if (node_ptr->lchild_ptr != NULL) {
+			if (node_ptr->lchild_ptr != nullptr) {
 				double plane_t = node_ptr->divide_plane_ptr->hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node_ptr->lchild_ptr.get());
@@ -244,6 +245,7 @@ namespace ray_tracer {
 	}
 
 	std::pair<point3D, double> surface_tricompound::build_circumsphere(int l, int r) const {
+		const int max_iter_times = 1000;
 		std::vector<point3D> points;
 		double delta = 1, maxd = 0, d;
 		point3D center;
@@ -254,7 +256,7 @@ namespace ray_tracer {
 			points.push_back(surfaces[i].v1);
 			points.push_back(surfaces[i].v2);
 		}
-		for (int iter_times = 0; iter_times < 1000; ++iter_times) {
+		for (int iter_times = 0; iter_times < max_iter_times; ++iter_times) {
 			maxd = 0;
 			for (std::vector<point3D>::iterator it = points.begin(); it != points.end(); ++it) {
 				d = (center - *it).length2();
@@ -263,7 +265,7 @@ namespace ray_tracer {
 					it_pos = it;
 				}
 			}
-			if (iter_times != 999) {
+			if (iter_times != max_iter_times - 1) {
 				center += delta * (*it_pos - center);
 			}
 			delta *= 0.9;

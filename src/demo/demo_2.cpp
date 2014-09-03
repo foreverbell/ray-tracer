@@ -18,7 +18,7 @@ void demo_2::set_world() {
 	s->apply_transform(transform_rotate(point3D(0, 0, 0), vector3D(-10, 0, 0), -pi / 18));
 	
 	m = new material_matte(color_white);
-	t = new texture_image(image_file_create("demo/earth_texture.bmp", image_type_bmp));
+	t = new texture_image(image_file_create("demo/earth_texture.bmp", image_type::image_bmp));
 	s->set_material(m);
 	s->set_texture(t);
 
@@ -32,10 +32,10 @@ void demo_2::set_world() {
 }
 
 bool demo_2::keybd(keybd_code code) {
-	if (code == left) {
+	if (code == keybd_code::left) {
 		cam->rotate(pi / 50);
 		return true;
-	} else if (code == right) {
+	} else if (code == keybd_code::right) {
 		cam->rotate(-pi / 50);
 		return true;
 	}

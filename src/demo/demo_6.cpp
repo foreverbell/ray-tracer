@@ -8,7 +8,7 @@ void demo_6::set_world() {
 
 	surface_fractal_terrain *sterrain = new surface_fractal_terrain(100, 64, 100, 1, 123);
 	sterrain->set_material(new material_matte());
-	sterrain->set_texture(new texture_image(image_file_create("demo/landscape_texture.bmp", image_type_bmp)));
+	sterrain->set_texture(new texture_image(image_file_create("demo/landscape_texture.bmp", image_type::image_bmp)));
 
 	light *l = new light_point(point3D(50, 50, 80), color_white);
 	l->set_attenuation(true, 1, 0.0001, 0.00005);

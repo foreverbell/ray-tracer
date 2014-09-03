@@ -7,11 +7,13 @@ namespace ray_tracer {
 
 	convexhull::convexhull(std::vector<point3D> &points_) : points(points_) { }
 
-	bool convexhull::remove_face(int p, int b, int a) {
+	bool convexhull::remove(int p, int b, int a) {
 		int f = belong[std::make_pair(b, a)];
+		int x, y, z;
 
 		if (faces[f].second) {
-			if (dblsgn(mixed_product(points[p], points[std::get<0>(faces[f].first)], points[std::get<1>(faces[f].first)], points[std::get<2>(faces[f].first)])) >= 0) {
+			std::tie(x, y, z) = faces[f].first;
+			if (dblsgn(mixed_product(points[p], points[x], points[y], points[z])) >= 0) {
 				return true;
 			} else {
 				belong[std::make_pair(a, b)] = faces.size();
@@ -23,21 +25,29 @@ namespace ray_tracer {
 		return false;
 	}
 
-	void convexhull::walk_face(int p, int f) {
-		int a = std::get<0>(faces[f].first), b = std::get<1>(faces[f].first), c = std::get<2>(faces[f].first);
+	void convexhull::walk(int p, int f) {
+		int a, b, c;
+		std::tie(a, b, c) = faces[f].first;
 
 		faces[f].second = false;
-		if (remove_face(p, b, a)) walk_face(p, belong[std::make_pair(b, a)]);
-		if (remove_face(p, c, b)) walk_face(p, belong[std::make_pair(c, b)]);
-		if (remove_face(p, a, c)) walk_face(p, belong[std::make_pair(a, c)]);
+		if (remove(p, b, a)) {
+			walk(p, belong[std::make_pair(b, a)]);
+		}
+		if (remove(p, c, b)) {
+			walk(p, belong[std::make_pair(c, b)]);
+		}
+		if (remove(p, a, c)) {
+			walk(p, belong[std::make_pair(a, c)]);
+		}
 	}
 
 	/* Complexity: O(N^2). */
-	std::pair<std::vector<face_t>, std::vector<edge_t> > convexhull::construct_hull() {
+	std::pair<std::vector<face_t>, std::vector<edge_t> > convexhull::construct() {
 		int n = points.size(), flag = 0, sz;
 		std::vector<face_t> ret_faces;
 		std::vector<edge_t> ret_edges;
 		face_t f;
+		int a, b, c;
 
 		/* Ensure the first four vertices which don't share the same face. */
 		/* Co-point? */
@@ -64,16 +74,19 @@ namespace ray_tracer {
 				break;
 			}
 		}
-		if (flag != 7) return std::make_pair(ret_faces, ret_edges);
+		if (flag != 7) {
+			return std::make_pair(ret_faces, ret_edges);
+		}
 		/* Init the first face. */
 		for (int i = 0; i < 4; ++i) {
-			std::get<0>(f) = (i + 1) % 4, std::get<1>(f) = (i + 2) % 4, std::get<2>(f) = (i + 3) % 4;
-			if (dblsgn(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) > 0) {
-				std::swap(std::get<0>(f), std::get<1>(f));
+			a = (i + 1) % 4, b = (i + 2) % 4, c = (i + 3) % 4;
+			f = std::make_tuple(a, b, c);
+			if (dblsgn(mixed_product(points[i], points[a], points[b], points[c])) > 0) {
+				std::swap(a, b);
 			}
-			belong[std::make_pair(std::get<0>(f), std::get<1>(f))] = faces.size();
-			belong[std::make_pair(std::get<1>(f), std::get<2>(f))] = faces.size();
-			belong[std::make_pair(std::get<2>(f), std::get<0>(f))] = faces.size();
+			belong[std::make_pair(a, b)] = faces.size();
+			belong[std::make_pair(b, c)] = faces.size();
+			belong[std::make_pair(c, a)] = faces.size();
 			faces.push_back(std::make_pair(f, true));
 		}
 		/* Construct the 3D hull. */
@@ -82,9 +95,9 @@ namespace ray_tracer {
 			sz = faces.size();
 			for (int j = 0; j < sz; ++j) {
 				if (faces[j].second) {
-					f = faces[j].first;
-					if (dblsgn(mixed_product(points[i], points[std::get<0>(f)], points[std::get<1>(f)], points[std::get<2>(f)])) >= 0) {
-						walk_face(i, j);
+					std::tie(a, b, c) = faces[j].first;
+					if (dblsgn(mixed_product(points[i], points[a], points[b], points[c])) >= 0) {
+						walk(i, j);
 						break;
 					}
 				}

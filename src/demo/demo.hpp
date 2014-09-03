@@ -5,7 +5,7 @@
 
 namespace ray_tracer {
 
-	enum keybd_code {
+	enum class keybd_code {
 		left,
 		right,
 		up,
