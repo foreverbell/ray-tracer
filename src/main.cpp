@@ -65,7 +65,6 @@ int main(int argc, char *argv[]) {
 	
 	auto clock = []() -> std::chrono::system_clock::time_point { return std::chrono::high_resolution_clock::now(); };
 	int demo_id = 4;
-	auto old_time = clock();
 	demo *dm = NULL;
 
 	switch (demo_id) {
@@ -91,11 +90,28 @@ int main(int argc, char *argv[]) {
 		printf("Unknown demo id.\n");
 		exit(0);
 	}
-	dm->set_world();
-	render(&dm->wld, screen);
 
-	auto cur_time = clock();
-	printf("Total time used: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(cur_time - old_time).count());
+	auto old_stamp = clock();
+	dm->set_world();
+	printf("Total time used to setup world: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(clock() - old_stamp).count());
+	old_stamp = clock();
+	render(&dm->wld, screen);
+	printf("Total time used to render scene: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(clock() - old_stamp).count());
+
+/*
+	int fps = 0;
+	old_stamp = clock();
+	while (true) {
+		dm->cam->rotate(pi / 50);
+		render(&dm->wld, screen);
+		fps += 1;
+		if ((int) std::chrono::duration_cast<std::chrono::milliseconds>(clock() - old_stamp).count() > 1000) {
+			printf("fps: %d.\n", fps);
+			fps = 0;
+			old_stamp = clock();
+		}
+	}
+*/
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {
