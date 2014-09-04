@@ -65,31 +65,15 @@ int main(int argc, char *argv[]) {
 	
 	auto clock = []() -> std::chrono::system_clock::time_point { return std::chrono::high_resolution_clock::now(); };
 	int demo_id = 4;
-	demo *dm = NULL;
-
-	switch (demo_id) {
-	case 1:
-		dm = new demo_1();
-		break;
-	case 2:
-		dm = new demo_2();
-		break;
-	case 3:
-		dm = new demo_3();
-		break;
-	case 4:
-		dm = new demo_4();
-		break;
-	case 5:
-		dm = new demo_5();
-		break;
-	case 6:
-		dm = new demo_6();
-		break;
-	default:
-		printf("Unknown demo id.\n");
-		exit(0);
-	}
+	std::vector<demo *> demos = { 
+		new demo_1(),
+		new demo_2(),
+		new demo_3(),
+		new demo_4(),
+		new demo_5(),
+		new demo_6()
+	};
+	demo *dm = demos[demo_id - 1];
 
 	auto old_stamp = clock();
 	dm->set_world();
