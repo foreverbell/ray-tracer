@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 	render(&dm->wld, screen);
 
 	auto cur_time = clock();
-	printf("Total time used: %llds.\n", std::chrono::duration_cast<std::chrono::seconds>(cur_time - old_time).count());
+	printf("Total time used: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(cur_time - old_time).count());
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {

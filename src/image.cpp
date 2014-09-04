@@ -5,9 +5,9 @@
 
 namespace ray_tracer {
 
-	image *image_file_create(const char *file, image_type image_type) {
+	image *image_file_create(const char *file, image_type type) {
 		image *img = NULL;
-		switch (image_type) {
+		switch (type) {
 		case image_type::image_bmp:
 			img = new image_bmp;
 			break;
