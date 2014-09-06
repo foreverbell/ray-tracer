@@ -58,14 +58,14 @@ namespace ray_tracer {
 		double hit(const ray &, const surface **) const;
 	protected:
 		void add_surface(const surface_triangle &);
-		void setup(int = 0);
+		void setup(int = -1, int = -1);
 	private:
 		std::vector<surface_triangle> surfaces;
 		std::unique_ptr<kdtree_node> kdtree_root_ptr;
 	private:
 		std::pair<point3D, double> build_circumsphere(int, int) const;
 		std::pair<point3D, point3D> build_box(int, int) const;
-		std::unique_ptr<kdtree_node> build_kdtree(std::vector<int>, std::vector<int> &, int &, int) const;
+		std::unique_ptr<kdtree_node> build_kdtree(std::vector<int>, int, std::vector<int> &, int &, int, int) const;
 		std::pair<double, int> search_kdtree(const ray &, const kdtree_node *) const;
 		std::pair<point3D, int> get_division(const vector3D &, const std::vector<int> &) const;
 	};

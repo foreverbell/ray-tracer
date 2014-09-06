@@ -17,7 +17,7 @@ namespace ray_tracer {
 		surfaces.back().set_shading(this);
 	}
 
-	void surface_tricompound::setup(int leaf) {
+	void surface_tricompound::setup(int min_split, int max_depth) {
 		std::vector<int> surfaces_indexes, surface_map(surfaces.size());
 		std::vector<surface_triangle> swap_surfaces(surfaces.size());
 		int ptr = 0;
@@ -26,7 +26,13 @@ namespace ray_tracer {
 			surfaces_indexes.push_back(i);
 		}
 
-		kdtree_root_ptr = build_kdtree(surfaces_indexes, surface_map, ptr, leaf == 0 ? isqrt(surfaces.size()) : leaf);
+		if (min_split == -1) {
+			min_split = isqrt(surfaces.size());
+		}
+		if (max_depth == -1) {
+			max_depth = INT_MAX;
+		}
+		kdtree_root_ptr = build_kdtree(surfaces_indexes, 0, surface_map, ptr, min_split, max_depth);
 
 		/* Reorder the meta triangles to build the cache-efficient layout. */
 		for (size_t i = 0; i < surfaces.size(); ++i) {
@@ -113,14 +119,14 @@ namespace ray_tracer {
 		return std::make_pair(pos, best_value);
 	}
 
-	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> indexes, std::vector<int> &map, int &ptr, int leaf) const {
+	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) const {
 		if (indexes.size() == 0) {
 			return nullptr;
 		}
 
 		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
 
-		if ((int) indexes.size() < leaf) {
+		if ((int) indexes.size() < min_split || depth >= max_depth) {
 
 			node_ptr->lchild_ptr = nullptr;
 			node_ptr->rchild_ptr = nullptr;
@@ -167,8 +173,8 @@ namespace ray_tracer {
 				}
 			}
 			// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
-			node_ptr->lchild_ptr = build_kdtree(lsurfaces, map, ptr, leaf);
-			node_ptr->rchild_ptr = build_kdtree(rsurfaces, map, ptr, leaf);
+			node_ptr->lchild_ptr = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
+			node_ptr->rchild_ptr = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
 
 		}
 
