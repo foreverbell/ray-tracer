@@ -32,7 +32,7 @@ namespace ray_tracer {
 		if (max_depth == -1) {
 			max_depth = INT_MAX;
 		}
-		kdtree_root_ptr = build_kdtree(surfaces_indexes, 0, surface_map, ptr, min_split, max_depth);
+		kdtree_root = build_kdtree(surfaces_indexes, 0, surface_map, ptr, min_split, max_depth);
 
 		/* Reorder the meta triangles to build the cache-efficient layout. */
 		for (size_t i = 0; i < surfaces.size(); ++i) {
@@ -46,16 +46,16 @@ namespace ray_tracer {
 		set_bsphere(circumsphere.first, circumsphere.second);
 		set_bbox(box.first, box.second);
 
-		std::function<void(kdtree_node *)> node_box_build_fun;
-		node_box_build_fun = [&node_box_build_fun, this](kdtree_node *node) -> void {
-			if (node != NULL) {
-				node_box_build_fun(node->lchild_ptr.get());
-				node_box_build_fun(node->rchild_ptr.get());
-				node->build_box(this);
+		std::function<void(int)> node_box_build_fun;
+		node_box_build_fun = [&node_box_build_fun, this](int node) -> void {
+			if (node != -1) {
+				node_box_build_fun(nodes[node].lchild);
+				node_box_build_fun(nodes[node].rchild);
+				nodes[node].build_box(this);
 			}
 		};
 
-		node_box_build_fun(kdtree_root_ptr.get());
+		node_box_build_fun(kdtree_root);
 	}
 
 	std::pair<point3D, int> surface_tricompound::get_division(const vector3D &normal, const std::vector<int> &indexes) const {
@@ -119,20 +119,23 @@ namespace ray_tracer {
 		return std::make_pair(pos, best_value);
 	}
 
-	std::unique_ptr<surface_tricompound::kdtree_node> surface_tricompound::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) const {
+	int surface_tricompound::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) {
 		if (indexes.size() == 0) {
-			return nullptr;
+			return -1;
 		}
 
-		std::unique_ptr<kdtree_node> node_ptr = std::unique_ptr<kdtree_node>(new kdtree_node());
+		int node_ptr = (int) nodes.size();
+
+		nodes.push_back(kdtree_node());
+		kdtree_node &node = nodes[node_ptr];
 
 		if ((int) indexes.size() < min_split || depth >= max_depth) {
 
-			node_ptr->lchild_ptr = nullptr;
-			node_ptr->rchild_ptr = nullptr;
-			node_ptr->divide_plane_ptr = nullptr;
+			node.lchild = -1;
+			node.rchild = -1;
+			node.divide_plane_ptr = nullptr;
 			for (size_t i = 0; i < indexes.size(); ++i) {
-				node_ptr->add(ptr);
+				node.add(ptr);
 				map[indexes[i]] = ptr;
 				ptr += 1;
 			}
@@ -153,84 +156,86 @@ namespace ray_tracer {
 				}
 			}
 
-			node_ptr->divide_plane_ptr = std::unique_ptr<surface_plane>(new surface_plane(median, best_normal));
+			node.divide_plane_ptr = std::shared_ptr<surface_plane>(new surface_plane(median, best_normal));
 
 			std::vector<int> lsurfaces, rsurfaces;
 			int sgn0, sgn1, sgn2;
 
 			for (std::vector<int>::iterator it = indexes.begin(); it != indexes.end(); ++it) {
-				sgn0 = dblsgn((surfaces[*it].v0 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
-				sgn1 = dblsgn((surfaces[*it].v1 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
-				sgn2 = dblsgn((surfaces[*it].v2 - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
+				sgn0 = dblsgn((surfaces[*it].v0 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
+				sgn1 = dblsgn((surfaces[*it].v1 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
+				sgn2 = dblsgn((surfaces[*it].v2 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
 				if (sgn0 < 0 && sgn1 < 0 && sgn2 < 0) {
 					lsurfaces.push_back(*it);
 				} else if (sgn0 > 0 && sgn1 > 0 && sgn2 > 0) {
 					rsurfaces.push_back(*it);
 				} else {
-					node_ptr->add(ptr);
+					node.add(ptr);
 					map[*it] = ptr;
 					ptr += 1;
 				}
 			}
 			// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
-			node_ptr->lchild_ptr = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
-			node_ptr->rchild_ptr = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
+			nodes[node_ptr].lchild = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
+			nodes[node_ptr].rchild = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
 
 		}
 
 		return node_ptr;
 	}
 
-	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, const kdtree_node *node_ptr) const {
-		if (node_ptr == NULL || !box_intersection(node_ptr->bb_p1, node_ptr->bb_p2, emission_ray)) {
+	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, int node_ptr) const {
+		if (node_ptr == -1 || !box_intersection(nodes[node_ptr].bb_p1, nodes[node_ptr].bb_p2, emission_ray)) {
 			return std::make_pair(DBL_MAX, -1);
 		}
 
+		const kdtree_node &node = nodes[node_ptr];
+
 		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), tresult;
 
-		for (int i = node_ptr->index_l; i <= node_ptr->index_r; ++i) {
+		for (int i = node.index_l; i <= node.index_r; ++i) {
 			double temp_t = surfaces[i].hit(emission_ray, NULL);
 			if (temp_t > epsilon && temp_t < result.first) {
 				result = std::make_pair(temp_t, i);
 			}
 		}
 
-		if (node_ptr->divide_plane_ptr == nullptr) {
+		if (node.divide_plane_ptr == nullptr) {
 			return result;
 		}
 
-		int side = dblsgn((emission_ray.origin - node_ptr->divide_plane_ptr->base) * node_ptr->divide_plane_ptr->normal);
+		int side = dblsgn((emission_ray.origin - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
 		if (side == 0) {
-			side = dblsgn(emission_ray.dir * node_ptr->divide_plane_ptr->normal);
+			side = dblsgn(emission_ray.dir * node.divide_plane_ptr->normal);
 		}
 
 		if (side == -1) {
-			if (node_ptr->lchild_ptr != nullptr) {
-				tresult = search_kdtree(emission_ray, node_ptr->lchild_ptr.get());
+			if (node.lchild != -1) {
+				tresult = search_kdtree(emission_ray, node.lchild);
 				if (tresult < result) {
 					result = tresult;
 				}
 			} 
-			if (node_ptr->rchild_ptr != nullptr) {
-				double plane_t = node_ptr->divide_plane_ptr->hit(emission_ray, NULL);
+			if (node.rchild != -1) {
+				double plane_t = node.divide_plane_ptr->hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
-					tresult = search_kdtree(emission_ray, node_ptr->rchild_ptr.get());
+					tresult = search_kdtree(emission_ray, node.rchild);
 					if (tresult < result) {
 						result = tresult;
 					}
 				}
 			}
 		} else if (side == 1) {
-			if (node_ptr->rchild_ptr != nullptr) {
-				tresult = search_kdtree(emission_ray, node_ptr->rchild_ptr.get());
+			if (node.rchild != -1) {
+				tresult = search_kdtree(emission_ray, node.rchild);
 				if (tresult < result) {
 					result = tresult;
 				}
 			} 
-			if (node_ptr->lchild_ptr != nullptr) {
-				double plane_t = node_ptr->divide_plane_ptr->hit(emission_ray, NULL);
+			if (node.lchild != -1) {
+				double plane_t = node.divide_plane_ptr->hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
-					tresult = search_kdtree(emission_ray, node_ptr->lchild_ptr.get());
+					tresult = search_kdtree(emission_ray, node.lchild);
 					if (tresult < result) {
 						result = tresult;
 					}
@@ -298,7 +303,7 @@ namespace ray_tracer {
 			return -1;
 		}
 
-		std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root_ptr.get());
+		std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root);
 		if (result.second == -1) {
 			return -1;
 		} else {

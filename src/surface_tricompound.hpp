@@ -23,6 +23,7 @@ namespace ray_tracer {
 				index_r = -2;
 				bb_p1 = point3D(DBL_MAX, DBL_MAX, DBL_MAX);
 				bb_p2 = point3D(-DBL_MAX, -DBL_MAX, -DBL_MAX);
+				lchild = rchild = -1;
 			}
 
 			inline void add(int index) {
@@ -38,19 +39,18 @@ namespace ray_tracer {
 					bb_p1 = box.first;
 					bb_p2 = box.second;
 				}
-				if (lchild_ptr != nullptr) {
-					bb_p1 = point3D(std::min(bb_p1.x, lchild_ptr->bb_p1.x), std::min(bb_p1.y, lchild_ptr->bb_p1.y), std::min(bb_p1.z, lchild_ptr->bb_p1.z));
-					bb_p2 = point3D(std::max(bb_p2.x, lchild_ptr->bb_p2.x), std::max(bb_p2.y, lchild_ptr->bb_p2.y), std::max(bb_p2.z, lchild_ptr->bb_p2.z));
-				}
-				if (rchild_ptr != nullptr) {
-					bb_p1 = point3D(std::min(bb_p1.x, rchild_ptr->bb_p1.x), std::min(bb_p1.y, rchild_ptr->bb_p1.y), std::min(bb_p1.z, rchild_ptr->bb_p1.z));
-					bb_p2 = point3D(std::max(bb_p2.x, rchild_ptr->bb_p2.x), std::max(bb_p2.y, rchild_ptr->bb_p2.y), std::max(bb_p2.z, rchild_ptr->bb_p2.z));
+				for (int child : { lchild, rchild} ) {
+					if (child != -1) {
+						const kdtree_node &node = stc_ptr->nodes[child];
+						bb_p1 = point3D(std::min(bb_p1.x, node.bb_p1.x), std::min(bb_p1.y, node.bb_p1.y), std::min(bb_p1.z, node.bb_p1.z));
+						bb_p2 = point3D(std::max(bb_p2.x, node.bb_p2.x), std::max(bb_p2.y, node.bb_p2.y), std::max(bb_p2.z, node.bb_p2.z));
+					}
 				}
 			}
 
 		public:
-			std::unique_ptr<kdtree_node> lchild_ptr, rchild_ptr;
-			std::unique_ptr<surface_plane> divide_plane_ptr;
+			int lchild, rchild;
+			std::shared_ptr<surface_plane> divide_plane_ptr;
 			int index_l, index_r;
 			point3D bb_p1, bb_p2;
 		};
@@ -61,12 +61,13 @@ namespace ray_tracer {
 		void setup(int = -1, int = -1);
 	private:
 		std::vector<surface_triangle> surfaces;
-		std::unique_ptr<kdtree_node> kdtree_root_ptr;
+		std::vector<kdtree_node> nodes;
+		int kdtree_root;
 	private:
 		std::pair<point3D, double> build_circumsphere(int, int) const;
 		std::pair<point3D, point3D> build_box(int, int) const;
-		std::unique_ptr<kdtree_node> build_kdtree(std::vector<int>, int, std::vector<int> &, int &, int, int) const;
-		std::pair<double, int> search_kdtree(const ray &, const kdtree_node *) const;
+		int build_kdtree(std::vector<int>, int, std::vector<int> &, int &, int, int);
+		std::pair<double, int> search_kdtree(const ray &, int) const;
 		std::pair<point3D, int> get_division(const vector3D &, const std::vector<int> &) const;
 	};
 }
