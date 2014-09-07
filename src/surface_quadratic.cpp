@@ -7,8 +7,8 @@
 
 namespace ray_tracer {
 
-	double surface_quadratic::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
-		return find_root(emission_ray.origin, emission_ray.dir);
+	std::pair<double, surface *> surface_quadratic::hit(const ray &emission_ray) const {
+		return std::make_pair(find_root(emission_ray.origin, emission_ray.dir), nullptr);
 	}
 
 	vector3D surface_quadratic::atnormal(const point3D &p) const {

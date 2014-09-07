@@ -55,7 +55,7 @@ namespace ray_tracer {
 			point3D bb_p1, bb_p2;
 		};
 	public:
-		double hit(const ray &, const surface **) const;
+		std::pair<double, surface *> hit(const ray &) const;
 	protected:
 		void add_surface(const surface_triangle &);
 		void setup(int = -1, int = -1);
@@ -68,7 +68,7 @@ namespace ray_tracer {
 		std::pair<point3D, point3D> build_box(int, int) const;
 		int build_kdtree(std::vector<int>, int, std::vector<int> &, int &, int, int);
 		std::pair<double, int> search_kdtree(const ray &, int) const;
-		std::pair<point3D, int> get_division(const vector3D &, const std::vector<int> &) const;
+		std::pair<point3D, int> split(const vector3D &, const std::vector<int> &) const;
 	};
 }
 

@@ -58,7 +58,7 @@ namespace ray_tracer {
 		node_box_build_fun(kdtree_root);
 	}
 
-	std::pair<point3D, int> surface_tricompound::get_division(const vector3D &normal, const std::vector<int> &indexes) const {
+	std::pair<point3D, int> surface_tricompound::split(const vector3D &normal, const std::vector<int> &indexes) const {
 		std::vector<std::pair<double, double> > interval;
 		std::vector<std::pair<double, point3D> > cords;
 
@@ -146,7 +146,7 @@ namespace ray_tracer {
 			int best_val = INT_MAX;
 
 			for (vector3D normal : { vector3D(1, 0, 0), vector3D(0, 1, 0), vector3D(0, 0, 1) }) {
-				std::pair<point3D, int> tmp = get_division(normal, indexes);
+				std::pair<point3D, int> tmp = split(normal, indexes);
 
 				if (tmp.second < best_val) {
 					best_val = tmp.second;
@@ -193,7 +193,7 @@ namespace ray_tracer {
 		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), tresult;
 
 		for (int i = node.index_l; i <= node.index_r; ++i) {
-			double temp_t = surfaces[i].hit(emission_ray, NULL);
+			double temp_t = surfaces[i].hit(emission_ray).first;
 			if (temp_t > epsilon && temp_t < result.first) {
 				result = std::make_pair(temp_t, i);
 			}
@@ -204,6 +204,7 @@ namespace ray_tracer {
 		}
 
 		int side = dblsgn((emission_ray.origin - node.separate.base) * node.separate.normal);
+
 		if (side == 0) {
 			side = dblsgn(emission_ray.dir * node.separate.normal);
 		}
@@ -216,7 +217,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.rchild != -1) {
-				double plane_t = node.separate.hit(emission_ray, NULL);
+				double plane_t = node.separate.hit(emission_ray).first;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.rchild);
 					if (tresult < result) {
@@ -232,7 +233,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.lchild != -1) {
-				double plane_t = node.separate.hit(emission_ray, NULL);
+				double plane_t = node.separate.hit(emission_ray).first;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.lchild);
 					if (tresult < result) {
@@ -297,17 +298,16 @@ namespace ray_tracer {
 		return std::make_pair(point3D(x_min, y_min, z_min), point3D(x_max, y_max, z_max));
 	}
 
-	double surface_tricompound::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+	std::pair<double, surface *> surface_tricompound::hit(const ray &emission_ray) const {
 		if (!hit_bound(emission_ray)) {
-			return -1;
+			return null_intersect;
 		}
 
 		std::pair<double, int> result = search_kdtree(emission_ray, kdtree_root);
 		if (result.second == -1) {
-			return -1;
+			return null_intersect;
 		} else {
-			*hit_surface_ptr = &surfaces[result.second];
-			return result.first;
+			return std::make_pair(result.first, (surface *) &surfaces[result.second]);
 		}
 	}
 }

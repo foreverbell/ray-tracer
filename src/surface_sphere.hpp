@@ -9,7 +9,7 @@ namespace ray_tracer {
 	public:
 		surface_sphere();
 		surface_sphere(const point3D &, double);
-		double hit(const ray &, const surface **) const;
+		std::pair<double, surface *> hit(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 		point2D atUV(shade_context *) const;
 	private:

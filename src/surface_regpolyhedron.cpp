@@ -36,15 +36,15 @@ namespace ray_tracer {
 		std::transform(vertices.begin(), vertices.end(), vertices.begin(), [=](const point3D &p) { return radius * p.normalized() + center; });
 		construct(vertices);
 
-		bounding_surface_ptr = std::unique_ptr<const surface>(new surface_sphere(center, radius));
+		set_bsphere(center, radius);
 	}
 
-	double surface_regpolyhedron::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+	std::pair<double, surface *> surface_regpolyhedron::hit(const ray &emission_ray) const {
 		double t;
 
-		if ((t = bounding_surface_ptr->hit(emission_ray, hit_surface_ptr)) < epsilon) {
-			return t;
+		if (!hit_bound(emission_ray)) {
+			return null_intersect;
 		}
-		return surface_convexhull::hit(emission_ray, hit_surface_ptr);
+		return surface_convexhull::hit(emission_ray);
 	}
 }

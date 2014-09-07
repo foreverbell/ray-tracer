@@ -25,15 +25,18 @@ namespace ray_tracer {
 		double t, result_t = -1;
 		const surface *cur_surface_ptr, *real_surface_ptr;
 		const surface *surface_ptr, *father_surface_ptr;
+		std::pair<double, surface *> hcontext;
 
 		for (std::vector<const surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
 			cur_surface_ptr = *iter;
 			real_surface_ptr = NULL;
 			if (cur_surface_ptr->transformed) {
-				t = cur_surface_ptr->hit(emission_ray.inverse_transform(cur_surface_ptr->transform_matrix, cur_surface_ptr->transform_center), &real_surface_ptr);
+				hcontext = cur_surface_ptr->hit(emission_ray.inverse_transform(cur_surface_ptr->transform_matrix, cur_surface_ptr->transform_center));
 			} else {
-				t = cur_surface_ptr->hit(emission_ray, &real_surface_ptr);
+				hcontext = cur_surface_ptr->hit(emission_ray);
 			}
+			t = hcontext.first;
+			real_surface_ptr = hcontext.second;
 			if (t > epsilon && (t < result_t || result_t == -1)) {
 				result_t = t;
 				surface_ptr = (real_surface_ptr != NULL ? real_surface_ptr : cur_surface_ptr);

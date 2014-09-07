@@ -16,7 +16,7 @@ namespace ray_tracer {
 		radius2 = radius_ * radius_;
 	}
 
-	double surface_sphere::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+	std::pair<double, surface *> surface_sphere::hit(const ray &emission_ray) const {
 		point3D o = emission_ray.origin, c = center;
 		vector3D d = emission_ray.dir;
 		double a = d * (o - c), d2 = d.length2();
@@ -24,14 +24,14 @@ namespace ray_tracer {
 		double t;
 
 		if (delta < 0) {
-			return -1;
+			return null_intersect;
 		}
 		delta = sqrt(delta);
 		t = (-a - delta) / d2;
 		if (t < epsilon) {
 			t = (-a + delta) / d2;
 		}
-		return t;
+		return std::make_pair(t, nullptr);
 	}
 
 	vector3D surface_sphere::atnormal(const point3D &point) const {

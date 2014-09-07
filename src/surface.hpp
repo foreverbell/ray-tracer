@@ -1,6 +1,7 @@
 #ifndef __SURFACE_HPP__
 #define __SURFACE_HPP__
 
+#include <utility>
 #include <memory>
 #include "vector3D.hpp"
 #include "point3D.hpp"
@@ -14,6 +15,8 @@
 
 namespace ray_tracer {
 
+	const std::pair<double, surface *> null_intersect = std::make_pair<double, surface *>(-1, NULL);
+
 	class surface {
 		friend class surface_compound;
 		friend class tracer;
@@ -22,11 +25,8 @@ namespace ray_tracer {
 		surface();
 		virtual ~surface() = 0;
 		// ray intersection
-		/*
-			return a negative value if the ray doesn't hit any surface,
-			hit surface pointer remains unchanged if not compounded. 
-		*/
-		virtual double hit(const ray &, const surface **) const = 0;
+		// return a negative value if the ray doesn't hit any surface,
+		virtual std::pair<double, surface *> hit(const ray &) const = 0;
 		
 		// normals && shading
 		virtual vector3D atnormal(const point3D &) const;

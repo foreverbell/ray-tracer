@@ -18,7 +18,7 @@ namespace ray_tracer {
 		hasUV = false;
 	}
 
-	double surface_triangle::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+	std::pair<double, surface *> surface_triangle::hit(const ray &emission_ray) const {
 		double a = v0.x - v1.x, b = v0.x - v2.x, c = emission_ray.dir.x, d = v0.x - emission_ray.origin.x;
 		double e = v0.y - v1.y, f = v0.y - v2.y, g = emission_ray.dir.y, h = v0.y - emission_ray.origin.y;
 		double i = v0.z - v1.z, j = v0.z - v2.z, k = emission_ray.dir.z, l = v0.z - emission_ray.origin.z;
@@ -29,7 +29,7 @@ namespace ray_tracer {
 		double beta = e1 * inv_deno;
 
 		if (beta < 0) {
-			return -1;
+			return null_intersect;
 		}
 
 		double r = e * l - h * i;
@@ -37,13 +37,13 @@ namespace ray_tracer {
 		double gamma = e2 * inv_deno;
 
 		if (gamma < 0 || gamma + beta > 1) {
-			return -1;
+			return null_intersect;
 		}
 
 		double e3 = a * p - b * r + d * s;
 		double t = e3 * inv_deno;
 
-		return t < epsilon ? -1 : t;
+		return t < epsilon ? null_intersect : std::make_pair(t, nullptr);
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {

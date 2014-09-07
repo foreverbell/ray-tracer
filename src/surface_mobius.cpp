@@ -46,9 +46,9 @@ namespace ray_tracer {
 		return (s >= -half_width - epsilon  && s <= half_width + epsilon);
 	}
 
-	double surface_mobius::hit(const ray &emission_ray, const surface **hit_surface_ptr) const {
+	std::pair<double, surface *> surface_mobius::hit(const ray &emission_ray) const {
 		if (!hit_bound(emission_ray)) {
-			return -1;
+			return null_intersect;
 		}
 
 		double ox = emission_ray.origin.x;
@@ -77,11 +77,11 @@ namespace ray_tracer {
 
 		for (std::vector<double>::iterator iter = result.begin(); iter != result.end(); ++iter) {
 			if (*iter > epsilon && inrange(emission_ray.at(*iter))) {
-				return *iter;
+				return std::make_pair(*iter, nullptr);
 			}
 		}
 
-		return -1;
+		return null_intersect;
 	}
 
 	vector3D surface_mobius::atnormal(const point3D &point) const {

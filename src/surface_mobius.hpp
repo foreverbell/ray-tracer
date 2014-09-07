@@ -8,7 +8,7 @@ namespace ray_tracer {
 	public:
 		surface_mobius();
 		surface_mobius(double, double);
-		double hit(const ray &, const surface **) const;
+		std::pair<double, surface *> hit(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 	private:
 		bool inrange(const point3D &) const;
