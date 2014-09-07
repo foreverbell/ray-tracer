@@ -50,7 +50,7 @@ namespace ray_tracer {
 
 		public:
 			int lchild, rchild;
-			std::shared_ptr<surface_plane> divide_plane_ptr;
+			surface_plane separate;
 			int index_l, index_r;
 			point3D bb_p1, bb_p2;
 		};

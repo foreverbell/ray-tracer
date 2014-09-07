@@ -133,7 +133,6 @@ namespace ray_tracer {
 
 			node.lchild = -1;
 			node.rchild = -1;
-			node.divide_plane_ptr = nullptr;
 			for (size_t i = 0; i < indexes.size(); ++i) {
 				node.add(ptr);
 				map[indexes[i]] = ptr;
@@ -156,15 +155,15 @@ namespace ray_tracer {
 				}
 			}
 
-			node.divide_plane_ptr = std::shared_ptr<surface_plane>(new surface_plane(median, best_normal));
+			node.separate = surface_plane(median, best_normal);
 
 			std::vector<int> lsurfaces, rsurfaces;
 			int sgn0, sgn1, sgn2;
 
 			for (std::vector<int>::iterator it = indexes.begin(); it != indexes.end(); ++it) {
-				sgn0 = dblsgn((surfaces[*it].v0 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
-				sgn1 = dblsgn((surfaces[*it].v1 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
-				sgn2 = dblsgn((surfaces[*it].v2 - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
+				sgn0 = dblsgn((surfaces[*it].v0 - node.separate.base) * node.separate.normal);
+				sgn1 = dblsgn((surfaces[*it].v1 - node.separate.base) * node.separate.normal);
+				sgn2 = dblsgn((surfaces[*it].v2 - node.separate.base) * node.separate.normal);
 				if (sgn0 < 0 && sgn1 < 0 && sgn2 < 0) {
 					lsurfaces.push_back(*it);
 				} else if (sgn0 > 0 && sgn1 > 0 && sgn2 > 0) {
@@ -200,13 +199,13 @@ namespace ray_tracer {
 			}
 		}
 
-		if (node.divide_plane_ptr == nullptr) {
+		if (node.lchild == -1 && node.rchild == -1) {
 			return result;
 		}
 
-		int side = dblsgn((emission_ray.origin - node.divide_plane_ptr->base) * node.divide_plane_ptr->normal);
+		int side = dblsgn((emission_ray.origin - node.separate.base) * node.separate.normal);
 		if (side == 0) {
-			side = dblsgn(emission_ray.dir * node.divide_plane_ptr->normal);
+			side = dblsgn(emission_ray.dir * node.separate.normal);
 		}
 
 		if (side == -1) {
@@ -217,7 +216,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.rchild != -1) {
-				double plane_t = node.divide_plane_ptr->hit(emission_ray, NULL);
+				double plane_t = node.separate.hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.rchild);
 					if (tresult < result) {
@@ -233,7 +232,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.lchild != -1) {
-				double plane_t = node.divide_plane_ptr->hit(emission_ray, NULL);
+				double plane_t = node.separate.hit(emission_ray, NULL);
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.lchild);
 					if (tresult < result) {
