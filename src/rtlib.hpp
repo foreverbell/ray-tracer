@@ -8,6 +8,7 @@
 #include "vector2D.hpp"
 #include "point2D.hpp"
 #include "image.hpp"
+#include "transform.hpp"
 
 /// {{{ headers for camera
 #include "camera.hpp"
@@ -59,14 +60,6 @@
 #include "texture_checker.hpp"
 #include "texture_image.hpp"
 #include "texture_solid.hpp"
-/// }}}
-
-/// {{{ headers for transform
-#include "transform.hpp"
-#include "transform_reflect.hpp"
-#include "transform_rotate.hpp"
-#include "transform_scale.hpp"
-#include "transform_translate.hpp"
 /// }}}
 
 #endif

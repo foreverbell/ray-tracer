@@ -16,6 +16,7 @@
 namespace ray_tracer {
 
 	const std::pair<double, surface *> null_intersect = std::make_pair<double, surface *>(-1, NULL);
+	const std::vector<std::pair<double, surface *> > null_intersects = std::vector<std::pair<double, surface *> >();
 
 	class surface {
 		friend class surface_compound;
@@ -27,7 +28,8 @@ namespace ray_tracer {
 		// ray intersection
 		// return a negative value if the ray doesn't hit any surface,
 		virtual std::pair<double, surface *> hit(const ray &) const = 0;
-		
+		virtual std::vector<std::pair<double, surface *> > hita(const ray &) const;
+
 		// normals && shading
 		virtual vector3D atnormal(const point3D &) const;
 		colorRGB material_shade(shade_context *, const colorRGB &, const vector3D &, const vector3D &, bool) const;

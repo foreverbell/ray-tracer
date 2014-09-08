@@ -173,18 +173,6 @@
     <ClCompile Include="transform.cpp">
       <Filter>bottom-layer\basis\transform</Filter>
     </ClCompile>
-    <ClCompile Include="transform_reflect.cpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClCompile>
-    <ClCompile Include="transform_rotate.cpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClCompile>
-    <ClCompile Include="transform_scale.cpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClCompile>
-    <ClCompile Include="transform_translate.cpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClCompile>
     <ClCompile Include="surface_mobius.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClCompile>
@@ -437,18 +425,6 @@
       <Filter>bottom-layer\trace</Filter>
     </ClInclude>
     <ClInclude Include="transform.hpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="transform_reflect.hpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="transform_rotate.hpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="transform_scale.hpp">
-      <Filter>bottom-layer\basis\transform</Filter>
-    </ClInclude>
-    <ClInclude Include="transform_translate.hpp">
       <Filter>bottom-layer\basis\transform</Filter>
     </ClInclude>
     <ClInclude Include="surface_mobius.hpp">

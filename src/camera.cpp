@@ -4,7 +4,7 @@
 #include "matrix3D.hpp"
 #include "world.hpp"
 #include "miscellaneous.hpp"
-#include "transform_rotate.hpp"
+#include "transform.hpp"
 
 namespace ray_tracer {
 
@@ -45,7 +45,7 @@ namespace ray_tracer {
 		up = mat * up;
 	}
 
-	/** Note: axis_w dot axis_v = 0 */
+	/* Note: axis_w dot axis_v = 0 */
 	void camera::compute_axis() {
 		axis_w = (eye - lookat).normalized();
 		axis_v = -up.normalized();

@@ -40,8 +40,6 @@ namespace ray_tracer {
 	}
 
 	std::pair<double, surface *> surface_regpolyhedron::hit(const ray &emission_ray) const {
-		double t;
-
 		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}

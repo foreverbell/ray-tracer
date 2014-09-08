@@ -42,6 +42,10 @@ namespace ray_tracer {
 		return true;
 	}
 
+	std::vector<std::pair<double, surface *> > surface::hita(const ray &emission_ray) const {
+		return null_intersects;
+	}
+
 	vector3D surface::atnormal(const point3D &point) const {
 		return vector3D(1, 0, 0);
 	}

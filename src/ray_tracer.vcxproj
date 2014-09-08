@@ -110,9 +110,6 @@
     <ClCompile Include="surface_fractal_terrain.cpp" />
     <ClCompile Include="surface_mobius.cpp" />
     <ClCompile Include="surface_plymesh.cpp" />
-    <ClCompile Include="transform_reflect.cpp" />
-    <ClCompile Include="transform_rotate.cpp" />
-    <ClCompile Include="transform_scale.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
     <ClCompile Include="surface_quadratic.cpp" />
@@ -140,7 +137,6 @@
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_plane.cpp" />
     <ClCompile Include="transform.cpp" />
-    <ClCompile Include="transform_translate.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
@@ -173,9 +169,6 @@
     <ClInclude Include="sampler_single.hpp" />
     <ClInclude Include="surface_fractal_terrain.hpp" />
     <ClInclude Include="surface_mobius.hpp" />
-    <ClInclude Include="transform_reflect.hpp" />
-    <ClInclude Include="transform_rotate.hpp" />
-    <ClInclude Include="transform_scale.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />
     <ClInclude Include="surface_glteapot.hpp" />
     <ClInclude Include="surface_quadratic.hpp" />
@@ -206,7 +199,6 @@
     <ClInclude Include="texture_solid.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="transform.hpp" />
-    <ClInclude Include="transform_translate.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />

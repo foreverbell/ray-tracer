@@ -26,6 +26,27 @@ namespace ray_tracer {
 		ret.inv_matrix = t2.inv_matrix * t1.inv_matrix;
 		return ret;
 	}
+
+	class transform_reflect : public transform {
+	public:
+		transform_reflect(char);
+	};
+
+	class transform_rotate : public transform {
+	public:
+		transform_rotate(char, double);
+		transform_rotate(const point3D &, const vector3D &, double);
+	};
+
+	class transform_scale : public transform {
+	public:
+		transform_scale(double, double, double);
+	};
+
+	class transform_translate : public transform {
+	public:
+		transform_translate(double, double, double);
+	};
 }
 
 #endif
