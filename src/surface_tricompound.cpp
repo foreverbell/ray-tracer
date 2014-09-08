@@ -124,10 +124,7 @@ namespace ray_tracer {
 			return -1;
 		}
 
-		int node_ptr = (int) nodes.size();
-
-		nodes.push_back(kdtree_node());
-		kdtree_node &node = nodes[node_ptr];
+		kdtree_node node = kdtree_node();
 
 		if ((int) indexes.size() < min_split || depth >= max_depth) {
 
@@ -175,12 +172,13 @@ namespace ray_tracer {
 				}
 			}
 			// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
-			nodes[node_ptr].lchild = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
-			nodes[node_ptr].rchild = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
+			node.lchild = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
+			node.rchild = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
 
 		}
 
-		return node_ptr;
+		nodes.push_back(node);
+		return (int) nodes.size() - 1;
 	}
 
 	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, int node_ptr) const {
