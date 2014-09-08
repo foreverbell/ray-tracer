@@ -5,6 +5,7 @@
 #include <cfloat>
 #include <vector>
 #include <cassert>
+#include <utility>
 
 namespace ray_tracer {
 
@@ -17,6 +18,16 @@ namespace ray_tracer {
 
 	inline int isqrt(int x) {
 		return (int) sqrt((double) x);
+	}
+
+	template<typename T1, typename T2>
+	inline bool compare_by_first(const std::pair<T1, T2> &a, const std::pair<T1, T2> &b) {
+		return a.first < b.first;
+	}
+
+	template<typename T1, typename T2>
+	inline bool compare_by_second(const std::pair<T1, T2> &a, const std::pair<T1, T2> &b) {
+		return a.second < b.second;
 	}
 
 	/* private marcos. */

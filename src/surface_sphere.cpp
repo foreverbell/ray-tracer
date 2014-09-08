@@ -16,7 +16,7 @@ namespace ray_tracer {
 		radius2 = radius_ * radius_;
 	}
 
-	std::pair<double, surface *> surface_sphere::hit(const ray &emission_ray) const {
+	intersection_context surface_sphere::intersect(const ray &emission_ray) const {
 		point3D o = emission_ray.origin, c = center;
 		vector3D d = emission_ray.dir;
 		double a = d * (o - c), d2 = d.length2();
@@ -31,10 +31,10 @@ namespace ray_tracer {
 		if (t < epsilon) {
 			t = (-a + delta) / d2;
 		}
-		return std::make_pair(t, nullptr);
+		return intersection_context(t);
 	}
 
-	std::vector<std::pair<double, surface *> > surface_sphere::hita(const ray &emission_ray) const {
+	std::vector<intersection_context> surface_sphere::intersecta(const ray &emission_ray) const {
 		point3D o = emission_ray.origin, c = center;
 		vector3D d = emission_ray.dir;
 		double a = d * (o - c), d2 = d.length2();
@@ -46,16 +46,16 @@ namespace ray_tracer {
 		}
 		delta = sqrt(delta);
 
-		std::vector<std::pair<double, surface *> > result;
+		std::vector<intersection_context> result;
 
 		t = (-a - delta) / d2;
 		if (t > epsilon) {
-			result.push_back(std::make_pair(t, nullptr));
+			result.push_back(intersection_context(t));
 		}
 
 		t = (-a + delta) / d2;
 		if (t > epsilon) {
-			result.push_back(std::make_pair(t, nullptr));
+			result.push_back(intersection_context(t));
 		}
 
 		return result;

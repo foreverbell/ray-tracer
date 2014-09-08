@@ -167,9 +167,6 @@
     <ClCompile Include="material_transparent.cpp">
       <Filter>bottom-layer\material</Filter>
     </ClCompile>
-    <ClCompile Include="shade_context.cpp">
-      <Filter>bottom-layer\trace</Filter>
-    </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>bottom-layer\basis\transform</Filter>
     </ClCompile>
@@ -193,6 +190,12 @@
     </ClCompile>
     <ClCompile Include="hilbert_curve.cpp">
       <Filter>bottom-layer\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_csg.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="demo\demo_7.cpp">
+      <Filter>demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -441,6 +444,9 @@
     </ClInclude>
     <ClInclude Include="miscellaneous.hpp">
       <Filter>bottom-layer\basis</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_csg.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

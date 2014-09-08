@@ -86,6 +86,7 @@
     <ClCompile Include="demo\demo_4.cpp" />
     <ClCompile Include="demo\demo_5.cpp" />
     <ClCompile Include="demo\demo_6.cpp" />
+    <ClCompile Include="demo\demo_7.cpp" />
     <ClCompile Include="hilbert_curve.cpp" />
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
@@ -100,13 +101,13 @@
     <ClCompile Include="camera_pinhole.cpp" />
     <ClCompile Include="camera_thinlens.cpp" />
     <ClCompile Include="fog.cpp" />
-    <ClCompile Include="shade_context.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="image_bmp.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="light_area.cpp" />
     <ClCompile Include="material_mirror.cpp" />
     <ClCompile Include="sampler_single.cpp" />
+    <ClCompile Include="surface_csg.cpp" />
     <ClCompile Include="surface_fractal_terrain.cpp" />
     <ClCompile Include="surface_mobius.cpp" />
     <ClCompile Include="surface_plymesh.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="rtlib.hpp" />
     <ClInclude Include="sampler_single.hpp" />
+    <ClInclude Include="surface_csg.hpp" />
     <ClInclude Include="surface_fractal_terrain.hpp" />
     <ClInclude Include="surface_mobius.hpp" />
     <ClInclude Include="surface_convexhull.hpp" />

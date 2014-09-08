@@ -39,10 +39,10 @@ namespace ray_tracer {
 		set_bsphere(center, radius);
 	}
 
-	std::pair<double, surface *> surface_regpolyhedron::hit(const ray &emission_ray) const {
+	intersection_context surface_regpolyhedron::intersect(const ray &emission_ray) const {
 		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}
-		return surface_convexhull::hit(emission_ray);
+		return surface_convexhull::intersect(emission_ray);
 	}
 }

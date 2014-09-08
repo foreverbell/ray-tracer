@@ -83,9 +83,7 @@ namespace ray_tracer {
 		}
 
 		std::sort(interval.begin(), interval.end());
-		std::sort(cords.begin(), cords.end(), [&](const std::pair<double, point3D> &a, const std::pair<double, point3D> &b) -> bool {
-			return a.first < b.first;
-		});
+		std::sort(cords.begin(), cords.end(), compare_by_first<double, point3D>);
 
 		auto heap_cmp_fun = [&](const int &a, const int &b) -> bool {
 			return interval[a].second > interval[b].second;
@@ -191,7 +189,7 @@ namespace ray_tracer {
 		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), tresult;
 
 		for (int i = node.index_l; i <= node.index_r; ++i) {
-			double temp_t = surfaces[i].hit(emission_ray).first;
+			double temp_t = surfaces[i].intersect(emission_ray).t;
 			if (temp_t > epsilon && temp_t < result.first) {
 				result = std::make_pair(temp_t, i);
 			}
@@ -215,7 +213,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.rchild != -1) {
-				double plane_t = node.separate.hit(emission_ray).first;
+				double plane_t = node.separate.intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.rchild);
 					if (tresult < result) {
@@ -231,7 +229,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.lchild != -1) {
-				double plane_t = node.separate.hit(emission_ray).first;
+				double plane_t = node.separate.intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.lchild);
 					if (tresult < result) {
@@ -296,7 +294,7 @@ namespace ray_tracer {
 		return std::make_pair(point3D(x_min, y_min, z_min), point3D(x_max, y_max, z_max));
 	}
 
-	std::pair<double, surface *> surface_tricompound::hit(const ray &emission_ray) const {
+	intersection_context surface_tricompound::intersect(const ray &emission_ray) const {
 		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}
@@ -305,7 +303,7 @@ namespace ray_tracer {
 		if (result.second == -1) {
 			return null_intersect;
 		} else {
-			return std::make_pair(result.first, (surface *) &surfaces[result.second]);
+			return intersection_context(result.first, (surface *) &surfaces[result.second], 0);
 		}
 	}
 }

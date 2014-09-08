@@ -19,7 +19,7 @@ namespace ray_tracer {
 		radius2 = radius_ * radius_;
 	}
 
-	std::pair<double, surface *> surface_disk::hit(const ray &emission_ray) const {
+	intersection_context surface_disk::intersect(const ray &emission_ray) const {
 		double deno = normal * emission_ray.dir;
 		double t = (center - emission_ray.origin) * normal / deno;
 		point3D p;
@@ -31,7 +31,7 @@ namespace ray_tracer {
 		if ((center - p).length2() > radius2) {
 			return null_intersect;
 		}
-		return std::make_pair(t, nullptr);
+		return intersection_context(t);
 	}
 
 	vector3D surface_disk::atnormal(const point3D &point) const {

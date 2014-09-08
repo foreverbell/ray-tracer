@@ -15,13 +15,13 @@ namespace ray_tracer {
 		normal = normal_.normalized();
 	}
 
-	std::pair<double, surface *> surface_plane::hit(const ray &emission_ray) const {
+	intersection_context surface_plane::intersect(const ray &emission_ray) const {
 		double deno = normal * emission_ray.dir;
 
 		if (dblsgn(deno) == 0) {
 			return null_intersect;
 		}
-		return std::make_pair((base - emission_ray.origin) * normal / deno, nullptr);
+		return intersection_context((base - emission_ray.origin) * normal / deno);
 	}
 
 	vector3D surface_plane::atnormal(const point3D &point) const {

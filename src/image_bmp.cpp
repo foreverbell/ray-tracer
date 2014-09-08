@@ -33,7 +33,7 @@ namespace ray_tracer {
 
 	bool image_bmp::create() {
 		/* Init field data. */
-		bmp_data_ptr = NULL;
+		bmp_data_ptr = nullptr;
 		bmp_width = bmp_height = 0;
 
 		/* Read bmp file header and check magic number. */
@@ -47,7 +47,7 @@ namespace ray_tracer {
 		/* Read remaining data (info header & pixel array) . */
 		uint8_t *data_ptr;
 		bmp_data_ptr = malloc(actual_size - 0xe);
-		if (bmp_data_ptr == NULL) return false;
+		if (bmp_data_ptr == nullptr) return false;
 		if (fread(bmp_data_ptr, 1, actual_size - 0xe, imgfile_ptr) != actual_size - 0xe) return false;
 		data_ptr = (uint8_t *)bmp_data_ptr;
 
@@ -103,7 +103,7 @@ namespace ray_tracer {
 	}
 
 	void image_bmp::destroy() {
-		if (bmp_data_ptr != NULL) free(bmp_data_ptr);
+		if (bmp_data_ptr != nullptr) free(bmp_data_ptr);
 	}
 
 	int image_bmp::get_width() const {

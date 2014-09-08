@@ -15,8 +15,22 @@
 
 namespace ray_tracer {
 
-	const std::pair<double, surface *> null_intersect = std::make_pair<double, surface *>(-1, NULL);
-	const std::vector<std::pair<double, surface *> > null_intersects = std::vector<std::pair<double, surface *> >();
+	const int surface_flag_revert_normal = 1 << 0;
+
+	class intersection_context {
+	public:
+		inline intersection_context() : t(-1), surface_ptr(nullptr), flag(0) { }
+		inline intersection_context(double t_) : t(t_), surface_ptr(nullptr), flag(0) { }
+	//	inline intersection_context(double t_, const surface *surface_ptr_) : t(t_), surface_ptr(surface_ptr_), flag(0) { }
+		inline intersection_context(double t_, const surface *surface_ptr_, int flag_) : t(t_), surface_ptr(surface_ptr_), flag(flag_) { }
+	public:
+		double t;
+		const surface *surface_ptr;
+		int flag;
+	};
+
+	const intersection_context null_intersect = intersection_context(-1);
+	const std::vector<intersection_context> null_intersects = std::vector<intersection_context>();
 
 	class surface {
 		friend class surface_compound;
@@ -27,8 +41,8 @@ namespace ray_tracer {
 		virtual ~surface() = 0;
 		// ray intersection
 		// return a negative value if the ray doesn't hit any surface,
-		virtual std::pair<double, surface *> hit(const ray &) const = 0;
-		virtual std::vector<std::pair<double, surface *> > hita(const ray &) const;
+		virtual intersection_context intersect(const ray &) const = 0;
+		virtual std::vector<intersection_context> intersecta(const ray &) const;
 
 		// normals && shading
 		virtual vector3D atnormal(const point3D &) const;

@@ -18,17 +18,17 @@ namespace ray_tracer {
 		hasUV = false;
 	}
 
-	std::pair<double, surface *> surface_triangle::hit(const ray &emission_ray) const {
+	intersection_context surface_triangle::intersect(const ray &emission_ray) const {
 		double a = v0.x - v1.x, b = v0.x - v2.x, c = emission_ray.dir.x, d = v0.x - emission_ray.origin.x;
 		double e = v0.y - v1.y, f = v0.y - v2.y, g = emission_ray.dir.y, h = v0.y - emission_ray.origin.y;
 		double i = v0.z - v1.z, j = v0.z - v2.z, k = emission_ray.dir.z, l = v0.z - emission_ray.origin.z;
 		double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
 		double q = g * i - e * k, s = e * j - f * i;
-		double inv_deno = 1 / (a * m + b * q + c * s);
+		double inv_deno = 1.0 / (a * m + b * q + c * s);
 		double e1 = d * m - b * n - c * p;
 		double beta = e1 * inv_deno;
 
-		if (beta < 0) {
+		if (beta < -epsilon) {
 			return null_intersect;
 		}
 
@@ -36,14 +36,14 @@ namespace ray_tracer {
 		double e2 = a * n + d * q + c * r;
 		double gamma = e2 * inv_deno;
 
-		if (gamma < 0 || gamma + beta > 1) {
+		if (gamma < -epsilon || gamma + beta > 1 + epsilon) {
 			return null_intersect;
 		}
 
 		double e3 = a * p - b * r + d * s;
 		double t = e3 * inv_deno;
 
-		return t < epsilon ? null_intersect : std::make_pair(t, nullptr);
+		return t < epsilon ? null_intersect : intersection_context(t);
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {

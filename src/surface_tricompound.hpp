@@ -55,7 +55,7 @@ namespace ray_tracer {
 			point3D bb_p1, bb_p2;
 		};
 	public:
-		std::pair<double, surface *> hit(const ray &) const;
+		intersection_context intersect(const ray &) const;
 	protected:
 		void add_surface(const surface_triangle &);
 		void setup(int = -1, int = -1);

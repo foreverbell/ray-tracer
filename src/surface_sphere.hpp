@@ -5,12 +5,11 @@
 
 namespace ray_tracer {
 	class surface_sphere : public surface {
-		friend class texture_mapping_sphere;
 	public:
 		surface_sphere();
 		surface_sphere(const point3D &, double);
-		std::pair<double, surface *> hit(const ray &) const;
-		std::vector<std::pair<double, surface *> > hita(const ray &) const;
+		intersection_context intersect(const ray &) const;
+		std::vector<intersection_context> intersecta(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 		point2D atUV(shade_context *) const;
 	private:

@@ -7,9 +7,9 @@ namespace ray_tracer {
 		bs_have = false;
 		bb_have = false;
 
-		shading_ptr = NULL;
-		material_ptr = NULL;
-		texture_ptr = NULL;
+		shading_ptr = nullptr;
+		material_ptr = nullptr;
+		texture_ptr = nullptr;
 		
 		clear_transform();
 	}
@@ -42,7 +42,7 @@ namespace ray_tracer {
 		return true;
 	}
 
-	std::vector<std::pair<double, surface *> > surface::hita(const ray &emission_ray) const {
+	std::vector<intersection_context> surface::intersecta(const ray &emission_ray) const {
 		return null_intersects;
 	}
 
@@ -82,7 +82,7 @@ namespace ray_tracer {
 	}
 
 	colorRGB surface::material_shade(shade_context *context_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
-		if (shading_ptr != NULL) {
+		if (shading_ptr != nullptr) {
 			return shading_ptr->material_shade(context_ptr, surface_color, win, wout, sample_only);
 		} else {
 			return material_ptr->material_shade(context_ptr, surface_color, win, wout, sample_only);
@@ -90,7 +90,7 @@ namespace ray_tracer {
 	}
 
 	colorRGB surface::texture_shade(shade_context *context_ptr) const {
-		if (shading_ptr != NULL) {
+		if (shading_ptr != nullptr) {
 			return shading_ptr->texture_shade(context_ptr);
 		} else {
 			return texture_ptr->texture_shade(context_ptr);

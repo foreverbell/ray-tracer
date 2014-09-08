@@ -12,7 +12,7 @@ namespace ray_tracer {
 	class surface_regpolyhedron : public surface_convexhull {
 	public:
 		surface_regpolyhedron(double, const point3D &, int, int = 0);
-		std::pair<double, surface *> hit(const ray &) const;
+		intersection_context intersect(const ray &) const;
 	};
 }
 

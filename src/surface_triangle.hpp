@@ -12,7 +12,7 @@ namespace ray_tracer {
 	public:
 		surface_triangle();
 		surface_triangle(const point3D &, const point3D &, const point3D &);
-		std::pair<double, surface *> hit(const ray &) const;
+		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 		void setnormal(const vector3D &, const vector3D &, const vector3D &);
 		point2D atUV(shade_context *) const;

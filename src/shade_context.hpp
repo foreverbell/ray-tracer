@@ -7,7 +7,7 @@
 
 namespace ray_tracer {
 
-	const int TRACE_MAX_DEPTH = 3;
+	const int max_trace_depth = 3;
 
 	class world;
 	class surface;
@@ -16,8 +16,23 @@ namespace ray_tracer {
 	class sampler_iterator;
 
 	class shade_context {
+
 	public:
-		shade_context();
+		inline shade_context() {
+#ifdef DEBUG
+			hit_time = DBL_MAX;
+			hit_point = point3D(0, 0, 0);
+			normal = vector3D(0, 0, 0);
+			world_ptr = nullptr;
+			tracer_ptr = nullptr;
+			surface_ptr = nullptr;
+			light_ptr = nullptr;
+			sampler_iterator_ptr = nullptr;
+			emission_ray = ray();
+#endif
+			trace_depth = max_trace_depth;
+		}
+
 	public:
 		// initialized at world::get_hit()
 		double hit_time;
@@ -34,9 +49,9 @@ namespace ray_tracer {
 
 		// initilized at tracer::shade_light()  (dynamically)
 		const light *light_ptr;
-		
+
 		// initilized at constructor() || BRDF
-		int trace_depth;		
+		int trace_depth;
 	};
 }
 

@@ -8,7 +8,7 @@ namespace ray_tracer {
 	public:
 		/* x^2, y^2, z^2, xy, xz, yz, x, y, z, C */
 		surface_quadratic(double, double, double, double, double, double, double, double, double, double);
-		std::pair<double, surface *> hit(const ray &) const;
+		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 		void rangeX(double, double);
 		void rangeY(double, double);

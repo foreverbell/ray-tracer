@@ -46,7 +46,7 @@ namespace ray_tracer {
 		return (s >= -half_width - epsilon  && s <= half_width + epsilon);
 	}
 
-	std::pair<double, surface *> surface_mobius::hit(const ray &emission_ray) const {
+	intersection_context surface_mobius::intersect(const ray &emission_ray) const {
 		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}
@@ -77,7 +77,7 @@ namespace ray_tracer {
 
 		for (std::vector<double>::iterator iter = result.begin(); iter != result.end(); ++iter) {
 			if (*iter > epsilon && inrange(emission_ray.at(*iter))) {
-				return std::make_pair(*iter, nullptr);
+				return intersection_context(*iter);
 			}
 		}
 

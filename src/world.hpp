@@ -96,7 +96,7 @@ namespace ray_tracer {
 	};
 
 	inline colorRGB world::get_background() const {
-		return fog_ptr == NULL ? color_black : fog_ptr->fog_color;
+		return fog_ptr == nullptr ? color_black : fog_ptr->fog_color;
 	}
 
 	inline void world::set_ambient(const colorRGB &ambient_) {

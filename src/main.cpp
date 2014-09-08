@@ -71,7 +71,8 @@ int main(int argc, char *argv[]) {
 		new demo_3(),
 		new demo_4(),
 		new demo_5(),
-		new demo_6()
+		new demo_6(),
+		new demo_7()
 	};
 	demo *dm = demos[demo_id - 1];
 
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
 	render(&dm->wld, screen);
 	printf("Total time used to render scene: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(clock() - old_stamp).count());
 
-/*
+	/*
 	int fps = 0;
 	old_stamp = clock();
 	while (true) {
@@ -95,7 +96,7 @@ int main(int argc, char *argv[]) {
 			old_stamp = clock();
 		}
 	}
-*/
+	*/
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {
