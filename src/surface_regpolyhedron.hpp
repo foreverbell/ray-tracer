@@ -13,9 +13,6 @@ namespace ray_tracer {
 	public:
 		surface_regpolyhedron(double, const point3D &, int, int = 0);
 		std::pair<double, surface *> hit(const ray &) const;
-	private:
-		// TODO: refactor
-		std::unique_ptr<const surface> bounding_surface_ptr;
 	};
 }
 

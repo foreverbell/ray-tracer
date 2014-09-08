@@ -28,7 +28,7 @@ namespace ray_tracer {
 		bs_radius = radius;
 	}
 	
-	bool surface::hit_bound(const ray &emission_ray) const {
+	bool surface::collision_test(const ray &emission_ray) const {
 		if (bb_have) {
 			if (!box_intersection(bb_p1, bb_p2, emission_ray)) {
 				return false;

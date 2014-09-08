@@ -45,7 +45,7 @@ namespace ray_tracer {
 		void apply_transform(const transform &);
 
 	protected:
-		bool hit_bound(const ray &) const;
+		bool collision_test(const ray &) const;
 		void set_bbox(const point3D &, const point3D &);
 		void set_bsphere(const point3D &, double);
 

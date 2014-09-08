@@ -299,7 +299,7 @@ namespace ray_tracer {
 	}
 
 	std::pair<double, surface *> surface_tricompound::hit(const ray &emission_ray) const {
-		if (!hit_bound(emission_ray)) {
+		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}
 
