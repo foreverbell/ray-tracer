@@ -23,7 +23,7 @@ namespace ray_tracer {
 	private:
 		std::vector<std::pair<face_t, bool> > faces;
 		std::vector<point3D> &points;
-		std::map<std::pair<int, int>, int> belong;
+		std::map<std::pair<int, int>, int> rface;
 	};
 }
 

@@ -90,7 +90,6 @@
     <ClCompile Include="hilbert_curve.cpp" />
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
-    <ClCompile Include="polyvertex.cpp" />
     <ClCompile Include="BRDF.cpp" />
     <ClCompile Include="BRDF_reflection.cpp" />
     <ClCompile Include="BRDF_phong.cpp" />
@@ -148,7 +147,6 @@
     <ClInclude Include="hilbert_curve.hpp" />
     <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
-    <ClInclude Include="polyvertex.hpp" />
     <ClInclude Include="BRDF.hpp" />
     <ClInclude Include="BRDF_reflection.hpp" />
     <ClInclude Include="BRDF_phong.hpp" />

@@ -146,9 +146,6 @@
     <ClCompile Include="..\lib\ply-1.1\plyfile.c">
       <Filter>ply</Filter>
     </ClCompile>
-    <ClCompile Include="polyvertex.cpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClCompile>
     <ClCompile Include="demo\demo_1.cpp">
       <Filter>demo</Filter>
     </ClCompile>
@@ -410,9 +407,6 @@
     </ClInclude>
     <ClInclude Include="surface_glteapot.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="polyvertex.hpp">
-      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
     <ClInclude Include="demo\demo.hpp">
       <Filter>demo</Filter>

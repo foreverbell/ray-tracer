@@ -8,11 +8,16 @@
 #include "point3D.hpp"
 
 namespace ray_tracer {
-	
+
 	class surface_regpolyhedron : public surface_convexhull {
 	public:
-		surface_regpolyhedron(double, const point3D &, int, int = 0);
+		surface_regpolyhedron(int, const point3D &, double, int = 0);
 		intersection_context intersect(const ray &) const;
+	};
+
+	class surface_cube : public surface_regpolyhedron {
+	public:
+		surface_cube(const point3D &, double);
 	};
 }
 
