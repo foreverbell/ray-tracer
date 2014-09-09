@@ -1,7 +1,7 @@
 
 #include "miscellaneous.hpp"
 #include "ray.hpp"
-#include "surface_tricompound.hpp"
+#include "surface_mesh.hpp"
 #include <algorithm>
 #include <queue>
 #include <utility>
@@ -12,14 +12,14 @@
 
 namespace ray_tracer {
 	
-	void surface_tricompound::add_surface(const surface_triangle &triangle) {
+	void surface_mesh::add_surface(const surface_triangle &triangle) {
 		surfaces.push_back(triangle);
 		surfaces.back().set_shading(this);
 	}
 
-	void surface_tricompound::setup(int min_split, int max_depth) {
+	void surface_mesh::setup(int min_split, int max_depth) {
 		std::vector<int> surfaces_indexes, surface_map(surfaces.size());
-		std::vector<surface_triangle> swap_surfaces(surfaces.size());
+		std::vector<surface_triangle> swap_surfaces = surfaces;
 		int ptr = 0;
 
 		for (size_t i = 0; i < surfaces.size(); ++i) {
@@ -40,6 +40,10 @@ namespace ray_tracer {
 		}
 		surfaces = swap_surfaces;
 
+		// shrink
+		surfaces.shrink_to_fit();
+		nodes.shrink_to_fit();
+
 		std::pair<point3D, double> circumsphere = build_circumsphere(0, ptr - 1);
 		std::pair<point3D, point3D> box = build_box(0, ptr - 1);
 
@@ -58,7 +62,7 @@ namespace ray_tracer {
 		node_box_build_fun(kdtree_root);
 	}
 
-	std::pair<point3D, int> surface_tricompound::split(const vector3D &normal, const std::vector<int> &indexes) const {
+	std::pair<point3D, int> surface_mesh::split(const vector3D &normal, const std::vector<int> &indexes) const {
 		std::vector<std::pair<double, double> > interval;
 		std::vector<std::pair<double, point3D> > cords;
 
@@ -117,7 +121,7 @@ namespace ray_tracer {
 		return std::make_pair(pos, best_value);
 	}
 
-	int surface_tricompound::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) {
+	int surface_mesh::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) {
 		if (indexes.size() == 0) {
 			return -1;
 		}
@@ -150,15 +154,15 @@ namespace ray_tracer {
 				}
 			}
 
-			node.separate = surface_plane(median, best_normal);
+			node.separate = std::shared_ptr<surface_plane>(new surface_plane(median, best_normal));
 
 			std::vector<int> lsurfaces, rsurfaces;
 			int sgn0, sgn1, sgn2;
 
 			for (std::vector<int>::iterator it = indexes.begin(); it != indexes.end(); ++it) {
-				sgn0 = dblsgn((surfaces[*it].v0 - node.separate.base) * node.separate.normal);
-				sgn1 = dblsgn((surfaces[*it].v1 - node.separate.base) * node.separate.normal);
-				sgn2 = dblsgn((surfaces[*it].v2 - node.separate.base) * node.separate.normal);
+				sgn0 = dblsgn((surfaces[*it].v0 - node.separate->base) * node.separate->normal);
+				sgn1 = dblsgn((surfaces[*it].v1 - node.separate->base) * node.separate->normal);
+				sgn2 = dblsgn((surfaces[*it].v2 - node.separate->base) * node.separate->normal);
 				if (sgn0 < 0 && sgn1 < 0 && sgn2 < 0) {
 					lsurfaces.push_back(*it);
 				} else if (sgn0 > 0 && sgn1 > 0 && sgn2 > 0) {
@@ -179,7 +183,7 @@ namespace ray_tracer {
 		return (int) nodes.size() - 1;
 	}
 
-	std::pair<double, int> surface_tricompound::search_kdtree(const ray &emission_ray, int node_ptr) const {
+	std::pair<double, int> surface_mesh::search_kdtree(const ray &emission_ray, int node_ptr) const {
 		if (node_ptr == -1 || !box_intersection(nodes[node_ptr].bb_p1, nodes[node_ptr].bb_p2, emission_ray)) {
 			return std::make_pair(DBL_MAX, -1);
 		}
@@ -199,10 +203,10 @@ namespace ray_tracer {
 			return result;
 		}
 
-		int side = dblsgn((emission_ray.origin - node.separate.base) * node.separate.normal);
+		int side = dblsgn((emission_ray.origin - node.separate->base) * node.separate->normal);
 
 		if (side == 0) {
-			side = dblsgn(emission_ray.dir * node.separate.normal);
+			side = dblsgn(emission_ray.dir * node.separate->normal);
 		}
 
 		if (side == -1) {
@@ -213,7 +217,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.rchild != -1) {
-				double plane_t = node.separate.intersect(emission_ray).t;
+				double plane_t = node.separate->intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.rchild);
 					if (tresult < result) {
@@ -229,7 +233,7 @@ namespace ray_tracer {
 				}
 			} 
 			if (node.lchild != -1) {
-				double plane_t = node.separate.intersect(emission_ray).t;
+				double plane_t = node.separate->intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
 					tresult = search_kdtree(emission_ray, node.lchild);
 					if (tresult < result) {
@@ -242,7 +246,7 @@ namespace ray_tracer {
 		return result;
 	}
 
-	std::pair<point3D, double> surface_tricompound::build_circumsphere(int l, int r) const {
+	std::pair<point3D, double> surface_mesh::build_circumsphere(int l, int r) const {
 		const int max_iter_times = 1000;
 		std::vector<point3D> points;
 		double delta = 1, maxd = 0, d;
@@ -272,7 +276,7 @@ namespace ray_tracer {
 		return std::make_pair(center, sqrt(maxd));
 	}
 
-	std::pair<point3D, point3D> surface_tricompound::build_box(int l, int r) const {
+	std::pair<point3D, point3D> surface_mesh::build_box(int l, int r) const {
 		double x_min = DBL_MAX, x_max = -DBL_MAX;
 		double y_min = DBL_MAX, y_max = -DBL_MAX;
 		double z_min = DBL_MAX, z_max = -DBL_MAX;
@@ -294,7 +298,7 @@ namespace ray_tracer {
 		return std::make_pair(point3D(x_min, y_min, z_min), point3D(x_max, y_max, z_max));
 	}
 
-	intersection_context surface_tricompound::intersect(const ray &emission_ray) const {
+	intersection_context surface_mesh::intersect(const ray &emission_ray) const {
 		if (!collision_test(emission_ray)) {
 			return null_intersect;
 		}

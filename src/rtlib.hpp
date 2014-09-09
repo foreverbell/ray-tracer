@@ -50,9 +50,9 @@
 #include "surface_regpolyhedron.hpp"
 #include "surface_sphere.hpp"
 #include "surface_triangle.hpp"
-#include "surface_tricompound.hpp"
 #include "surface_mobius.hpp"
 #include "surface_fractal_terrain.hpp"
+#include "surface_csg.hpp"
 /// }}}
 
 /// {{{ headers for texture

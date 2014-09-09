@@ -1,5 +1,5 @@
-#ifndef __SURFACE_TRICOMPOUND_HPP__
-#define __SURFACE_TRICOMPOUND_HPP__
+#ifndef __SURFACE_MESH_HPP__
+#define __SURFACE_MESH_HPP__
 
 #include <vector>
 #include <memory>
@@ -11,7 +11,7 @@
 #include "surface_sphere.hpp"
 
 namespace ray_tracer {
-	class surface_tricompound : public surface {
+	class surface_mesh : public surface {
 		friend class kdtree_node;
 
 	private:
@@ -33,7 +33,7 @@ namespace ray_tracer {
 				}
 			}
 
-			inline void build_box(const surface_tricompound *stc_ptr) {
+			inline void build_box(const surface_mesh *stc_ptr) {
 				if (index_l <= index_r) {
 					std::pair<point3D, point3D> box = stc_ptr->build_box(index_l, index_r);
 					bb_p1 = box.first;
@@ -50,7 +50,7 @@ namespace ray_tracer {
 
 		public:
 			int lchild, rchild;
-			surface_plane separate;
+			std::shared_ptr<surface_plane> separate;
 			int index_l, index_r;
 			point3D bb_p1, bb_p2;
 		};

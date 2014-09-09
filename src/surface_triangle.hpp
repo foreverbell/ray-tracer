@@ -8,9 +8,8 @@
 
 namespace ray_tracer {
 	class surface_triangle : public surface {
-		friend class surface_tricompound;
+		friend class surface_mesh;
 	public:
-		surface_triangle();
 		surface_triangle(const point3D &, const point3D &, const point3D &);
 		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;
@@ -22,6 +21,8 @@ namespace ray_tracer {
 		vector3D n0, n1, n2, normal;
 		point2D uv0, uv1, uv2;
 		bool smooth_normal, hasUV;
+	private:
+		double __cache[8];
 	};
 }
 

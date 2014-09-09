@@ -6,7 +6,6 @@
 namespace ray_tracer {
 	class surface_mobius : public surface {
 	public:
-		surface_mobius();
 		surface_mobius(double, double);
 		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;

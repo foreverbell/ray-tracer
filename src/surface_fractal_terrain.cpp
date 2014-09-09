@@ -14,13 +14,6 @@ namespace ray_tracer {
 		return distribution(rand_generator);
 	}
 
-	surface_fractal_terrain::surface_fractal_terrain() {
-		std::vector<std::vector<double> > height;
-
-		generate_heightmap(height, 64, 1, 1);
-		generate_mesh(height, 64, 100);	
-	}
-
 	surface_fractal_terrain::surface_fractal_terrain(double sidelen, int size, double hscale, double h, int seed) {
 		rand_generator.seed(seed);
 		

@@ -4,54 +4,55 @@
 
 namespace ray_tracer {
 
-	surface_triangle::surface_triangle() {
-		v0 = point3D(0, 0, 1), v1 = point3D(0, 1, 0), v2 = point3D(1, 0, 0);
-		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
-		smooth_normal = false;
-		hasUV = false;
-	}
-
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
 		v0 = v0_, v1 = v1_, v2 = v2_;
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
 		smooth_normal = false;
 		hasUV = false;
+
+		/* build caches. */
+		__cache[0] = v0.x - v1.x;
+		__cache[1] = v0.x - v2.x;
+		__cache[2] = v0.y - v1.y;
+		__cache[3] = v0.y - v2.y;
+		__cache[4] = v0.z - v1.z;
+		__cache[5] = v0.z - v2.z;
+		__cache[6] = 1.0 / (__cache[0] * __cache[3] - __cache[2] * __cache[1]);
+		__cache[7] = __cache[2] * __cache[5] - __cache[3] * __cache[4];
 	}
 
 	intersection_context surface_triangle::intersect(const ray &emission_ray) const {
-		double a = v0.x - v1.x, b = v0.x - v2.x, c = emission_ray.dir.x, d = v0.x - emission_ray.origin.x;
-		double e = v0.y - v1.y, f = v0.y - v2.y, g = emission_ray.dir.y, h = v0.y - emission_ray.origin.y;
-		double i = v0.z - v1.z, j = v0.z - v2.z, k = emission_ray.dir.z, l = v0.z - emission_ray.origin.z;
+		double a = __cache[0], b = __cache[1], c = emission_ray.dir.x, d = v0.x - emission_ray.origin.x;
+		double e = __cache[2], f = __cache[3], g = emission_ray.dir.y, h = v0.y - emission_ray.origin.y;
+		double i = __cache[4], j = __cache[5], k = emission_ray.dir.z, l = v0.z - emission_ray.origin.z;
 		double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
-		double q = g * i - e * k, s = e * j - f * i;
+		double q = g * i - e * k, s = __cache[7];
 		double inv_deno = 1.0 / (a * m + b * q + c * s);
-		double e1 = d * m - b * n - c * p;
-		double beta = e1 * inv_deno;
+		double beta = (d * m - b * n - c * p) * inv_deno;
 
-		if (beta < -epsilon) {
+		if (beta < epsilon || beta > 1 - epsilon) {
 			return null_intersect;
 		}
 
 		double r = e * l - h * i;
-		double e2 = a * n + d * q + c * r;
-		double gamma = e2 * inv_deno;
+		double gamma = (a * n + d * q + c * r) * inv_deno;
 
-		if (gamma < -epsilon || gamma + beta > 1 + epsilon) {
+		if (gamma < epsilon || beta > 1 - epsilon - gamma) {
 			return null_intersect;
 		}
 
-		double e3 = a * p - b * r + d * s;
-		double t = e3 * inv_deno;
+		double t = (a * p - b * r + d * s) * inv_deno;
 
 		return t < epsilon ? null_intersect : intersection_context(t);
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {
 		if (smooth_normal) {
-			double a = point.x - v0.x, b = v1.x - v0.x, c = v2.x - v0.x;
-			double d = point.y - v0.y, e = v1.y - v0.y, f = v2.y - v0.y;
-			double beta = (a * f - d * c) / (b * f - e * c);
-			double gamma = (a * e - d * b) / (c * e - f * b);
+
+			double a = v0.x - point.x, b = __cache[0], c = __cache[1];
+			double d = v0.y - point.y, e = __cache[2], f = __cache[3];
+			double beta = (a * f - d * c) * __cache[6];
+			double gamma = (d * b - a * e) * __cache[6];
 
 			return (n0 * (1 - beta - gamma) + n1 * beta + n2 * gamma).normalized();
 		} else {
@@ -70,10 +71,10 @@ namespace ray_tracer {
 		} else {
 			point3D point = context_ptr->hit_local_point;
 
-			double a = point.x - v0.x, b = v1.x - v0.x, c = v2.x - v0.x;
-			double d = point.y - v0.y, e = v1.y - v0.y, f = v2.y - v0.y;
-			double beta = (a * f - d * c) / (b * f - e * c);
-			double gamma = (a * e - d * b) / (c * e - f * b);
+			double a = v0.x - point.x, b = __cache[0], c = __cache[1];
+			double d = v0.y - point.y, e = __cache[2], f = __cache[3];
+			double beta = (a * f - d * c) * __cache[6];
+			double gamma = (d * b - a * e) * __cache[6];
 
 			return (uv0 * (1 - beta - gamma) + uv1 * beta + uv2 * gamma);
 		}

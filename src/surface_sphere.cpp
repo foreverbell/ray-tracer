@@ -4,12 +4,6 @@
 
 namespace ray_tracer {
 
-	surface_sphere::surface_sphere() {
-		center = point3D(0, 0, 0);
-		radius = 1;
-		radius2 = 1;
-	}
-
 	surface_sphere::surface_sphere(const point3D &center_, double radius_) {
 		center = center_;
 		radius = radius_;

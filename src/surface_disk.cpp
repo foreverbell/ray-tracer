@@ -5,13 +5,6 @@
 
 namespace ray_tracer {
 
-	surface_disk::surface_disk() {
-		center = point3D(0, 0, 0);
-		normal = vector3D(0, 0, 1);
-		radius = 1;
-		radius2 = 1;
-	}
-
 	surface_disk::surface_disk(const point3D &center_, const vector3D &normal_, double radius_) {
 		center = center_;
 		normal = normal_.normalized();

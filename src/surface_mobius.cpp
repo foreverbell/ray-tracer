@@ -7,10 +7,6 @@
 
 namespace ray_tracer {
 
-	surface_mobius::surface_mobius() {
-		surface_mobius(3, 1);
-	}
-
 	surface_mobius::surface_mobius(double radius_, double half_width_) {
 		radius = radius_;
 		half_width = half_width_;

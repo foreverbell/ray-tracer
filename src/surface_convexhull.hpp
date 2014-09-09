@@ -3,12 +3,12 @@
 
 #include "surface.hpp"
 #include "surface_triangle.hpp"
-#include "surface_tricompound.hpp"
+#include "surface_mesh.hpp"
 #include "convexhull.hpp"
 #include <vector>
 
 namespace ray_tracer {
-	class surface_convexhull : public surface_tricompound {
+	class surface_convexhull : public surface_mesh {
 	public:
 		surface_convexhull(const std::vector<point3D> &);
 	protected:

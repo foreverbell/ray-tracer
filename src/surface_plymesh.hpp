@@ -2,10 +2,10 @@
 #define __SURFACE_PLYMESH_HPP__
 
 #include "surface.hpp"
-#include "surface_tricompound.hpp"
+#include "surface_mesh.hpp"
 
 namespace ray_tracer {
-	class surface_plymesh : public surface_tricompound {
+	class surface_plymesh : public surface_mesh {
 	public:
 		/**
 			ply file should have the following header format:

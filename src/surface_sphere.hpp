@@ -6,7 +6,6 @@
 namespace ray_tracer {
 	class surface_sphere : public surface {
 	public:
-		surface_sphere();
 		surface_sphere(const point3D &, double);
 		intersection_context intersect(const ray &) const;
 		std::vector<intersection_context> intersecta(const ray &) const;

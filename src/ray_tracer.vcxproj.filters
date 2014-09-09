@@ -179,9 +179,6 @@
     <ClCompile Include="demo\demo_6.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="surface_tricompound.cpp">
-      <Filter>bottom-layer\surface\abstract</Filter>
-    </ClCompile>
     <ClCompile Include="surface_plymesh.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
@@ -193,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="demo\demo_7.cpp">
       <Filter>demo</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_mesh.cpp">
+      <Filter>bottom-layer\surface\abstract</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -430,9 +430,6 @@
     <ClInclude Include="surface_fractal_terrain.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="surface_tricompound.hpp">
-      <Filter>bottom-layer\surface\abstract</Filter>
-    </ClInclude>
     <ClInclude Include="hilbert_curve.hpp">
       <Filter>bottom-layer\utility</Filter>
     </ClInclude>
@@ -441,6 +438,9 @@
     </ClInclude>
     <ClInclude Include="surface_csg.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_mesh.hpp">
+      <Filter>bottom-layer\surface\abstract</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

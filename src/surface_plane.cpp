@@ -5,11 +5,6 @@
 
 namespace ray_tracer {
 
-	surface_plane::surface_plane() {
-		base = point3D(0, 0, 0);
-		normal = vector3D(0, 0, 1);
-	}
-
 	surface_plane::surface_plane(const point3D &base_, const vector3D &normal_) {
 		base = base_;
 		normal = normal_.normalized();

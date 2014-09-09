@@ -45,7 +45,7 @@
 #define __SURFACE_GLTEAPOT_HPP__
 
 #include "surface.hpp"
-#include "surface_tricompound.hpp"
+#include "surface_mesh.hpp"
 
 namespace ray_tracer {
 
@@ -1293,7 +1293,7 @@ namespace ray_tracer {
 		31, 31, 118, 237, 205, 449, 186, 470, 496, 494, 176, 155, 429, 112, 185, 89, 185, 421, 94, 300, 379, 170, -1
 	};
 
-	class surface_glteapot : public surface_tricompound {
+	class surface_glteapot : public surface_mesh {
 	public:
 		surface_glteapot();
 	};
