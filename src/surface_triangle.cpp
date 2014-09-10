@@ -25,9 +25,8 @@ namespace ray_tracer {
 		double a = __cache[0], b = __cache[1], c = emission_ray.dir.x, d = v0.x - emission_ray.origin.x;
 		double e = __cache[2], f = __cache[3], g = emission_ray.dir.y, h = v0.y - emission_ray.origin.y;
 		double i = __cache[4], j = __cache[5], k = emission_ray.dir.z, l = v0.z - emission_ray.origin.z;
-		double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
-		double q = g * i - e * k, s = __cache[7];
-		double inv_deno = 1.0 / (a * m + b * q + c * s);
+		double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j, q = g * i - e * k;
+		double inv_deno = 1.0 / (a * m + b * q + c * __cache[7]);
 		double beta = (d * m - b * n - c * p) * inv_deno;
 
 		if (beta < epsilon || beta > 1 - epsilon) {
@@ -37,23 +36,20 @@ namespace ray_tracer {
 		double r = e * l - h * i;
 		double gamma = (a * n + d * q + c * r) * inv_deno;
 
-		if (gamma < epsilon || beta > 1 - epsilon - gamma) {
+		if (gamma < epsilon || beta + gamma > 1 - epsilon) {
 			return null_intersect;
 		}
 
-		double t = (a * p - b * r + d * s) * inv_deno;
+		double t = (a * p - b * r + d * __cache[7]) * inv_deno;
 
 		return t < epsilon ? null_intersect : intersection_context(t);
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {
 		if (smooth_normal) {
+			double beta, gamma;
 
-			double a = v0.x - point.x, b = __cache[0], c = __cache[1];
-			double d = v0.y - point.y, e = __cache[2], f = __cache[3];
-			double beta = (a * f - d * c) * __cache[6];
-			double gamma = (d * b - a * e) * __cache[6];
-
+			betagamma(point, beta, gamma);
 			return (n0 * (1 - beta - gamma) + n1 * beta + n2 * gamma).normalized();
 		} else {
 			return normal;
@@ -69,13 +65,9 @@ namespace ray_tracer {
 		if (!hasUV) {
 			return surface::atUV(context_ptr);
 		} else {
-			point3D point = context_ptr->hit_local_point;
+			double beta, gamma;
 
-			double a = v0.x - point.x, b = __cache[0], c = __cache[1];
-			double d = v0.y - point.y, e = __cache[2], f = __cache[3];
-			double beta = (a * f - d * c) * __cache[6];
-			double gamma = (d * b - a * e) * __cache[6];
-
+			betagamma(context_ptr->hit_local_point, beta, gamma);
 			return (uv0 * (1 - beta - gamma) + uv1 * beta + uv2 * gamma);
 		}
 	}
@@ -83,5 +75,13 @@ namespace ray_tracer {
 	void surface_triangle::setUV(const point2D &uv0_, const point2D &uv1_, const point2D &uv2_) {
 		uv0 = uv0_, uv1 = uv1_, uv2 = uv2_;
 		hasUV = true;
+	}
+
+	void surface_triangle::betagamma(const point3D &p, double &beta, double &gamma) const {
+		double a = v0.x - p.x, b = __cache[0], c = __cache[1];
+		double d = v0.y - p.y, e = __cache[2], f = __cache[3];
+		
+		beta = (a * f - d * c) * __cache[6];
+		gamma = (d * b - a * e) * __cache[6];
 	}
 }

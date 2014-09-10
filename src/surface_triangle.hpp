@@ -17,6 +17,8 @@ namespace ray_tracer {
 		point2D atUV(shade_context *) const;
 		void setUV(const point2D &, const point2D &, const point2D &);
 	private:
+		void betagamma(const point3D &, double &, double &) const;
+	private:
 		point3D v0, v1, v2;
 		vector3D n0, n1, n2, normal;
 		point2D uv0, uv1, uv2;
