@@ -18,15 +18,8 @@ namespace ray_tracer {
 	}
 
 	colorRGB colorRGB::clamp() const {
-		double rr = r, gg = g, bb = b;
-
-		if (rr > 1.0) rr = 1.0;
-		if (bb > 1.0) bb = 1.0;
-		if (gg > 1.0) gg = 1.0;
-		if (rr < 0.0) rr = 0.0;
-		if (bb < 0.0) bb = 0.0;
-		if (gg < 0.0) gg = 0.0;
-		return colorRGB(rr, gg, bb);
+#define __clamp(x) ((x) > 1.0 ? 1.0 : ((x) < 0.0 ? 0.0 : (x)))
+		return colorRGB(__clamp(r), __clamp(g), __clamp(b));
 	}
 
 	// Color source from: http://www.w3schools.com/html/html_colornames.asp

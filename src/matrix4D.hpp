@@ -23,10 +23,13 @@ namespace ray_tracer {
 
 	inline matrix4D operator*(const matrix4D &m1, const matrix4D &m2) {
 		matrix4D product;
-		
+				
 		for (int i = 0; i < 4; i += 1) {
-			for (int j = 0; j < 4; j += 1) {
-				for (int k = 0; k < 4; k += 1) {
+			for (int k = 0; k < 4; k += 1) {
+				if (m1.value[i][k] == 0) {
+					continue;
+				}
+				for (int j = 0; j < 4; j += 1) {
 					product.value[i][j] += m1.value[i][k] * m2.value[k][j];
 				}
 			}

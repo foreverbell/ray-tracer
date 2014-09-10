@@ -22,8 +22,11 @@ namespace ray_tracer {
 		matrix3D product;
 		
 		for (int i = 0; i < 3; i += 1) {
-			for (int j = 0; j < 3; j += 1) {
-				for (int k = 0; k < 3; k += 1) {
+			for (int k = 0; k < 3; k += 1) {
+				if (m1.value[i][k] == 0) {
+					continue;
+				}
+				for (int j = 0; j < 3; j += 1) {
 					product.value[i][j] += m1.value[i][k] * m2.value[k][j];
 				}
 			}
