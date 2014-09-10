@@ -20,7 +20,7 @@ namespace ray_tracer {
 
 	world::~world() { }
 
-	bool world::get_hit(const ray &emission_ray, shade_context *context_ptr) const {
+	bool world::get_intersection(const ray &emission_ray, shade_context *context_ptr) const {
 		bool was = false;
 		double t, result_t = -1;
 		const surface *cur_surface_ptr, *real_surface_ptr;
@@ -53,11 +53,11 @@ namespace ray_tracer {
 
 		// notice that only father surface stores the transformation info.
 
-		context_ptr->hit_time = result_t;
+		context_ptr->intersect_t = result_t;
 		context_ptr->surface_ptr = surface_ptr;
-		context_ptr->hit_point = emission_ray.at(context_ptr->hit_time);
-		context_ptr->hit_local_point = emission_ray.inverse_transform(father_surface_ptr->transform_matrix, father_surface_ptr->transform_center).at(context_ptr->hit_time);
-		context_ptr->normal = (father_surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->hit_local_point)).normalized();
+		context_ptr->intersect_p = emission_ray.at(context_ptr->intersect_t);
+		context_ptr->intersect_rp = emission_ray.inverse_transform(father_surface_ptr->transform_matrix, father_surface_ptr->transform_center).at(context_ptr->intersect_t);
+		context_ptr->normal = (father_surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
 		context_ptr->emission_ray = emission_ray;
 
 		if (flag & surface_flag_revert_normal) {

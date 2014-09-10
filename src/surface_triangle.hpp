@@ -7,6 +7,7 @@
 #include "point2D.hpp"
 
 namespace ray_tracer {
+
 	class surface_triangle : public surface {
 		friend class surface_mesh;
 	public:

@@ -1,11 +1,12 @@
 #ifndef __POINT2D_HPP__
 #define __POINT2D_HPP__
 
-#include "miscellaneous.hpp"
 #include "vector2D.hpp"
 
 namespace ray_tracer {
+
 	class vector2D;
+
 	class point2D {
 	public:
 		point2D();

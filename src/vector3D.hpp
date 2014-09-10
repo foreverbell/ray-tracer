@@ -1,10 +1,12 @@
 #ifndef __VECTOR3D_HPP__
 #define __VECTOR3D_HPP__
 
-#include "miscellaneous.hpp"
+#include <cmath>
 
 namespace ray_tracer {
+
 	class point3D;
+
 	class vector3D {
 	public:
 		vector3D();

@@ -8,6 +8,7 @@ namespace ray_tracer {
 
 	class transform {
 		friend class ray;
+
 	public:
 		transform();
 		matrix4D get_matrix() const;

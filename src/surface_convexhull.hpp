@@ -8,6 +8,7 @@
 #include <vector>
 
 namespace ray_tracer {
+
 	class surface_convexhull : public surface_mesh {
 	public:
 		surface_convexhull(const std::vector<point3D> &);

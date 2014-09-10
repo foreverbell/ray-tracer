@@ -20,8 +20,9 @@ namespace ray_tracer {
 	public:
 		inline shade_context() {
 #ifdef DEBUG
-			hit_time = DBL_MAX;
-			hit_point = point3D(0, 0, 0);
+			intersect_t = DBL_MAX;
+			intersect_p = point3D(0, 0, 0);
+			intersect_rp = point3D(0, 0, 0);
 			normal = vector3D(0, 0, 0);
 			world_ptr = nullptr;
 			tracer_ptr = nullptr;
@@ -34,11 +35,11 @@ namespace ray_tracer {
 		}
 
 	public:
-		// initialized at world::get_hit()
-		double hit_time;
+		// initialized at world::get_intersection()
+		double intersect_t;
 		const surface *surface_ptr;
-		point3D hit_point;
-		point3D hit_local_point;
+		point3D intersect_p;
+		point3D intersect_rp; // raw point of the intersection
 		vector3D normal;
 		ray emission_ray;
 

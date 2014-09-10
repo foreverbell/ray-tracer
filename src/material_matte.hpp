@@ -7,6 +7,7 @@
 #include <memory>
 
 namespace ray_tracer {
+
 	class material_matte : public material  {
 	public:
 		material_matte();

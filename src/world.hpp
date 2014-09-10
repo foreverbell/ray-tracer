@@ -41,7 +41,7 @@ namespace ray_tracer {
 		void add_surface(const surface *);
 		void set_fog(const fog *);
 		void set_camera(const camera *);
-		bool get_hit(const ray &, shade_context *) const;
+		bool get_intersection(const ray &, shade_context *) const;
 		void render_begin(int, int, const render_callback_func, void *, pixel_traversal_mode); // Dimension: pixal
 		void render();
 		void render_end();

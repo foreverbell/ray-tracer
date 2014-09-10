@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <memory>
+#include "miscellaneous.hpp"
 #include "vector3D.hpp"
 #include "point3D.hpp"
 #include "point2D.hpp"

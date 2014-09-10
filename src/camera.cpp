@@ -8,13 +8,6 @@
 
 namespace ray_tracer {
 
-	camera::camera() {
-		eye = point3D(0, 0, 0);
-		lookat = point3D(0, 0, 1);
-		up = vector3D(0, 1, 0);
-		compute_axis();
-	}
-
 	camera::camera(const point3D &eye_, const point3D &lookat_, const vector3D &up_) {
 		eye = eye_;
 		lookat = lookat_;

@@ -6,10 +6,6 @@
 #include "camera_fisheye.hpp"
 
 namespace ray_tracer {
-	
-	camera_fisheye::camera_fisheye() {
-		fov = 0;
-	}
 
 	camera_fisheye::camera_fisheye(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double fov_) : camera(eye_, lookat_, up_) {
 		fov = fov_;

@@ -4,6 +4,7 @@
 #include "BRDF.hpp"
 
 namespace ray_tracer {
+
 	class BRDF_refraction : public BRDF {
 	public:
 		BRDF_refraction(const colorRGB &, double);

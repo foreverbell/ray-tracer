@@ -4,7 +4,7 @@ PROJECT = rt
 CC = gcc
 
 # Compiler options during compilation
-COMPILE_OPTIONS = `sdl-config --cflags` -g -O2 -Wall -std=c++0x
+CC_FLAGS = `sdl-config --cflags` -g -O2 -Wall -std=c++0x
 
 # Libraries for linking
 LIBS = `sdl-config --libs` -lstdc++ -lm -ldl
@@ -29,11 +29,11 @@ $(PROJECT): $(OBJECTS)
 
 # Compile every cpp file to an object
 %.o: %.cpp
-	$(CC) -c $(COMPILE_OPTIONS) -o $@ $<
+	$(CC) -c $(CC_FLAGS) -o $@ $<
 
 # Extra source files
 $(PLY_DIR)/plyfile.o: $(PLY_DIR)/plyfile.c
-	$(CC) -c $(COMPILE_OPTIONS) -o $@ $<
+	$(CC) -c $(CC_FLAGS) -o $@ $<
 
 # Clean
 clean:
@@ -42,4 +42,4 @@ clean:
 run: $(PROJECT)
 	./$(PROJECT)
 
-.PHONY: clean
+.PHONY: clean run

@@ -16,11 +16,10 @@ namespace ray_tracer {
 	}
 
 	colorRGB texture_checker::texture_shade(shade_context *context_ptr) const {
-		point3D p = context_ptr->hit_point;
-		int x = (int) floor(p.x / square_size), y = (int) floor(p.y / square_size), z = (int) floor(p.z / square_size);
-		int sum = x + y + z;
+		point3D p = context_ptr->intersect_p;
+#define __floor(x) ((int) floor((x) / square_size))
+		int sum = (__floor(p.x) + __floor(p.y) + __floor(p.z)) % 2;
 
-		sum %= 2;
 		if (sum < 0) {
 			sum += 2;
 		}

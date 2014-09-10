@@ -6,16 +6,6 @@
 
 namespace ray_tracer {
 
-	camera_thinlens::camera_thinlens() {
-		fov_u = pi / 4;
-		fov_v = pi / 4;
-		focal_dist = 100;
-		lens_radius = 1;
-		tan_fov_u_coef = 2 * tan(fov_u);
-		tan_fov_v_coef = 2 * tan(fov_v);
-		spherical = false;
-	}
-
 	camera_thinlens::camera_thinlens(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double fov_u_, double fov_v_, double focal_dist_, double lens_radius_, bool spherical_) : camera(eye_, lookat_, up_) {
 		fov_u = fov_u_;
 		fov_v = fov_v_;

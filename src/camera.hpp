@@ -8,9 +8,9 @@
 #include "ray.hpp"
 
 namespace ray_tracer {
+
 	class camera {
 	public:
-		camera();
 		camera(const point3D &, const point3D &, const vector3D &);
 		virtual ~camera() = 0;
 		virtual bool get_ray(double, double, int, int, ray *, shade_context *) const = 0;

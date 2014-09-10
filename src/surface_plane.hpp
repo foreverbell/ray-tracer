@@ -4,6 +4,7 @@
 #include "surface.hpp"
 
 namespace ray_tracer {
+
 	class surface_plane : public surface {
 		friend class surface_mesh;
 	public:

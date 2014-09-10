@@ -60,7 +60,7 @@ namespace ray_tracer {
 	}
 
 	point2D surface_sphere::atUV(shade_context *context_ptr) const {
-		vector3D p = (context_ptr->hit_local_point - center).normalized();
+		vector3D p = (context_ptr->intersect_rp - center).normalized();
 		
 		double u = 0.5 + atan2(p.x, p.y) / 2 / pi;
 		double v = 0.5 - asin(p.z) / pi;

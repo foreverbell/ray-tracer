@@ -126,7 +126,7 @@
       <Filter>bottom-layer\basis\matrix</Filter>
     </ClCompile>
     <ClCompile Include="fog.cpp">
-      <Filter>bottom-layer\atmosphere</Filter>
+      <Filter>bottom-layer\effect</Filter>
     </ClCompile>
     <ClCompile Include="ray.cpp">
       <Filter>bottom-layer\trace</Filter>
@@ -238,9 +238,6 @@
     <Filter Include="bottom-layer\basis\matrix">
       <UniqueIdentifier>{07388b61-a6dd-44be-b280-c9d492bb0928}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bottom-layer\atmosphere">
-      <UniqueIdentifier>{d81bf495-7fe1-4d9e-875e-372a4e582299}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
     </Filter>
@@ -264,6 +261,9 @@
     </Filter>
     <Filter Include="bottom-layer\utility">
       <UniqueIdentifier>{c4faf1f7-0f23-46db-82e9-1810a6442c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottom-layer\effect">
+      <UniqueIdentifier>{d81bf495-7fe1-4d9e-875e-372a4e582299}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -391,7 +391,7 @@
       <Filter>bottom-layer\basis\matrix</Filter>
     </ClInclude>
     <ClInclude Include="fog.hpp">
-      <Filter>bottom-layer\atmosphere</Filter>
+      <Filter>bottom-layer\effect</Filter>
     </ClInclude>
     <ClInclude Include="ray.hpp">
       <Filter>bottom-layer\trace</Filter>

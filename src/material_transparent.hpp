@@ -8,6 +8,7 @@
 #include <memory>
 
 namespace ray_tracer {
+
 	class material_transparent : public material  {
 	public:
 		material_transparent();

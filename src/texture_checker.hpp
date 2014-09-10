@@ -4,6 +4,7 @@
 #include "texture.hpp"
 
 namespace ray_tracer {
+
 	class texture_checker : public texture {
 	public:
 		texture_checker();

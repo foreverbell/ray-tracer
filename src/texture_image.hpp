@@ -6,6 +6,7 @@
 #include "shade_context.hpp"
 
 namespace ray_tracer {
+
 	class texture_image : public texture {
 	public:
 		texture_image(const image *);

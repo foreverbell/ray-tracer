@@ -5,8 +5,10 @@
 #include "shade_context.hpp"
 
 namespace ray_tracer {
+
 	class fog {
 		friend class world;
+
 	public:
 		fog();
 		fog(double, int, const colorRGB &);

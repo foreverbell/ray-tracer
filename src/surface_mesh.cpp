@@ -1,5 +1,4 @@
 
-#include "miscellaneous.hpp"
 #include "ray.hpp"
 #include "surface_mesh.hpp"
 #include <algorithm>

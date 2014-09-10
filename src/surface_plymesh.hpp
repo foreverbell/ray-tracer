@@ -5,6 +5,7 @@
 #include "surface_mesh.hpp"
 
 namespace ray_tracer {
+
 	class surface_plymesh : public surface_mesh {
 	public:
 		/**

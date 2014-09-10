@@ -7,9 +7,9 @@
 #include "colorRGB.hpp"
 
 namespace ray_tracer {
+
 	class camera_fisheye : public camera {
 	public:
-		camera_fisheye();
 		camera_fisheye(const point3D &, const point3D &, const vector3D &, double);
 		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:

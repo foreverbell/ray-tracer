@@ -4,6 +4,7 @@
 #include "surface.hpp"
 
 namespace ray_tracer {
+
 	class surface_quadratic : public surface {
 	public:
 		/* x^2, y^2, z^2, xy, xz, yz, x, y, z, C */

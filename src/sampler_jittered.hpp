@@ -4,6 +4,7 @@
 #include "sampler.hpp"
 
 namespace ray_tracer {
+
 	class sampler_jittered : public sampler {
 	public:
 		sampler_jittered(int);

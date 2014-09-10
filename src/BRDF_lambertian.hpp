@@ -4,6 +4,7 @@
 #include "BRDF.hpp"
 
 namespace ray_tracer {
+
 	class BRDF_lambertian : public BRDF {
 	public:
 		BRDF_lambertian(const colorRGB &);

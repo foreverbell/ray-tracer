@@ -4,6 +4,7 @@
 #include "sampler.hpp"
 
 namespace ray_tracer {
+
 	class sampler_random : public sampler {
 	public:
 		sampler_random(int);

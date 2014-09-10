@@ -6,6 +6,7 @@
 #include "light.hpp"
 
 namespace ray_tracer {
+
 	class material {
 	public:
 		virtual ~material() = 0;

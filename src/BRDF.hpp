@@ -6,6 +6,7 @@
 #include "shade_context.hpp"
 
 namespace ray_tracer {
+
 	class BRDF {
 	public:
 		BRDF(const colorRGB &);

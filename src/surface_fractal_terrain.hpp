@@ -7,6 +7,7 @@
 #include <random>
 
 namespace ray_tracer {
+
 	class surface_fractal_terrain : public surface_mesh {
 	public:
 		surface_fractal_terrain(double, int, double, double, int); // sideLength, size, heightScale, h, seedValue

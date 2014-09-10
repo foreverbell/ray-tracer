@@ -67,7 +67,7 @@ namespace ray_tracer {
 		} else {
 			double beta, gamma;
 
-			betagamma(context_ptr->hit_local_point, beta, gamma);
+			betagamma(context_ptr->intersect_rp, beta, gamma);
 			return (uv0 * (1 - beta - gamma) + uv1 * beta + uv2 * gamma);
 		}
 	}

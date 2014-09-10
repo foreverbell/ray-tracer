@@ -7,9 +7,9 @@
 #include "colorRGB.hpp"
 
 namespace ray_tracer {
+
 	class camera_pinhole : public camera {
 	public:
-		camera_pinhole();
 		camera_pinhole(const point3D &, const point3D &, const vector3D &, double, double, bool);
 		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:

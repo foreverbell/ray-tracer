@@ -2,6 +2,7 @@
 #define __COLORRGB_HPP__
 
 namespace ray_tracer {
+
 	class colorRGB {
 	public:
 		colorRGB();

@@ -5,8 +5,6 @@
 #include "camera_orthographic.hpp"
 
 namespace ray_tracer {
-	
-	camera_orthographic::camera_orthographic() { }
 
 	camera_orthographic::camera_orthographic(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double fov_u_, double fov_v_) : camera(eye_, lookat_, up_) { 
 		fov_u = fov_u_;

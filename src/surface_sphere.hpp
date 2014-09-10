@@ -4,6 +4,7 @@
 #include "surface.hpp"
 
 namespace ray_tracer {
+
 	class surface_sphere : public surface {
 	public:
 		surface_sphere(const point3D &, double);

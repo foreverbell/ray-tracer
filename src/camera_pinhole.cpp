@@ -5,14 +5,6 @@
 #include "camera_pinhole.hpp"
 
 namespace ray_tracer {
-	
-	camera_pinhole::camera_pinhole() {
-		fov_u = pi / 4;
-		fov_v = pi / 4;
-		tan_fov_u_coef = 2 * tan(fov_u);
-		tan_fov_v_coef = 2 * tan(fov_v);
-		spherical = false;
-	}
 
 	camera_pinhole::camera_pinhole(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double fov_u_, double fov_v_, bool spherical_) : camera(eye_, lookat_, up_) {
 		fov_u = fov_u_;

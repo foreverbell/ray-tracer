@@ -1,7 +1,6 @@
 
 #include "ray.hpp"
 #include "surface_csg.hpp"
-#include "miscellaneous.hpp"
 #include <algorithm>
 
 namespace ray_tracer {

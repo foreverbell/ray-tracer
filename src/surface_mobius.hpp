@@ -4,6 +4,7 @@
 #include "surface.hpp"
 
 namespace ray_tracer {
+
 	class surface_mobius : public surface {
 	public:
 		surface_mobius(double, double);

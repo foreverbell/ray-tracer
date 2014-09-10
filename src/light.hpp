@@ -1,30 +1,31 @@
 #ifndef __LIGHT_HPP__
 #define __LIGHT_HPP__
 
+#include "miscellaneous.hpp"
 #include "point3D.hpp"
 #include "colorRGB.hpp"
 #include "shade_context.hpp"
 #include "ray.hpp"
 
 namespace ray_tracer {
+
 	class light {
 	public:
-		light();
 		light(const point3D &, const colorRGB &);
-		virtual ~light();
-		virtual point3D get_light_origin(shade_context *) const;
+		virtual ~light() = 0;
+		virtual vector3D ldir(shade_context *) const;
 		void set_position(const point3D &);
 		void set_color(const colorRGB &);
 		void set_shadow(bool);
 		void set_spot(bool, const vector3D &, double, int);
 		void set_attenuation(bool, double, double, double);
 		bool under_shadow(shade_context *) const;
+		bool in_spot(shade_context *) const;
 		virtual colorRGB light_shade(shade_context *) const;
-		bool in_range(shade_context *) const;
 	protected:
 		point3D position;
 		colorRGB color;
-		// attributes
+		// flags
 		bool cast_shadow, spot_enabled, attenuation_enabled;
 		// spot
 		vector3D spot_direction;

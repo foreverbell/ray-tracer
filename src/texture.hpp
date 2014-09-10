@@ -6,6 +6,7 @@
 #include "shade_context.hpp"
 
 namespace ray_tracer {
+
 	class texture {
 	public:
 		virtual ~texture() = 0;

@@ -4,6 +4,7 @@
 #include "surface.hpp"
 
 namespace ray_tracer {
+
 	class surface_disk : public surface {
 	public:
 		surface_disk(const point3D &, const vector3D &, double);

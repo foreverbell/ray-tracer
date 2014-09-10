@@ -6,6 +6,7 @@
 namespace ray_tracer {
 
 	class matrix3D;
+
 	class matrix4D {
 	public:
 		matrix4D();
