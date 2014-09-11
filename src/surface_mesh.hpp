@@ -39,7 +39,7 @@ namespace ray_tracer {
 					bb_p1 = box.first;
 					bb_p2 = box.second;
 				}
-				for (int child : { lchild, rchild} ) {
+				for (int child : { lchild, rchild } ) {
 					if (child != -1) {
 						const kdtree_node &node = stc_ptr->nodes[child];
 						bb_p1 = point3D(std::min(bb_p1.x, node.bb_p1.x), std::min(bb_p1.y, node.bb_p1.y), std::min(bb_p1.z, node.bb_p1.z));

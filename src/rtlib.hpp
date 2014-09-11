@@ -22,6 +22,7 @@
 #include "light.hpp"
 #include "light_point.hpp"
 #include "light_area.hpp"
+#include "light_parallel.hpp"
 /// }}}
 
 /// {{{ headers for material

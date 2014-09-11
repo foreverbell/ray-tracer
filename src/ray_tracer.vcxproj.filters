@@ -194,6 +194,9 @@
     <ClCompile Include="surface_mesh.cpp">
       <Filter>bottom-layer\surface\abstract</Filter>
     </ClCompile>
+    <ClCompile Include="light_parallel.cpp">
+      <Filter>bottom-layer\light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -441,6 +444,9 @@
     </ClInclude>
     <ClInclude Include="surface_mesh.hpp">
       <Filter>bottom-layer\surface\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="light_parallel.hpp">
+      <Filter>bottom-layer\light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

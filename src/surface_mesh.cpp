@@ -92,32 +92,34 @@ namespace ray_tracer {
 			return interval[a].second > interval[b].second;
 		};
 		std::priority_queue<int, std::vector<int>, decltype(heap_cmp_fun)> heap(heap_cmp_fun);
-		int lsize = 0, rsize = indexes.size(), msize = 0, curr_value, best_value = INT32_MAX;
+		int L = 0, R = indexes.size(), M = 0;
+		int curr, best = INT32_MAX;
 		size_t curr_iter = 0;
 		point3D pos = point3D(0, 0, 0);
 
 		for (std::vector<std::pair<double, point3D> >::iterator it = cords.begin(); it != cords.end(); ++it) {
-			while (curr_iter < indexes.size() && interval[curr_iter].first < it->first) {
-				++msize, --rsize;
-				heap.push(curr_iter);
-				++curr_iter;
+			while (curr_iter < indexes.size() && interval[curr_iter].first < it->first + epsilon) {
+				++M;
+				--R;
+				heap.push(curr_iter++);
 			}
 			while (!heap.empty()) {
-				int top = heap.top();
-				if (interval[top].second < it->first) {
+				if (interval[heap.top()].second < it->first - epsilon) {
 					heap.pop();
-					--msize, ++lsize;
+					--M;
+					++L;
 				} else {
 					break;
 				}
 			}
-			curr_value = (rsize > lsize ? rsize - lsize : lsize - rsize) + msize;
-			if (curr_value < best_value) {
-				best_value = curr_value;
+			/* the split is evaluated by | |L| - |R| | + |M|. */
+			curr = std::max(L - R, R - L) + M;
+			if (curr < best) {
+				best = curr;
 				pos = it->second;
 			}
 		}
-		return std::make_pair(pos, best_value);
+		return std::make_pair(pos, best);
 	}
 
 	int surface_mesh::build_kdtree(std::vector<int> indexes, int depth, std::vector<int> &map, int &ptr, int min_split, int max_depth) {
@@ -139,21 +141,21 @@ namespace ray_tracer {
 
 		} else {
 
-			vector3D best_normal = vector3D(0, 0, 0);
+			vector3D separate_normal = vector3D(0, 0, 0);
 			point3D median = point3D(0, 0, 0);
-			int best_val = INT_MAX;
+			int best = INT_MAX;
 
 			for (vector3D normal : { vector3D(1, 0, 0), vector3D(0, 1, 0), vector3D(0, 0, 1) }) {
 				std::pair<point3D, int> tmp = split(normal, indexes);
 
-				if (tmp.second < best_val) {
-					best_val = tmp.second;
+				if (tmp.second < best) {
+					best = tmp.second;
 					median = tmp.first;
-					best_normal = normal;
+					separate_normal = normal;
 				}
 			}
 
-			node.separate = std::shared_ptr<surface_plane>(new surface_plane(median, best_normal));
+			node.separate = std::shared_ptr<surface_plane>(new surface_plane(median, separate_normal));
 
 			std::vector<int> lsurfaces, rsurfaces;
 			int sgn0, sgn1, sgn2;
@@ -172,7 +174,7 @@ namespace ray_tracer {
 					ptr += 1;
 				}
 			}
-			// printf("%d %d %d\n", left_surfaces.size(), middle_surfaces.size(), right_surfaces.size());
+
 			node.lchild = build_kdtree(lsurfaces, depth + 1, map, ptr, min_split, max_depth);
 			node.rchild = build_kdtree(rsurfaces, depth + 1, map, ptr, min_split, max_depth);
 
@@ -189,7 +191,7 @@ namespace ray_tracer {
 
 		const kdtree_node &node = nodes[node_ptr];
 
-		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), tresult;
+		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), temp;
 
 		for (int i = node.index_l; i <= node.index_r; ++i) {
 			double temp_t = surfaces[i].intersect(emission_ray).t;
@@ -210,33 +212,33 @@ namespace ray_tracer {
 
 		if (side == -1) {
 			if (node.lchild != -1) {
-				tresult = search_kdtree(emission_ray, node.lchild);
-				if (tresult < result) {
-					result = tresult;
+				temp = search_kdtree(emission_ray, node.lchild);
+				if (temp < result) {
+					result = temp;
 				}
 			} 
 			if (node.rchild != -1) {
 				double plane_t = node.separate->intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
-					tresult = search_kdtree(emission_ray, node.rchild);
-					if (tresult < result) {
-						result = tresult;
+					temp = search_kdtree(emission_ray, node.rchild);
+					if (temp < result) {
+						result = temp;
 					}
 				}
 			}
 		} else if (side == 1) {
 			if (node.rchild != -1) {
-				tresult = search_kdtree(emission_ray, node.rchild);
-				if (tresult < result) {
-					result = tresult;
+				temp = search_kdtree(emission_ray, node.rchild);
+				if (temp < result) {
+					result = temp;
 				}
 			} 
 			if (node.lchild != -1) {
 				double plane_t = node.separate->intersect(emission_ray).t;
 				if (plane_t > epsilon && plane_t < result.first) {
-					tresult = search_kdtree(emission_ray, node.lchild);
-					if (tresult < result) {
-						result = tresult;
+					temp = search_kdtree(emission_ray, node.lchild);
+					if (temp < result) {
+						result = temp;
 					}
 				}
 			}
@@ -280,19 +282,19 @@ namespace ray_tracer {
 		double y_min = DBL_MAX, y_max = -DBL_MAX;
 		double z_min = DBL_MAX, z_max = -DBL_MAX;
 
-#define _min(a, b, c) std::min(a, std::min(b, c))
-#define _max(a, b, c) std::max(a, std::max(b, c))
+#define __min3(a, b, c) std::min(a, std::min(b, c))
+#define __max3(a, b, c) std::max(a, std::max(b, c))
 		for (int i = l; i <= r; ++i) {
 			const surface_triangle &it = surfaces[i];
-			x_min = std::min(x_min, _min(it.v0.x, it.v1.x, it.v2.x));
-			x_max = std::max(x_max, _max(it.v0.x, it.v1.x, it.v2.x));
-			y_min = std::min(y_min, _min(it.v0.y, it.v1.y, it.v2.y));
-			y_max = std::max(y_max, _max(it.v0.y, it.v1.y, it.v2.y));
-			z_min = std::min(z_min, _min(it.v0.z, it.v1.z, it.v2.z));
-			z_max = std::max(z_max, _max(it.v0.z, it.v1.z, it.v2.z));
+			x_min = std::min(x_min, __min3(it.v0.x, it.v1.x, it.v2.x));
+			x_max = std::max(x_max, __max3(it.v0.x, it.v1.x, it.v2.x));
+			y_min = std::min(y_min, __min3(it.v0.y, it.v1.y, it.v2.y));
+			y_max = std::max(y_max, __max3(it.v0.y, it.v1.y, it.v2.y));
+			z_min = std::min(z_min, __min3(it.v0.z, it.v1.z, it.v2.z));
+			z_max = std::max(z_max, __max3(it.v0.z, it.v1.z, it.v2.z));
 		}
-#undef _max
-#undef _min
+#undef __max3
+#undef __min3
 
 		return std::make_pair(point3D(x_min, y_min, z_min), point3D(x_max, y_max, z_max));
 	}
