@@ -21,7 +21,6 @@ void demo_4::set_world() {
 
 	light *l = new light_point(point3D(-20, 0, 10), color_white);
 	l->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
-	l->set_attenuation(true, 1, 0.0001, 0.00005);
 	l->set_shadow(false);
 
 	wld.set_ambient(color_white / 5);

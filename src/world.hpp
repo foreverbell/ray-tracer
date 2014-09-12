@@ -21,6 +21,8 @@ namespace ray_tracer {
 
 	typedef void (* render_callback_func)(int x, int y, const colorRGB &color, void *pixel_ptr);
 
+	const int max_trace_depth = 3;
+
 	class world {
 		friend class tracer;
 		

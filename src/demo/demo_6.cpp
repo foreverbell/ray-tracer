@@ -11,7 +11,6 @@ void demo_6::set_world() {
 	sterrain->set_texture(new texture_image(image_file_create("demo/landscape_texture.bmp", image_type::image_bmp)));
 
 	light *l = new light_point(point3D(50, 50, 80), color_white);
-	l->set_attenuation(true, 1, 0.0001, 0.00005);
 	l->set_shadow(true);
 
 	wld.set_ambient(color_white / 5);

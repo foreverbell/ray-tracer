@@ -18,21 +18,18 @@ namespace ray_tracer {
 		void set_color(const colorRGB &);
 		void set_shadow(bool);
 		void set_spot(bool, const vector3D &, double, int);
-		void set_attenuation(bool, double, double, double);
-		bool under_shadow(shade_context *) const;
+		bool in_shadow(shade_context *) const;
 		bool in_spot(shade_context *) const;
 		virtual colorRGB light_shade(shade_context *) const;
 	protected:
 		point3D position;
 		colorRGB color;
 		// flags
-		bool cast_shadow, spot_enabled, attenuation_enabled;
+		bool shadow_enabled, spot_enabled;
 		// spot
 		vector3D spot_direction;
 		double spot_cutoff, spot_cos_cutoff;
 		int spot_exponent;
-		// attenuation
-		double attenuation_constant, attenuation_linear, attenuation_quadratic;
 	};
 
 	inline void light::set_position(const point3D &position_) {
@@ -44,7 +41,7 @@ namespace ray_tracer {
 	}
 
 	inline void light::set_shadow(bool shadow_) {
-		cast_shadow = shadow_;
+		shadow_enabled = shadow_;
 	}
 
 	inline void light::set_spot(bool enabled_, const vector3D &direction_ = vector3D(0, 0, 1), double cutoff_ = pi / 2, int exponent_ = 1) {
@@ -53,13 +50,6 @@ namespace ray_tracer {
 		spot_cutoff = cutoff_;
 		spot_cos_cutoff = cos(spot_cutoff);
 		spot_exponent = exponent_;
-	}
-
-	inline void light::set_attenuation(bool enabled_, double constant_ = 1, double linear_ = 0, double quadratic_ = 0) {
-		attenuation_enabled = enabled_;
-		attenuation_constant = constant_;
-		attenuation_linear = linear_;
-		attenuation_quadratic = quadratic_;
 	}
 }
 

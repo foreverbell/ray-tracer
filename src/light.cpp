@@ -9,7 +9,6 @@ namespace ray_tracer {
 		set_color(color_);
 		set_shadow(true);
 		set_spot(false);
-		set_attenuation(false);
 	}
 
 	light::~light() { }
@@ -26,29 +25,20 @@ namespace ray_tracer {
 
 			ret = vdotd > 0 ? ret * pow(vdotd, spot_exponent) : color_black;
 		}
-		if (attenuation_enabled) {
-			double d = ldir(context_ptr).length();
-			double f = 1 / (attenuation_constant + attenuation_linear * d + attenuation_quadratic * d * d);
-
-			ret = f * ret;
-		}
 		return ret;
 	}
 
-	bool light::under_shadow(shade_context *context_ptr) const {
-		if (!cast_shadow) {
+	bool light::in_shadow(shade_context *context_ptr) const {
+		if (!shadow_enabled) {
 			return false;
 		} else {
 			const world *world_ptr = context_ptr->world_ptr;
 			vector3D dir;
 			shade_context temp;
-			double dist;
 
 			dir = -ldir(context_ptr);
-			dist = dir.length();
-			dir = dir.normalized();
-			if (world_ptr->get_intersection(ray(context_ptr->intersect_p, dir), &temp)) {
-				return temp.intersect_t < dist;
+			if (world_ptr->get_intersection(ray(context_ptr->intersect_p, dir.normalized()), &temp)) {
+				return temp.intersect_t < dir.length();
 			} else {
 				return false;
 			}

@@ -12,7 +12,7 @@ namespace ray_tracer {
 		colorRGB texture_shade(shade_context *) const;
 	private:
 		colorRGB color1, color2;
-		int square_size;
+		int size;
 	};
 }
 

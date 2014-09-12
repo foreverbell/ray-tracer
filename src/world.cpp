@@ -109,6 +109,7 @@ namespace ray_tracer {
 				info.world_ptr = this;
 				info.sampler_iterator_ptr = &sam_iter;
 				info.tracer_ptr = tracer_ptr.get();
+				info.trace_depth = max_trace_depth;
 
 				sam_iter.next_sampler();
 				sample_point = sam_iter.get_sampler_unit(sampler_set_anti_aliasing);

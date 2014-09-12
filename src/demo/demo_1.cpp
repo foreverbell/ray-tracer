@@ -36,9 +36,7 @@ void demo_1::set_world() {
 
 	l1 = new light_area(point3D(-20, 0, 10), color_white / 1.8, 3, vector3D(20, 0, -10));
 	// l1->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
-	l1->set_attenuation(true, 1, 0.0001, 0.00005);
 	l2 = new light_point(point3D(0, 0, 30), color_white / 3);
-	l2->set_attenuation(true, 1, 0.0001, 0.00005);
 
 	wld.set_ambient(color_white / 8);
  	wld.set_sampler(new sampler_jittered(9));
