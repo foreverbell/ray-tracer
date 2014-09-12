@@ -1,5 +1,5 @@
-#ifndef __TOOLKIT_HPP__
-#define __TOOLKIT_HPP__
+#ifndef __MISCELLANEOUS_HPP__
+#define __MISCELLANEOUS_HPP__
 
 #include <cmath>
 #include <cfloat>
@@ -11,7 +11,9 @@ namespace ray_tracer {
 
 	const double pi = acos(-1.0);
 	const double epsilon = 1e-8;
+	const double __root_range = 1e10;
 
+	/* utility functions. */
 	inline int dblsgn(double x) {
 		return (x < -epsilon) ? (-1) : (x > epsilon); 
 	}
@@ -30,10 +32,16 @@ namespace ray_tracer {
 		return a.second < b.second;
 	}
 
-	/* private marcos. */
-	const double __root_range = 1e10;
+	template<typename T>
+	inline T clamp(const T &x, const T &low, const T &high) {
+		if (x < low) {
+			return low;
+		} else if (x > high) {
+			return high;
+		}
+		return x;
+	}
 
-	/* private functions. */
 	inline double __root_cal(const std::vector<double> &coef, double x) {
 		double e = 1, s = 0;
 
@@ -45,7 +53,6 @@ namespace ray_tracer {
 		return s;
 	}
 
-	/* private functions. */
 	inline double __root_find(const std::vector<double> &coef, double l, double r) {
 		int sl = dblsgn(__root_cal(coef, l)), sr = dblsgn(__root_cal(coef, r));
 

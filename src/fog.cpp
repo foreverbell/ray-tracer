@@ -1,5 +1,6 @@
 
 #include "fog.hpp"
+#include "miscellaneous.hpp"
 #include <cmath>
 
 namespace ray_tracer {
@@ -18,10 +19,8 @@ namespace ray_tracer {
 
 	colorRGB fog::fog_blending(shade_context *context_ptr, const point3D &origin, const colorRGB &color) const {
 		double z = (context_ptr->intersect_p - origin).length();
-		double f = exp(-pow(density * z, exponent));
+		double f = clamp(exp(-pow(density * z, exponent)), 0.0, 1.0);
 
-		if (f < 0) f = 0;
-		if (f > 1) f = 1;
 		return f * color + (1 - f) * fog_color;
 	}
 }

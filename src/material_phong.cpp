@@ -15,9 +15,9 @@ namespace ray_tracer {
 		set_specular_shininess(shininess_);
 	}
 
-	colorRGB material_phong::material_shade(shade_context *context_ptr, const colorRGB &surface_color, const vector3D &win, const vector3D &wout, bool sample_only) const {
+	colorRGB material_phong::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
 		if (!sample_only) {
-			return diffuse_ptr->f(context_ptr, win, wout) * surface_color + specular_ptr->f(context_ptr, win, wout);
+			return diffuse_ptr->f(context_ptr, win, wout) + specular_ptr->f(context_ptr, win, wout);
 		}
 		return color_black;
 	}

@@ -47,7 +47,7 @@ namespace ray_tracer {
 
 		// normals && shading
 		virtual vector3D atnormal(const point3D &) const;
-		colorRGB material_shade(shade_context *, const colorRGB &, const vector3D &, const vector3D &, bool) const;
+		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
 		void set_material(const material *);
 		colorRGB texture_shade(shade_context *) const;
 		void set_texture(const texture *);

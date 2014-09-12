@@ -191,11 +191,11 @@
     <ClCompile Include="demo\demo_7.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="surface_mesh.cpp">
-      <Filter>bottom-layer\surface\abstract</Filter>
-    </ClCompile>
     <ClCompile Include="light_parallel.cpp">
       <Filter>bottom-layer\light</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_mesh.cpp">
+      <Filter>bottom-layer\surface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,9 +258,6 @@
     </Filter>
     <Filter Include="bottom-layer\basis\transform">
       <UniqueIdentifier>{7814c546-3794-462b-93dc-501ff4c913d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\surface\abstract">
-      <UniqueIdentifier>{edea90b0-77a7-4f3e-b2dc-be0f223bdf1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\utility">
       <UniqueIdentifier>{c4faf1f7-0f23-46db-82e9-1810a6442c79}</UniqueIdentifier>
@@ -442,11 +439,11 @@
     <ClInclude Include="surface_csg.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="surface_mesh.hpp">
-      <Filter>bottom-layer\surface\abstract</Filter>
-    </ClInclude>
     <ClInclude Include="light_parallel.hpp">
       <Filter>bottom-layer\light</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_mesh.hpp">
+      <Filter>bottom-layer\surface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

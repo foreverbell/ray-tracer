@@ -119,7 +119,7 @@ namespace ray_tracer {
 				}
 			}
 			color = color / number_sample;
-			color = color.clamp();
+			color = color.clampRGB();
 			callback_func(x, y, color, callback_param_ptr);
 		} while (true);
 	}

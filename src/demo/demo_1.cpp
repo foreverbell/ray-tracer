@@ -26,12 +26,12 @@ void demo_1::set_world() {
 
 	surface_glteapot *s7 = new surface_glteapot();
 	s7->apply_transform(transform_translate(-3, -3, 0));
-	s7->set_material(new material_transparent(color_white, color_white, 0.8));
+	s7->set_material(new material_transparent(color_white / 2, color_white / 2, 0.8));
 	s7->set_texture(new texture_solid(color_skyblue));
 
 	surface_glteapot *s8 = new surface_glteapot();
 	s8->apply_transform(transform_translate(3, 0, 0));
-	s8->set_material(new material_transparent(color_white, color_white, 0.8));
+	s8->set_material(new material_transparent(color_white / 2, color_white / 2, 0.8));
 	s8->set_texture(new texture_solid(color_palegreen));
 
 	l1 = new light_area(point3D(-20, 0, 10), color_white / 1.8, 3, vector3D(20, 0, -10));

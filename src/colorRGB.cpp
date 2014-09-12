@@ -1,5 +1,6 @@
 
 #include "colorRGB.hpp"
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 
@@ -17,9 +18,8 @@ namespace ray_tracer {
 		r = ((color_ >> 0x10) & 0xff) / 255.0;
 	}
 
-	colorRGB colorRGB::clamp() const {
-#define __clamp(x) ((x) > 1.0 ? 1.0 : ((x) < 0.0 ? 0.0 : (x)))
-		return colorRGB(__clamp(r), __clamp(g), __clamp(b));
+	colorRGB colorRGB::clampRGB() const {
+		return colorRGB(clamp(r, 0.0, 1.0), clamp(g, 0.0, 1.0), clamp(b, 0.0, 1.0));
 	}
 
 	// Color source from: http://www.w3schools.com/html/html_colornames.asp

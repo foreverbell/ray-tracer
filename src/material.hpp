@@ -10,7 +10,7 @@ namespace ray_tracer {
 	class material {
 	public:
 		virtual ~material() = 0;
-		virtual colorRGB material_shade(shade_context *, const colorRGB &, const vector3D &, const vector3D &, bool) const = 0; 
+		virtual colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const = 0; 
 		// last parameter = true means sample only
 	};
 }
