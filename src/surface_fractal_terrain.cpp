@@ -86,13 +86,13 @@ namespace ray_tracer {
 				surface_triangle tri1 = surface_triangle(point3D(x, y, height[i][j]),
 					point3D(x + scale, y, height[i + 1][j]),
 					point3D(x, y + scale, height[i][j + 1]));
-				tri1.setUV(point2D(u, v), point2D(u + delta, v), point2D(u, v + delta));
+				tri1.set_UV(point2D(u, v), point2D(u + delta, v), point2D(u, v + delta));
 				add_surface(tri1);
 
 				surface_triangle tri2 = surface_triangle(point3D(x + scale, y, height[i + 1][j]),
 					point3D(x + scale, y + scale, height[i + 1][j + 1]),
 					point3D(x, y + scale, height[i][j + 1]));
-				tri2.setUV(point2D(u + delta, v), point2D(u + delta, v + delta), point2D(u, v + delta));
+				tri2.set_UV(point2D(u + delta, v), point2D(u + delta, v + delta), point2D(u, v + delta));
 				add_surface(tri2);
 			}
 		}

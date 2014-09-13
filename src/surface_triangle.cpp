@@ -56,7 +56,7 @@ namespace ray_tracer {
 		}
 	}	
 	
-	void surface_triangle::setnormal(const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
+	void surface_triangle::set_normal(const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
 		n0 = n0_, n1 = n1_, n2 = n2_;
 		smooth_normal = true;
 	}
@@ -72,7 +72,7 @@ namespace ray_tracer {
 		}
 	}
 
-	void surface_triangle::setUV(const point2D &uv0_, const point2D &uv1_, const point2D &uv2_) {
+	void surface_triangle::set_UV(const point2D &uv0_, const point2D &uv1_, const point2D &uv2_) {
 		uv0 = uv0_, uv1 = uv1_, uv2 = uv2_;
 		hasUV = true;
 	}

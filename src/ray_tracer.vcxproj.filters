@@ -89,9 +89,6 @@
     <ClCompile Include="surface_triangle.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClCompile>
-    <ClCompile Include="surface_quadratic.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="surface_sphere.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
@@ -179,9 +176,6 @@
     <ClCompile Include="demo\demo_6.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="surface_plymesh.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="hilbert_curve.cpp">
       <Filter>bottom-layer\utility</Filter>
     </ClCompile>
@@ -196,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="surface_mesh.cpp">
       <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_quadratic.cpp">
+      <Filter>bottom-layer\surface\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,9 +351,6 @@
     <ClInclude Include="surface_triangle.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClInclude>
-    <ClInclude Include="surface_quadratic.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
     <ClInclude Include="surface_sphere.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
@@ -445,10 +439,8 @@
     <ClInclude Include="surface_mesh.hpp">
       <Filter>bottom-layer\surface</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="surface_plymesh.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </None>
+    <ClInclude Include="surface_quadratic.hpp">
+      <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

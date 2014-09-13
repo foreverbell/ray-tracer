@@ -12,7 +12,7 @@ namespace ray_tracer {
 	class material_mirror : public material  {
 	public:
 		material_mirror();
-		material_mirror(const colorRGB &);
+		material_mirror(const colorRGB &, const colorRGB &);
 		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
 	private:
 		std::unique_ptr<BRDF_reflection> reflection_ptr;

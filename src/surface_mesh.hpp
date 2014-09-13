@@ -70,6 +70,21 @@ namespace ray_tracer {
 		std::pair<double, int> search_kdtree(const ray &, int) const;
 		std::pair<point3D, int> split(const vector3D &, const std::vector<int> &) const;
 	};
+
+	/* ply mesh */
+	class surface_plymesh : public surface_mesh {
+	public:
+		// supported ply mesh format
+		// vertex property: float x; float y; float z
+		// face property: list uchar int vertex_index
+		surface_plymesh(const char *);
+	};
+
+	/* noff mesh */
+	class surface_noffmesh : public surface_mesh {
+	public:
+		surface_noffmesh(const char *);
+	};
 }
 
 #endif

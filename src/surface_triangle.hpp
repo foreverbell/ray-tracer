@@ -14,9 +14,9 @@ namespace ray_tracer {
 		surface_triangle(const point3D &, const point3D &, const point3D &);
 		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;
-		void setnormal(const vector3D &, const vector3D &, const vector3D &);
+		void set_normal(const vector3D &, const vector3D &, const vector3D &);
 		point2D atUV(shade_context *) const;
-		void setUV(const point2D &, const point2D &, const point2D &);
+		void set_UV(const point2D &, const point2D &, const point2D &);
 	private:
 		void betagamma(const point3D &, double &, double &) const;
 	private:

@@ -16,7 +16,7 @@ namespace ray_tracer {
 		set_bbox(point3D(-xy, -xy, -z), point3D(xy, xy, z));
 	}
 
-	bool surface_mobius::inrange(const point3D &pt) const {
+	bool surface_mobius::inside(const point3D &pt) const {
 		double x = pt.x, y = pt.y, z = pt.z;
 		double t = atan2(y, x), s;
 
@@ -71,7 +71,7 @@ namespace ray_tracer {
 		result = equation_solve(coef, 3);
 
 		for (std::vector<double>::iterator iter = result.begin(); iter != result.end(); ++iter) {
-			if (*iter > epsilon && inrange(emission_ray.at(*iter))) {
+			if (*iter > epsilon && inside(emission_ray.at(*iter))) {
 				return intersection_context(*iter);
 			}
 		}

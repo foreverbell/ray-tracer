@@ -11,7 +11,7 @@ namespace ray_tracer {
 		intersection_context intersect(const ray &) const;
 		vector3D atnormal(const point3D &) const;
 	private:
-		bool inrange(const point3D &) const;
+		bool inside(const point3D &) const;
 	private:
 		double radius, half_width;
 	};

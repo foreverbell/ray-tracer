@@ -14,10 +14,10 @@ void demo_1::set_world() {
 	// cam->rotate(pi / 4);
 
 	s1 = new surface_sphere(point3D(15, -7, 0), 9);
-	s1->set_material(new material_mirror(color_azure));
+	s1->set_material(new material_mirror());
 	s1->set_texture(new texture_solid(color_azure));
 	s2 = new surface_sphere(point3D(30, 9, 0), 11);
-	s2->set_material(new material_mirror(colorRGB(0.8, 0.2, 0.8)));
+	s2->set_material(new material_mirror());
 	s2->set_texture(new texture_solid(colorRGB(0.8, 0.2, 0.8)));
 
 	s3 = new surface_plane(point3D(0, 0, -3), vector3D(0, 0, 1));

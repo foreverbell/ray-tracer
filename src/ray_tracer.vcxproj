@@ -110,7 +110,6 @@
     <ClCompile Include="surface_csg.cpp" />
     <ClCompile Include="surface_fractal_terrain.cpp" />
     <ClCompile Include="surface_mobius.cpp" />
-    <ClCompile Include="surface_plymesh.cpp" />
     <ClCompile Include="surface_convexhull.cpp" />
     <ClCompile Include="surface_glteapot.cpp" />
     <ClCompile Include="surface_quadratic.cpp" />
@@ -205,9 +204,6 @@
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="tracer.hpp" />
     <ClInclude Include="world.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="surface_plymesh.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
