@@ -8,6 +8,7 @@
 #include <climits>
 #include <cfloat>
 #include <cassert>
+#include <cstring>
 #include <functional>
 
 namespace ray_tracer {
