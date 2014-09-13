@@ -19,7 +19,7 @@ namespace ray_tracer {
 	}
 
 	inline int isqrt(int x) {
-		return (int) sqrt((double) x);
+		return (int) sqrt((double) x + epsilon);
 	}
 
 	template<typename T1, typename T2>

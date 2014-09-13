@@ -15,7 +15,7 @@ namespace ray_tracer {
 		void rangeY(double, double);
 		void rangeZ(double, double);
 	private:
-		bool within(const point3D &) const;
+		bool inside(const point3D &) const;
 		double find_root(const point3D &, const vector3D &) const;
 	private:
 		double x_min, x_max, y_min, y_max, z_min, z_max;

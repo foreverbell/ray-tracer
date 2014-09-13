@@ -28,7 +28,7 @@ namespace ray_tracer {
 		x_max = y_max = z_max = DBL_MAX;
 	}
 
-	bool surface_quadratic::within(const point3D &p) const {
+	bool surface_quadratic::inside(const point3D &p) const {
 		return (p.x >= x_min && p.x <= x_max && p.y >= y_min && p.y <= y_max && p.z >= z_min && p.z <= z_max);
 	}
 
@@ -125,11 +125,11 @@ namespace ray_tracer {
 			std::swap(value1, value2);
 		}
 
-		if ((value1 > epsilon) && within(p_ + v_ * value1)) {
+		if ((value1 > epsilon) && inside(p_ + v_ * value1)) {
 			return value1;
 		}
 
-		if ((value2 > epsilon) && within(p_ + v_ * value2)) {
+		if ((value2 > epsilon) && inside(p_ + v_ * value2)) {
 			return value2;
 		}
 

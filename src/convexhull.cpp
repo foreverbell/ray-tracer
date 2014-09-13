@@ -13,7 +13,7 @@ namespace ray_tracer {
 
 		if (faces[f].second) {
 			std::tie(x, y, z) = faces[f].first;
-			if (dblsgn(mixed_product(points[p], points[x], points[y], points[z])) >= 0) {
+			if (dblsgn(volume(points[p], points[x], points[y], points[z])) >= 0) {
 				return true;
 			} else {
 				rface[std::make_pair(a, b)] = faces.size();
@@ -43,7 +43,7 @@ namespace ray_tracer {
 
 	/* Complexity: O(N^2). */
 	std::pair<std::vector<face_t>, std::vector<edge_t> > convexhull::construct() {
-		int n = points.size(), flag = 0, sz;
+		int n = points.size(), flag = 0;
 		std::vector<face_t> ret_faces;
 		std::vector<edge_t> ret_edges;
 		face_t f;
@@ -68,7 +68,7 @@ namespace ray_tracer {
 		}
 		/* Co-face? */
 		for (int i = 3; i < n; ++i) {
-			if (dblsgn(fabs(mixed_product(points[0], points[1], points[2], points[i]))) > 0) {
+			if (dblsgn(fabs(volume(points[0], points[1], points[2], points[i]))) > 0) {
 				std::swap(points[i], points[3]);
 				flag |= 4;
 				break;
@@ -81,7 +81,7 @@ namespace ray_tracer {
 		for (int i = 0; i < 4; ++i) {
 			a = (i + 1) % 4, b = (i + 2) % 4, c = (i + 3) % 4;
 			f = std::make_tuple(a, b, c);
-			if (dblsgn(mixed_product(points[i], points[a], points[b], points[c])) > 0) {
+			if (dblsgn(volume(points[i], points[a], points[b], points[c])) > 0) {
 				std::swap(std::get<0>(f), std::get<1>(f));
 				std::swap(a, b);
 			}
@@ -93,11 +93,11 @@ namespace ray_tracer {
 		/* Construct the 3D hull. */
 		std::random_shuffle(points.begin() + 4, points.end());
 		for (int i = 4; i < n; ++i) {
-			sz = faces.size();
-			for (int j = 0; j < sz; ++j) {
+			int nfaces = faces.size();
+			for (int j = 0; j < nfaces; ++j) {
 				if (faces[j].second) {
 					std::tie(a, b, c) = faces[j].first;
-					if (dblsgn(mixed_product(points[i], points[a], points[b], points[c])) >= 0) {
+					if (dblsgn(volume(points[i], points[a], points[b], points[c])) >= 0) {
 						walk(i, j);
 						break;
 					}
@@ -112,9 +112,5 @@ namespace ray_tracer {
 			if (faces[it->second].second && it->first.first < it->first.second) ret_edges.push_back(it->first);
 		}
 		return std::make_pair(ret_faces, ret_edges);
-	}
-
-	double convexhull::mixed_product(const point3D &p1, const point3D &p2, const point3D &p3, const point3D &p4) {
-		return ((p3 - p2) ^ (p4 - p2)) * (p1 - p2);
 	}
 }

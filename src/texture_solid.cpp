@@ -3,11 +3,7 @@
 
 namespace ray_tracer {
 
-	texture_solid::texture_solid() {
-		solid = color_black;
-	}
-
-	texture_solid::texture_solid(colorRGB solid_) {
+	texture_solid::texture_solid(const colorRGB &solid_) {
 		solid = solid_;
 	}
 

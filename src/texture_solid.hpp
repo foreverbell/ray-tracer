@@ -7,8 +7,7 @@ namespace ray_tracer {
 
 	class texture_solid : public texture {
 	public:
-		texture_solid();
-		texture_solid(colorRGB);
+		texture_solid(const colorRGB &);
 		colorRGB texture_shade(shade_context *) const;
 	private:
 		colorRGB solid;

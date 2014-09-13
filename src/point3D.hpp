@@ -25,6 +25,7 @@ namespace ray_tracer {
 		friend point3D operator*(const point3D &, double);
 		friend point3D operator*(double, const point3D &);
 		friend point3D operator/(const point3D &, double);
+		friend double volume(const point3D &, const point3D &, const point3D &, const point3D &);
 	public:
 		double x, y, z;
 	};
@@ -88,6 +89,10 @@ namespace ray_tracer {
 	inline point3D operator/(const point3D &p, double f) {
 		double inv_f = 1 / f;
 		return point3D(p.x * inv_f, p.y * inv_f, p.z * inv_f);
+	}
+
+	inline double volume(const point3D &p1, const point3D &p2, const point3D &p3, const point3D &p4) {
+		return ((p3 - p2) ^ (p4 - p2)) * (p1 - p2);
 	}
 }
 

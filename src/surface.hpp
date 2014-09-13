@@ -108,7 +108,7 @@ namespace ray_tracer {
 		return false;
 	}
 	
-#define __within(x, l, r) (((x) >= ((l) - epsilon)) && ((x) <= ((r) + epsilon)))
+#define __inside(x, l, r) (((x) >= ((l) - epsilon)) && ((x) <= ((r) + epsilon)))
 	template<int x0, int y0, int z0>
 	bool __boxcheck(const point3D &o, const vector3D &d, const point3D &p1, const point3D & p2) {
 		vector3D normal = vector3D(x0, y0, z0);
@@ -124,17 +124,17 @@ namespace ray_tracer {
 					hit = o + d * ((p2 - o) * normal / deno);
 				}
 				if (!x0) {
-					if (!__within(hit.x, p1.x, p2.x)) {
+					if (!__inside(hit.x, p1.x, p2.x)) {
 						inside = false;
 					}
 				}
 				if (!y0) {
-					if (!__within(hit.y, p1.y, p2.y)) {
+					if (!__inside(hit.y, p1.y, p2.y)) {
 						inside = false;
 					}
 				}
 				if (!z0) {
-					if (!__within(hit.z, p1.z, p2.z)) {
+					if (!__inside(hit.z, p1.z, p2.z)) {
 						inside = false;
 					}
 				}
@@ -145,7 +145,7 @@ namespace ray_tracer {
 		}
 		return false;
 	}
-#undef __within
+#undef __inside
 
 	inline bool box_intersection(const point3D &p1, const point3D & p2, const ray &emission_ray) {
 		point3D o = emission_ray.origin;

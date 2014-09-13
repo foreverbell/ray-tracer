@@ -10,8 +10,6 @@ namespace ray_tracer {
 		sampler_jittered(int);
 	protected:
 		void generate(int);
-	private:
-		bool is_squared(int, int &);
 	};
 }
 

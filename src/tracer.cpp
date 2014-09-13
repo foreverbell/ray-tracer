@@ -8,7 +8,7 @@
 
 namespace ray_tracer {
 
-	colorRGB tracer::shade_light(const light *light_ptr, shade_context *context_ptr, const vector3D &win) const {
+	colorRGB tracer::light_shade(const light *light_ptr, shade_context *context_ptr, const vector3D &win) const {
 		double temp;
 		vector3D wout;
 
@@ -45,11 +45,12 @@ namespace ray_tracer {
 
 		world_ptr = context_ptr->world_ptr;
 		win = (context_ptr->emission_ray.origin - context_ptr->intersect_p).normalized();
-		result = context_ptr->surface_ptr->material_shade(context_ptr, win, vector3D(0, 0, 0), true);
+		result = context_ptr->world_ptr->ambient;
 		for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
-			result += shade_light(*iter, context_ptr, win);
+			result += light_shade(*iter, context_ptr, win);
 		}
-		result = result * (context_ptr->surface_ptr->texture_shade(context_ptr) + context_ptr->world_ptr->ambient);
+		result += context_ptr->surface_ptr->material_shade(context_ptr, win, vector3D(0, 0, 0), true);
+		result = result * context_ptr->surface_ptr->texture_shade(context_ptr);
 		if (world_ptr->fog_ptr) {
 			result = world_ptr->fog_ptr->fog_blending(context_ptr, world_ptr->camera_ptr->get_eye(), result);
 		}

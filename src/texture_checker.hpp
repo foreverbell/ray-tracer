@@ -8,7 +8,7 @@ namespace ray_tracer {
 	class texture_checker : public texture {
 	public:
 		texture_checker();
-		texture_checker(colorRGB, colorRGB, int);
+		texture_checker(const colorRGB &, const colorRGB &, int);
 		colorRGB texture_shade(shade_context *) const;
 	private:
 		colorRGB color1, color2;

@@ -9,6 +9,6 @@ namespace ray_tracer {
 	}
 
 	void sampler_single::generate(int num) {
-		samples.push_back(point2D(0, 0));
+		samples.push_back(point2D(0.5, 0.5));
 	}
 }

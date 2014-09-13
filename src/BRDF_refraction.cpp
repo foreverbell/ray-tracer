@@ -11,6 +11,7 @@ namespace ray_tracer {
 
 	colorRGB BRDF_refraction::sample_f(shade_context *context_ptr, const vector3D &win) const {
 		shade_context info = *context_ptr;
+
 		info.trace_depth = context_ptr->trace_depth - 1;
 		
 		vector3D normal = context_ptr->normal;

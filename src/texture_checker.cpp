@@ -9,7 +9,7 @@ namespace ray_tracer {
 		size = 4;
 	}
 
-	texture_checker::texture_checker(colorRGB color1_, colorRGB color2_, int size_) {
+	texture_checker::texture_checker(const colorRGB &color1_, const colorRGB &color2_, int size_) {
 		color1 = color1_;
 		color2 = color2_;
 		size = size_;

@@ -14,7 +14,7 @@ namespace ray_tracer {
 		colorRGB trace_ray(const ray &, shade_context *context_ptr) const; 
 	private:
 		colorRGB shade(shade_context *) const;
-		colorRGB shade_light(const light *, shade_context *, const vector3D &) const;
+		colorRGB light_shade(const light *, shade_context *, const vector3D &) const;
 	};
 }
 
