@@ -14,6 +14,9 @@ namespace ray_tracer {
 	class skybox {
 	public:
 		// front, back, left, right, top, bottom
+		//  5
+		// 3142
+		//  6
 		skybox(fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t);
 		colorRGB skybox_shade(shade_context *) const;
 	private:
