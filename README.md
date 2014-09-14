@@ -6,6 +6,8 @@ It uses the `SDL` to present the image to users. (See http://www.libsdl.org/)
 
 # Compiling
 
+Firstly, you should retrieve the resources from another repository https://github.com/foreverbell/miscellaneous/, or execute the `initialize.py` in the root folder.
+
 ## Under Windows
 
 Microsoft Visual C++ 2013 is currently supported. To compile, please open the respective project file in the root folder. We already provide `SDL.dll` in the root folder and the SDL library in the folder `SDL-1.2.15`.
