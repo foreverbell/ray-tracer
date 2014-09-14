@@ -14,39 +14,52 @@ namespace ray_tracer {
 		tracer_ptr = std::unique_ptr<tracer>(new tracer());
 		sampler_ptr = sampler_default_instance;
 		fog_ptr = nullptr;
+		skybox_ptr = nullptr;
 		set_ambient(color_white / 5);
 	}
 
 	world::~world() { }
+	
+	colorRGB world::get_background(shade_context *context_ptr) const {
+		if (skybox_ptr != nullptr) {
+			return skybox_ptr->skybox_shade(context_ptr);
+		} else if (fog_ptr != nullptr) {
+			return fog_ptr->color();
+		}
+		return color_black;
+	}
 
 	bool world::get_intersection(const ray &emission_ray, shade_context *context_ptr) const {
 		bool was = false;
 		double t, result_t = -1;
-		const surface *cur_surface_ptr, *real_surface_ptr;
-		const surface *surface_ptr, *father_surface_ptr;
+		const surface *surface_ptr, *fsurface_ptr;
 		int flag = 0;
-		intersection_context hcontext;
+		intersection_context context;
 
 		for (std::vector<const surface *>::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
-			cur_surface_ptr = *iter;
-			real_surface_ptr = nullptr;
-			if (cur_surface_ptr->transformed) {
-				hcontext = cur_surface_ptr->intersect(emission_ray.inverse_transform(cur_surface_ptr->transform_matrix, cur_surface_ptr->transform_center));
+			const surface *temp = *iter;
+
+			if (temp->transformed) {
+				context = temp->intersect(emission_ray.inverse_transform(temp->transform_matrix, temp->transform_center));
 			} else {
-				hcontext = cur_surface_ptr->intersect(emission_ray);
+				context = temp->intersect(emission_ray);
 			}
-			t = hcontext.t;
-			real_surface_ptr = hcontext.surface_ptr;
+			t = context.t;
 			if (t > epsilon && (t < result_t || result_t == -1)) {
 				result_t = t;
-				surface_ptr = (real_surface_ptr != nullptr ? real_surface_ptr : cur_surface_ptr);
-				father_surface_ptr = cur_surface_ptr;
-				flag = hcontext.flag;
+				surface_ptr = (context.surface_ptr != nullptr ? context.surface_ptr : temp);
+				fsurface_ptr = temp;
+				flag = context.flag;
 				was = true;
 			}
 		}
 
+		context_ptr->emission_ray = emission_ray;
+
 		if (!was) {
+			context_ptr->intersect_t = -1;
+			context_ptr->surface_ptr = nullptr;
+
 			return false;
 		}
 
@@ -55,10 +68,9 @@ namespace ray_tracer {
 		context_ptr->intersect_t = result_t;
 		context_ptr->surface_ptr = surface_ptr;
 		context_ptr->intersect_p = emission_ray.at(context_ptr->intersect_t);
-		context_ptr->intersect_rp = emission_ray.inverse_transform(father_surface_ptr->transform_matrix, father_surface_ptr->transform_center).at(context_ptr->intersect_t);
-		context_ptr->normal = (father_surface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
-		context_ptr->emission_ray = emission_ray;
-
+		context_ptr->intersect_rp = emission_ray.inverse_transform(fsurface_ptr->transform_matrix, fsurface_ptr->transform_center).at(context_ptr->intersect_t);
+		context_ptr->normal = (fsurface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
+		
 		if (flag & surface_flag_revert_normal) {
 			context_ptr->normal = -context_ptr->normal;
 		}
@@ -66,11 +78,9 @@ namespace ray_tracer {
 		return true;
 	}
 
-	void world::render_begin(int w, int h, const render_callback_func callback_func_, void *callback_param_ptr_, pixel_traversal_mode traversal) {
+	void world::render_begin(int w, int h, pixel_traversal_mode traversal) {
 		dest_w = w;
 		dest_h = h;
-		callback_func = callback_func_;
-		callback_param_ptr = callback_param_ptr_;
 
 		if (traversal == pixel_traversal_mode::naive) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_naive());
@@ -84,7 +94,7 @@ namespace ray_tracer {
 		pixel_traversal_ptr->init(w, h);
 	}
 
-	void world::render() {
+	void world::render(void *pixel_buffer_ptr) {
 		colorRGB color;
 		point2D sample_point;
 		shade_context info;
@@ -119,7 +129,11 @@ namespace ray_tracer {
 			}
 			color = color / number_sample;
 			color = color.clampRGB();
-			callback_func(x, y, color, callback_param_ptr);
+
+			uint8_t *p = ((uint8_t *) pixel_buffer_ptr) + ((y * dest_w + x) << 2);
+			*p++ = (uint8_t) (color.b * 255);
+			*p++ = (uint8_t) (color.g * 255);
+			*p++ = (uint8_t) (color.r * 255);
 		} while (true);
 	}
 

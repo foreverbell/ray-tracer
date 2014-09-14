@@ -13,6 +13,8 @@ namespace ray_tracer {
 	const double epsilon = 1e-8;
 	const double __root_range = 1e10;
 
+	using fname_ptr_t = const char *;
+
 	/* utility functions. */
 	inline int dblsgn(double x) {
 		return (x < -epsilon) ? (-1) : (x > epsilon); 

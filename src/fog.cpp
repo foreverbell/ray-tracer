@@ -17,10 +17,14 @@ namespace ray_tracer {
 		fog_color = fog_color_;
 	}
 
-	colorRGB fog::fog_blending(shade_context *context_ptr, const point3D &origin, const colorRGB &color) const {
+	colorRGB fog::fog_blend(shade_context *context_ptr, const point3D &origin, const colorRGB &color) const {
 		double z = (context_ptr->intersect_p - origin).length();
 		double f = clamp(exp(-pow(density * z, exponent)), 0.0, 1.0);
 
 		return f * color + (1 - f) * fog_color;
+	}
+
+	colorRGB fog::color() const {
+		return fog_color;
 	}
 }

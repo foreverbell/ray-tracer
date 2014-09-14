@@ -336,7 +336,7 @@ namespace ray_tracer {
 		1, PLY_UCHAR, PLY_UCHAR, offsetof(Face, nverts)},
 	};
 
-	surface_plymesh::surface_plymesh(const char *filename) {
+	surface_plymesh::surface_plymesh(fname_ptr_t filename) {
 		PlyFile *ply_ptr;
 		int nelems;
 		char **elist_ptr;
@@ -383,7 +383,7 @@ namespace ray_tracer {
 	}
 
 	/* noff mesh */
-	surface_noffmesh::surface_noffmesh(const char *filename) {
+	surface_noffmesh::surface_noffmesh(fname_ptr_t filename) {
 		FILE *f = fopen(filename, "r");
 		char fhead[5];
 		bool has_normal = false;

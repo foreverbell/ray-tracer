@@ -45,6 +45,6 @@ namespace ray_tracer {
 		if (dblsgn(axis_w * axis_v) != 0) {
 			throw "invalid camera axis.";
 		}
-		axis_u = axis_v ^ axis_w;
+		axis_u = -(axis_v ^ axis_w);
 	}
 }

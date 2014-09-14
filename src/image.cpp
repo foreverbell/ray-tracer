@@ -1,18 +1,13 @@
 
 #include "image.hpp"
 #include "image_bmp.hpp"
+#include "miscellaneous.hpp"
 #include <cstdio>
 
 namespace ray_tracer {
 
-	image *image_file_create(const char *file, image_type type) {
-		image *img = nullptr;
-
-		switch (type) {
-		case image_type::image_bmp:
-			img = new image_bmp;
-			break;
-		}
+	image *image_file_create(fname_ptr_t file) {
+		image *img = new image_bmp(); // TODO: HACK
 
 		if (img == nullptr) {
 			return img;

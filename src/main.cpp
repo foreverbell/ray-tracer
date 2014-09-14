@@ -15,15 +15,6 @@ using namespace ray_tracer;
 
 const int width = 350, height = 350, max_thread_count = 4;
 
-void render_callback(int x, int y, const colorRGB &color, void *pixel_ptr) {
-	char *p = (char *)pixel_ptr;
-
-	p += (y * width + x) << 2;
-	*p++ = (char) (color.b * 255);
-	*p++ = (char) (color.g * 255);
-	*p++ = (char) (color.r * 255);
-}
-
 void render(world *world, SDL_Surface *screen) {
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -31,10 +22,10 @@ void render(world *world, SDL_Surface *screen) {
 			return;
 		}
 	}
-	world->render_begin(width, height, render_callback, screen->pixels, world::pixel_traversal_mode::hilbert);
+	world->render_begin(width, height, world::pixel_traversal_mode::hilbert);
 	std::thread thr[max_thread_count];
 	for (int i = 0; i < max_thread_count; i += 1) {
-		thr[i] = std::thread([&]{ world->render(); });
+		thr[i] = std::thread([&]{ world->render(screen->pixels); });
 	}
 	for (int i = 0; i < max_thread_count; i += 1) {
 		thr[i].join();

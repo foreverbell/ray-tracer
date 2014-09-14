@@ -77,13 +77,13 @@ namespace ray_tracer {
 		// supported ply mesh format
 		// vertex property: float x; float y; float z
 		// face property: list uchar int vertex_index
-		surface_plymesh(const char *);
+		surface_plymesh(fname_ptr_t);
 	};
 
 	/* noff mesh */
 	class surface_noffmesh : public surface_mesh {
 	public:
-		surface_noffmesh(const char *);
+		surface_noffmesh(fname_ptr_t);
 	};
 }
 

@@ -106,6 +106,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="light_area.cpp" />
     <ClCompile Include="material_mirror.cpp" />
+    <ClCompile Include="skybox.cpp" />
     <ClCompile Include="surface_csg.cpp" />
     <ClCompile Include="surface_fractal_terrain.cpp" />
     <ClCompile Include="surface_mobius.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="light_area.hpp" />
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="rtlib.hpp" />
+    <ClInclude Include="skybox.hpp" />
     <ClInclude Include="surface_csg.hpp" />
     <ClInclude Include="surface_fractal_terrain.hpp" />
     <ClInclude Include="surface_mobius.hpp" />

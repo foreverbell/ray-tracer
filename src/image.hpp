@@ -2,16 +2,13 @@
 #define __IMAGE_HPP__
 
 #include <cstdio>
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 
-	enum class image_type {
-		image_bmp
-	};
-
 	class image {
 	public:
-		friend image *image_file_create(const char *, image_type);
+		friend image *image_file_create(fname_ptr_t);
 		friend void image_file_destroy(image *);
 		/* Destructor is forbidden, plz implement destroy instead. */
 		virtual bool create() = 0;
@@ -24,7 +21,7 @@ namespace ray_tracer {
 		FILE *imgfile_ptr;
 	};
 	
-	image *image_file_create(const char *, image_type);
+	image *image_file_create(fname_ptr_t);
 	void image_file_destroy(image *);
 }
 

@@ -86,9 +86,6 @@
     <ClCompile Include="convexhull.cpp">
       <Filter>bottom-layer\utility</Filter>
     </ClCompile>
-    <ClCompile Include="surface_convexhull.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="surface_regpolyhedron.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
@@ -176,14 +173,20 @@
     <ClCompile Include="light_parallel.cpp">
       <Filter>bottom-layer\light</Filter>
     </ClCompile>
-    <ClCompile Include="surface_mesh.cpp">
-      <Filter>bottom-layer\surface</Filter>
-    </ClCompile>
     <ClCompile Include="surface_quadratic.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClCompile>
     <ClCompile Include="hilbertcurve.cpp">
       <Filter>bottom-layer\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_mesh.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_convexhull.cpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="skybox.cpp">
+      <Filter>bottom-layer\effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +342,6 @@
     <ClInclude Include="convexhull.hpp">
       <Filter>bottom-layer\utility</Filter>
     </ClInclude>
-    <ClInclude Include="surface_convexhull.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
     <ClInclude Include="surface_regpolyhedron.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
@@ -415,14 +415,20 @@
     <ClInclude Include="light_parallel.hpp">
       <Filter>bottom-layer\light</Filter>
     </ClInclude>
-    <ClInclude Include="surface_mesh.hpp">
-      <Filter>bottom-layer\surface</Filter>
-    </ClInclude>
     <ClInclude Include="surface_quadratic.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
     </ClInclude>
     <ClInclude Include="hilbertcurve.hpp">
       <Filter>bottom-layer\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_convexhull.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_mesh.hpp">
+      <Filter>bottom-layer\surface\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.hpp">
+      <Filter>bottom-layer\effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

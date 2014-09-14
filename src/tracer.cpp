@@ -33,7 +33,7 @@ namespace ray_tracer {
 			if (world_ptr->get_intersection(emission_ray, context_ptr)) {
 				return shade(context_ptr);
 			} else {
-				return world_ptr->get_background();
+				return world_ptr->get_background(context_ptr);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ namespace ray_tracer {
 		result += context_ptr->surface_ptr->material_shade(context_ptr, win, vector3D(0, 0, 0), true);
 		result = result * context_ptr->surface_ptr->texture_shade(context_ptr);
 		if (world_ptr->fog_ptr) {
-			result = world_ptr->fog_ptr->fog_blending(context_ptr, world_ptr->camera_ptr->get_eye(), result);
+			result = world_ptr->fog_ptr->fog_blend(context_ptr, world_ptr->camera_ptr->get_eye(), result);
 		}
 		return result;
 	}
