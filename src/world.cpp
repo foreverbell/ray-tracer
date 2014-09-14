@@ -4,7 +4,6 @@
 #include "surface.hpp"
 #include "tracer.hpp"
 #include "camera.hpp"
-#include "sampler_single.hpp"
 #include "world.hpp"
 
 namespace ray_tracer {

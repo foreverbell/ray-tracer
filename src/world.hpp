@@ -15,7 +15,7 @@
 #include "camera.hpp"
 #include "tracer.hpp"
 #include "sampler.hpp"
-#include "hilbert_curve.hpp"
+#include "hilbertcurve.hpp"
 
 namespace ray_tracer {
 
@@ -79,7 +79,7 @@ namespace ray_tracer {
 			void init(int, int);
 			bool next(int &, int &);
 		private:
-			hilbert_curve hcurve;
+			hilbertcurve hcurve;
 		};
 
 	private:

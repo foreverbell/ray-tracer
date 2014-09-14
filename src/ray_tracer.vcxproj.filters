@@ -15,19 +15,13 @@
       <Filter>bottom-layer\camera</Filter>
     </ClCompile>
     <ClCompile Include="sampler.cpp">
-      <Filter>bottom-layer\sampler</Filter>
-    </ClCompile>
-    <ClCompile Include="sampler_random.cpp">
-      <Filter>bottom-layer\sampler</Filter>
+      <Filter>bottom-layer\basis\sampler</Filter>
     </ClCompile>
     <ClCompile Include="camera_thinlens.cpp">
       <Filter>bottom-layer\camera</Filter>
     </ClCompile>
     <ClCompile Include="camera_fisheye.cpp">
       <Filter>bottom-layer\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="sampler_jittered.cpp">
-      <Filter>bottom-layer\sampler</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
       <Filter>bottom-layer\material</Filter>
@@ -64,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="light_area.cpp">
       <Filter>bottom-layer\light</Filter>
-    </ClCompile>
-    <ClCompile Include="sampler_single.cpp">
-      <Filter>bottom-layer\sampler</Filter>
     </ClCompile>
     <ClCompile Include="material_mirror.cpp">
       <Filter>bottom-layer\material</Filter>
@@ -176,9 +167,6 @@
     <ClCompile Include="demo\demo_6.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="hilbert_curve.cpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClCompile>
     <ClCompile Include="surface_csg.cpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
@@ -193,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="surface_quadratic.cpp">
       <Filter>bottom-layer\surface\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="hilbertcurve.cpp">
+      <Filter>bottom-layer\utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,9 +216,6 @@
     </Filter>
     <Filter Include="bottom-layer\surface\3D">
       <UniqueIdentifier>{46aceede-5a6c-4125-89f3-1deb9dcf4e8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\sampler">
-      <UniqueIdentifier>{8a448816-b8d4-4135-9c04-6f8643151816}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\basis\vector">
       <UniqueIdentifier>{56c7ab71-2843-4e17-a890-3616856a2981}</UniqueIdentifier>
@@ -262,6 +250,9 @@
     <Filter Include="bottom-layer\effects">
       <UniqueIdentifier>{d81bf495-7fe1-4d9e-875e-372a4e582299}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bottom-layer\basis\sampler">
+      <UniqueIdentifier>{8a448816-b8d4-4135-9c04-6f8643151816}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="surface.hpp">
@@ -277,16 +268,10 @@
       <Filter>bottom-layer\camera</Filter>
     </ClInclude>
     <ClInclude Include="sampler.hpp">
-      <Filter>bottom-layer\sampler</Filter>
-    </ClInclude>
-    <ClInclude Include="sampler_random.hpp">
-      <Filter>bottom-layer\sampler</Filter>
+      <Filter>bottom-layer\basis\sampler</Filter>
     </ClInclude>
     <ClInclude Include="camera_fisheye.hpp">
       <Filter>bottom-layer\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="sampler_jittered.hpp">
-      <Filter>bottom-layer\sampler</Filter>
     </ClInclude>
     <ClInclude Include="material.hpp">
       <Filter>bottom-layer\material</Filter>
@@ -323,9 +308,6 @@
     </ClInclude>
     <ClInclude Include="light_area.hpp">
       <Filter>bottom-layer\light</Filter>
-    </ClInclude>
-    <ClInclude Include="sampler_single.hpp">
-      <Filter>bottom-layer\sampler</Filter>
     </ClInclude>
     <ClInclude Include="material_mirror.hpp">
       <Filter>bottom-layer\material</Filter>
@@ -424,9 +406,6 @@
     <ClInclude Include="surface_fractal_terrain.hpp">
       <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
-    <ClInclude Include="hilbert_curve.hpp">
-      <Filter>bottom-layer\utility</Filter>
-    </ClInclude>
     <ClInclude Include="miscellaneous.hpp">
       <Filter>bottom-layer\basis</Filter>
     </ClInclude>
@@ -441,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="surface_quadratic.hpp">
       <Filter>bottom-layer\surface\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="hilbertcurve.hpp">
+      <Filter>bottom-layer\utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

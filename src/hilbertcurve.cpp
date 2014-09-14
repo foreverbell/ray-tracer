@@ -2,11 +2,11 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
-#include "hilbert_curve.hpp"
+#include "hilbertcurve.hpp"
 
 namespace ray_tracer {
 
-	hilbert_curve::point_container_t hilbert_curve::aftrans(int order, int dir, hilbert_curve::point_container_t pt, int dx, int dy) {
+	hilbertcurve::point_container_t hilbertcurve::aftrans(int order, int dir, hilbertcurve::point_container_t pt, int dx, int dy) {
 		int n = 1 << order, m = pt.size();
 		point_container_t result;
 
@@ -28,7 +28,7 @@ namespace ray_tracer {
 		return result;
 	}
 
-	hilbert_curve::point_container_t hilbert_curve::hilbert(int order) {
+	hilbertcurve::point_container_t hilbertcurve::hilbert(int order) {
 		point_container_t result;
 		if (order == 1) {
 			result.resize(4);
@@ -58,12 +58,12 @@ namespace ray_tracer {
 		return result;
 	}
 
-	void hilbert_curve::init(int order) {
+	void hilbertcurve::init(int order) {
 		curve = hilbert(order);
 		iter = 0;
 	}
 
-	bool hilbert_curve::next(int &x, int &y) {
+	bool hilbertcurve::next(int &x, int &y) {
 		if (eof()) {
 			return false;
 		}
@@ -75,7 +75,7 @@ namespace ray_tracer {
 		return true;
 	}
 
-	bool hilbert_curve::eof() const {
+	bool hilbertcurve::eof() const {
 		return iter >= (int) curve.size();
 	}
 }

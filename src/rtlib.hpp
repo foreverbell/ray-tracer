@@ -9,6 +9,7 @@
 #include "point2D.hpp"
 #include "image.hpp"
 #include "transform.hpp"
+#include "sampler.hpp"
 
 /// {{{ headers for camera
 #include "camera.hpp"
@@ -31,13 +32,6 @@
 #include "material_matte.hpp"
 #include "material_mirror.hpp"
 #include "material_transparent.hpp"
-/// }}}
-
-/// {{{ headers for sampler
-#include "sampler.hpp"
-#include "sampler_random.hpp"
-#include "sampler_jittered.hpp"
-#include "sampler_single.hpp"
 /// }}}
 
 /// {{{ headers for surface

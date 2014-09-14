@@ -87,7 +87,7 @@
     <ClCompile Include="demo\demo_5.cpp" />
     <ClCompile Include="demo\demo_6.cpp" />
     <ClCompile Include="demo\demo_7.cpp" />
-    <ClCompile Include="hilbert_curve.cpp" />
+    <ClCompile Include="hilbertcurve.cpp" />
     <ClCompile Include="light_parallel.cpp" />
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
@@ -106,7 +106,6 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="light_area.cpp" />
     <ClCompile Include="material_mirror.cpp" />
-    <ClCompile Include="sampler_single.cpp" />
     <ClCompile Include="surface_csg.cpp" />
     <ClCompile Include="surface_fractal_terrain.cpp" />
     <ClCompile Include="surface_mobius.cpp" />
@@ -125,8 +124,6 @@
     <ClCompile Include="point2D.cpp" />
     <ClCompile Include="point3D.cpp" />
     <ClCompile Include="sampler.cpp" />
-    <ClCompile Include="sampler_jittered.cpp" />
-    <ClCompile Include="sampler_random.cpp" />
     <ClCompile Include="surface_disk.cpp" />
     <ClCompile Include="surface_triangle.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -144,7 +141,7 @@
     <ClInclude Include="BRDF_refraction.hpp" />
     <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
-    <ClInclude Include="hilbert_curve.hpp" />
+    <ClInclude Include="hilbertcurve.hpp" />
     <ClInclude Include="light_parallel.hpp" />
     <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
@@ -166,7 +163,6 @@
     <ClInclude Include="light_area.hpp" />
     <ClInclude Include="material_mirror.hpp" />
     <ClInclude Include="rtlib.hpp" />
-    <ClInclude Include="sampler_single.hpp" />
     <ClInclude Include="surface_csg.hpp" />
     <ClInclude Include="surface_fractal_terrain.hpp" />
     <ClInclude Include="surface_mobius.hpp" />
@@ -182,8 +178,6 @@
     <ClInclude Include="point2D.hpp" />
     <ClInclude Include="point3D.hpp" />
     <ClInclude Include="sampler.hpp" />
-    <ClInclude Include="sampler_jittered.hpp" />
-    <ClInclude Include="sampler_random.hpp" />
     <ClInclude Include="surface_disk.hpp" />
     <ClInclude Include="surface_plane.hpp" />
     <ClInclude Include="surface_sphere.hpp" />

@@ -2,7 +2,6 @@
 #define __LIGHT_AREA_HPP__
 
 #include "light.hpp"
-#include "sampler_jittered.hpp"
 
 namespace ray_tracer {
 

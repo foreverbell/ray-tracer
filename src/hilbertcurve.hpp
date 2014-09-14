@@ -1,9 +1,9 @@
-#ifndef __HILBERT_CURVE_HPP__
-#define __HILBERT_CURVE_HPP__
+#ifndef __HILBERTCURVE_HPP__
+#define __HILBERTCURVE_HPP__
 
 namespace ray_tracer {
 
-	class hilbert_curve {
+	class hilbertcurve {
 
 	public:
 		void init(int);

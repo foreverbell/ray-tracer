@@ -38,8 +38,29 @@ namespace ray_tracer {
 		point2D get_sampler_disk_unit(int) const;
 		point2D get_sampler_disk_zoomed(int, double) const;
 	private:
-		const sampler *sampler_bind;
+		const sampler *sampler_ptr;
 		int sample_index[sampler_set_count];
+	};
+
+	class sampler_single : public sampler {
+	public:
+		sampler_single();
+	protected:
+		void generate(int);
+	};
+
+	class sampler_jittered : public sampler {
+	public:
+		sampler_jittered(int);
+	protected:
+		void generate(int);
+	};
+
+	class sampler_random : public sampler {
+	public:
+		sampler_random(int);
+	protected:
+		void generate(int);
 	};
 }
 
