@@ -6,10 +6,11 @@
 
 namespace ray_tracer {
 
-	const int sampler_set_ray_sampling = 0;
-	const int sampler_set_camera_thinlens = 1;
-	const int sampler_set_area_light = 2;
-	const int n_sampler_set = 3;
+	const int sampler_set_antialising = 0;
+	const int sampler_set_silhouette = 1;
+	const int sampler_set_camera_thinlens = 2;
+	const int sampler_set_area_light = 3;
+	const int n_sampler_set = 4;
 
 	class sampler_iterator;
 

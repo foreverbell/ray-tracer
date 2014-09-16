@@ -34,9 +34,10 @@ namespace ray_tracer {
 	const std::vector<intersection_context> null_intersects = std::vector<intersection_context>();
 
 	class surface {
-		friend class surface_compound;
 		friend class tracer;
 		friend class world;
+		friend class ray;
+
 	public:
 		surface();
 		virtual ~surface() = 0;

@@ -37,6 +37,7 @@ namespace ray_tracer {
 		~world();
 		void set_ambient(const colorRGB &);
 		void set_sampler(const sampler *);
+		void set_silhouette(bool);
 		void add_light(const light *);
 		void add_surface(const surface *);
 		void set_fog(const fog *);
@@ -96,6 +97,7 @@ namespace ray_tracer {
 		const skybox *skybox_ptr;
 		const camera *camera_ptr;
 		const sampler *sampler_ptr;
+		bool silhouette;
 	};
 
 	inline void world::set_ambient(const colorRGB &ambient_) {
@@ -104,6 +106,10 @@ namespace ray_tracer {
 
 	inline void world::set_sampler(const sampler *sampler_ptr_) {
 		sampler_ptr = sampler_ptr_;
+	}
+
+	inline void world::set_silhouette(bool silhouette_) {
+		silhouette = silhouette_;
 	}
 
 	inline void world::add_light(const light *light_ptr_) {

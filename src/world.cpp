@@ -15,6 +15,7 @@ namespace ray_tracer {
 		sampler_ptr = sampler_default_instance;
 		fog_ptr = nullptr;
 		skybox_ptr = nullptr;
+		silhouette = false;
 		set_ambient(color_white / 5);
 	}
 
@@ -41,7 +42,7 @@ namespace ray_tracer {
 			const surface *temp = *iter;
 
 			if (temp->transformed) {
-				context = temp->intersect(context_ptr->emission_ray.inverse_transform(temp->transform_matrix, temp->transform_center));
+				context = temp->intersect(context_ptr->emission_ray.inv_transform(temp));
 			} else {
 				context = temp->intersect(context_ptr->emission_ray);
 			}
@@ -69,7 +70,7 @@ namespace ray_tracer {
 		context_ptr->surface_ptr = surface_ptr;
 		context_ptr->fsurface_ptr = fsurface_ptr;
 		context_ptr->intersect_p = context_ptr->emission_ray.at(context_ptr->intersect_t);
-		context_ptr->intersect_rp = context_ptr->emission_ray.inverse_transform(fsurface_ptr->transform_matrix, fsurface_ptr->transform_center).at(context_ptr->intersect_t);
+		context_ptr->intersect_rp = context_ptr->emission_ray.inv_transform(fsurface_ptr).at(context_ptr->intersect_t);
 		context_ptr->normal = (fsurface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
 		
 		if (flag & surface_flag_revert_normal) {
@@ -99,12 +100,13 @@ namespace ray_tracer {
 
 	void world::render(void *pixel_buffer_ptr) {
 		colorRGB color;
-		point2D sample_point;
+		point2D spoint;
 		shade_context info;
 		int x, y;
+		const surface *msurface_ptr; // main surface pointer
 
 		do {
-			/* Get current rendering coordinate. */
+			/* Gets current rendering coordinate. */
 			mutex_ptr->lock();
 			if (!pixel_traversal_ptr->next(x, y)) {
 				mutex_ptr->unlock();
@@ -112,10 +114,14 @@ namespace ray_tracer {
 			} else {
 				mutex_ptr->unlock();
 			}
-			/* Sampling for anti-aliasing. */
+
+			/* Samples for anti-aliasing. */
 			sampler_iterator sam_iter(sampler_ptr);
 			int nsamples = sam_iter.get_sampler_count();
+			
 			color = color_black;
+			msurface_ptr = nullptr;
+
 			for (int i = 0; i < nsamples; i += 1) {
 				info.world_ptr = this;
 				info.sampler_iterator_ptr = &sam_iter;
@@ -123,15 +129,44 @@ namespace ray_tracer {
 				info.trace_depth = max_trace_depth;
 
 				sam_iter.next_sampler();
-				sample_point = sam_iter.get_sampler_unit(sampler_set_ray_sampling);
-
-				if (camera_ptr->get_ray(x + sample_point.x, y + sample_point.y, dest_w, dest_h, &info.emission_ray, &info)) {
+				spoint = sam_iter.get_sampler_unit(sampler_set_antialising);
+				if (camera_ptr->get_ray(x + spoint.x, y + spoint.y, dest_w, dest_h, &info.emission_ray, &info)) {
 					color += tracer_ptr->trace_ray(&info);
+					if (msurface_ptr == nullptr) {
+						msurface_ptr = info.fsurface_ptr;
+					}
 				}
 			}
 			color = color / nsamples;
 			color = color.clampRGB();
 
+			/* Samples for silhouette. */
+			if (msurface_ptr != nullptr && silhouette) {
+				int nsurfaces = 0;
+
+				for (int i = 0; i < nsamples; i += 1) {
+					info.world_ptr = this;
+					info.sampler_iterator_ptr = &sam_iter;
+
+					sam_iter.next_sampler();
+					spoint = sam_iter.get_sampler_unit(sampler_set_antialising);
+					if (camera_ptr->get_ray(x + 0.5 + (spoint.x - 0.5) * 2.5, y + 0.5 + (spoint.y - 0.5) * 2.5, dest_w, dest_h, &info.emission_ray, &info)) {
+						double t;
+
+						if (msurface_ptr->transformed) {
+							t = msurface_ptr->intersect(info.emission_ray.inv_transform(msurface_ptr)).t;
+						} else {
+							t = msurface_ptr->intersect(info.emission_ray).t;
+						}
+						if (t > epsilon) {
+							nsurfaces += 1;
+						}
+					}
+				}
+				color = color * (fabs((double) nsurfaces - (double) nsamples / 2) * 2 / (double) nsamples);
+			}
+
+			/* Writes to buffer. */
 			uint8_t *p = ((uint8_t *) pixel_buffer_ptr) + ((y * dest_w + x) << 2);
 			*p++ = (uint8_t) (color.b * 255);
 			*p++ = (uint8_t) (color.g * 255);
