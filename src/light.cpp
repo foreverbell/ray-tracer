@@ -37,7 +37,8 @@ namespace ray_tracer {
 			shade_context temp;
 
 			dir = -ldir(context_ptr);
-			if (world_ptr->get_intersection(ray(context_ptr->intersect_p, dir.normalized()), &temp)) {
+			temp.emission_ray = ray(context_ptr->intersect_p, dir.normalized());
+			if (world_ptr->get_intersection(&temp)) {
 				return temp.intersect_t < dir.length();
 			} else {
 				return false;

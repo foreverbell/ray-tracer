@@ -6,10 +6,10 @@
 
 namespace ray_tracer {
 
-	const int sampler_set_anti_aliasing = 0;
+	const int sampler_set_ray_sampling = 0;
 	const int sampler_set_camera_thinlens = 1;
 	const int sampler_set_area_light = 2;
-	const int sampler_set_count = 3;
+	const int n_sampler_set = 3;
 
 	class sampler_iterator;
 
@@ -39,7 +39,7 @@ namespace ray_tracer {
 		point2D get_sampler_disk_zoomed(int, double) const;
 	private:
 		const sampler *sampler_ptr;
-		int sample_index[sampler_set_count];
+		int sample_index[n_sampler_set];
 	};
 
 	class sampler_single : public sampler {

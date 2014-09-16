@@ -43,7 +43,7 @@ namespace ray_tracer {
 		void set_skybox(const skybox *);
 		void set_camera(const camera *);
 		colorRGB get_background(shade_context *) const;
-		bool get_intersection(const ray &, shade_context *) const;
+		bool get_intersection(shade_context *) const;
 		void render_begin(int, int, pixel_traversal_mode); // Dimension: pixal
 		void render(void *);
 		void render_end();
@@ -84,7 +84,7 @@ namespace ray_tracer {
 
 	private:
 		/* control flow */
-		std::mutex mutex;
+		std::unique_ptr<std::mutex> mutex_ptr;
 		std::unique_ptr<pixel_traversal> pixel_traversal_ptr;
 		/* scene data */
 		int dest_w, dest_h;

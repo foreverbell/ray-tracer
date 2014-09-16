@@ -24,13 +24,13 @@ namespace ray_tracer {
 		return color_black;
 	}
 
-	colorRGB tracer::trace_ray(const ray &emission_ray, shade_context *context_ptr) const {
+	colorRGB tracer::trace_ray(shade_context *context_ptr) const {
 		if (context_ptr->trace_depth == 0) {
 			return color_black;
 		} else {
 			const world *world_ptr = context_ptr->world_ptr;
 
-			if (world_ptr->get_intersection(emission_ray, context_ptr)) {
+			if (world_ptr->get_intersection(context_ptr)) {
 				return shade(context_ptr);
 			} else {
 				return world_ptr->get_background(context_ptr);

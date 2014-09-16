@@ -33,6 +33,8 @@ namespace ray_tracer {
 		cos_theta2 = sqrt(cos_theta2);
 		vector3D wout = -win / _eta - normal * (cos_theta2 - cos_theta_i / _eta);
 
- 		return rho * context_ptr->tracer_ptr->trace_ray(ray(context_ptr->intersect_p, wout), &info);
+		info.emission_ray = ray(context_ptr->intersect_p, wout);
+
+ 		return rho * context_ptr->tracer_ptr->trace_ray(&info);
 	}
 }

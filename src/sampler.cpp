@@ -46,7 +46,7 @@ namespace ray_tracer {
 
 	sampler_iterator::sampler_iterator(const sampler *sam_) {
 		sampler_ptr = sam_;
-		for (int i = 0; i < sampler_set_count; i += 1) {
+		for (int i = 0; i < n_sampler_set; i += 1) {
 			sample_index[i] = i % sampler_ptr->number_samples;
 		}
 	}
@@ -56,7 +56,7 @@ namespace ray_tracer {
 	}
 
 	void sampler_iterator::next_sampler() {
-		for (int i = 0; i < sampler_set_count; i += 1) {
+		for (int i = 0; i < n_sampler_set; i += 1) {
 			if (++sample_index[i] >= get_sampler_count()) {
 				sample_index[i] = 0;
 			}

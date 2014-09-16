@@ -13,9 +13,10 @@ namespace ray_tracer {
 		info.trace_depth = context_ptr->trace_depth - 1;
 
 		if (context_ptr->normal * win > 0) {
-			return rho * context_ptr->tracer_ptr->trace_ray(ray(context_ptr->intersect_p, 2 * context_ptr->normal - win), &info);
+			info.emission_ray = ray(context_ptr->intersect_p, 2 * context_ptr->normal - win);
 		} else {
-			return rho * context_ptr->tracer_ptr->trace_ray(ray(context_ptr->intersect_p, -2 * context_ptr->normal - win), &info); 
+			info.emission_ray = ray(context_ptr->intersect_p, -2 * context_ptr->normal - win);
 		}
-	}
+		return rho * context_ptr->tracer_ptr->trace_ray(&info); 
+	}	
 }

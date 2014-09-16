@@ -390,6 +390,7 @@ namespace ray_tracer {
 		int vertices_count, faces_count;
 		std::vector<point3D> vertices;
 		std::vector<vector3D> normals;
+		std::vector<int> vert_indices;
 		double x, y, z, nx, ny, nz;
 
 		fgets(fhead, 5, f);
@@ -414,8 +415,8 @@ namespace ray_tracer {
 
 		for (int i = 0; i < faces_count; ++i) {
 			int nfaces, vert_index;
-			std::vector<int> vert_indices;
-
+			
+			vert_indices.clear();
 			fscanf(f, "%d", &nfaces);
 			for (int j = 0; j < nfaces; ++j) {
 				fscanf(f, "%d", &vert_index);

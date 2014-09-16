@@ -17,11 +17,11 @@ namespace ray_tracer {
 		// initialized at world::get_intersection()
 		double intersect_t;
 		const surface *surface_ptr;
+		const surface *fsurface_ptr; // father surface
 		point3D intersect_p;
 		point3D intersect_rp; // raw point of the intersection
 		vector3D normal;
-		ray emission_ray;
-
+		
 		// initilized at world::render()
 		const world *world_ptr;
 		sampler_iterator *sampler_iterator_ptr;
@@ -31,6 +31,7 @@ namespace ray_tracer {
 		const light *light_ptr;
 
 		// initilized at world::render() || BRDF
+		ray emission_ray;
 		int trace_depth;
 	};
 }

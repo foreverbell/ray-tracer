@@ -24,12 +24,13 @@ namespace ray_tracer {
 		if (skybox_ptr != nullptr) {
 			return skybox_ptr->skybox_shade(context_ptr);
 		} else if (fog_ptr != nullptr) {
+			// TODO: Blend with skybox
 			return fog_ptr->color();
 		}
 		return color_black;
 	}
 
-	bool world::get_intersection(const ray &emission_ray, shade_context *context_ptr) const {
+	bool world::get_intersection(shade_context *context_ptr) const {
 		bool was = false;
 		double t, result_t = -1;
 		const surface *surface_ptr, *fsurface_ptr;
@@ -40,9 +41,9 @@ namespace ray_tracer {
 			const surface *temp = *iter;
 
 			if (temp->transformed) {
-				context = temp->intersect(emission_ray.inverse_transform(temp->transform_matrix, temp->transform_center));
+				context = temp->intersect(context_ptr->emission_ray.inverse_transform(temp->transform_matrix, temp->transform_center));
 			} else {
-				context = temp->intersect(emission_ray);
+				context = temp->intersect(context_ptr->emission_ray);
 			}
 			t = context.t;
 			if (t > epsilon && (t < result_t || result_t == -1)) {
@@ -54,11 +55,10 @@ namespace ray_tracer {
 			}
 		}
 
-		context_ptr->emission_ray = emission_ray;
-
 		if (!was) {
 			context_ptr->intersect_t = -1;
 			context_ptr->surface_ptr = nullptr;
+			context_ptr->fsurface_ptr = nullptr;
 
 			return false;
 		}
@@ -67,8 +67,9 @@ namespace ray_tracer {
 
 		context_ptr->intersect_t = result_t;
 		context_ptr->surface_ptr = surface_ptr;
-		context_ptr->intersect_p = emission_ray.at(context_ptr->intersect_t);
-		context_ptr->intersect_rp = emission_ray.inverse_transform(fsurface_ptr->transform_matrix, fsurface_ptr->transform_center).at(context_ptr->intersect_t);
+		context_ptr->fsurface_ptr = fsurface_ptr;
+		context_ptr->intersect_p = context_ptr->emission_ray.at(context_ptr->intersect_t);
+		context_ptr->intersect_rp = context_ptr->emission_ray.inverse_transform(fsurface_ptr->transform_matrix, fsurface_ptr->transform_center).at(context_ptr->intersect_t);
 		context_ptr->normal = (fsurface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
 		
 		if (flag & surface_flag_revert_normal) {
@@ -92,42 +93,43 @@ namespace ray_tracer {
 			throw "unknown traversal mode.";
 		}
 		pixel_traversal_ptr->init(w, h);
+
+		mutex_ptr = std::unique_ptr<std::mutex>(new std::mutex());
 	}
 
 	void world::render(void *pixel_buffer_ptr) {
 		colorRGB color;
 		point2D sample_point;
 		shade_context info;
-		ray emission_ray;
 		int x, y;
 
 		do {
 			/* Get current rendering coordinate. */
-			mutex.lock();
+			mutex_ptr->lock();
 			if (!pixel_traversal_ptr->next(x, y)) {
-				mutex.unlock();
+				mutex_ptr->unlock();
 				break;
 			} else {
-				mutex.unlock();
+				mutex_ptr->unlock();
 			}
 			/* Sampling for anti-aliasing. */
 			sampler_iterator sam_iter(sampler_ptr);
-			int number_sample = sam_iter.get_sampler_count();
+			int nsamples = sam_iter.get_sampler_count();
 			color = color_black;
-			for (int i = 0; i < number_sample; i += 1) {
+			for (int i = 0; i < nsamples; i += 1) {
 				info.world_ptr = this;
 				info.sampler_iterator_ptr = &sam_iter;
 				info.tracer_ptr = tracer_ptr.get();
 				info.trace_depth = max_trace_depth;
 
 				sam_iter.next_sampler();
-				sample_point = sam_iter.get_sampler_unit(sampler_set_anti_aliasing);
+				sample_point = sam_iter.get_sampler_unit(sampler_set_ray_sampling);
 
-				if (camera_ptr->get_ray(x + sample_point.x, y + sample_point.y, dest_w, dest_h, &emission_ray, &info)) {
-					color += tracer_ptr->trace_ray(emission_ray, &info);
+				if (camera_ptr->get_ray(x + sample_point.x, y + sample_point.y, dest_w, dest_h, &info.emission_ray, &info)) {
+					color += tracer_ptr->trace_ray(&info);
 				}
 			}
-			color = color / number_sample;
+			color = color / nsamples;
 			color = color.clampRGB();
 
 			uint8_t *p = ((uint8_t *) pixel_buffer_ptr) + ((y * dest_w + x) << 2);
@@ -138,7 +140,8 @@ namespace ray_tracer {
 	}
 
 	void world::render_end() {
-		// 
+		mutex_ptr.reset();
+		pixel_traversal_ptr.reset();
 	}
 
 	void world::pixel_traversal::init(int w, int h) {
