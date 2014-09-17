@@ -21,7 +21,7 @@ namespace ray_tracer {
 		for (std::vector<face_t>::const_iterator it = hull.first.begin(); it != hull.first.end(); ++it) {
 			std::tie(a, b, c) = *it;
 			v0 = points[a], v1 = points[b], v2 = points[c];
-			add_surface(surface_triangle(v0, v1, v2)); 
+			add_surface(surface_triangle(v0, v1, v2), a, b, c); 
 		}
 		setup();
 	}

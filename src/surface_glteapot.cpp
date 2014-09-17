@@ -13,6 +13,7 @@ namespace ray_tracer {
 			nidx = strip_normals[i];
 			if (vidx != -1) {
 				cnt += 1;
+				// Did I ever implenment any translates here?
 				if (cnt >= 3) {
 					if (cnt % 2 == 1) {
 						triangle = new surface_triangle(point3D(vertices[l2v][2], vertices[l2v][0], vertices[l2v][1] - 3),
@@ -29,7 +30,7 @@ namespace ray_tracer {
 							vector3D(normals[l2n][2], normals[l2n][0], normals[l2n][1]),
 							vector3D(normals[nidx][2], normals[nidx][0], normals[nidx][1]));
 					}
-					add_surface(*triangle);
+					add_surface(*triangle, l2v, l1v, vidx);
 				}
 				l2v = l1v;
 				l1v = vidx;

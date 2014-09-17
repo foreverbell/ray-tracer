@@ -11,7 +11,9 @@ namespace ray_tracer {
 		material_ptr = nullptr;
 		texture_ptr = nullptr;
 		
-		reset_transform();
+		transformed = false;
+		transform_center = point3D(0, 0, 0);
+		transform_matrix = transform();
 	}
 
 	surface::~surface() { }
@@ -68,12 +70,6 @@ namespace ray_tracer {
 
 	void surface::set_transform_center(const point3D &center_) {
 		transform_center = center_;
-	}
-
-	void surface::reset_transform() {
-		transformed = false;
-		transform_center = point3D(0, 0, 0);
-		transform_matrix = transform();
 	}
 
 	void surface::apply_transform(const transform &matrix_) {

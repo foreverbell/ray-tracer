@@ -7,7 +7,7 @@ namespace ray_tracer {
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
 		v0 = v0_, v1 = v1_, v2 = v2_;
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
-		smooth_normal = false;
+		normal_interpolate = false;
 		hasUV = false;
 
 		/* build caches. */
@@ -46,7 +46,7 @@ namespace ray_tracer {
 	}
 
 	vector3D surface_triangle::atnormal(const point3D &point) const {
-		if (smooth_normal) {
+		if (normal_interpolate) {
 			double beta, gamma;
 
 			betagamma(point, beta, gamma);
@@ -58,7 +58,7 @@ namespace ray_tracer {
 	
 	void surface_triangle::set_normal(const vector3D &n0_, const vector3D &n1_, const vector3D &n2_) {
 		n0 = n0_, n1 = n1_, n2 = n2_;
-		smooth_normal = true;
+		normal_interpolate = true;
 	}
 
 	point2D surface_triangle::atUV(shade_context *context_ptr) const {
@@ -80,7 +80,7 @@ namespace ray_tracer {
 	void surface_triangle::betagamma(const point3D &p, double &beta, double &gamma) const {
 		double a = v0.x - p.x, b = __cache[0], c = __cache[1];
 		double d = v0.y - p.y, e = __cache[2], f = __cache[3];
-		
+
 		beta = (a * f - d * c) * __cache[6];
 		gamma = (d * b - a * e) * __cache[6];
 	}

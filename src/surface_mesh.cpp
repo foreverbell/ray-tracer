@@ -13,14 +13,21 @@
 
 namespace ray_tracer {
 	
-	void surface_mesh::add_surface(const surface_triangle &triangle) {
+	surface_mesh::surface_mesh() {
+		nvertices = 0;
+	}
+
+	void surface_mesh::add_surface(const surface_triangle &triangle, int v0, int v1, int v2) {
 		surfaces.push_back(triangle);
 		surfaces.back().set_shading(this);
+		vertex_indices.push_back(std::make_tuple(v0, v1, v2));
+		nvertices = std::max(nvertices, std::max(v0 + 1, std::max(v1 + 1, v2 + 1)));
 	}
 
 	void surface_mesh::setup(int min_split, int max_depth) {
 		std::vector<int> surfaces_indexes, surface_map(surfaces.size());
 		std::vector<surface_triangle> swap_surfaces = surfaces;
+		std::vector<std::tuple<int, int, int> > swap_indices = vertex_indices;
 		int ptr = 0;
 
 		for (size_t i = 0; i < surfaces.size(); ++i) {
@@ -39,11 +46,14 @@ namespace ray_tracer {
 		// TODO: ugly implementation
 		for (size_t i = 0; i < surfaces.size(); ++i) {
 			swap_surfaces[surface_map[i]] = surfaces[i];
+			swap_indices[surface_map[i]] = vertex_indices[i];
 		}
 		surfaces = swap_surfaces;
+		vertex_indices = swap_indices;
 
 		// shrink
 		surfaces.shrink_to_fit();
+		vertex_indices.shrink_to_fit();
 		nodes.shrink_to_fit();
 
 		std::pair<point3D, double> circumsphere = build_circumsphere(0, ptr - 1);
@@ -315,6 +325,29 @@ namespace ray_tracer {
 		}
 	}
 
+	void surface_mesh::interpolate_normal() {
+		std::vector<std::vector<int> > adjacent_faces(nvertices);
+		std::vector<vector3D> ipl_normals(nvertices);
+		int v0, v1, v2;
+
+		for (size_t i = 0; i < vertex_indices.size(); ++i) {
+			std::tie(v0, v1, v2) = vertex_indices[i];
+			adjacent_faces[v0].push_back(i);
+			adjacent_faces[v1].push_back(i);
+			adjacent_faces[v2].push_back(i);
+		}
+		for (int i = 0; i < nvertices; ++i) {
+			for (int face : adjacent_faces[i]) {
+				ipl_normals[i] += surfaces[face].normal;
+			}
+			ipl_normals[i] = ipl_normals[i].normalized();
+		}
+		for (size_t i = 0; i < surfaces.size(); ++i) {
+			std::tie(v0, v1, v2) = vertex_indices[i];
+			surfaces[i].set_normal(ipl_normals[v0], ipl_normals[v1], ipl_normals[v2]);
+		}
+	}
+
 	/* ply mesh */
 	typedef struct Vertex {
 		float x,y,z;             /* the usual 3-space position of a vertex */
@@ -376,7 +409,7 @@ namespace ray_tracer {
 			int nverts = it->first;
 			int *vert_ptr = it->second;
 			for (int i = 1; i < nverts - 1; ++i) {
-				add_surface(surface_triangle(vertices[vert_ptr[0]], vertices[vert_ptr[i]], vertices[vert_ptr[i + 1]]));
+				add_surface(surface_triangle(vertices[vert_ptr[0]], vertices[vert_ptr[i]], vertices[vert_ptr[i + 1]]), vert_ptr[0], vert_ptr[i], vert_ptr[i + 1]);
 			}
 		}
 		setup();
@@ -425,7 +458,7 @@ namespace ray_tracer {
 			for (int j = 1; j < nfaces - 1; ++j) {
 				surface_triangle tri = surface_triangle(vertices[vert_indices[0]], vertices[vert_indices[j]], vertices[vert_indices[j + 1]]);
 				tri.set_normal(normals[vert_indices[0]], normals[vert_indices[j]], normals[vert_indices[j + 1]]);
-				add_surface(tri);
+				add_surface(tri, vert_indices[0], vert_indices[j], vert_indices[j + 1]);
 			}
 		}
 		setup();

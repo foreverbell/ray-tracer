@@ -2,6 +2,7 @@
 #define __SURFACE_MESH_HPP__
 
 #include <vector>
+#include <tuple>
 #include <memory>
 #include <utility>
 #include <algorithm>
@@ -55,14 +56,18 @@ namespace ray_tracer {
 			point3D bb_p1, bb_p2;
 		};
 	public:
+		surface_mesh();
 		intersection_context intersect(const ray &) const;
+		void interpolate_normal();
 	protected:
-		void add_surface(const surface_triangle &);
+		void add_surface(const surface_triangle &, int, int, int);
 		void setup(int = -1, int = -1);
 	private:
 		std::vector<surface_triangle> surfaces;
+		std::vector<std::tuple<int, int, int> > vertex_indices;
 		std::vector<kdtree_node> nodes;
 		int kdtree_root;
+		int nvertices;
 	private:
 		std::pair<point3D, double> build_circumsphere(int, int) const;
 		std::pair<point3D, point3D> build_box(int, int) const;

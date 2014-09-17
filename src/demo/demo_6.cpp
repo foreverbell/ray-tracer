@@ -6,11 +6,11 @@ using namespace ray_tracer;
 void demo_6::set_world() {
 	cam = new camera_pinhole(point3D(-5, -5, 50), point3D(50, 50, 0), vector3D(1, 1, 2.2), atan(2.0), atan(2.0), true);
 
-	surface_fractal_terrain *sterrain = new surface_fractal_terrain(100, 64, 100, 1, 123);
+	surface_fractal_terrain *sterrain = new surface_fractal_terrain(100, 128, 100, 1, 123);
 	sterrain->set_material(new material_matte());
 	sterrain->set_texture(new texture_image(image_file_create("../resource/landscape_texture.bmp")));
 
-	light *l = new light_point(point3D(50, 50, 80), color_white);
+	light *l = new light_point(point3D(50, 50, 25), color_white);
 	l->set_shadow(true);
 
 	wld.set_ambient(color_white / 5);

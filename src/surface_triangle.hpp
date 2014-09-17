@@ -23,7 +23,7 @@ namespace ray_tracer {
 		point3D v0, v1, v2;
 		vector3D n0, n1, n2, normal;
 		point2D uv0, uv1, uv2;
-		bool smooth_normal, hasUV;
+		bool normal_interpolate, hasUV;
 	private:
 		double __cache[8];
 	};
