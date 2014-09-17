@@ -59,7 +59,7 @@ namespace ray_tracer {
 
 		// transformation
 		void set_transform_center(const point3D &);
-		void clear_transform();
+		void reset_transform();
 		void apply_transform(const transform &);
 
 	protected:

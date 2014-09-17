@@ -15,7 +15,7 @@ namespace ray_tracer {
 
 		if (ndoth > 0.0) {
 			ndoth = pow(ndoth, shininess);
-			return colorRGB(ndoth, ndoth, ndoth) * rho;
+			return rho * ndoth;
 		}
 			
 		return color_black;
