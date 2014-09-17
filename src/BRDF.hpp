@@ -9,12 +9,10 @@ namespace ray_tracer {
 
 	class BRDF {
 	public:
-		BRDF(const colorRGB &);
+		virtual ~BRDF() = 0;
 		/** win & wout should be unit vector */
 		virtual colorRGB f(shade_context *, const vector3D &, const vector3D &) const;
 		virtual colorRGB sample_f(shade_context *, const vector3D &) const;
-	protected:
-		colorRGB rho;
 	};
 }
 

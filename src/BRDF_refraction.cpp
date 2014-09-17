@@ -5,7 +5,8 @@
 
 namespace ray_tracer {
 
-	BRDF_refraction::BRDF_refraction(const colorRGB &rho_, double eta_) : BRDF(rho_) { 
+	BRDF_refraction::BRDF_refraction(const colorRGB &rho_, double eta_) {
+		rho = rho_;
 		eta = eta_;
 	}
 

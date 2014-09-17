@@ -7,16 +7,12 @@ namespace ray_tracer {
 
 	class BRDF_phong : public BRDF {
 	public:
-		BRDF_phong(const colorRGB &);
+		BRDF_phong(const colorRGB &, int);
 		colorRGB f(shade_context *, const vector3D &, const vector3D &) const;
-		void set_shininess(const int &);	
 	private:
+		colorRGB rho;
 		int shininess;
 	};
-
-	inline void BRDF_phong::set_shininess(const int &shininess_) {
-		shininess = shininess_;
-	}
 }
 
 #endif

@@ -188,6 +188,12 @@
     <ClCompile Include="skybox.cpp">
       <Filter>bottom-layer\effects</Filter>
     </ClCompile>
+    <ClCompile Include="material_artistic.cpp">
+      <Filter>bottom-layer\material</Filter>
+    </ClCompile>
+    <ClCompile Include="BRDF_artistic.cpp">
+      <Filter>bottom-layer\material\BRDF</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -429,6 +435,12 @@
     </ClInclude>
     <ClInclude Include="skybox.hpp">
       <Filter>bottom-layer\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="material_artistic.hpp">
+      <Filter>bottom-layer\material</Filter>
+    </ClInclude>
+    <ClInclude Include="BRDF_artistic.hpp">
+      <Filter>bottom-layer\material\BRDF</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

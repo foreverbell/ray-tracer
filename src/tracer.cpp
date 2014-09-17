@@ -9,17 +9,13 @@
 namespace ray_tracer {
 
 	colorRGB tracer::light_shade(const light *light_ptr, shade_context *context_ptr, const vector3D &win) const {
-		double temp;
 		vector3D wout;
 
 		context_ptr->light_ptr = light_ptr;
 		if (light_ptr->in_spot(context_ptr) && !light_ptr->in_shadow(context_ptr)) {
 			wout = (-light_ptr->ldir(context_ptr)).normalized();
-			temp = context_ptr->normal * wout;
 
-			if (temp > 0) {
-				return light_ptr->light_shade(context_ptr) * temp * context_ptr->surface_ptr->material_shade(context_ptr, win, wout, false);
-			}
+			return light_ptr->light_shade(context_ptr) * context_ptr->surface_ptr->material_shade(context_ptr, win, wout, false);
 		}
 		return color_black;
 	}
@@ -31,7 +27,12 @@ namespace ray_tracer {
 			const world *world_ptr = context_ptr->world_ptr;
 
 			if (world_ptr->get_intersection(context_ptr)) {
-				return shade(context_ptr);
+				colorRGB color = shade(context_ptr);
+				
+				if (world_ptr->fog_ptr) {
+					color = world_ptr->fog_ptr->fog_blend(context_ptr, world_ptr->camera_ptr->get_eye(), color);
+				}
+				return color;
 			} else {
 				return world_ptr->get_background(context_ptr);
 			}
@@ -51,9 +52,7 @@ namespace ray_tracer {
 		}
 		result += context_ptr->surface_ptr->material_shade(context_ptr, win, vector3D(0, 0, 0), true);
 		result = result * context_ptr->surface_ptr->texture_shade(context_ptr);
-		if (world_ptr->fog_ptr) {
-			result = world_ptr->fog_ptr->fog_blend(context_ptr, world_ptr->camera_ptr->get_eye(), result);
-		}
+
 		return result;
 	}
 }

@@ -5,7 +5,9 @@
 
 namespace ray_tracer {
 
-	BRDF_reflection::BRDF_reflection(const colorRGB &rho_) : BRDF(rho_) { }
+	BRDF_reflection::BRDF_reflection(const colorRGB &rho_) {
+		rho = rho_;
+	}
 
 	colorRGB BRDF_reflection::sample_f(shade_context *context_ptr, const vector3D &win) const {
 		shade_context info = *context_ptr;

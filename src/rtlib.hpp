@@ -32,6 +32,7 @@
 #include "material_matte.hpp"
 #include "material_mirror.hpp"
 #include "material_transparent.hpp"
+#include "material_artistic.hpp"
 /// }}}
 
 /// {{{ headers for surface

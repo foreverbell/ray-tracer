@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\ply-1.1\plyfile.c" />
+    <ClCompile Include="BRDF_artistic.cpp" />
     <ClCompile Include="BRDF_refraction.cpp" />
     <ClCompile Include="convexhull.cpp" />
     <ClCompile Include="demo\demo_1.cpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="demo\demo_7.cpp" />
     <ClCompile Include="hilbertcurve.cpp" />
     <ClCompile Include="light_parallel.cpp" />
+    <ClCompile Include="material_artistic.cpp" />
     <ClCompile Include="material_transparent.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="BRDF.cpp" />
@@ -139,11 +141,13 @@
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="tracer.cpp" />
     <ClCompile Include="surface_sphere.cpp" />
+    <ClInclude Include="BRDF_artistic.hpp" />
     <ClInclude Include="BRDF_refraction.hpp" />
     <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
     <ClInclude Include="hilbertcurve.hpp" />
     <ClInclude Include="light_parallel.hpp" />
+    <ClInclude Include="material_artistic.hpp" />
     <ClInclude Include="material_transparent.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="BRDF.hpp" />

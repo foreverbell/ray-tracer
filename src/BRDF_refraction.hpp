@@ -10,6 +10,7 @@ namespace ray_tracer {
 		BRDF_refraction(const colorRGB &, double);
 		colorRGB sample_f(shade_context *, const vector3D &) const;
 	private:
+		colorRGB rho;
 		double eta;
 	};
 }

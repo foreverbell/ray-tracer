@@ -9,6 +9,8 @@ namespace ray_tracer {
 	public:
 		BRDF_lambertian(const colorRGB &);
 		colorRGB f(shade_context *, const vector3D &, const vector3D &) const;
+	private:
+		colorRGB rho;
 	};
 }
 

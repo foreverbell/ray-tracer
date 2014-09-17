@@ -15,7 +15,7 @@ namespace ray_tracer {
 		sampler_ptr = sampler_default_instance;
 		fog_ptr = nullptr;
 		skybox_ptr = nullptr;
-		silhouette = false;
+		slhtt_radius = 0;
 		set_ambient(color_white / 5);
 	}
 
@@ -141,7 +141,7 @@ namespace ray_tracer {
 			color = color.clampRGB();
 
 			/* Samples for silhouette. */
-			if (msurface_ptr != nullptr && silhouette) {
+			if (msurface_ptr != nullptr && slhtt_radius != 0) {
 				int nsurfaces = 0;
 
 				for (int i = 0; i < nsamples; i += 1) {
@@ -150,7 +150,7 @@ namespace ray_tracer {
 
 					sam_iter.next_sampler();
 					spoint = sam_iter.get_sampler_unit(sampler_set_antialising);
-					if (camera_ptr->get_ray(x + 0.5 + (spoint.x - 0.5) * 2.5, y + 0.5 + (spoint.y - 0.5) * 2.5, dest_w, dest_h, &info.emission_ray, &info)) {
+					if (camera_ptr->get_ray(x + 0.5 + (spoint.x - 0.5) * slhtt_radius, y + 0.5 + (spoint.y - 0.5) * slhtt_radius, dest_w, dest_h, &info.emission_ray, &info)) {
 						double t;
 
 						if (msurface_ptr->transformed) {

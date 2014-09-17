@@ -14,15 +14,10 @@ namespace ray_tracer {
 		material_phong();
 		material_phong(const colorRGB &, const colorRGB &, int);
 		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
-		void set_specular_shininess(const int &);
 	private:
 		std::unique_ptr<BRDF_lambertian> diffuse_ptr;
 		std::unique_ptr<BRDF_phong> specular_ptr;
 	};
-
-	inline void material_phong::set_specular_shininess(const int &shininess_) {
-		specular_ptr->set_shininess(shininess_);
-	}
 }
 
 #endif

@@ -5,17 +5,19 @@
 
 namespace ray_tracer {
 
-	BRDF_phong::BRDF_phong(const colorRGB &rho_) : BRDF(rho_) { }
+	BRDF_phong::BRDF_phong(const colorRGB &rho_, int shininess_) {
+		rho = rho_;
+		shininess = shininess_;
+	}
 
 	colorRGB BRDF_phong::f(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
-		double temp;
+		double ndoth = context_ptr->normal * (win + wout).normalized();
 
-		temp = context_ptr->normal * (win + wout).normalized();
-		if (temp > 0.0) {
-			temp = pow(temp, shininess);
-			return colorRGB(temp, temp, temp) * rho;
-		} else {
-			return color_black;
+		if (ndoth > 0.0) {
+			ndoth = pow(ndoth, shininess);
+			return colorRGB(ndoth, ndoth, ndoth) * rho;
 		}
+			
+		return color_black;
 	}
 }

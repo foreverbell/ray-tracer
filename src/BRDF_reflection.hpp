@@ -9,6 +9,8 @@ namespace ray_tracer {
 	public:
 		BRDF_reflection(const colorRGB &);
 		colorRGB sample_f(shade_context *, const vector3D &) const;
+	private:
+		colorRGB rho;
 	};
 }
 
