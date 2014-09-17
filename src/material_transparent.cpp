@@ -14,7 +14,7 @@ namespace ray_tracer {
 		refraction_ptr = std::unique_ptr<BRDF_refraction>(new BRDF_refraction(rho2, eta));
 	}
 
-	colorRGB material_transparent::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
+	colorRGB material_transparent::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
 		return reflection_ptr->sample_f(context_ptr, win) + refraction_ptr->sample_f(context_ptr, win);
 	}
 }

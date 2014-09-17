@@ -81,11 +81,11 @@ namespace ray_tracer {
 		transform_matrix = matrix_ * transform_matrix;
 	}
 
-	colorRGB surface::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
+	colorRGB surface::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
 		if (shading_ptr != nullptr) {
-			return shading_ptr->material_shade(context_ptr, win, wout, sample_only);
+			return shading_ptr->material_shade(context_ptr, win, wout);
 		} else {
-			return material_ptr->material_shade(context_ptr, win, wout, sample_only);
+			return material_ptr->material_shade(context_ptr, win, wout);
 		}
 	}
 

@@ -12,10 +12,7 @@ namespace ray_tracer {
 		artistic_ptr = std::unique_ptr<BRDF_artistic>(new BRDF_artistic(warm, cool));
 	}
 
-	colorRGB material_artistic::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
-		if (!sample_only) {
-			return artistic_ptr->f(context_ptr, win, wout);
-		}
-		return color_black;
+	colorRGB material_artistic::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
+		return artistic_ptr->f(context_ptr, win, wout);
 	}
 }

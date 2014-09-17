@@ -12,7 +12,7 @@ namespace ray_tracer {
 	public:
 		material_artistic();
 		material_artistic(const colorRGB &, const colorRGB &);
-		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
+		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &) const;
 	private:
 		std::unique_ptr<BRDF_artistic> artistic_ptr;
 	};

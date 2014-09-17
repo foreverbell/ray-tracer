@@ -14,10 +14,7 @@ namespace ray_tracer {
 		specular_ptr = std::unique_ptr<BRDF_phong>(new BRDF_phong(specular_rho_, shininess_));
 	}
 
-	colorRGB material_phong::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
-		if (!sample_only) {
-			return diffuse_ptr->f(context_ptr, win, wout) + specular_ptr->f(context_ptr, win, wout);
-		}
-		return color_black;
+	colorRGB material_phong::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
+		return diffuse_ptr->f(context_ptr, win, wout) + specular_ptr->f(context_ptr, win, wout);
 	}
 }

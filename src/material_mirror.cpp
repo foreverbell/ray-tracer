@@ -14,10 +14,7 @@ namespace ray_tracer {
 		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(rho2));
 	}
 
-	colorRGB material_mirror::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout, bool sample_only) const {
-		if (!sample_only) {
-			return reflection_ptr->sample_f(context_ptr, win) + diffuse_ptr->f(context_ptr, win, wout);
-		}
-		return reflection_ptr->sample_f(context_ptr, win);
+	colorRGB material_mirror::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
+		return reflection_ptr->sample_f(context_ptr, win) + diffuse_ptr->f(context_ptr, win, wout);
 	}
 }

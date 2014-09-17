@@ -13,7 +13,7 @@ namespace ray_tracer {
 	public:
 		material_transparent();
 		material_transparent(const colorRGB &, const colorRGB &, double);
-		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
+		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &) const;
 	private:
 		std::unique_ptr<BRDF_reflection> reflection_ptr;
 		std::unique_ptr<BRDF_refraction> refraction_ptr;

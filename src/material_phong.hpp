@@ -13,7 +13,7 @@ namespace ray_tracer {
 	public:
 		material_phong();
 		material_phong(const colorRGB &, const colorRGB &, int);
-		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &, bool) const;
+		colorRGB material_shade(shade_context *, const vector3D &, const vector3D &) const;
 	private:
 		std::unique_ptr<BRDF_lambertian> diffuse_ptr;
 		std::unique_ptr<BRDF_phong> specular_ptr;

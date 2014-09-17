@@ -14,7 +14,7 @@ void demo_4::set_world() {
 	sbunny->apply_transform(transform_scale(0.07, 0.07, 0.07));
 	sbunny->apply_transform(transform_rotate('y', pi));
 	sbunny->apply_transform(transform_translate(0, -3, 0));
-	sbunny->set_material(new material_transparent(color_white / 2, color_white / 2, 1.0));
+	sbunny->set_material(new material_transparent(color_white / 1.2, color_white / 1.2, 1.0));
 	sbunny->set_texture(new texture_solid(color_silver));
 
 	light *l = new light_point(point3D(0, 10, -20), color_white);

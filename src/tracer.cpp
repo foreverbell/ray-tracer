@@ -15,7 +15,7 @@ namespace ray_tracer {
 		if (light_ptr->in_spot(context_ptr) && !light_ptr->in_shadow(context_ptr)) {
 			wout = (-light_ptr->ldir(context_ptr)).normalized();
 
-			return light_ptr->light_shade(context_ptr) * context_ptr->surface_ptr->material_shade(context_ptr, win, wout, false);
+			return light_ptr->light_shade(context_ptr) * context_ptr->surface_ptr->material_shade(context_ptr, win, wout);
 		}
 		return color_black;
 	}
@@ -50,7 +50,6 @@ namespace ray_tracer {
 		for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
 			result += light_shade(*iter, context_ptr, win);
 		}
-		result += context_ptr->surface_ptr->material_shade(context_ptr, win, vector3D(0, 0, 0), true);
 		result = result * context_ptr->surface_ptr->texture_shade(context_ptr);
 
 		return result;
