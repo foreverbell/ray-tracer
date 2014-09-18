@@ -22,7 +22,7 @@ void demo_1::set_world() {
 
 	s3 = new surface_plane(point3D(0, 0, -3), vector3D(0, 0, 1));
 	s3->set_material(new material_matte());
-	s3->set_texture(new texture_checker());
+	s3->set_texture(new texture_checker(4, true));
 
 	surface_glteapot *s7 = new surface_glteapot();
 	s7->apply_transform(transform_translate(-3, -3, 0));

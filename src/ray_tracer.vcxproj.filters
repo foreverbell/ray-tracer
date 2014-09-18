@@ -71,23 +71,8 @@
     <ClCompile Include="image_bmp.cpp">
       <Filter>bottom-layer\image\bmp</Filter>
     </ClCompile>
-    <ClCompile Include="surface_disk.cpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_plane.cpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_triangle.cpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_sphere.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="convexhull.cpp">
       <Filter>bottom-layer\utility</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_regpolyhedron.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
     <ClCompile Include="vector3D.cpp">
       <Filter>bottom-layer\basis\vector</Filter>
@@ -125,9 +110,6 @@
     <ClCompile Include="texture_solid.cpp">
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
-    <ClCompile Include="surface_glteapot.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\lib\ply-1.1\plyfile.c">
       <Filter>ply</Filter>
     </ClCompile>
@@ -152,20 +134,11 @@
     <ClCompile Include="transform.cpp">
       <Filter>bottom-layer\basis\transform</Filter>
     </ClCompile>
-    <ClCompile Include="surface_mobius.cpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClCompile>
     <ClCompile Include="demo\demo_5.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="surface_fractal_terrain.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
     <ClCompile Include="demo\demo_6.cpp">
       <Filter>demo</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_csg.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
     <ClCompile Include="demo\demo_7.cpp">
       <Filter>demo</Filter>
@@ -173,17 +146,8 @@
     <ClCompile Include="light_parallel.cpp">
       <Filter>bottom-layer\light</Filter>
     </ClCompile>
-    <ClCompile Include="surface_quadratic.cpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClCompile>
     <ClCompile Include="hilbertcurve.cpp">
       <Filter>bottom-layer\utility</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_mesh.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="surface_convexhull.cpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClCompile>
     <ClCompile Include="skybox.cpp">
       <Filter>bottom-layer\effects</Filter>
@@ -193,6 +157,36 @@
     </ClCompile>
     <ClCompile Include="BRDF_artistic.cpp">
       <Filter>bottom-layer\material\BRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_mobius.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_convexhull.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_csg.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_fractal_terrain.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_glteapot.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_mesh.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_quadratic.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_regpolyhedron.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_sphere.cpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_flat.cpp">
+      <Filter>bottom-layer\surface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,12 +213,6 @@
     </Filter>
     <Filter Include="bottom-layer\image\bmp">
       <UniqueIdentifier>{12e07f55-8598-48e7-9185-46815f8cb73f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\surface\2D">
-      <UniqueIdentifier>{00225c6a-7be4-417e-bc7b-540d0ef81914}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\surface\3D">
-      <UniqueIdentifier>{46aceede-5a6c-4125-89f3-1deb9dcf4e8c}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\basis\vector">
       <UniqueIdentifier>{56c7ab71-2843-4e17-a890-3616856a2981}</UniqueIdentifier>
@@ -333,23 +321,8 @@
     <ClInclude Include="image_bmp.hpp">
       <Filter>bottom-layer\image\bmp</Filter>
     </ClInclude>
-    <ClInclude Include="surface_disk.hpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_plane.hpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_triangle.hpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_sphere.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
     <ClInclude Include="convexhull.hpp">
       <Filter>bottom-layer\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_regpolyhedron.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
     <ClInclude Include="vector3D.hpp">
       <Filter>bottom-layer\basis\vector</Filter>
@@ -387,9 +360,6 @@
     <ClInclude Include="texture_solid.hpp">
       <Filter>bottom-layer\texture</Filter>
     </ClInclude>
-    <ClInclude Include="surface_glteapot.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
     <ClInclude Include="demo\demo.hpp">
       <Filter>demo</Filter>
     </ClInclude>
@@ -406,32 +376,14 @@
     <ClInclude Include="transform.hpp">
       <Filter>bottom-layer\basis\transform</Filter>
     </ClInclude>
-    <ClInclude Include="surface_mobius.hpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_fractal_terrain.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
     <ClInclude Include="miscellaneous.hpp">
       <Filter>bottom-layer\basis</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_csg.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
     <ClInclude Include="light_parallel.hpp">
       <Filter>bottom-layer\light</Filter>
     </ClInclude>
-    <ClInclude Include="surface_quadratic.hpp">
-      <Filter>bottom-layer\surface\2D</Filter>
-    </ClInclude>
     <ClInclude Include="hilbertcurve.hpp">
       <Filter>bottom-layer\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_convexhull.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="surface_mesh.hpp">
-      <Filter>bottom-layer\surface\3D</Filter>
     </ClInclude>
     <ClInclude Include="skybox.hpp">
       <Filter>bottom-layer\effects</Filter>
@@ -441,6 +393,36 @@
     </ClInclude>
     <ClInclude Include="BRDF_artistic.hpp">
       <Filter>bottom-layer\material\BRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_mobius.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_convexhull.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_csg.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_fractal_terrain.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_glteapot.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_mesh.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_quadratic.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_regpolyhedron.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_sphere.hpp">
+      <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="surface_flat.hpp">
+      <Filter>bottom-layer\surface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

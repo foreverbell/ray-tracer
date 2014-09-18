@@ -7,8 +7,7 @@
 #include <utility>
 #include <algorithm>
 #include "surface.hpp"
-#include "surface_triangle.hpp"
-#include "surface_plane.hpp"
+#include "surface_flat.hpp"
 #include "surface_sphere.hpp"
 
 namespace ray_tracer {

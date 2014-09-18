@@ -1,12 +1,33 @@
-#ifndef __SURFACE_TRIANGLE_HPP__
-#define __SURFACE_TRIANGLE_HPP__
+#ifndef __SURFACE_FLAT_HPP__
+#define __SURFACE_FLAT_HPP__
 
 #include "surface.hpp"
-#include "point3D.hpp"
-#include "vector3D.hpp"
-#include "point2D.hpp"
 
 namespace ray_tracer {
+
+	class surface_plane : public surface {
+		friend class surface_mesh;
+	public:
+		surface_plane(const point3D &, const vector3D &);
+		intersection_context intersect(const ray &) const;
+		vector3D atnormal(const point3D &) const;
+	protected:
+		point3D base;
+		vector3D normal;
+	};
+
+	class surface_disk : public surface {
+	public:
+		surface_disk(const point3D &, const vector3D &, double);
+		intersection_context intersect(const ray &) const;
+		vector3D atnormal(const point3D &) const;
+	private:
+		point3D center;
+		vector3D normal;
+		double radius;
+	private:
+		double __radius2;
+	};
 
 	class surface_triangle : public surface {
 		friend class surface_mesh;

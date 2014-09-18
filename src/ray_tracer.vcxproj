@@ -127,15 +127,13 @@
     <ClCompile Include="point2D.cpp" />
     <ClCompile Include="point3D.cpp" />
     <ClCompile Include="sampler.cpp" />
-    <ClCompile Include="surface_disk.cpp" />
-    <ClCompile Include="surface_triangle.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="texture_checker.cpp" />
     <ClCompile Include="texture_solid.cpp" />
     <ClCompile Include="ray.cpp" />
     <ClCompile Include="colorRGB.cpp" />
     <ClCompile Include="surface.cpp" />
-    <ClCompile Include="surface_plane.cpp" />
+    <ClCompile Include="surface_flat.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
@@ -184,8 +182,7 @@
     <ClInclude Include="point2D.hpp" />
     <ClInclude Include="point3D.hpp" />
     <ClInclude Include="sampler.hpp" />
-    <ClInclude Include="surface_disk.hpp" />
-    <ClInclude Include="surface_plane.hpp" />
+    <ClInclude Include="surface_flat.hpp" />
     <ClInclude Include="surface_sphere.hpp" />
     <ClInclude Include="surface.hpp" />
     <ClCompile Include="world.cpp" />
@@ -193,7 +190,6 @@
   <ItemGroup>
     <ClInclude Include="light_point.hpp" />
     <ClInclude Include="miscellaneous.hpp" />
-    <ClInclude Include="surface_triangle.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="texture_checker.hpp" />
     <ClInclude Include="texture_image.hpp" />

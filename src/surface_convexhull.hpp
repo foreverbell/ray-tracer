@@ -2,7 +2,6 @@
 #define __SURFACE_CONVEXHULL_HPP__
 
 #include "surface.hpp"
-#include "surface_triangle.hpp"
 #include "surface_mesh.hpp"
 #include "convexhull.hpp"
 #include <vector>

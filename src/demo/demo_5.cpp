@@ -8,7 +8,7 @@ void demo_5::set_world() {
 
 	surface_plane *splane = new surface_plane(point3D(10, 0, -10), vector3D(0, 0, 1));
 	splane->set_material(new material_matte());
-	splane->set_texture(new texture_checker());
+	splane->set_texture(new texture_checker(4.0, true));
 
 	surface_mobius *smobius = new surface_mobius(5, 1);
 	smobius->set_material(new material_matte());

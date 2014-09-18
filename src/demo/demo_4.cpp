@@ -8,7 +8,7 @@ void demo_4::set_world() {
 
 //	surface_plane *splane = new surface_plane(point3D(0, -10, 0), vector3D(0, 1, 0));
 //	splane->set_material(new material_matte());
-//	splane->set_texture(new texture_checker());
+//	splane->set_texture(new texture_checker(4.0, true));
 
 	surface_mesh *sbunny = new surface_noffmesh("../resource/bunny.noff");
 	sbunny->apply_transform(transform_scale(0.07, 0.07, 0.07));

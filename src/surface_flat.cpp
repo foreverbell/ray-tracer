@@ -1,9 +1,52 @@
 
 #include "ray.hpp"
-#include "surface_triangle.hpp"
+#include "surface_flat.hpp"
 
 namespace ray_tracer {
 
+	surface_plane::surface_plane(const point3D &base_, const vector3D &normal_) {
+		base = base_;
+		normal = normal_.normalized();
+	}
+
+	intersection_context surface_plane::intersect(const ray &emission_ray) const {
+		double deno = normal * emission_ray.dir;
+
+		if (dblsgn(deno) == 0) {
+			return null_intersect;
+		}
+		return intersection_context((base - emission_ray.origin) * normal / deno);
+	}
+
+	vector3D surface_plane::atnormal(const point3D &point) const {
+		return normal;
+	}
+
+	surface_disk::surface_disk(const point3D &center_, const vector3D &normal_, double radius_) {
+		center = center_;
+		normal = normal_.normalized();
+		radius = radius_;
+		__radius2 = radius_ * radius_;
+	}
+
+	intersection_context surface_disk::intersect(const ray &emission_ray) const {
+		double deno = normal * emission_ray.dir;
+		double t = (center - emission_ray.origin) * normal / deno;
+		point3D p;
+
+		if (dblsgn(deno) == 0) {
+			return null_intersect;
+		}
+		p = emission_ray.at(t);
+		if ((center - p).length2() > __radius2) {
+			return null_intersect;
+		}
+		return intersection_context(t);
+	}
+
+	vector3D surface_disk::atnormal(const point3D &point) const {
+		return normal;
+	}
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
 		v0 = v0_, v1 = v1_, v2 = v2_;
 		normal = ((v1 - v0) ^ (v2 - v0)).normalized();

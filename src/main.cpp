@@ -13,7 +13,9 @@
 
 using namespace ray_tracer;
 
-const int width = 350, height = 350, max_thread_count = 4;
+const int width = 350, height = 350;
+const int max_thread_count = 4;
+const int demo_id = 4;
 
 void render(world *world, SDL_Surface *screen) {
 	if (SDL_MUSTLOCK(screen)) {
@@ -55,7 +57,6 @@ int main(int argc, char *argv[]) {
 	}
 	
 	auto clock = []() -> std::chrono::system_clock::time_point { return std::chrono::high_resolution_clock::now(); };
-	int demo_id = 4;
 	std::vector<demo *> demos = { 
 		new demo_1(),
 		new demo_2(),
