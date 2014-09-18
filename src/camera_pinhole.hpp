@@ -13,7 +13,7 @@ namespace ray_tracer {
 		camera_pinhole(const point3D &, const point3D &, const vector3D &, double, double, bool);
 		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:
-		double fov_u, fov_v, tan_fov_u_coef, tan_fov_v_coef;
+		double u_fov, v_fov;
 		bool spherical;
 	};
 }

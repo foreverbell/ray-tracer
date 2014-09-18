@@ -6,11 +6,9 @@
 
 namespace ray_tracer {
 
-	camera_pinhole::camera_pinhole(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double fov_u_, double fov_v_, bool spherical_) : camera(eye_, lookat_, up_) {
-		fov_u = fov_u_;
-		fov_v = fov_v_;
-		tan_fov_u_coef = 2 * tan(fov_u);
-		tan_fov_v_coef = 2 * tan(fov_v);
+	camera_pinhole::camera_pinhole(const point3D &eye_, const point3D &lookat_, const vector3D &up_, double u_fov_, double v_fov_, bool spherical_) : camera(eye_, lookat_, up_) {
+		u_fov = u_fov_;
+		v_fov = v_fov_;
 		spherical = spherical_;
 	}
 	
@@ -18,12 +16,12 @@ namespace ray_tracer {
 		double u, v, w;
 		
 		if (!spherical) {
-			u = (x / width - 0.5) * tan_fov_u_coef;
-			v = (y / height - 0.5) * tan_fov_v_coef;
+			u = tan((x / width - 0.5) * u_fov * 2);
+			v = tan((y / height - 0.5) * v_fov * 2);
 			w = -1;
 		} else {
-			double alpha = pi - (x / width - 0.5) * 2 * fov_u;
-			double beta = pi / 2 - (y / height - 0.5) * 2 * fov_v;
+			double alpha = pi - (x / width - 0.5) * 2 * u_fov;
+			double beta = pi / 2 - (y / height - 0.5) * 2 * v_fov;
 		
 			u = sin(beta) * sin(alpha);
 			v = cos(beta);

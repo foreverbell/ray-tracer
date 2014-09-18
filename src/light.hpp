@@ -28,7 +28,7 @@ namespace ray_tracer {
 		bool shadow_enabled, spot_enabled;
 		// spot
 		vector3D spot_direction;
-		double spot_cutoff, spot_cos_cutoff;
+		double spot_cutoff, __cos_cutoff;
 		int spot_exponent;
 	};
 
@@ -48,8 +48,8 @@ namespace ray_tracer {
 		spot_enabled = enabled_;
 		spot_direction = direction_.normalized();
 		spot_cutoff = cutoff_;
-		spot_cos_cutoff = cos(spot_cutoff);
 		spot_exponent = exponent_;
+		__cos_cutoff = cos(spot_cutoff);
 	}
 }
 

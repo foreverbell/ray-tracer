@@ -111,7 +111,7 @@
       <Filter>bottom-layer\texture</Filter>
     </ClCompile>
     <ClCompile Include="..\lib\ply-1.1\plyfile.c">
-      <Filter>ply</Filter>
+      <Filter>3rd-party\ply</Filter>
     </ClCompile>
     <ClCompile Include="demo\demo_1.cpp">
       <Filter>demo</Filter>
@@ -226,9 +226,6 @@
     <Filter Include="bottom-layer\trace">
       <UniqueIdentifier>{e31b9200-ea72-4b4b-89d2-2561a1d3c5d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ply">
-      <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="bottom-layer\material">
       <UniqueIdentifier>{022ba66c-2681-41d1-89ad-9f74a90b16b5}</UniqueIdentifier>
     </Filter>
@@ -249,6 +246,12 @@
     </Filter>
     <Filter Include="bottom-layer\basis\sampler">
       <UniqueIdentifier>{8a448816-b8d4-4135-9c04-6f8643151816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd-party">
+      <UniqueIdentifier>{7899aa6b-1bcd-4d50-b3f8-7d4a1b8de673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd-party\ply">
+      <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

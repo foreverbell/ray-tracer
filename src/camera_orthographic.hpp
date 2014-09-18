@@ -13,7 +13,7 @@ namespace ray_tracer {
 		camera_orthographic(const point3D &, const point3D &, const vector3D &, double, double);
 		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:
-		double fov_u, fov_v;
+		double u_fov, v_fov;
 	};
 }
 

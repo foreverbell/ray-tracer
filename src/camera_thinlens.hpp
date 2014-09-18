@@ -14,7 +14,7 @@ namespace ray_tracer {
 		bool get_ray(double, double, int, int, ray *, shade_context *) const;
 	private:
 		double focal_dist, lens_radius;
-		double fov_u, fov_v, tan_fov_u_coef, tan_fov_v_coef;
+		double u_fov, v_fov;
 		bool spherical;
 	};
 }

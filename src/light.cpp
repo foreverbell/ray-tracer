@@ -48,7 +48,7 @@ namespace ray_tracer {
 
 	bool light::in_spot(shade_context *context_ptr) const {
 		if (spot_enabled) {
-			return ((context_ptr->intersect_p - position).normalized() * spot_direction) > spot_cos_cutoff;
+			return ((context_ptr->intersect_p - position).normalized() * spot_direction) > __cos_cutoff;
 		} else {
 			return true;
 		}

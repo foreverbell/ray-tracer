@@ -7,8 +7,6 @@
 
 namespace ray_tracer {
 
-	class world;
-
 	class tracer {
 	public:	
 		colorRGB trace_ray(shade_context *context_ptr) const; 
