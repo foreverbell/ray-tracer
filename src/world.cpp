@@ -71,7 +71,7 @@ namespace ray_tracer {
 		context_ptr->fsurface_ptr = fsurface_ptr;
 		context_ptr->intersect_p = context_ptr->emission_ray.at(context_ptr->intersect_t);
 		context_ptr->intersect_rp = context_ptr->emission_ray.inv_transform(fsurface_ptr).at(context_ptr->intersect_t);
-		context_ptr->normal = (fsurface_ptr->transform_matrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
+		context_ptr->normal = (fsurface_ptr->tranmatrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
 		
 		if (flag & surface_flag_revert_normal) {
 			context_ptr->normal = -context_ptr->normal;

@@ -23,6 +23,6 @@ namespace ray_tracer {
 	}
 
 	ray ray::inv_transform(const surface *surface_ptr) const {
-		return inv_transform(surface_ptr->transform_matrix, surface_ptr->transform_center);
+		return inv_transform(surface_ptr->tranmatrix, surface_ptr->trancenter);
 	}
 }

@@ -58,7 +58,7 @@ namespace ray_tracer {
 		virtual point2D atUV(shade_context *) const;
 
 		// transformation
-		void set_transform_center(const point3D &);
+		void set_trancenter(const point3D &);
 		void apply_transform(const transform &);
 
 	protected:
@@ -74,8 +74,8 @@ namespace ray_tracer {
 
 		// transformation
 		bool transformed;
-		point3D transform_center;
-		transform transform_matrix;
+		point3D trancenter;
+		transform tranmatrix;
 
 	private:
 		// bounding sphere & box

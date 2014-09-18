@@ -12,8 +12,8 @@ namespace ray_tracer {
 		texture_ptr = nullptr;
 		
 		transformed = false;
-		transform_center = point3D(0, 0, 0);
-		transform_matrix = transform();
+		trancenter = point3D(0, 0, 0);
+		tranmatrix = transform();
 	}
 
 	surface::~surface() { }
@@ -68,13 +68,13 @@ namespace ray_tracer {
 		return point2D(0, 0);
 	}
 
-	void surface::set_transform_center(const point3D &center_) {
-		transform_center = center_;
+	void surface::set_trancenter(const point3D &center_) {
+		trancenter = center_;
 	}
 
 	void surface::apply_transform(const transform &matrix_) {
 		transformed = true;
-		transform_matrix = matrix_ * transform_matrix;
+		tranmatrix = matrix_ * tranmatrix;
 	}
 
 	colorRGB surface::material_shade(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
