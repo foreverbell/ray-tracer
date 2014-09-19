@@ -20,7 +20,7 @@ void demo_2::set_world() {
 	//s->apply_transform(transform_rotate(point3D(0, 0, 0), vector3D(-10, 0, 0), -pi / 18));
 	
 	m = new material_matte(color_white);
-	t = new texture_image("../resource/earth_texture.bmp");
+	t = new texture_image("../resource/earth_texture.png");
 	s->set_material(m);
 	s->set_texture(t);
 

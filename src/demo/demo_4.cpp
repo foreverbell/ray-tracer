@@ -25,7 +25,7 @@ void demo_4::set_world() {
 	wld.set_camera(cam);
 //	wld.set_fog(new fog(0.01, 1, color_white));
 //	wld.add_surface(splane);
-	wld.set_skybox(new skybox("../resource/sunset-skybox/front.bmp", "../resource/sunset-skybox/back.bmp", "../resource/sunset-skybox/left.bmp", "../resource/sunset-skybox/right.bmp", "../resource/sunset-skybox/top.bmp", "../resource/sunset-skybox/bottom.bmp"));
+	wld.set_skybox(new skybox("../resource/sunset-skybox/front.png", "../resource/sunset-skybox/back.png", "../resource/sunset-skybox/left.png", "../resource/sunset-skybox/right.png", "../resource/sunset-skybox/top.png", "../resource/sunset-skybox/bottom.png"));
 	wld.add_surface(sbunny);
 	wld.add_light(l);
 }
