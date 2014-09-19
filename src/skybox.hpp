@@ -19,11 +19,15 @@ namespace ray_tracer {
 		// 3142
 		//  6
 		skybox(fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t);
+		skybox(fname_ptr_t);
 		colorRGB skybox_shade(shade_context *) const;
 	private:
+		std::shared_ptr<image> texture_union_ptr;
 		std::shared_ptr<image> texture_front_ptr, texture_back_ptr;
 		std::shared_ptr<image> texture_left_ptr, texture_right_ptr;
 		std::shared_ptr<image> texture_top_ptr, texture_bottom_ptr;
+
+		image *texture_ptr[6];
 	};
 }
 

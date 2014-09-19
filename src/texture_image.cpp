@@ -13,8 +13,8 @@ namespace ray_tracer {
 		point2D coord = context_ptr->surface_ptr->atUV(context_ptr);
 		int x, y;
 
-		x = (int) ((image_ptr->get_width() - 1) * coord.x);
-		y = (int) ((image_ptr->get_height() - 1) * coord.y);
+		x = (int) floor(0.5 + (image_ptr->get_width() - 1) * coord.x);
+		y = (int) floor(0.5 + (image_ptr->get_height() - 1) * coord.y);
 		return image_ptr->get_color(x, y);
 	}
 }
