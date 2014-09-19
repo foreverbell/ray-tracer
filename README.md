@@ -2,21 +2,21 @@
 
 This is a tiny ray tracer, rendering scene purely using CPU.
 
-It uses the `SDL` to present the image to users. (See http://www.libsdl.org/)
+It uses the `SDL` to present the image to users. (See http://www.libsdl.org)
 
 # Compiling
 
-Firstly, you should retrieve the resources from another repository https://github.com/foreverbell/miscellaneous/, or execute the `initialize.py` in the root folder.
+Firstly, you should retrieve the resources from another repository https://github.com/foreverbell/miscellaneous, or execute the `initialize.py` in the root folder.
 
 ## Under Windows
 
-Microsoft Visual C++ 2013 is currently supported. To compile, please open the respective project file in the root folder. We already provide `SDL.dll` in the root folder and the SDL library in the folder `SDL-1.2.15`.
+Microsoft Visual C++ 2013 is currently supported. To compile, please open the respective project file in the root folder. We already provide `SDL.dll` in the root folder and the SDL library in the folder `lib/SDL-1.2.15`.
 
-Please, switch to the `Release` mode to improve the efficiency of the program.
+**N.B.** Switch to the `Release` mode to improve the efficiency of the program.
 
 ## Under Linux
 
-To compile, please type `make` in the folder `/src`, then the file `rt` will be generated in this folder. You should have the SDL library installed first. (You can download SDL library from http://www.libsdl.org/download-1.2.php)
+Firstly, install SDL library from http://www.libsdl.org/download-1.2.php, then execute command `make` in the folder `/src`, then the file `rt` will be generated in this folder.
 
 # Demos
 
@@ -43,3 +43,11 @@ And the followings are several images rendered by our program.
 Ray Tracing from the Ground Up (2007)
 
 Fundamentals of Computer Graphics (2009)
+
+# 3rd-parties
+
+SDL-1.2.15: http://www.libsdl.org
+
+ply-1.1: http://graphics.stanford.edu/pub/zippack/ply-1.1.tar.Z
+
+lodepng: http://lodev.org/lodepng
