@@ -21,6 +21,7 @@ LODEPNG_DIR = ../lib/lodepng
 OBJECTS  = $(patsubst %.cpp, %.o, $(SOURCE_FILES)) 
 # Extra object files
 OBJECTS += $(PLY_DIR)/plyfile.o
+OBJECTS += $(LODEPNG_DIR)/lodepng.o
 
 # Make $(PROJECT) the default target
 all: $(PROJECT)

@@ -3,8 +3,9 @@
 #include "image_bmp.hpp"
 #include "image_png.hpp"
 #include "miscellaneous.hpp"
-#include <cstdio>
 #include <memory>
+#include <cstring>
+#include <cstdlib>
 
 namespace ray_tracer {
 
@@ -25,8 +26,13 @@ namespace ray_tracer {
 
 		if (ptr >= file) {
 			char *suffix_ptr = strdup(ptr + 1);
+			size_t len = strlen(suffix_ptr);
 
-			suffix_ptr = strlwr(suffix_ptr);
+			for (size_t i = 0; i < len; ++i) {
+				if (suffix_ptr[i] >= 'A' && suffix_ptr[i] <= 'Z') {
+					suffix_ptr[i] = suffix_ptr[i] - 'A' + 'a';
+				}
+			}
 			if (strcmp(suffix_ptr, "bmp") == 0) {
 				image_ptr = new image_bmp();
 			} else if (strcmp(suffix_ptr, "png") == 0) {
