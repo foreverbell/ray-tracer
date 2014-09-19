@@ -4,15 +4,17 @@
 #include "texture.hpp"
 #include "image.hpp"
 #include "shade_context.hpp"
+#include "miscellaneous.hpp"
+#include <memory>
 
 namespace ray_tracer {
 
 	class texture_image : public texture {
 	public:
-		texture_image(const image *);
+		texture_image(fname_ptr_t);
 		colorRGB texture_shade(shade_context *) const;
 	private:
-		const image *image_ptr;
+		std::shared_ptr<image> image_ptr;
 	};
 }
 

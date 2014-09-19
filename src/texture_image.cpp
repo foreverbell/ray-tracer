@@ -5,8 +5,8 @@
 
 namespace ray_tracer {
 
-	texture_image::texture_image(const image *image_ptr_) {
-		image_ptr = image_ptr_;
+	texture_image::texture_image(fname_ptr_t file) {
+		image_ptr = load_image(file);
 	}
 
 	colorRGB texture_image::texture_shade(shade_context *context_ptr) const {

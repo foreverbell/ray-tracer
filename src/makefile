@@ -15,6 +15,7 @@ DIRS := ./ $(SUBDIRS)
 SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)*.cpp) )
 
 PLY_DIR = ../lib/ply-1.1
+LODEPNG_DIR = ../lib/lodepng
 
 # Create an object file of every cpp file
 OBJECTS  = $(patsubst %.cpp, %.o, $(SOURCE_FILES)) 
@@ -33,6 +34,9 @@ $(PROJECT): $(OBJECTS)
 
 # Extra source files
 $(PLY_DIR)/plyfile.o: $(PLY_DIR)/plyfile.c
+	$(CC) -c $(CC_FLAGS) -o $@ $<
+
+$(LODEPNG_DIR)/lodepng.o: $(LODEPNG_DIR)/lodepng.cpp
 	$(CC) -c $(CC_FLAGS) -o $@ $<
 
 # Clean

@@ -5,6 +5,7 @@
 #include "image.hpp"
 #include "shade_context.hpp"
 #include "colorRGB.hpp"
+#include <memory>
 
 namespace ray_tracer {
 
@@ -20,9 +21,9 @@ namespace ray_tracer {
 		skybox(fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t, fname_ptr_t);
 		colorRGB skybox_shade(shade_context *) const;
 	private:
-		const image *texture_front_ptr, *texture_back_ptr;
-		const image *texture_left_ptr, *texture_right_ptr;
-		const image *texture_top_ptr, *texture_bottom_ptr;
+		std::shared_ptr<image> texture_front_ptr, texture_back_ptr;
+		std::shared_ptr<image> texture_left_ptr, texture_right_ptr;
+		std::shared_ptr<image> texture_top_ptr, texture_bottom_ptr;
 	};
 }
 

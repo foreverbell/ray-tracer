@@ -12,7 +12,7 @@ namespace ray_tracer {
 		r = r_, g = g_, b = b_;
 	}
 
-	colorRGB::colorRGB(int color_) {
+	colorRGB::colorRGB(uint32_t color_) {
 		b = ((color_ >> 0x00) & 0xff) / 255.0;
 		g = ((color_ >> 0x08) & 0xff) / 255.0;
 		r = ((color_ >> 0x10) & 0xff) / 255.0;

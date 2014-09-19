@@ -2,172 +2,188 @@
 #include "image_bmp.hpp"
 #include <memory>
 #include <cstdint>
+#include <functional>
 
 namespace ray_tracer {
 
-	int image_bmp::shake(int mask, int shift) const {
-		int cnt;
+	image_bmp::image_bmp() {
+		imgfile_ptr = nullptr;
+		data_ptr = nullptr;
+	}
 
-		mask = (mask >> shift) + 1;
-		if ((cnt = ctz(mask)) < 8) {
-			shift -= 8 - cnt;
+	image_bmp::~image_bmp() {
+		if (data_ptr != nullptr) {
+			free(data_ptr);
 		}
-		return shift;
+		if (imgfile_ptr != nullptr) {
+			fclose(imgfile_ptr);
+		}
 	}
 
-	void image_bmp::apply_mask(int color, int &r, int &g, int &b) const {
-		r = color & bmp_red_mask;
-		g = color & bmp_green_mask;
-		b = color & bmp_blue_mask;
+	bool image_bmp::create(fname_ptr_t file) {
+		imgfile_ptr = fopen(file, "rb+"); 
 
-#define __shift(x, bit) x = (bit > 0 ? x >> bit : x << (-bit))
-		__shift(r, bmp_red_shift);
-		__shift(g, bmp_green_shift);
-		__shift(b, bmp_blue_shift);
-#undef __shift
-	}
+		if (imgfile_ptr == nullptr) {
+			return false;
+		}
 
-	bool image_bmp::create() {
 		/* Init field data. */
-		bmp_data_ptr = nullptr;
-		bmp_width = bmp_height = 0;
+		data_ptr = nullptr;
+		width = height = 0;
 
 		/* Read bmp file header and check magic number. */
-		uint8_t bmp_head[0xe];
+		uint8_t head[0xe];
 		int actual_size, pixel_array_offset;
 
-		if (fread(bmp_head, 1, 0xe, imgfile_ptr) != 0xe) {
+		if (fread(head, 1, 0xe, imgfile_ptr) != 0xe) {
 			return false;
 		}
-		if (bmp_head[0] != 'B' && bmp_head[1] != 'M') {
+		if (head[0] != 'B' && head[1] != 'M') {
 			return false;
 		}
-		actual_size = (int) *(uint32_t *) (bmp_head + 0x2);
-		pixel_array_offset = (int) *(uint32_t *) (bmp_head + 0xa);
+		actual_size = (int) *(uint32_t *) (head + 0x2);
+		pixel_array_offset = (int) *(uint32_t *) (head + 0xa);
 
 		/* Read remaining data (info header & pixel array) . */
-		uint8_t *data_ptr;
-
-		bmp_data_ptr = malloc(actual_size - 0xe);
-		if (bmp_data_ptr == nullptr) {
+		data_ptr = (uint8_t *) malloc(actual_size - 0xe);
+		if (data_ptr == nullptr) {
 			return false;
 		}
-		if (fread(bmp_data_ptr, 1, actual_size - 0xe, imgfile_ptr) != actual_size - 0xe) {
+		if (fread(data_ptr, 1, actual_size - 0xe, imgfile_ptr) != actual_size - 0xe) {
 			return false;
 		}
-		data_ptr = (uint8_t *) bmp_data_ptr;
 
 		/* Parse info header. */
-		int bmp_header_size = (int) *(uint32_t *) data_ptr;
+		int header_size = (int) *(uint32_t *) data_ptr;
 
-		if (bmp_header_size < 40) {
+		if (header_size < 40) {
 			return false; // BITMAPCOREHEADER not supported.
 		}
 
-		bmp_width = (int) *(int32_t *) (data_ptr + 0x4);
-		if (bmp_width <= 0) {
+		width = (int) *(int32_t *) (data_ptr + 0x4);
+		if (width <= 0) {
 			return false; // Negative value forbidden.
 		}
 
-		bmp_height = (int) *(int32_t *) (data_ptr + 0x8);
-		if (bmp_height == 0) {
+		height = (int) *(int32_t *) (data_ptr + 0x8);
+		if (height == 0) {
 			return false; // Negative value allowed, and then scanning order is from top to bottom.
 		}
 
-		bmp_color_depth = (int) *(uint16_t *) (data_ptr + 0xe);
-		bmp_compression = (int) *(uint32_t *) (data_ptr + 0x10);
+		color_depth = (int) *(uint16_t *) (data_ptr + 0xe);
+		compression = (int) *(uint32_t *) (data_ptr + 0x10);
 
-		if (bmp_compression != BI_RGB && bmp_compression != BI_BITFIELDS) {
+		if (compression != BI_RGB && compression != BI_BITFIELDS) {
 			return false; // Other compression modes not supported.
 		}
 
-		bmp_palette_size = (int) *(uint32_t *) (data_ptr + 0x20);
+		palette_size = (int) *(uint32_t *) (data_ptr + 0x20);
 
 		/* Init color masks. */
-		if (bmp_compression == BI_RGB) {
-			bmp_red_mask = 0xff0000;
-			bmp_red_shift = 16;
-			bmp_green_mask = 0xff00;
-			bmp_green_shift = 8;
-			bmp_blue_mask = 0xff;
-			bmp_blue_shift = 0;
-		} else if (bmp_compression == BI_BITFIELDS && bmp_header_size >= 56) {
-			bmp_red_mask = (int) *(uint32_t *) (data_ptr + 0x28);
-			bmp_green_mask = (int) *(uint32_t *) (data_ptr + 0x2c);
-			bmp_blue_mask = (int) *(uint32_t *) (data_ptr + 0x30);
-			bmp_red_shift = shake(bmp_red_mask, ctz(bmp_red_mask));
-			bmp_green_shift = shake(bmp_green_mask, ctz(bmp_green_mask));
-			bmp_blue_shift = shake(bmp_blue_mask, ctz(bmp_blue_mask));
+		if (compression == BI_RGB) {
+			red_mask = 0xff0000;
+			red_shift = 16;
+			green_mask = 0xff00;
+			green_shift = 8;
+			blue_mask = 0xff;
+			blue_shift = 0;
+		} else if (compression == BI_BITFIELDS && header_size >= 56) {
+			std::function<int(int)> ctz = [](int x) -> int {
+				int cnt = 0;
+				for (; ~x & 1; x >>= 1) {
+					cnt += 1;
+				}
+				return cnt;
+			};
+			std::function<int(int)> shake = [&ctz](int mask) -> int {
+				int cnt, shift = ctz(mask);
+				mask = (mask >> shift) + 1;
+				if ((cnt = ctz(mask)) < 8) {
+					shift -= 8 - cnt;
+				}
+				return shift;
+			};
+			red_mask = (int) *(uint32_t *) (data_ptr + 0x28);
+			green_mask = (int) *(uint32_t *) (data_ptr + 0x2c);
+			blue_mask = (int) *(uint32_t *) (data_ptr + 0x30);
+			red_shift = shake(red_mask);
+			green_shift = shake(green_mask);
+			blue_shift = shake(blue_mask);
 		} else {
 			return false;
 		}
 
 		/* Init palette. */
-		if (bmp_color_depth <= 8 && bmp_palette_size == 0) {
-			bmp_palette_size = 1 << bmp_color_depth;
+		if (color_depth <= 8 && palette_size == 0) {
+			palette_size = 1 << color_depth;
 		}
 
-		if (bmp_palette_size) {
-			uint32_t *bmp_palette_ptr = (uint32_t *)(data_ptr + bmp_header_size);
+		if (palette_size) {
+			uint32_t *palette_ptr = (uint32_t *)(data_ptr + header_size);
 			int r, g, b;
 
-			for (int i = 0; i < bmp_palette_size; ++i) {
-				apply_mask(*bmp_palette_ptr, r, g, b);
-				bmp_palette_r.push_back(r);
-				bmp_palette_g.push_back(g);
-				bmp_palette_b.push_back(b);
-				bmp_palette_ptr += 1;
+			for (int i = 0; i < palette_size; ++i) {
+				apply_mask(*palette_ptr, r, g, b);
+				palette_r.push_back(r);
+				palette_g.push_back(g);
+				palette_b.push_back(b);
+				palette_ptr += 1;
 			}
 		}
 
 		/* Set pointer to pixel arrary. */
-		bmp_pixel_array_ptr = data_ptr + pixel_array_offset - 0xe;
+		pixel_array_ptr = data_ptr + pixel_array_offset - 0xe;
 
 		/* Other variables. */
-		bmp_row_size = (bmp_color_depth * bmp_width + 31) / 32 * 4;
+		row_size = (color_depth * width + 31) / 32 * 4;
 
 		return true;
 	}
 
-	void image_bmp::destroy() {
-		if (bmp_data_ptr != nullptr) {
-			free(bmp_data_ptr);
-		}
-	}
-
 	int image_bmp::get_width() const {
-		return bmp_width;
+		return width;
 	}
 
 	int image_bmp::get_height() const {
-		return bmp_height > 0 ? bmp_height : -bmp_height;
+		return height > 0 ? height : -height;
 	}
 
-	int image_bmp::get_color(int x, int y) const {
+	uint32_t image_bmp::get_color(int x, int y) const {
 		/* Calculate location of pixel in DIB. */
-		uint8_t *ptr = (uint8_t *)bmp_pixel_array_ptr + bmp_row_size * (bmp_height > 0 ? bmp_height - y - 1 : y);
-		int bit_offset = (x * bmp_color_depth) % 8, byte_offset = (x * bmp_color_depth) / 8;
-		int r, g, b;
-		int ret = 0;
+		uint8_t *ptr = (uint8_t *) pixel_array_ptr + row_size * (height > 0 ? height - y - 1 : y);
+		int bit_offset = (x * color_depth) % 8, byte_offset = (x * color_depth) / 8;
+		int r, g, b, ret = 0;
 
 		ptr += byte_offset;
-		bit_offset = 8 - bmp_color_depth - bit_offset;
+		bit_offset = 8 - color_depth - bit_offset;
 
 		/* Get pixel. */
-		if (bmp_color_depth <= 8) {
-			ret = (int) (*ptr >> bit_offset) & ((1 << bmp_color_depth) - 1);
-		} else if (bmp_color_depth == 16) {
+		if (color_depth <= 8) {
+			ret = (int) (*ptr >> bit_offset) & ((1 << color_depth) - 1);
+		} else if (color_depth == 16) {
 			ret = (int) *(uint16_t *) ptr;
-		} else if (bmp_color_depth == 24 || bmp_color_depth == 36) {
+		} else if (color_depth == 24 || color_depth == 36) {
 			ret = (int) *(uint32_t *) ptr;
 		}
-		if (bmp_palette_size) {
+		if (palette_size) {
 			/* Palette exist? */
-			return (bmp_palette_r[ret] << 16) | (bmp_palette_g[ret] << 8) | bmp_palette_b[ret];
+			return (palette_r[ret] << 16) | (palette_g[ret] << 8) | palette_b[ret];
 		} else {
 			/* Apply color mask to get expected color. */
 			apply_mask(ret, r, g, b);
-			return (r << 16) | (g << 8) | b;
+			return (uint32_t) ((r << 16) | (g << 8) | b);
 		}
+	}
+
+	void image_bmp::apply_mask(int color, int &r, int &g, int &b) const {
+		r = color & red_mask;
+		g = color & green_mask;
+		b = color & blue_mask;
+
+#define __shift(x, bit) x = (bit > 0 ? x >> bit : x << (-bit))
+		__shift(r, red_shift);
+		__shift(g, green_shift);
+		__shift(b, blue_shift);
+#undef __shift
 	}
 }

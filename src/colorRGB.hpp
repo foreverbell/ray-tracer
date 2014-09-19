@@ -1,13 +1,15 @@
 #ifndef __COLORRGB_HPP__
 #define __COLORRGB_HPP__
 
+#include <cstdint>
+
 namespace ray_tracer {
 
 	class colorRGB {
 	public:
 		colorRGB();
 		colorRGB(double, double, double);
-		colorRGB(int);
+		colorRGB(uint32_t);
 		colorRGB clampRGB() const;
 		friend colorRGB operator+(const colorRGB &, const colorRGB &);
 		friend colorRGB &operator+=(colorRGB &, const colorRGB &);

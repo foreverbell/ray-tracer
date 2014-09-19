@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\lodepng\lodepng.cpp" />
     <ClCompile Include="..\lib\ply-1.1\plyfile.c" />
     <ClCompile Include="BRDF_artistic.cpp" />
     <ClCompile Include="BRDF_refraction.cpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="demo\demo_6.cpp" />
     <ClCompile Include="demo\demo_7.cpp" />
     <ClCompile Include="hilbertcurve.cpp" />
+    <ClCompile Include="image_png.cpp" />
     <ClCompile Include="light_parallel.cpp" />
     <ClCompile Include="material_artistic.cpp" />
     <ClCompile Include="material_transparent.cpp" />
@@ -144,6 +146,7 @@
     <ClInclude Include="demo\demo.hpp" />
     <ClInclude Include="convexhull.hpp" />
     <ClInclude Include="hilbertcurve.hpp" />
+    <ClInclude Include="image_png.hpp" />
     <ClInclude Include="light_parallel.hpp" />
     <ClInclude Include="material_artistic.hpp" />
     <ClInclude Include="material_transparent.hpp" />

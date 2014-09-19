@@ -68,9 +68,6 @@
     <ClCompile Include="image.cpp">
       <Filter>bottom-layer\image</Filter>
     </ClCompile>
-    <ClCompile Include="image_bmp.cpp">
-      <Filter>bottom-layer\image\bmp</Filter>
-    </ClCompile>
     <ClCompile Include="convexhull.cpp">
       <Filter>bottom-layer\utility</Filter>
     </ClCompile>
@@ -188,6 +185,15 @@
     <ClCompile Include="surface_flat.cpp">
       <Filter>bottom-layer\surface</Filter>
     </ClCompile>
+    <ClCompile Include="image_bmp.cpp">
+      <Filter>bottom-layer\image</Filter>
+    </ClCompile>
+    <ClCompile Include="image_png.cpp">
+      <Filter>bottom-layer\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\lodepng\lodepng.cpp">
+      <Filter>3rd-party\lodepng</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="bottom-layer">
@@ -210,9 +216,6 @@
     </Filter>
     <Filter Include="bottom-layer\image">
       <UniqueIdentifier>{aff4d6dc-3fbb-46f1-83a9-80541c3fa90a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="bottom-layer\image\bmp">
-      <UniqueIdentifier>{12e07f55-8598-48e7-9185-46815f8cb73f}</UniqueIdentifier>
     </Filter>
     <Filter Include="bottom-layer\basis\vector">
       <UniqueIdentifier>{56c7ab71-2843-4e17-a890-3616856a2981}</UniqueIdentifier>
@@ -252,6 +255,9 @@
     </Filter>
     <Filter Include="3rd-party\ply">
       <UniqueIdentifier>{5980f4a3-a102-43f1-b63b-4e6bb96cd4f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd-party\lodepng">
+      <UniqueIdentifier>{0dae9ab1-9729-4dab-ab9c-e363b1efc166}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +326,6 @@
     </ClInclude>
     <ClInclude Include="image.hpp">
       <Filter>bottom-layer\image</Filter>
-    </ClInclude>
-    <ClInclude Include="image_bmp.hpp">
-      <Filter>bottom-layer\image\bmp</Filter>
     </ClInclude>
     <ClInclude Include="convexhull.hpp">
       <Filter>bottom-layer\utility</Filter>
@@ -426,6 +429,12 @@
     </ClInclude>
     <ClInclude Include="surface_flat.hpp">
       <Filter>bottom-layer\surface</Filter>
+    </ClInclude>
+    <ClInclude Include="image_bmp.hpp">
+      <Filter>bottom-layer\image</Filter>
+    </ClInclude>
+    <ClInclude Include="image_png.hpp">
+      <Filter>bottom-layer\image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
