@@ -26,8 +26,6 @@ namespace ray_tracer {
 		std::shared_ptr<image> texture_front_ptr, texture_back_ptr;
 		std::shared_ptr<image> texture_left_ptr, texture_right_ptr;
 		std::shared_ptr<image> texture_top_ptr, texture_bottom_ptr;
-
-		image *texture_ptr[6];
 	};
 }
 

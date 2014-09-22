@@ -13,16 +13,16 @@ namespace ray_tracer {
 
 	void surface_convexhull::construct(const std::vector<point3D> &points_) {
 		std::pair<std::vector<face_t>, std::vector<edge_t> > hull;
-		point3D v0, v1, v2;
 		int a, b, c;
 
 		points = points_;
 		hull = convexhull(points).construct();
+		// TODO: Remove unused vertices.
+		setup_vertex(points);
 		for (std::vector<face_t>::const_iterator it = hull.first.begin(); it != hull.first.end(); ++it) {
 			std::tie(a, b, c) = *it;
-			v0 = points[a], v1 = points[b], v2 = points[c];
-			add_surface(surface_triangle(v0, v1, v2), a, b, c); 
+			add_surface(a, b, c); 
 		}
-		setup();
+		setup_tree();
 	}
 }

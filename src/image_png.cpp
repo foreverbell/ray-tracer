@@ -20,7 +20,7 @@ namespace ray_tracer {
 			return false;
 		}
 
-		return true;		
+		return true;
 	}
 
 	int image_png::get_width() const {

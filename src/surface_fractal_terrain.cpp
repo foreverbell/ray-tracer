@@ -77,28 +77,24 @@ namespace ray_tracer {
 
 	void surface_fractal_terrain::generate_mesh(const std::vector<std::vector<double> > &height, int size, double sidelen) {
 		double scale = sidelen / size, delta = 1.0 / size;
+		std::vector<point3D> vertices;
 
 #define __id(i, j) ((i) * (size + 1) + (j))
+		for (int i = 0; i <= size; ++i) {
+			for (int j = 0; j <= size; ++j) {
+				vertices.push_back(point3D(i * scale, j * scale, height[i][j]));
+			}
+		}
 		for (int i = 0; i < size; ++i) {
 			for (int j = 0; j < size; ++j) {
-				double x = i * scale, y = j * scale;
 				double u = i * delta, v = j * delta;
 
-				surface_triangle tri1 = surface_triangle(point3D(x, y, height[i][j]),
-					point3D(x + scale, y, height[i + 1][j]),
-					point3D(x, y + scale, height[i][j + 1]));
-				tri1.set_UV(point2D(u, v), point2D(u + delta, v), point2D(u, v + delta));
-				add_surface(tri1, __id(i, j), __id(i + 1, j), __id(i, j + 1));
-
-				surface_triangle tri2 = surface_triangle(point3D(x + scale, y, height[i + 1][j]),
-					point3D(x + scale, y + scale, height[i + 1][j + 1]),
-					point3D(x, y + scale, height[i][j + 1]));
-				tri2.set_UV(point2D(u + delta, v), point2D(u + delta, v + delta), point2D(u, v + delta));
-				add_surface(tri2, __id(i + 1, j), __id(i + 1, j + 1), __id(i, j + 1));
+				add_surface(__id(i, j), __id(i + 1, j), __id(i, j + 1)).set_UV(point2D(u, v), point2D(u + delta, v), point2D(u, v + delta));
+				add_surface(__id(i + 1, j), __id(i + 1, j + 1), __id(i, j + 1)).set_UV(point2D(u + delta, v), point2D(u + delta, v + delta), point2D(u, v + delta));
 			}
 		}
 #undef __id
-		setup();
+		setup_tree();
 		interpolate_normal();
 	}
 

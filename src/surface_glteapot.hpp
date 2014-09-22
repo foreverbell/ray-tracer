@@ -56,7 +56,7 @@ namespace ray_tracer {
 	/* 530 vertices */
 
 	const int numVertices = 530;
-	const float vertices[530][3] =  {
+	const float vertices_teapot[numVertices][3] =  {
 		2.1f, 3.6f, 0.0f, 
 		2.071f, 3.711f, 0.0f, 
 		2.105f, 3.748f, 0.0f, 
@@ -590,8 +590,7 @@ namespace ray_tracer {
 	};
 
 	/* 530 normals */
-	const int numNormals = 530;
-	const float normals[530][3] = {
+	const float normals_teapot[numVertices][3] = {
 		0.0486f, -0.9986f, 0.0168f, 
 		0.9976f, -0.0678f, -0.0008f, 
 		-0.233f, 0.8502f, -0.4719f, 

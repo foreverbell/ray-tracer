@@ -4,6 +4,7 @@
 // Constructive solid geometry
 
 #include "surface.hpp"
+#include "surface_mesh.hpp"
 
 namespace ray_tracer {
 
@@ -34,6 +35,10 @@ namespace ray_tracer {
 		surface_subtract(const surface *, const surface *);
 		intersection_context intersect(const ray &) const;
 	};
+
+	surface_mesh *mesh_and(const surface_mesh *, const surface_mesh *);
+	surface_mesh *mesh_or(const surface_mesh *, const surface_mesh *);
+	surface_mesh *mesh_substract(const surface_mesh *, const surface_mesh *);
 
 }
 

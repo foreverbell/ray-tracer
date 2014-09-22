@@ -12,19 +12,23 @@
 #include <functional>
 
 namespace ray_tracer {
-	
-	surface_mesh::surface_mesh() {
-		nvertices = 0;
+
+	void surface_mesh::setup_vertex(const std::vector<point3D> &pts) {
+		points = pts;
 	}
 
-	void surface_mesh::add_surface(const surface_triangle &triangle, int v0, int v1, int v2) {
-		surfaces.push_back(triangle);
-		surfaces.back().set_shading(this);
+	surface_triangle &surface_mesh::add_surface(int v0, int v1, int v2) {
+		surface_triangle surface_tri = surface_triangle(points[v0], points[v1], points[v2]);
+
+		surface_tri.set_shading(this);
+
 		vertex_indices.push_back(std::make_tuple(v0, v1, v2));
-		nvertices = std::max(nvertices, std::max(v0 + 1, std::max(v1 + 1, v2 + 1)));
+		surfaces.push_back(surface_tri);
+		
+		return surfaces.back();
 	}
 
-	void surface_mesh::setup(int min_split, int max_depth) {
+	void surface_mesh::setup_tree(int min_split, int max_depth) {
 		std::vector<int> surfaces_indexes, surface_map(surfaces.size());
 		std::vector<surface_triangle> swap_surfaces = surfaces;
 		std::vector<std::tuple<int, int, int> > swap_indices = vertex_indices;
@@ -326,8 +330,9 @@ namespace ray_tracer {
 	}
 
 	void surface_mesh::interpolate_normal() {
+		int nvertices = points.size();
 		std::vector<std::vector<int> > adjacent_faces(nvertices);
-		std::vector<vector3D> ipl_normals(nvertices);
+		std::vector<vector3D> normals(nvertices);
 		int v0, v1, v2;
 
 		for (size_t i = 0; i < vertex_indices.size(); ++i) {
@@ -338,13 +343,13 @@ namespace ray_tracer {
 		}
 		for (int i = 0; i < nvertices; ++i) {
 			for (int face : adjacent_faces[i]) {
-				ipl_normals[i] += surfaces[face].normal;
+				normals[i] += surfaces[face].normal;
 			}
-			ipl_normals[i] = ipl_normals[i].normalized();
+			normals[i] = normals[i].normalized();
 		}
 		for (size_t i = 0; i < surfaces.size(); ++i) {
 			std::tie(v0, v1, v2) = vertex_indices[i];
-			surfaces[i].set_normal(ipl_normals[v0], ipl_normals[v1], ipl_normals[v2]);
+			surfaces[i].set_normal(normals[v0], normals[v1], normals[v2]);
 		}
 	}
 
@@ -405,32 +410,33 @@ namespace ray_tracer {
 			}
 		}
 		ply_close(ply_ptr);
+		setup_vertex(vertices);
 		for (std::vector<std::pair<int, int *> >::iterator it = faces.begin(); it != faces.end(); ++it) {
 			int nverts = it->first;
 			int *vert_ptr = it->second;
 			for (int i = 1; i < nverts - 1; ++i) {
-				add_surface(surface_triangle(vertices[vert_ptr[0]], vertices[vert_ptr[i]], vertices[vert_ptr[i + 1]]), vert_ptr[0], vert_ptr[i], vert_ptr[i + 1]);
+				add_surface(vert_ptr[0], vert_ptr[i], vert_ptr[i + 1]);
 			}
 		}
-		setup();
+		setup_tree();
 	}
 
 	/* noff mesh */
 	surface_noffmesh::surface_noffmesh(fname_ptr_t filename) {
 		FILE *f = fopen(filename, "r");
 		char fhead[5];
-		bool has_normal = false;
+		bool bnormal = false;
 		int vertices_count, faces_count;
 		std::vector<point3D> vertices;
 		std::vector<vector3D> normals;
-		std::vector<int> vert_indices;
+		std::vector<int> vindices;
 		double x, y, z, nx, ny, nz;
 
 		fgets(fhead, 5, f);
 		if (strcmp(fhead, "NOFF") == 0) {
-			has_normal = true;
+			bnormal = true;
 		} else if (strcmp(fhead, "OFF") == 0) {
-			has_normal = false;
+			bnormal = false;
 		} else {
 			throw "invalid noff mesh format.";
 		}
@@ -440,27 +446,32 @@ namespace ray_tracer {
 		for (int i = 0; i < vertices_count; ++i) {
 			fscanf(f, "%lf%lf%lf", &x, &y, &z);
 			vertices.push_back(point3D(x, y, z));
-			if (has_normal) {
+			if (bnormal) {
 				fscanf(f, "%lf%lf%lf", &nx, &ny, &nz);
 				normals.push_back(vector3D(nx, ny, nz));
 			}
 		}
 
+		setup_vertex(vertices);
+
 		for (int i = 0; i < faces_count; ++i) {
 			int nfaces, vert_index;
 			
-			vert_indices.clear();
+			vindices.clear();
 			fscanf(f, "%d", &nfaces);
 			for (int j = 0; j < nfaces; ++j) {
 				fscanf(f, "%d", &vert_index);
-				vert_indices.push_back(vert_index);
+				vindices.push_back(vert_index);
 			}
 			for (int j = 1; j < nfaces - 1; ++j) {
-				surface_triangle tri = surface_triangle(vertices[vert_indices[0]], vertices[vert_indices[j]], vertices[vert_indices[j + 1]]);
-				tri.set_normal(normals[vert_indices[0]], normals[vert_indices[j]], normals[vert_indices[j + 1]]);
-				add_surface(tri, vert_indices[0], vert_indices[j], vert_indices[j + 1]);
+				if (bnormal) {
+					add_surface(vindices[0], vindices[j], vindices[j + 1]).set_normal(normals[vindices[0]], normals[vindices[j]], normals[vindices[j + 1]]);
+				} else {
+					add_surface(vindices[0], vindices[j], vindices[j + 1]);
+				}
 			}
 		}
-		setup();
+
+		setup_tree();
 	}
 }
