@@ -139,7 +139,7 @@ namespace ray_tracer {
 		} else if (type == 4) {
 			vertices_ptr = new polyvertex_icosahedron;
 		} else {
-			throw "unknown regular polyhedron code.";
+			throw_exception("unknown regular polyhedron code.");
 		}
 		if (div > 0) {
 			vertices_ptr->subdivide(div);

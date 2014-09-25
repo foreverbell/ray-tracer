@@ -438,7 +438,7 @@ namespace ray_tracer {
 		} else if (strcmp(fhead, "OFF") == 0) {
 			bnormal = false;
 		} else {
-			throw "invalid noff mesh format.";
+			throw_exception("invalid noff mesh format.");
 		}
 
 		fscanf(f, "%d%d%*d", &vertices_count, &faces_count);

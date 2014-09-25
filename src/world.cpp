@@ -91,7 +91,7 @@ namespace ray_tracer {
 		} else if (traversal == pixel_traversal_mode::hilbert) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_hilbert());
 		} else {
-			throw "unknown traversal mode.";
+			throw_exception("unknown traversal mode.");
 		}
 		pixel_traversal_ptr->init(w, h);
 

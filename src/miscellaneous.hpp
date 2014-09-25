@@ -6,6 +6,9 @@
 #include <vector>
 #include <cassert>
 #include <utility>
+#include <string>
+#include <sstream>
+#include <chrono>
 
 namespace ray_tracer {
 
@@ -116,6 +119,44 @@ namespace ray_tracer {
 
 		return ret;
 	}
+
+	/* exceptions. */
+	class rt_exception {
+	public:
+		rt_exception(const std::string &msg_, int line_ = __LINE__, const std::string &file_ = __FILE__) : msg(msg_), line(line_), file(file_) { }
+
+		inline std::string what() const { 
+			std::stringstream ss;
+
+			ss << "Line " << line << " at " << file <<  ", Exception: " + msg;
+			return ss.str();
+		}
+	private:
+		std::string msg, file;
+		int line;
+	};
+
+	#define throw_exception(msg) throw rt_exception(msg)
+
+	/* time count. */
+	class timer {
+	public:
+		inline void start() {
+			stamp = std::chrono::high_resolution_clock::now();
+		}
+		
+		inline int count_s() const {
+			auto curr = std::chrono::high_resolution_clock::now();
+			return (int) std::chrono::duration_cast<std::chrono::seconds>(curr - stamp).count();
+		}
+
+		inline int count_ms() const {
+			auto curr = std::chrono::high_resolution_clock::now();
+			return (int) std::chrono::duration_cast<std::chrono::microseconds>(curr - stamp).count();
+		}
+	private:
+		std::chrono::system_clock::time_point stamp;
+	};
 }
 
 #endif

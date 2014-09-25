@@ -4,6 +4,8 @@
 #include <chrono>
 #include "rtlib.hpp"
 #include "demo/demo.hpp"
+#include "miscellaneous.hpp"
+#include <iostream>
 
 #ifdef _MSC_VER	// for MSVC
 #include <SDL.h>
@@ -56,7 +58,7 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 	
-	auto clock = []() -> std::chrono::system_clock::time_point { return std::chrono::high_resolution_clock::now(); };
+	timer tmr;
 	std::vector<demo *> demos = { 
 		new demo_1(),
 		new demo_2(),
@@ -68,27 +70,30 @@ int main(int argc, char *argv[]) {
 	};
 	demo *dm = demos[demo_id - 1];
 
-	auto old_stamp = clock();
-	dm->set_world();
-	printf("Total time used to setup world: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(clock() - old_stamp).count());
-	old_stamp = clock();
-	render(&dm->wld, screen);
-	printf("Total time used to render scene: %ds.\n", (int) std::chrono::duration_cast<std::chrono::seconds>(clock() - old_stamp).count());
-
-	/*
-	int fps = 0;
-	old_stamp = clock();
-	while (true) {
-		dm->cam->rotate(pi / 50);
+	try {
+		tmr.start();
+		dm->set_world();
+		printf("Total time used to setup world: %ds.\n", tmr.count_s());
+		tmr.start();
 		render(&dm->wld, screen);
-		fps += 1;
-		if ((int) std::chrono::duration_cast<std::chrono::milliseconds>(clock() - old_stamp).count() > 1000) {
-			printf("fps: %d.\n", fps);
-			fps = 0;
-			old_stamp = clock();
+		printf("Total time used to render scene: %ds.\n", tmr.count_s());
+/*
+		int fps = 0;
+		tmr.start();
+		while (true) {
+			dm->cam->rotate(pi / 50);
+			render(&dm->wld, screen);
+			fps += 1;
+			if (tmr.count_ms() > 1000) {
+				printf("fps: %d.\n", fps);
+				fps = 0;
+				tmr.start();
+			}
 		}
+*/
+	} catch (rt_exception &ex) {
+		printf("%s", ex.what().c_str());
 	}
-	*/
 
 	SDL_Event event;
 	while (SDL_WaitEvent(&event) >= 0) {

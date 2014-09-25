@@ -115,7 +115,7 @@ namespace ray_tracer {
 			}
 			std::random_shuffle(samples.begin(), samples.end());
 		} else {
-			throw "number of sampler is not squared.";
+			throw_exception("number of sampler is not squared.");
 		}
 	}
 }

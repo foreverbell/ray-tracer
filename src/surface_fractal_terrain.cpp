@@ -18,7 +18,7 @@ namespace ray_tracer {
 		rand_generator.seed(seed);
 		
 		if ((size & (size - 1)) != 0) {
-			throw "size should be the power of 2.";
+			throw_exception("size should be the power of 2.");
 		}
 
 		std::vector<std::vector<double> > height;
