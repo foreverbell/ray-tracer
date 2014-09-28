@@ -1,8 +1,8 @@
 # Ray Tracer
 
-This is a tiny ray tracer, rendering scene purely using CPU.
+Hello there visitor, welcome to this page!
 
-It uses the `SDL` to present the image to users. (See http://www.libsdl.org)
+Here I am so proudly to introduce my tiny ray tracer based on CPU, which uses the `SDL` to present the image to users. (See http://www.libsdl.org)
 
 # Compiling
 
