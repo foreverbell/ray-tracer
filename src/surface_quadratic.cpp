@@ -24,8 +24,8 @@ namespace ray_tracer {
 		coef_xy = xy, coef_xz = xz, coef_yz = yz;
 		coef_x = x, coef_y = y, coef_z = z;
 		coef_const = C;
-		x_min = y_min = z_min = -DBL_MAX;
-		x_max = y_max = z_max = DBL_MAX;
+		x_min = y_min = z_min = std::numeric_limits<double>::lowest();
+		x_max = y_max = z_max = std::numeric_limits<double>::max();
 	}
 
 	bool surface_quadratic::inside(const point3D &p) const {

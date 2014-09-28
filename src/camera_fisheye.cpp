@@ -25,9 +25,9 @@ namespace ray_tracer {
 
 			ray_ptr->origin = eye;
 			ray_ptr->dir = (u * axis_u + v * axis_v + w * axis_w).normalized();
+
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

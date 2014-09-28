@@ -22,7 +22,7 @@ const int demo_id = 4;
 void render(world *world, SDL_Surface *screen) {
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
-			printf("Couldn't lock the screen: %s.\n", SDL_GetError());
+			throw_exception("couldn't lock the screen.");
 			return;
 		}
 	}
@@ -48,14 +48,12 @@ void render(world *world, SDL_Surface *screen) {
 
 int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) { 
-		printf("Could not initialize SDL: %s.\n", SDL_GetError());
-		return 0;
+		throw_exception("couldn't not initialize SDL.");
 	}
 
 	SDL_Surface *screen = SDL_SetVideoMode(width, height, 32, SDL_SWSURFACE);
 	if (screen == NULL) {
-		printf("Couldn't set destination video mode: %s.\n", SDL_GetError());
-		return 0;
+		throw_exception("couldn't set destination video mode.");
 	}
 	
 	timer tmr;
@@ -73,10 +71,10 @@ int main(int argc, char *argv[]) {
 	try {
 		tmr.start();
 		dm->set_world();
-		printf("Total time used to setup world: %ds.\n", tmr.count_s());
+		printf("Total time consumed to setup world: %ds.\n", tmr.count_s());
 		tmr.start();
 		render(&dm->wld, screen);
-		printf("Total time used to render scene: %ds.\n", tmr.count_s());
+		printf("Total time comsumed to render scene: %ds.\n", tmr.count_s());
 /*
 		int fps = 0;
 		tmr.start();
@@ -120,7 +118,9 @@ int main(int argc, char *argv[]) {
 			default:
 				break;
 			}
-			if (updated) render(&dm->wld, screen);
+			if (updated) {
+				render(&dm->wld, screen);
+			}
 			break;
 		}
 	}

@@ -21,8 +21,8 @@ namespace ray_tracer {
 			kdtree_node() {
 				index_l = -1;
 				index_r = -2;
-				bb_p1 = point3D(DBL_MAX, DBL_MAX, DBL_MAX);
-				bb_p2 = point3D(-DBL_MAX, -DBL_MAX, -DBL_MAX);
+				bb_p1 = point3D(std::numeric_limits<double>::max(), std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+				bb_p2 = point3D(std::numeric_limits<double>::lowest(), std::numeric_limits<double>::lowest(), std::numeric_limits<double>::lowest());
 				lchild = rchild = -1;
 			}
 

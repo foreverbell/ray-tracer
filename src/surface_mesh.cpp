@@ -42,7 +42,7 @@ namespace ray_tracer {
 			min_split = isqrt(surfaces.size());
 		}
 		if (max_depth == -1) {
-			max_depth = INT_MAX;
+			max_depth = std::numeric_limits<int>::max();
 		}
 		kdtree_root = build_kdtree(surfaces_indexes, 0, surface_map, ptr, min_split, max_depth);
 
@@ -110,7 +110,7 @@ namespace ray_tracer {
 		};
 		std::priority_queue<int, std::vector<int>, decltype(heap_cmp_fun)> heap(heap_cmp_fun);
 		int L = 0, R = indexes.size(), M = 0;
-		int curr, best = INT32_MAX;
+		int curr, best = std::numeric_limits<int>::max();
 		size_t curr_iter = 0;
 		point3D pos = point3D(0, 0, 0);
 
@@ -160,7 +160,7 @@ namespace ray_tracer {
 
 			vector3D separate_normal = vector3D(0, 0, 0);
 			point3D median = point3D(0, 0, 0);
-			int best = INT_MAX;
+			int best = std::numeric_limits<int>::max();
 
 			for (vector3D normal : { vector3D(1, 0, 0), vector3D(0, 1, 0), vector3D(0, 0, 1) }) {
 				std::pair<point3D, int> tmp = split(normal, indexes);
@@ -203,12 +203,12 @@ namespace ray_tracer {
 
 	std::pair<double, int> surface_mesh::search_kdtree(const ray &emission_ray, int node_ptr) const {
 		if (node_ptr == -1 || !box_intersection(nodes[node_ptr].bb_p1, nodes[node_ptr].bb_p2, emission_ray)) {
-			return std::make_pair(DBL_MAX, -1);
+			return std::make_pair(std::numeric_limits<double>::max(), -1);
 		}
 
 		const kdtree_node &node = nodes[node_ptr];
 
-		std::pair<double, int> result = std::make_pair(DBL_MAX, -1), temp;
+		std::pair<double, int> result = std::make_pair(std::numeric_limits<double>::max(), -1), temp;
 
 		for (int i = node.index_l; i <= node.index_r; ++i) {
 			double temp_t = surfaces[i].intersect(emission_ray).t;
@@ -295,9 +295,9 @@ namespace ray_tracer {
 	}
 
 	std::pair<point3D, point3D> surface_mesh::build_box(int l, int r) const {
-		double x_min = DBL_MAX, x_max = -DBL_MAX;
-		double y_min = DBL_MAX, y_max = -DBL_MAX;
-		double z_min = DBL_MAX, z_max = -DBL_MAX;
+		double x_min = std::numeric_limits<double>::max(), x_max = std::numeric_limits<double>::lowest();
+		double y_min = std::numeric_limits<double>::max(), y_max = std::numeric_limits<double>::lowest();
+		double z_min = std::numeric_limits<double>::max(), z_max = std::numeric_limits<double>::lowest();
 
 #define __min3(a, b, c) std::min(a, std::min(b, c))
 #define __max3(a, b, c) std::max(a, std::max(b, c))
@@ -355,7 +355,7 @@ namespace ray_tracer {
 
 	/* ply mesh */
 	typedef struct Vertex {
-		float x,y,z;             /* the usual 3-space position of a vertex */
+		float x, y, z;             /* the usual 3-space position of a vertex */
 	} Vertex;
 
 	typedef struct Face {
