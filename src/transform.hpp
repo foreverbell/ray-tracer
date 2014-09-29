@@ -7,12 +7,10 @@
 namespace ray_tracer {
 
 	class transform {
-		friend class ray;
-
 	public:
 		transform();
-		matrix4D get_matrix() const;
-		matrix4D get_inv_matrix() const;
+		matrix4D get() const;
+		matrix4D get_inverse() const;
 		transform revert() const;
 		friend transform operator*(const transform &, const transform &);
 		
@@ -27,14 +25,14 @@ namespace ray_tracer {
 		static transform create(const matrix4D &, const matrix4D &);
 
 	private:
-		matrix4D matrix, inv_matrix;
+		matrix4D matrix, imatrix;
 	};
 
 	inline transform operator*(const transform &t1, const transform &t2) {
 		transform ret;
 
 		ret.matrix = t1.matrix * t2.matrix;
-		ret.inv_matrix = t2.inv_matrix * t1.inv_matrix;
+		ret.imatrix = t2.imatrix * t1.imatrix;
 		return ret;
 	}
 }

@@ -69,7 +69,7 @@ namespace ray_tracer {
 			edges = convexhull(vertices).construct().second;
 			for (std::vector<edge_t>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
 				std::tie(a, b) = *it;
-				vertices.push_back((vertices[a] + vertices[b]).normalized());
+				vertices.push_back((vertices[a] + vertices[b]).normalize());
 			}
 		} while (--depth != 0);
 	}
@@ -145,7 +145,7 @@ namespace ray_tracer {
 			vertices_ptr->subdivide(div);
 		}
 		vertices = vertices_ptr->get_vertices();
-		std::transform(vertices.begin(), vertices.end(), vertices.begin(), [=](const point3D &p) { return radius * p.normalized() + center; });
+		std::transform(vertices.begin(), vertices.end(), vertices.begin(), [=](const point3D &p) { return radius * p.normalize() + center; });
 		construct(vertices);
 		delete vertices_ptr;
 

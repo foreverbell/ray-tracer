@@ -21,7 +21,7 @@ namespace ray_tracer {
 		colorRGB ret = color;
 
 		if (spot_enabled) {
-			double vdotd = ldir(context_ptr).normalized() * spot_direction;
+			double vdotd = ldir(context_ptr).normalize() * spot_direction;
 
 			ret = vdotd > 0 ? ret * pow(vdotd, spot_exponent) : color_black;
 		}
@@ -37,7 +37,7 @@ namespace ray_tracer {
 			shade_context temp;
 
 			dir = -ldir(context_ptr);
-			temp.emission_ray = ray(context_ptr->intersect_p, dir.normalized());
+			temp.emission_ray = ray(context_ptr->intersect_p, dir.normalize());
 			if (world_ptr->get_intersection(&temp)) {
 				return temp.intersect_t < dir.length();
 			} else {
@@ -48,7 +48,7 @@ namespace ray_tracer {
 
 	bool light::in_spot(shade_context *context_ptr) const {
 		if (spot_enabled) {
-			return ((context_ptr->intersect_p - position).normalized() * spot_direction) > __cos_cutoff;
+			return ((context_ptr->intersect_p - position).normalize() * spot_direction) > __cos_cutoff;
 		} else {
 			return true;
 		}

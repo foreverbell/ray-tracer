@@ -14,7 +14,7 @@ namespace ray_tracer {
 		double length() const;
 		double length2() const;
 		double inverse_length() const;
-		vector2D normalized() const;
+		vector2D normalize() const;
 		friend vector2D operator+(const vector2D &, const vector2D &);
 		friend vector2D &operator+=(vector2D &, const vector2D &);
 		friend vector2D operator-(const vector2D &, const vector2D &);
@@ -40,7 +40,7 @@ namespace ray_tracer {
 		return 1 / sqrt(x * x + y * y);
 	}
 
-	inline vector2D vector2D::normalized() const {
+	inline vector2D vector2D::normalize() const {
 		double l = inverse_length();
 		return vector2D(x * l, y * l);
 	}

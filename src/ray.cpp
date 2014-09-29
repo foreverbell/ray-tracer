@@ -18,11 +18,11 @@ namespace ray_tracer {
 		return origin + t_ * dir;
 	}
 
-	ray ray::inv_transform(const transform &trans, const point3D &center) const {
-		return ray(center + trans.inv_matrix * (origin - center), trans.inv_matrix ^ dir);
+	ray ray::inverse_transform(const transform &trans, const point3D &center) const {
+		return ray(center + trans.get_inverse() * (origin - center), trans.get_inverse() ^ dir);
 	}
 
-	ray ray::inv_transform(const surface *surface_ptr) const {
-		return inv_transform(surface_ptr->tranmatrix, surface_ptr->trancenter);
+	ray ray::inverse_transform(const surface *surface_ptr) const {
+		return inverse_transform(surface_ptr->tranmatrix, surface_ptr->trancenter);
 	}
 }

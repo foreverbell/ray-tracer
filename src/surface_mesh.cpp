@@ -345,7 +345,7 @@ namespace ray_tracer {
 			for (int face : adjacent_faces[i]) {
 				normals[i] += surfaces[face].normal;
 			}
-			normals[i] = normals[i].normalized();
+			normals[i] = normals[i].normalize();
 		}
 		for (size_t i = 0; i < surfaces.size(); ++i) {
 			std::tie(v0, v1, v2) = vertex_indices[i];

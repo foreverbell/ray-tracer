@@ -83,6 +83,6 @@ namespace ray_tracer {
 		double x = point.x, y = point.y, z = point.z, R = radius;
 		vector3D ret =  vector3D(2 * x * y - 2 * R * z - 4 * x * z, -R * R + x * x + 3 * y * y - 4 * y * z + z * z, -2 * R * x - 2 * x * x - 2 * y * y + 2 * y * z);
 
-		return ret.normalized();
+		return ret.normalize();
 	}
 }

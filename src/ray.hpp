@@ -14,8 +14,8 @@ namespace ray_tracer {
 		ray();
 		ray(const point3D &, const vector3D &);
 		point3D at(double) const;
-		ray inv_transform(const transform &, const point3D &) const;
-		ray inv_transform(const surface *) const;
+		ray inverse_transform(const transform &, const point3D &) const;
+		ray inverse_transform(const surface *) const;
 	public:
 		point3D origin;
 		vector3D dir;

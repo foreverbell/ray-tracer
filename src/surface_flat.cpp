@@ -6,7 +6,7 @@ namespace ray_tracer {
 
 	surface_plane::surface_plane(const point3D &base_, const vector3D &normal_) {
 		base = base_;
-		normal = normal_.normalized();
+		normal = normal_.normalize();
 	}
 
 	intersection_context surface_plane::intersect(const ray &emission_ray) const {
@@ -24,7 +24,7 @@ namespace ray_tracer {
 
 	surface_disk::surface_disk(const point3D &center_, const vector3D &normal_, double radius_) {
 		center = center_;
-		normal = normal_.normalized();
+		normal = normal_.normalize();
 		radius = radius_;
 		__radius2 = radius_ * radius_;
 	}
@@ -49,7 +49,7 @@ namespace ray_tracer {
 	}
 	surface_triangle::surface_triangle(const point3D &v0_, const point3D &v1_, const point3D &v2_) {
 		v0 = v0_, v1 = v1_, v2 = v2_;
-		normal = ((v1 - v0) ^ (v2 - v0)).normalized();
+		normal = ((v1 - v0) ^ (v2 - v0)).normalize();
 		normal_interpolate = false;
 		hasUV = false;
 
@@ -93,7 +93,7 @@ namespace ray_tracer {
 			double beta, gamma;
 
 			betagamma(point, beta, gamma);
-			return (n0 * (1 - beta - gamma) + n1 * beta + n2 * gamma).normalized();
+			return (n0 * (1 - beta - gamma) + n1 * beta + n2 * gamma).normalize();
 		} else {
 			return normal;
 		}

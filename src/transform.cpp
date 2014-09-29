@@ -7,31 +7,31 @@ namespace ray_tracer {
 	transform::transform() {
 		for (int i = 0; i <= 3; ++i) {
 			matrix.value[i][i] = 1;
-			inv_matrix.value[i][i] = 1;
+			imatrix.value[i][i] = 1;
 		}
 	}
 
 	transform transform::revert() const {
 		transform ret;
 
-		ret.matrix = inv_matrix;
-		ret.inv_matrix = matrix;
+		ret.matrix = imatrix;
+		ret.imatrix = matrix;
 		return ret;
 	}
 
-	matrix4D transform::get_matrix() const {
+	matrix4D transform::get() const {
 		return matrix;
 	}
 
-	matrix4D transform::get_inv_matrix() const {
-		return inv_matrix;
+	matrix4D transform::get_inverse() const {
+		return imatrix;
 	}
 
 	transform transform::create(const matrix4D &mat, const matrix4D &imat) {
 		transform ret;
 
 		ret.matrix = mat;
-		ret.inv_matrix = imat;
+		ret.imatrix = imat;
 		return ret;
 	}
 
@@ -102,13 +102,13 @@ namespace ray_tracer {
 	}
 	
 	transform transform::rotate(const point3D &centre, const vector3D &axis, double angle) {
-		vector3D axis_unit = axis.normalized();
+		vector3D axis_unit = axis.normalize();
 		matrix4D mat1, mat2, mat3, mat, imat;
 		double c = cos(angle), s = sin(angle);
 		transform t = transform::translate(centre.x, centre.y, centre.z);
 
-		mat1 = t.get_matrix();
-		mat3 = t.get_inv_matrix();
+		mat1 = t.get();
+		mat3 = t.get_inverse();
 
 		mat2.value[0][0] = c + (1 - c) * axis_unit.x * axis_unit.x;
 		mat2.value[0][1] = (1 - c) * axis_unit.x * axis_unit.y - s * axis_unit.z;

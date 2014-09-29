@@ -14,11 +14,11 @@ namespace ray_tracer {
 		x = x_, y = y_, z = z_; 
 	}
 
-	vector3D vector3D::create_vertical() const {
+	vector3D vector3D::vertical() const {
 		vector3D v1 = *this, v2;
 
 		assert(!(dblsgn(v1.x) == 0 && dblsgn(v1.y) == 0 && dblsgn(v1.z) == 0));
 		v2 = v1 + vector3D(4.123, 6.542, 2.156);
-		return (v1 ^ v2).normalized();
+		return (v1 ^ v2).normalize();
 	}
 }

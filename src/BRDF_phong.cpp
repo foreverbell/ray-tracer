@@ -11,7 +11,7 @@ namespace ray_tracer {
 	}
 
 	colorRGB BRDF_phong::f(shade_context *context_ptr, const vector3D &win, const vector3D &wout) const {
-		double ndoth = context_ptr->normal * (win + wout).normalized();
+		double ndoth = context_ptr->normal * (win + wout).normalize();
 
 		if (ndoth > 0.0) {
 			ndoth = pow(ndoth, shininess);

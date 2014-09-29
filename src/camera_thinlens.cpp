@@ -31,12 +31,12 @@ namespace ray_tracer {
 			v = cos(beta);
 			w = sin(beta) * cos(alpha);
 		}
-		focal_point = eye + (u * axis_u + v * axis_v + w * axis_w).normalized() * focal_dist;
+		focal_point = eye + (u * axis_u + v * axis_v + w * axis_w).normalize() * focal_dist;
 		sample_point = context_ptr->sampler_iterator_ptr->get_sampler_disk_zoomed(sampler_set_camera_thinlens, lens_radius);
 		origin = eye + (sample_point.x - lens_radius / 2) * axis_u + (sample_point.y - lens_radius / 2) * axis_v;
 
 		ray_ptr->origin = origin;
-		ray_ptr->dir = (focal_point - origin).normalized();
+		ray_ptr->dir = (focal_point - origin).normalize();
 
 		return true;
 	}

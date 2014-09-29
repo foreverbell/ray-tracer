@@ -26,10 +26,10 @@ void render(world *world, SDL_Surface *screen) {
 			return;
 		}
 	}
-	world->render_begin(width, height, world::pixel_traversal_mode::hilbert);
+	world->render_begin(width, height, screen->pixels, world::pixel_traversal_mode::hilbert);
 	std::thread thr[max_thread_count];
 	for (int i = 0; i < max_thread_count; i += 1) {
-		thr[i] = std::thread([&]{ world->render(screen->pixels); });
+		thr[i] = std::thread([&]{ world->render(); });
 	}
 	for (int i = 0; i < max_thread_count; i += 1) {
 		thr[i].join();

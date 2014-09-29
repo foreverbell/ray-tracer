@@ -16,7 +16,7 @@ namespace ray_tracer {
 		double gy = 2 * coef_yy * p.y + coef_xy * p.x + coef_yz * p.z + coef_y;
 		double gz = 2 * coef_zz * p.z + coef_xz * p.x + coef_yz * p.y + coef_z;
 
-		return vector3D(gx, gy, gz).normalized(); 
+		return vector3D(gx, gy, gz).normalize(); 
 	}
 
 	surface_quadratic::surface_quadratic(double xx, double yy, double zz, double xy, double xz, double yz, double x, double y, double z, double C) {
@@ -29,7 +29,9 @@ namespace ray_tracer {
 	}
 
 	bool surface_quadratic::inside(const point3D &p) const {
-		return (p.x >= x_min && p.x <= x_max && p.y >= y_min && p.y <= y_max && p.z >= z_min && p.z <= z_max);
+		return p.x >= x_min && p.x <= x_max && 
+			p.y >= y_min && p.y <= y_max && 
+			p.z >= z_min && p.z <= z_max;
 	}
 
 	void surface_quadratic::rangeX(double min, double max) {

@@ -42,7 +42,7 @@ namespace ray_tracer {
 			const surface *temp = *iter;
 
 			if (temp->transformed) {
-				context = temp->intersect(context_ptr->emission_ray.inv_transform(temp));
+				context = temp->intersect(context_ptr->emission_ray.inverse_transform(temp));
 			} else {
 				context = temp->intersect(context_ptr->emission_ray);
 			}
@@ -70,8 +70,8 @@ namespace ray_tracer {
 		context_ptr->surface_ptr = surface_ptr;
 		context_ptr->fsurface_ptr = fsurface_ptr;
 		context_ptr->intersect_p = context_ptr->emission_ray.at(context_ptr->intersect_t);
-		context_ptr->intersect_rp = context_ptr->emission_ray.inv_transform(fsurface_ptr).at(context_ptr->intersect_t);
-		context_ptr->normal = (fsurface_ptr->tranmatrix.get_matrix() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalized();
+		context_ptr->intersect_rp = context_ptr->emission_ray.inverse_transform(fsurface_ptr).at(context_ptr->intersect_t);
+		context_ptr->normal = (fsurface_ptr->tranmatrix.get() ^ surface_ptr->atnormal(context_ptr->intersect_rp)).normalize();
 		
 		if (flag & surface_flag_revert_normal) {
 			context_ptr->normal = -context_ptr->normal;
@@ -80,9 +80,10 @@ namespace ray_tracer {
 		return true;
 	}
 
-	void world::render_begin(int w, int h, pixel_traversal_mode traversal) {
+	void world::render_begin(int w, int h, void *b, pixel_traversal_mode traversal) {
 		dest_w = w;
 		dest_h = h;
+		buffer_ptr = b;
 
 		if (traversal == pixel_traversal_mode::naive) {
 			pixel_traversal_ptr = std::unique_ptr<pixel_traversal>(new pixel_traversal_naive());
@@ -98,7 +99,7 @@ namespace ray_tracer {
 		mutex_ptr = std::unique_ptr<std::mutex>(new std::mutex());
 	}
 
-	void world::render(void *pixel_buffer_ptr) {
+	void world::render() {
 		colorRGB color;
 		point2D spoint;
 		shade_context info;
@@ -154,7 +155,7 @@ namespace ray_tracer {
 						double t;
 
 						if (msurface_ptr->transformed) {
-							t = msurface_ptr->intersect(info.emission_ray.inv_transform(msurface_ptr)).t;
+							t = msurface_ptr->intersect(info.emission_ray.inverse_transform(msurface_ptr)).t;
 						} else {
 							t = msurface_ptr->intersect(info.emission_ray).t;
 						}
@@ -167,7 +168,7 @@ namespace ray_tracer {
 			}
 
 			/* Writes to buffer. */
-			uint8_t *p = ((uint8_t *) pixel_buffer_ptr) + ((y * dest_w + x) << 2);
+			uint8_t *p = ((uint8_t *) buffer_ptr) + ((y * dest_w + x) << 2);
 			*p++ = (uint8_t) (color.b * 255);
 			*p++ = (uint8_t) (color.g * 255);
 			*p++ = (uint8_t) (color.r * 255);

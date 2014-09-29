@@ -13,7 +13,7 @@ namespace ray_tracer {
 
 		context_ptr->light_ptr = light_ptr;
 		if (light_ptr->in_spot(context_ptr) && !light_ptr->in_shadow(context_ptr)) {
-			wout = (-light_ptr->ldir(context_ptr)).normalized();
+			wout = (-light_ptr->ldir(context_ptr)).normalize();
 
 			return light_ptr->light_shade(context_ptr) * context_ptr->surface_ptr->material_shade(context_ptr, win, wout);
 		}
@@ -45,7 +45,7 @@ namespace ray_tracer {
 		colorRGB result;
 
 		world_ptr = context_ptr->world_ptr;
-		win = (context_ptr->emission_ray.origin - context_ptr->intersect_p).normalized();
+		win = (context_ptr->emission_ray.origin - context_ptr->intersect_p).normalize();
 		result = context_ptr->world_ptr->ambient;
 		for (std::vector<const light *>::const_iterator iter = world_ptr->lights.begin(); iter != world_ptr->lights.end(); ++iter) {
 			result += light_shade(*iter, context_ptr, win);
