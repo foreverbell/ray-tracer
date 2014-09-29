@@ -14,10 +14,10 @@ void demo_2::set_world() {
 
 	s = new surface_sphere(point3D(0, 0, 20), 10);
 	s->set_trancenter(point3D(0, 0, 20));
-	s->apply_transform(transform_rotate(point3D(0, 0, 0), vector3D(1, 0, 0), -pi / 2));
-	s->apply_transform(transform_reflect('x'));
-	s->apply_transform(transform_rotate(point3D(0, 0, 0), vector3D(0, 1, 0), -pi / 1.8));
-	//s->apply_transform(transform_rotate(point3D(0, 0, 0), vector3D(-10, 0, 0), -pi / 18));
+	s->apply_transform(transform::rotate(point3D(0, 0, 0), vector3D(1, 0, 0), -pi / 2));
+	s->apply_transform(transform::reflect(0));
+	s->apply_transform(transform::rotate(point3D(0, 0, 0), vector3D(0, 1, 0), -pi / 1.8));
+	//s->apply_transform(transform::rotate(point3D(0, 0, 0), vector3D(-10, 0, 0), -pi / 18));
 	
 	m = new material_matte(color_white);
 	t = new texture_image("../resource/earth_texture.png");

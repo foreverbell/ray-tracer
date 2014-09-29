@@ -1,15 +1,15 @@
 
 #include "transform.hpp"
+#include "miscellaneous.hpp"
 
 namespace ray_tracer {
 
-	/* transform */
 	transform::transform() {
-		matrix.value[0][0] = matrix.value[1][1] = matrix.value[2][2] = matrix.value[3][3] = 1;
-		inv_matrix = matrix;
+		for (int i = 0; i <= 3; ++i) {
+			matrix.value[i][i] = 1;
+			inv_matrix.value[i][i] = 1;
+		}
 	}
-
-	transform::~transform() { }
 
 	transform transform::revert() const {
 		transform ret;
@@ -27,135 +27,152 @@ namespace ray_tracer {
 		return inv_matrix;
 	}
 
-	/* transform_reflect */
-	transform_reflect::transform_reflect(char axis) {
-		matrix.value[0][0] = 1;
-		matrix.value[1][1] = 1;
-		matrix.value[2][2] = 1;
-		matrix.value[3][3] = 1;
-		switch (axis) {
-		case 'X' : case 'x':
-			matrix.value[0][0] = -1;
-			break;
-		case 'Y' : case 'y':
-			matrix.value[1][1] = -1;
-			break;
-		case 'Z' : case 'z':
-			matrix.value[2][2] = -1;
-			break;
-		default:
-			break;
-		}
-		inv_matrix = matrix;
+	transform transform::create(const matrix4D &mat, const matrix4D &imat) {
+		transform ret;
+
+		ret.matrix = mat;
+		ret.inv_matrix = imat;
+		return ret;
 	}
 
-	/* transform_rotate */
-	transform_rotate::transform_rotate(char axis, double angle) {
-		matrix.value[0][0] = 1;
-		matrix.value[1][1] = 1;
-		matrix.value[2][2] = 1;
-		matrix.value[3][3] = 1;
-		inv_matrix.value[0][0] = 1;
-		inv_matrix.value[1][1] = 1;
-		inv_matrix.value[2][2] = 1;
-		inv_matrix.value[3][3] = 1;
-		if (axis == 'x' || axis == 'X') {
-			matrix.value[1][1] = cos(angle);
-			matrix.value[1][2] = sin(angle);
-			matrix.value[2][1] = -sin(angle);
-			matrix.value[2][2] = cos(angle);
-			inv_matrix.value[1][1] = cos(-angle);
-			inv_matrix.value[1][2] = sin(-angle);
-			inv_matrix.value[2][1] = -sin(-angle);
-			inv_matrix.value[2][2] = cos(-angle);
-		} else if (axis == 'y' || axis == 'Y') {
-			matrix.value[0][0] = cos(angle);
-			matrix.value[0][2] = -sin(angle);
-			matrix.value[2][0] = sin(angle);
-			matrix.value[2][2] = cos(angle);
-			inv_matrix.value[0][0] = cos(-angle);
-			inv_matrix.value[0][2] = -sin(-angle);
-			inv_matrix.value[2][0] = sin(-angle);
-			inv_matrix.value[2][2] = cos(-angle);
-		} else if (axis == 'z' || axis == 'Z') {
-			matrix.value[0][0] = cos(angle);
-			matrix.value[0][1] = sin(angle);
-			matrix.value[1][0] = -sin(angle);
-			matrix.value[1][1] = cos(angle);
-			inv_matrix.value[0][0] = cos(-angle);
-			inv_matrix.value[0][1] = sin(-angle);
-			inv_matrix.value[1][0] = -sin(-angle);
-			inv_matrix.value[1][1] = cos(-angle);
+	transform transform::reflect(int axis) {
+		matrix4D mat;
+
+		for (int i = 0; i <= 3; ++i) {
+			mat.value[i][i] = 1;
 		}
+
+		if (axis < 0 || axis > 2) {
+			throw_exception("invalid axis.");
+		}
+
+		mat.value[axis][axis] = -1;
+
+		return create(mat, mat);
+	}
+
+	transform transform::rotate(int axis, double angle) {
+		matrix4D mat, imat;
+
+		for (int i = 0; i <= 3; ++i) {
+			mat.value[i][i] = 1;
+			imat.value[i][i] = 1;
+		}
+
+		if (axis < 0 || axis > 2) {
+			throw_exception("invalid axis.");
+		}
+
+		if (axis == 0) {
+
+			mat.value[1][1] = cos(angle);
+			mat.value[1][2] = sin(angle);
+			mat.value[2][1] = -sin(angle);
+			mat.value[2][2] = cos(angle);
+			imat.value[1][1] = cos(-angle);
+			imat.value[1][2] = sin(-angle);
+			imat.value[2][1] = -sin(-angle);
+			imat.value[2][2] = cos(-angle);
+
+		} else if (axis == 1) {
+
+			mat.value[0][0] = cos(angle);
+			mat.value[0][2] = -sin(angle);
+			mat.value[2][0] = sin(angle);
+			mat.value[2][2] = cos(angle);
+			imat.value[0][0] = cos(-angle);
+			imat.value[0][2] = -sin(-angle);
+			imat.value[2][0] = sin(-angle);
+			imat.value[2][2] = cos(-angle);
+
+		} else if (axis == 2) {
+
+			mat.value[0][0] = cos(angle);
+			mat.value[0][1] = sin(angle);
+			mat.value[1][0] = -sin(angle);
+			mat.value[1][1] = cos(angle);
+			imat.value[0][0] = cos(-angle);
+			imat.value[0][1] = sin(-angle);
+			imat.value[1][0] = -sin(-angle);
+			imat.value[1][1] = cos(-angle);
+
+		}
+
+		return create(mat, imat);
 	}
 	
-	transform_rotate::transform_rotate(const point3D &centre, const vector3D &axis, double angle) {
-		vector3D normal_axis = axis.normalized();
-		matrix4D mat1, mat2, mat3;
-		transform_translate translate = transform_translate(centre.x, centre.y, centre.z);
+	transform transform::rotate(const point3D &centre, const vector3D &axis, double angle) {
+		vector3D axis_unit = axis.normalized();
+		matrix4D mat1, mat2, mat3, mat, imat;
 		double c = cos(angle), s = sin(angle);
+		transform t = transform::translate(centre.x, centre.y, centre.z);
 
-		mat1 = translate.get_matrix();
-		mat3 = translate.get_inv_matrix();
-		mat2.value[0][0] = c + (1 - c) * normal_axis.x * normal_axis.x;
-		mat2.value[0][1] = (1 - c) * normal_axis.x * normal_axis.y - s * normal_axis.z;
-		mat2.value[0][2] = (1 - c) * normal_axis.x * normal_axis.z + s * normal_axis.y;
-		mat2.value[1][0] = (1 - c) * normal_axis.x * normal_axis.y + s * normal_axis.z;
-		mat2.value[1][1] = c + (1 - c) * normal_axis.y * normal_axis.y;
-		mat2.value[1][2] = (1 - c) * normal_axis.y * normal_axis.z - s * normal_axis.x;
-		mat2.value[2][0] = (1 - c) * normal_axis.x * normal_axis.z - s * normal_axis.y;
-		mat2.value[2][1] = (1 - c) * normal_axis.y * normal_axis.z + s * normal_axis.x;
-		mat2.value[2][2] = c + (1 - c) * normal_axis.z * normal_axis.z;
-		// mat2.value[0][3] = 1; bug?
-		// mat2.value[1][3] = 1;
-		// mat2.value[2][3] = 1;
+		mat1 = t.get_matrix();
+		mat3 = t.get_inv_matrix();
+
+		mat2.value[0][0] = c + (1 - c) * axis_unit.x * axis_unit.x;
+		mat2.value[0][1] = (1 - c) * axis_unit.x * axis_unit.y - s * axis_unit.z;
+		mat2.value[0][2] = (1 - c) * axis_unit.x * axis_unit.z + s * axis_unit.y;
+		mat2.value[1][0] = (1 - c) * axis_unit.x * axis_unit.y + s * axis_unit.z;
+		mat2.value[1][1] = c + (1 - c) * axis_unit.y * axis_unit.y;
+		mat2.value[1][2] = (1 - c) * axis_unit.y * axis_unit.z - s * axis_unit.x;
+		mat2.value[2][0] = (1 - c) * axis_unit.x * axis_unit.z - s * axis_unit.y;
+		mat2.value[2][1] = (1 - c) * axis_unit.y * axis_unit.z + s * axis_unit.x;
+		mat2.value[2][2] = c + (1 - c) * axis_unit.z * axis_unit.z;
 		mat2.value[3][3] = 1;
-		matrix = mat1 * mat2 * mat3;
+		mat = mat1 * mat2 * mat3;
 
 		c = cos(-angle), s = sin(-angle);
-		mat2.value[0][0] = c + (1 - c) * normal_axis.x * normal_axis.x;
-		mat2.value[0][1] = (1 - c) * normal_axis.x * normal_axis.y - s * normal_axis.z;
-		mat2.value[0][2] = (1 - c) * normal_axis.x * normal_axis.z + s * normal_axis.y;
-		mat2.value[1][0] = (1 - c) * normal_axis.x * normal_axis.y + s * normal_axis.z;
-		mat2.value[1][1] = c + (1 - c) * normal_axis.y * normal_axis.y;
-		mat2.value[1][2] = (1 - c) * normal_axis.y * normal_axis.z - s * normal_axis.x;
-		mat2.value[2][0] = (1 - c) * normal_axis.x * normal_axis.z - s * normal_axis.y;
-		mat2.value[2][1] = (1 - c) * normal_axis.y * normal_axis.z + s * normal_axis.x;
-		mat2.value[2][2] = c + (1 - c) * normal_axis.z * normal_axis.z;
-		// mat2.value[0][3] = 1;
-		// mat2.value[1][3] = 1;
-		// mat2.value[2][3] = 1;
+		mat2.value[0][0] = c + (1 - c) * axis_unit.x * axis_unit.x;
+		mat2.value[0][1] = (1 - c) * axis_unit.x * axis_unit.y - s * axis_unit.z;
+		mat2.value[0][2] = (1 - c) * axis_unit.x * axis_unit.z + s * axis_unit.y;
+		mat2.value[1][0] = (1 - c) * axis_unit.x * axis_unit.y + s * axis_unit.z;
+		mat2.value[1][1] = c + (1 - c) * axis_unit.y * axis_unit.y;
+		mat2.value[1][2] = (1 - c) * axis_unit.y * axis_unit.z - s * axis_unit.x;
+		mat2.value[2][0] = (1 - c) * axis_unit.x * axis_unit.z - s * axis_unit.y;
+		mat2.value[2][1] = (1 - c) * axis_unit.y * axis_unit.z + s * axis_unit.x;
+		mat2.value[2][2] = c + (1 - c) * axis_unit.z * axis_unit.z;
 		mat2.value[3][3] = 1;
-		inv_matrix = mat1 * mat2 * mat3;
+		imat = mat1 * mat2 * mat3;
+
+		return create(mat, imat);
 	}
 
-	/* transform_scale */
-	transform_scale::transform_scale(double x, double y, double z) {
-		matrix.value[0][0] = x;
-		matrix.value[1][1] = y;
-		matrix.value[2][2] = z;
-		matrix.value[3][3] = 1;
-		inv_matrix.value[0][0] = 1 / x;
-		inv_matrix.value[1][1] = 1 / y;
-		inv_matrix.value[2][2] = 1 / z;
-		inv_matrix.value[3][3] = 1;
+	transform transform::scale(double x, double y, double z) {
+		matrix4D mat, imat;
+
+		mat.value[0][0] = x;
+		mat.value[1][1] = y;
+		mat.value[2][2] = z;
+		mat.value[3][3] = 1;
+
+		imat.value[0][0] = 1 / x;
+		imat.value[1][1] = 1 / y;
+		imat.value[2][2] = 1 / z;
+		imat.value[3][3] = 1;
+
+		return create(mat, imat);
 	}
 
-	/* transform_translate */
-	transform_translate::transform_translate(double x, double y, double z) {
-		matrix.value[0][0] = 1;
-		matrix.value[1][1] = 1;
-		matrix.value[2][2] = 1;
-		matrix.value[3][3] = 1;
-		matrix.value[0][3] = x;
-		matrix.value[1][3] = y;
-		matrix.value[2][3] = z;
-		inv_matrix.value[0][0] = 1;
-		inv_matrix.value[1][1] = 1;
-		inv_matrix.value[2][2] = 1;
-		inv_matrix.value[3][3] = 1;
-		inv_matrix.value[0][3] = -x;
-		inv_matrix.value[1][3] = -y;
-		inv_matrix.value[2][3] = -z;
+	transform transform::translate(double x, double y, double z) {
+		matrix4D mat, imat;
+
+		mat.value[0][0] = 1;
+		mat.value[1][1] = 1;
+		mat.value[2][2] = 1;
+		mat.value[3][3] = 1;
+		mat.value[0][3] = x;
+		mat.value[1][3] = y;
+		mat.value[2][3] = z;
+
+		imat.value[0][0] = 1;
+		imat.value[1][1] = 1;
+		imat.value[2][2] = 1;
+		imat.value[3][3] = 1;
+		imat.value[0][3] = -x;
+		imat.value[1][3] = -y;
+		imat.value[2][3] = -z;
+
+		return create(mat, imat);
 	}
 }

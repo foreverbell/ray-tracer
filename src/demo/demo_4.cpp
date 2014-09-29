@@ -11,9 +11,9 @@ void demo_4::set_world() {
 //	splane->set_texture(new texture_checker(4.0, true));
 
 	surface_mesh *sbunny = new surface_noffmesh("../resource/bunny.noff");
-	sbunny->apply_transform(transform_scale(0.07, 0.07, 0.07));
-	sbunny->apply_transform(transform_rotate('y', pi));
-	sbunny->apply_transform(transform_translate(0, -3, 0));
+	sbunny->apply_transform(transform::scale(0.07, 0.07, 0.07));
+	sbunny->apply_transform(transform::rotate(1, pi));
+	sbunny->apply_transform(transform::translate(0, -3, 0));
 	sbunny->set_material(new material_transparent(color_white / 1.3, color_white / 1.3, 1.0));
 	sbunny->set_texture(new texture_solid(color_silver));
 

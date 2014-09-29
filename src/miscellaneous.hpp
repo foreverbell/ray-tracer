@@ -47,6 +47,11 @@ namespace ray_tracer {
 		return x;
 	}
 
+	template<typename T>
+	inline T sqr(const T &x) {
+		return x * x;
+	}
+
 	inline double __root_cal(const std::vector<double> &coef, double x) {
 		double e = 1, s = 0;
 
