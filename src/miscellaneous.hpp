@@ -128,7 +128,7 @@ namespace ray_tracer {
 	/* exceptions. */
 	class rt_exception {
 	public:
-		rt_exception(const std::string &msg_, int line_ = __LINE__, const std::string &file_ = __FILE__) : msg(msg_), line(line_), file(file_) { }
+		rt_exception(const std::string &msg_, const std::string &file_ = __FILE__, int line_ = __LINE__) : msg(msg_), file(file_), line(line_) { }
 
 		inline std::string what() const { 
 			std::stringstream ss;

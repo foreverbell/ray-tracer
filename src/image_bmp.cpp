@@ -49,7 +49,7 @@ namespace ray_tracer {
 		if (data_ptr == nullptr) {
 			return false;
 		}
-		if (fread(data_ptr, 1, actual_size - 0xe, imgfile_ptr) != actual_size - 0xe) {
+		if ((int) fread(data_ptr, 1, actual_size - 0xe, imgfile_ptr) != actual_size - 0xe) {
 			return false;
 		}
 
