@@ -14,20 +14,16 @@ namespace ray_tracer {
 		camera(const point3D &, const point3D &, const vector3D &);
 		virtual ~camera() = 0;
 		virtual bool get_ray(double, double, int, int, ray *, shade_context *) const = 0;
-		point3D get_eye() const;
+		point3D position() const;
 		void roll(double);
 		void rotate(double);
 	protected:
-		void compute_axis();
+		void setup();
 	protected:
 		point3D eye, lookat;
 		vector3D up;
 		vector3D axis_u, axis_v, axis_w;
 	};
-
-	inline point3D camera::get_eye() const {
-		return eye;
-	}
 }
 
 #endif

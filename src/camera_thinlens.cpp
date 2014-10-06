@@ -20,8 +20,8 @@ namespace ray_tracer {
 		point2D sample_point;
 
 		if (!spherical) {
-			u = tan((x / width - 0.5) * u_fov * 2);
-			v = tan((y / height - 0.5) * v_fov * 2);
+			u = tan((2 * x / width - 1) * u_fov);
+			v = tan((2 * y / height - 1) * v_fov);
 			w = -1;
 		} else {
 			double alpha = pi - (x / width - 0.5) * 2 * u_fov;

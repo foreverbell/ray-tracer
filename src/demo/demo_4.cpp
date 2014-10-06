@@ -4,7 +4,7 @@
 using namespace ray_tracer;
 
 void demo_4::set_world() {
-	cam = new camera_pinhole(point3D(0, 2, -10), point3D(0, 0, 0), vector3D(0, 1, 0.2), atan(2.0), atan(2.0), false);
+	cam = new camera_pinhole(point3D(0, 1, -10), point3D(0, 0, 0), vector3D(0, 1, 0.1), atan(2.0), atan(2.0), false);
 
 //	surface_plane *splane = new surface_plane(point3D(0, -10, 0), vector3D(0, 1, 0));
 //	splane->set_material(new material_matte());

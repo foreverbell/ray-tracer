@@ -12,10 +12,14 @@ namespace ray_tracer {
 		eye = eye_;
 		lookat = lookat_;
 		up = up_;
-		compute_axis();
+		setup();
 	}
 	
 	camera::~camera() { }
+	
+	point3D camera::position() const {
+		return eye;
+	}
 
 	void camera::roll(double angle) {
 		matrix3D mat = transform::rotate(eye, axis_w, angle).get().convert3D();
@@ -38,8 +42,8 @@ namespace ray_tracer {
 		up = mat * up;
 	}
 
-	/* Note: axis_w dot axis_v = 0 */
-	void camera::compute_axis() {
+	/* Note: (axis_w, axis_v) = 0 */
+	void camera::setup() {
 		axis_w = (eye - lookat).normalize();
 		axis_v = -up.normalize();
 		if (dblsgn(axis_w * axis_v) != 0) {

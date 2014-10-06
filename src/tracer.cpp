@@ -30,7 +30,7 @@ namespace ray_tracer {
 				colorRGB color = shade(context_ptr);
 				
 				if (world_ptr->fog_ptr) {
-					color = world_ptr->fog_ptr->fog_blend(context_ptr, (world_ptr->camera_ptr->get_eye() - context_ptr->intersect_p).length(), color);
+					color = world_ptr->fog_ptr->fog_blend(context_ptr, (world_ptr->camera_ptr->position() - context_ptr->intersect_p).length(), color);
 				}
 				return color;
 			} else {

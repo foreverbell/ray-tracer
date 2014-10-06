@@ -4,23 +4,28 @@
 using namespace ray_tracer;
 
 void demo_7::set_world() {
-	cam = new camera_pinhole(point3D(2, 2, 3), point3D(0, 0, 0), vector3D(1, -1, 0), atan(2.0), atan(2.0), true);
+	FILE *f = fopen("../resource/4LDB.spheres", "r");
+	int n;
+	
+	fscanf(f, "%d", &n);
+	for (int i = 0; i < n; ++i) {
+		point3D center;
+		double radius;
 
-	surface_sphere *sp1 = new surface_sphere(point3D(-1, -1, -1), 2);
-	surface_cube *sp2 = new surface_cube(point3D(1, 1, 1), 0.5);
-	sp1->set_material(new material_matte());
-	sp1->set_texture(new texture_solid(color_red));
-	sp2->set_material(new material_phong(color_white, color_white, 100));
-	sp2->set_texture(new texture_solid(color_blue));
-//	surface *s = new surface_subtract(sp1, sp2);
+		fscanf(f, "%lf%lf%lf%lf", &center.x, &center.y, &center.z, &radius);
+		surface_sphere *sphere = new surface_sphere(center, radius);
+		sphere->set_material(new material_matte());
+		sphere->set_texture(new texture_solid(color_red));
+		wld.add_surface(sphere);
+	}
 
-	light *l = new light_point(point3D(5, 5, 5), color_white);
-	l->set_shadow(true);
+	cam = new camera_pinhole(point3D(-10, -40, -70), point3D(-10, -40, 0), vector3D(0, 1, 0), atan(2.0), atan(2.0), true);
+
+	light *l = new light_point(point3D(-10, -40, -70), color_white);
+	wld.add_light(l);
 
 	// wld.set_ambient(color_white / 5);
-	wld.set_sampler(new sampler_jittered(4));
+	wld.set_sampler(new sampler_jittered(16));
+	wld.set_silhouette(1.5);
 	wld.set_camera(cam);
-	wld.set_fog(new fog(0.002, 1, color_white));
-	wld.add_surface(sp2);
-	wld.add_light(l);
 }
