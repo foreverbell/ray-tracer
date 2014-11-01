@@ -19,15 +19,15 @@ void demo_2::set_world() {
 	s->apply_transform(transform::rotate(point3D(0, 0, 0), vector3D(0, 1, 0), -pi / 1.8));
 	//s->apply_transform(transform::rotate(point3D(0, 0, 0), vector3D(-10, 0, 0), -pi / 18));
 	
-	m = new material_matte(color_white);
+	m = new material_matte(color::white);
 	t = new texture_image("../resource/earth_texture.png");
 	s->set_material(m);
 	s->set_texture(t);
 
-	l = new light_point(point3D(0, 5, -20), color_white);
+	l = new light_point(point3D(0, 5, -20), color::white);
 	l->set_shadow(false);
 
-	wld.set_ambient(color_white / 10);
+	wld.set_ambient(color::white / 10);
 	wld.set_skybox(new skybox("../resource/spheremapgalaxyasteroid.png"));
 	wld.set_camera(cam);
 	wld.add_surface(s);

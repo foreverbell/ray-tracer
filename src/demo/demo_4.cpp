@@ -14,16 +14,16 @@ void demo_4::set_world() {
 	sbunny->apply_transform(transform::scale(0.07, 0.07, 0.07));
 	sbunny->apply_transform(transform::rotate(1, pi));
 	sbunny->apply_transform(transform::translate(0, -3, 0));
-	sbunny->set_material(new material_transparent(color_white / 1.3, color_white / 1.3, 1.0));
-	sbunny->set_texture(new texture_solid(color_silver));
+	sbunny->set_material(new material_transparent(color::white / 1.3, color::white / 1.3, 1.0));
+	sbunny->set_texture(new texture_solid(color::silver));
 
-	light *l = new light_point(point3D(0, 2, -10), color_white);
+	light *l = new light_point(point3D(0, 2, -10), color::white);
 	l->set_shadow(false);
 
-	wld.set_ambient(color_white / 5);
+	wld.set_ambient(color::white / 5);
 	wld.set_sampler(new sampler_jittered(4));
 	wld.set_camera(cam);
-//	wld.set_fog(new fog(0.01, 1, color_white));
+//	wld.set_fog(new fog(0.01, 1, color::white));
 //	wld.add_surface(splane);
 	wld.set_skybox(new skybox("../resource/sunset-skybox/front.png", "../resource/sunset-skybox/back.png", "../resource/sunset-skybox/left.png", "../resource/sunset-skybox/right.png", "../resource/sunset-skybox/top.png", "../resource/sunset-skybox/bottom.png"));
 	wld.add_surface(sbunny);

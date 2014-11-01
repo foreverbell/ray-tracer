@@ -28,7 +28,7 @@ namespace ray_tracer {
 		double cos_theta2 = 1 - (1 - cos_theta_i * cos_theta_i) / _eta / _eta;
 
 		if (cos_theta2 < 0) {
-			return color_black;
+			return color::black;
 		}
 
 		cos_theta2 = sqrt(cos_theta2);

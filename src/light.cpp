@@ -23,7 +23,7 @@ namespace ray_tracer {
 		if (spot_enabled) {
 			double vdotd = ldir(context_ptr).normalize() * spot_direction;
 
-			ret = vdotd > 0 ? ret * pow(vdotd, spot_exponent) : color_black;
+			ret = vdotd > 0 ? ret * pow(vdotd, spot_exponent) : color::black;
 		}
 		return ret;
 	}

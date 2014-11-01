@@ -12,16 +12,16 @@ void demo_5::set_world() {
 
 	surface_mobius *smobius = new surface_mobius(5, 1);
 	smobius->set_material(new material_matte());
-	smobius->set_texture(new texture_solid(color_royalblue));
+	smobius->set_texture(new texture_solid(color::royalblue));
 
-	light *l = new light_point(point3D(-20, 0, 10), color_white);
+	light *l = new light_point(point3D(-20, 0, 10), color::white);
 	l->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
 	l->set_shadow(true);
 
-	wld.set_ambient(color_white / 5);
+	wld.set_ambient(color::white / 5);
 	wld.set_sampler(new sampler_jittered(4));
 	wld.set_camera(cam);
-	wld.set_fog(new fog(0.01, 1, color_white));
+	wld.set_fog(new fog(0.01, 1, color::white));
 	wld.add_surface(splane);
 	wld.add_surface(smobius);
 	wld.add_light(l);

@@ -10,13 +10,13 @@ void demo_6::set_world() {
 	sterrain->set_material(new material_matte());
 	sterrain->set_texture(new texture_image("../resource/landscape_texture.png"));
 
-	light *l = new light_point(point3D(50, 50, 25), color_white);
+	light *l = new light_point(point3D(50, 50, 25), color::white);
 	l->set_shadow(true);
 
-	wld.set_ambient(color_white / 5);
+	wld.set_ambient(color::white / 5);
 	wld.set_sampler(new sampler_jittered(4));
 	wld.set_camera(cam);
-	wld.set_fog(new fog(0.002, 1, color_white));
+	wld.set_fog(new fog(0.002, 1, color::white));
 	wld.add_surface(sterrain);
 	wld.add_light(l);
 }

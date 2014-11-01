@@ -18,6 +18,6 @@ namespace ray_tracer {
 			return rho * ndoth;
 		}
 			
-		return color_black;
+		return color::black;
 	}
 }

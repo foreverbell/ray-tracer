@@ -22,22 +22,22 @@ void demo_1::set_world() {
 
 	surface_glteapot *s7 = new surface_glteapot();
 	s7->apply_transform(transform::translate(-4, -3, -3));
-	s7->set_material(new material_transparent(color_white / 1.2, color_white / 1.2, 0.8));
+	s7->set_material(new material_transparent(color::white / 1.2, color::white / 1.2, 0.8));
 	s7->set_texture(new texture_solid(color_skyblue));
 
 	surface_glteapot *s8 = new surface_glteapot();
 	s8->apply_transform(transform::translate(3, -3, 3));
-	s8->set_material(new material_transparent(color_white / 1.2, color_white / 1.2, 0.8));
+	s8->set_material(new material_transparent(color::white / 1.2, color::white / 1.2, 0.8));
 	s8->set_texture(new texture_solid(color_palegreen));
 
-	l1 = new light_area(point3D(0, 20, 20), color_white / 1.8, 3, vector3D(0, 20, 10));
+	l1 = new light_area(point3D(0, 20, 20), color::white / 1.8, 3, vector3D(0, 20, 10));
 	// l1->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
-	l2 = new light_point(point3D(0, 40, 0), color_white / 3);
+	l2 = new light_point(point3D(0, 40, 0), color::white / 3);
 
-	wld.set_ambient(color_white / 8);
+	wld.set_ambient(color::white / 8);
  	wld.set_sampler(new sampler_jittered(9));
 	wld.set_camera(cam);
-	wld.set_fog(new fog(0.01, 1, color_white));
+	wld.set_fog(new fog(0.01, 1, color::white));
 	// wld.add_surface(s1);
 	// wld.add_surface(s2);
 	wld.add_surface(s3);

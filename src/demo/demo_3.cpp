@@ -14,15 +14,15 @@ void demo_3::set_world() {
 
 	s = new surface_quadratic(0.5, 0.5, -0.1, 0, 0, 0, 0, 0, 0, -1);
 	s->rangeZ(-30, 18);
-	m = new material_matte(color_azure);
-	t = new texture_solid(color_azure);
+	m = new material_matte(color::azure);
+	t = new texture_solid(color::azure);
 	s->set_material(m);
 	s->set_texture(t);
 
-	l = new light_point(point3D(-20, 0, 0), color_white);
+	l = new light_point(point3D(-20, 0, 0), color::white);
 	l->set_shadow(false);
 
-	wld.set_ambient(color_black);
+	wld.set_ambient(color::black);
 	wld.set_camera(cam);
 	wld.set_sampler(new sampler_jittered(16));
 	wld.add_surface(s);
