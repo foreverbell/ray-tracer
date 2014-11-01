@@ -8,7 +8,7 @@ namespace ray_tracer {
 	fog::fog() {
 		density = 0.1;
 		exponent = 1;
-		fog_color = color_white;
+		fog_color = color::white;
 	}
 
 	fog::fog(double density_, int exponent_, const colorRGB &fog_color_) {

@@ -16,7 +16,7 @@ namespace ray_tracer {
 		fog_ptr = nullptr;
 		skybox_ptr = nullptr;
 		slhtt_radius = 0;
-		set_ambient(color_white / 5);
+		set_ambient(color::white / 5);
 	}
 
 	world::~world() { }
@@ -28,7 +28,7 @@ namespace ray_tracer {
 			// TODO: Blend with skybox
 			return fog_ptr->color();
 		}
-		return color_black;
+		return color::black;
 	}
 
 	bool world::get_intersection(shade_context *context_ptr) const {
@@ -120,7 +120,7 @@ namespace ray_tracer {
 			sampler_iterator sam_iter(sampler_ptr);
 			int nsamples = sam_iter.get_sampler_count();
 			
-			color = color_black;
+			color = color::black;
 			msurface_ptr = nullptr;
 
 			for (int i = 0; i < nsamples; i += 1) {

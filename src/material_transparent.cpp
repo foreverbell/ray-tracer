@@ -5,8 +5,8 @@
 namespace ray_tracer {
 
 	material_transparent::material_transparent() {
-		reflection_ptr = std::unique_ptr<BRDF_reflection>(new BRDF_reflection(color_white / 2));
-		refraction_ptr = std::unique_ptr<BRDF_refraction>(new BRDF_refraction(color_white / 2, 1));
+		reflection_ptr = std::unique_ptr<BRDF_reflection>(new BRDF_reflection(color::white / 2));
+		refraction_ptr = std::unique_ptr<BRDF_refraction>(new BRDF_refraction(color::white / 2, 1));
 	}
 
 	material_transparent::material_transparent(const colorRGB &rho1, const colorRGB &rho2, double eta) {

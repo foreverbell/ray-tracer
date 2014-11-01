@@ -56,7 +56,6 @@ namespace ray_tracer {
 
 	// Color source from: http://www.w3schools.com/html/html_colornames.asp
 
-
 	namespace color {
 		const colorRGB aliceblue = colorRGB(0.941176470588, 0.972549019608, 1.0);
 		const colorRGB antiquewhite = colorRGB(0.980392156863, 0.921568627451, 0.843137254902);

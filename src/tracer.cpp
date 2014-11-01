@@ -17,12 +17,12 @@ namespace ray_tracer {
 
 			return light_ptr->light_shade(context_ptr) * context_ptr->surface_ptr->material_shade(context_ptr, win, wout);
 		}
-		return color_black;
+		return color::black;
 	}
 
 	colorRGB tracer::trace_ray(shade_context *context_ptr) const {
 		if (context_ptr->trace_depth == 0) {
-			return color_black;
+			return color::black;
 		} else {
 			const world *world_ptr = context_ptr->world_ptr;
 

@@ -5,8 +5,8 @@
 namespace ray_tracer {
 
 	material_mirror::material_mirror() {
-		reflection_ptr = std::unique_ptr<BRDF_reflection>(new BRDF_reflection(color_white / 2));
-		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(color_white / 2));
+		reflection_ptr = std::unique_ptr<BRDF_reflection>(new BRDF_reflection(color::white / 2));
+		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(color::white / 2));
 	}
 
 	material_mirror::material_mirror(const colorRGB &rho1, const colorRGB &rho2) {

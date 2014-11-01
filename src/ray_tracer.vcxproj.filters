@@ -137,9 +137,6 @@
     <ClCompile Include="demo\demo_6.cpp">
       <Filter>demo</Filter>
     </ClCompile>
-    <ClCompile Include="demo\demo_7.cpp">
-      <Filter>demo</Filter>
-    </ClCompile>
     <ClCompile Include="light_parallel.cpp">
       <Filter>bottom-layer\light</Filter>
     </ClCompile>

@@ -63,8 +63,7 @@ int main(int argc, char *argv[]) {
 		new demo_3(),
 		new demo_4(),
 		new demo_5(),
-		new demo_6(),
-		new demo_7()
+		new demo_6()
 	};
 	demo *dm = demos[demo_id - 1];
 

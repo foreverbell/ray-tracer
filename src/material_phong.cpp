@@ -5,8 +5,8 @@
 namespace ray_tracer {
 	
 	material_phong::material_phong() {
-		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(color_white / 2));
-		specular_ptr = std::unique_ptr<BRDF_phong>(new BRDF_phong(color_white / 2, 32));
+		diffuse_ptr = std::unique_ptr<BRDF_lambertian>(new BRDF_lambertian(color::white / 2));
+		specular_ptr = std::unique_ptr<BRDF_phong>(new BRDF_phong(color::white / 2, 32));
 	}
 
 	material_phong::material_phong(const colorRGB &diffuse_rho_, const colorRGB &specular_rho_, int shininess_) {

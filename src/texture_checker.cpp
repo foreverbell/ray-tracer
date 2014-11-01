@@ -7,8 +7,8 @@
 namespace ray_tracer {
 
 	texture_checker::texture_checker(double size_, bool mapping3d_) {
-		color1 = color_black;
-		color2 = color_white;
+		color1 = color::black;
+		color2 = color::white;
 		size = size_;
 		mapping3d = mapping3d_;
 	}

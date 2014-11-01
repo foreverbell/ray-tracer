@@ -13,6 +13,6 @@ namespace ray_tracer {
 		if (ndoto > 0) {
 			return rho * ndoto;
 		}
-		return color_black;
+		return color::black;
 	}
 }

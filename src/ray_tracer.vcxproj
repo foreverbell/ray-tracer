@@ -90,7 +90,6 @@
     <ClCompile Include="demo\demo_4.cpp" />
     <ClCompile Include="demo\demo_5.cpp" />
     <ClCompile Include="demo\demo_6.cpp" />
-    <ClCompile Include="demo\demo_7.cpp" />
     <ClCompile Include="hilbertcurve.cpp" />
     <ClCompile Include="image_png.cpp" />
     <ClCompile Include="light_parallel.cpp" />

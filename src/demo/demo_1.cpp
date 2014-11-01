@@ -11,7 +11,7 @@ void demo_1::set_world() {
 
 	s1 = new surface_sphere(point3D(15, -7, 0), 9);
 	s1->set_material(new material_mirror());
-	s1->set_texture(new texture_solid(color_azure));
+	s1->set_texture(new texture_solid(color::azure));
 	s2 = new surface_sphere(point3D(30, 9, 0), 11);
 	s2->set_material(new material_mirror());
 	s2->set_texture(new texture_solid(colorRGB(0.8, 0.2, 0.8)));
@@ -23,12 +23,12 @@ void demo_1::set_world() {
 	surface_glteapot *s7 = new surface_glteapot();
 	s7->apply_transform(transform::translate(-4, -3, -3));
 	s7->set_material(new material_transparent(color::white / 1.2, color::white / 1.2, 0.8));
-	s7->set_texture(new texture_solid(color_skyblue));
+	s7->set_texture(new texture_solid(color::skyblue));
 
 	surface_glteapot *s8 = new surface_glteapot();
 	s8->apply_transform(transform::translate(3, -3, 3));
 	s8->set_material(new material_transparent(color::white / 1.2, color::white / 1.2, 0.8));
-	s8->set_texture(new texture_solid(color_palegreen));
+	s8->set_texture(new texture_solid(color::palegreen));
 
 	l1 = new light_area(point3D(0, 20, 20), color::white / 1.8, 3, vector3D(0, 20, 10));
 	// l1->set_spot(true, vector3D(30, 9, -30), pi / 3, 5);
