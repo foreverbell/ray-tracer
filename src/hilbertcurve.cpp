@@ -7,7 +7,7 @@
 namespace ray_tracer {
 
 	hilbertcurve::point_container_t hilbertcurve::aftrans(int order, int dir, hilbertcurve::point_container_t pt, int dx, int dy) {
-		int n = 1 << order, m = pt.size();
+		int n = 1 << order, m = (int) pt.size();
 		point_container_t result;
 
 		result.resize(m);
@@ -39,7 +39,7 @@ namespace ray_tracer {
 		} else {
 			point_container_t rec = hilbert(order - 1), tmp;
 			int n = 1 << (order - 1);
-			int meta_n = rec.size();
+			int meta_n = (int) rec.size();
 
 			result.resize(meta_n * 4);
 

@@ -35,11 +35,11 @@ namespace ray_tracer {
 		int ptr = 0;
 
 		for (size_t i = 0; i < surfaces.size(); ++i) {
-			surfaces_indexes.push_back(i);
+			surfaces_indexes.push_back((int) i);
 		}
 
 		if (min_split == -1) {
-			min_split = isqrt(surfaces.size());
+			min_split = isqrt((int) surfaces.size());
 		}
 		if (max_depth == -1) {
 			max_depth = std::numeric_limits<int>::max();
@@ -109,7 +109,7 @@ namespace ray_tracer {
 			return interval[a].second > interval[b].second;
 		};
 		std::priority_queue<int, std::vector<int>, decltype(heap_cmp_fun)> heap(heap_cmp_fun);
-		int L = 0, R = indexes.size(), M = 0;
+		int L = 0, R = (int) indexes.size(), M = 0;
 		int curr, best = std::numeric_limits<int>::max();
 		size_t curr_iter = 0;
 		point3D pos = point3D(0, 0, 0);
@@ -118,7 +118,7 @@ namespace ray_tracer {
 			while (curr_iter < indexes.size() && interval[curr_iter].first < it->first + epsilon) {
 				++M;
 				--R;
-				heap.push(curr_iter++);
+				heap.push((int) curr_iter++);
 			}
 			while (!heap.empty()) {
 				if (interval[heap.top()].second < it->first - epsilon) {
@@ -330,16 +330,16 @@ namespace ray_tracer {
 	}
 
 	void surface_mesh::interpolate_normal() {
-		int nvertices = points.size();
+		int nvertices = (int) points.size();
 		std::vector<std::vector<int> > adjacent_faces(nvertices);
 		std::vector<vector3D> normals(nvertices);
 		int v0, v1, v2;
 
 		for (size_t i = 0; i < vertex_indices.size(); ++i) {
 			std::tie(v0, v1, v2) = vertex_indices[i];
-			adjacent_faces[v0].push_back(i);
-			adjacent_faces[v1].push_back(i);
-			adjacent_faces[v2].push_back(i);
+			adjacent_faces[v0].push_back((int) i);
+			adjacent_faces[v1].push_back((int) i);
+			adjacent_faces[v2].push_back((int) i);
 		}
 		for (int i = 0; i < nvertices; ++i) {
 			for (int face : adjacent_faces[i]) {

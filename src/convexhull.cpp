@@ -16,9 +16,9 @@ namespace ray_tracer {
 			if (dblsgn(volume(points[p], points[x], points[y], points[z])) >= 0) {
 				return true;
 			} else {
-				rface[std::make_pair(a, b)] = faces.size();
-				rface[std::make_pair(b, p)] = faces.size();
-				rface[std::make_pair(p, a)] = faces.size();
+				rface[std::make_pair(a, b)] = (int) faces.size();
+				rface[std::make_pair(b, p)] = (int) faces.size();
+				rface[std::make_pair(p, a)] = (int) faces.size();
 				faces.push_back(std::make_pair(std::make_tuple(a, b, p), true));
 			}
 		}
@@ -43,7 +43,7 @@ namespace ray_tracer {
 
 	/* Complexity: O(N^2). */
 	std::pair<std::vector<face_t>, std::vector<edge_t> > convexhull::construct() {
-		int n = points.size(), flag = 0;
+		int n = (int) points.size(), flag = 0;
 		std::vector<face_t> ret_faces;
 		std::vector<edge_t> ret_edges;
 		face_t f;
@@ -85,15 +85,15 @@ namespace ray_tracer {
 				std::swap(std::get<0>(f), std::get<1>(f));
 				std::swap(a, b);
 			}
-			rface[std::make_pair(a, b)] = faces.size();
-			rface[std::make_pair(b, c)] = faces.size();
-			rface[std::make_pair(c, a)] = faces.size();
+			rface[std::make_pair(a, b)] = (int) faces.size();
+			rface[std::make_pair(b, c)] = (int) faces.size();
+			rface[std::make_pair(c, a)] = (int) faces.size();
 			faces.push_back(std::make_pair(f, true));
 		}
 		/* Construct the 3D hull. */
 		std::random_shuffle(points.begin() + 4, points.end());
 		for (int i = 4; i < n; ++i) {
-			int nfaces = faces.size();
+			int nfaces = (int) faces.size();
 			for (int j = 0; j < nfaces; ++j) {
 				if (faces[j].second) {
 					std::tie(a, b, c) = faces[j].first;
