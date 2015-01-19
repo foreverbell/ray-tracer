@@ -85,6 +85,7 @@ namespace ray_tracer {
 				vertices.push_back(point3D(i * scale, j * scale, height[i][j]));
 			}
 		}
+		setup_vertex(vertices);
 		for (int i = 0; i < size; ++i) {
 			for (int j = 0; j < size; ++j) {
 				double u = i * delta, v = j * delta;

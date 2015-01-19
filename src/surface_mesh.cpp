@@ -162,7 +162,7 @@ namespace ray_tracer {
 			point3D median = point3D(0, 0, 0);
 			int best = std::numeric_limits<int>::max();
 
-			for (vector3D normal : { vector3D(1, 0, 0), vector3D(0, 1, 0), vector3D(0, 0, 1) }) {
+			for (const vector3D &normal : { vector3D(1, 0, 0), vector3D(0, 1, 0), vector3D(0, 0, 1) }) {
 				std::pair<point3D, int> tmp = split(normal, indexes);
 
 				if (tmp.second < best) {
