@@ -38,7 +38,7 @@ namespace ray_tracer {
 		if (fread(head, 1, 0xe, imgfile_ptr) != 0xe) {
 			return false;
 		}
-		if (head[0] != 'B' && head[1] != 'M') {
+		if (head[0] != 'B' || head[1] != 'M') {
 			return false;
 		}
 		actual_size = (int) *(uint32_t *) (head + 0x2);
