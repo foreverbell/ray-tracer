@@ -162,7 +162,7 @@ namespace ray_tracer {
 			ret = (int) (*ptr >> bit_offset) & ((1 << color_depth) - 1);
 		} else if (color_depth == 16) {
 			ret = (int) *(uint16_t *) ptr;
-		} else if (color_depth == 24 || color_depth == 36) {
+		} else if (color_depth == 24 || color_depth == 32) {
 			ret = (int) *(uint32_t *) ptr;
 		}
 		if (palette_size) {
