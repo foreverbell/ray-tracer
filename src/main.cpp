@@ -9,7 +9,7 @@
 
 #ifdef _MSC_VER	// for MSVC
 #include <SDL.h>
-#else			// for GNU make
+#else           // for GNU make
 #include <SDL/SDL.h>
 #endif
 
@@ -17,7 +17,6 @@ using namespace ray_tracer;
 
 const int width = 350, height = 350;
 const int max_thread_count = 4;
-const int demo_id = 4;
 
 void render(world *world, SDL_Surface *screen) {
 	if (SDL_MUSTLOCK(screen)) {
@@ -39,7 +38,7 @@ void render(world *world, SDL_Surface *screen) {
 		SDL_UnlockSurface(screen);
 	}
 	SDL_UpdateRect(screen, 0, 0, width, height);
-	// SDL_SaveBMP(screen, "rt_render.bmp");
+	SDL_SaveBMP(screen, "rt_render.bmp");
 }
 
 // known issue in SDL 1.2, fix it with brute force.
@@ -47,6 +46,13 @@ void render(world *world, SDL_Surface *screen) {
 #define SDL_main main 
 
 int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		printf("usage: %s <demo_id>[1-6]\n", argv[0]);
+		return 0;
+	}
+
+	int demo_id = atoi(argv[1]);
+
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) { 
 		throw_exception("couldn't not initialize SDL.");
 	}

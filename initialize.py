@@ -20,7 +20,7 @@ resources = [
 mkdir('resource')
 chdir('resource')
 mkdir('sunset-skybox')
-for url in resources :
+for url in resources:
     fname = url.split('ray-tracer/')[-1]
     print 'retrieving', url, 'to', fname
     urlretrieve(url, fname)

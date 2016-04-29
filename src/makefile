@@ -7,7 +7,7 @@ CC = gcc
 CC_FLAGS = `sdl-config --cflags` -g -O2 -Wall -std=c++0x
 
 # Libraries for linking
-LIBS = `sdl-config --libs` -lstdc++ -lm -ldl
+LIBS = `sdl-config --libs` -lstdc++ -lm -ldl -pthread
 
 # Subdirs to search for additional source files
 SUBDIRS := $(shell ls -F | grep "\/" )

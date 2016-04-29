@@ -1,12 +1,10 @@
 # Ray Tracer
 
-Hello there visitor, welcome to this page!
-
-Here I am so proudly to introduce my tiny ray tracer based on CPU, which uses the `SDL` to present the image to users. (See http://www.libsdl.org)
+SDL-based implementation of a tiny and cross-platform ray tracer.
 
 # Compiling
 
-Firstly, you should retrieve the resources from another repository https://github.com/foreverbell/miscellaneous, or execute the `initialize.py` in the root folder.
+Firstly, you should retrieve the resources from another repository https://github.com/foreverbell/miscellaneous, just executing the `initialize.py` in the root folder.
 
 ## Under Windows
 
@@ -16,11 +14,16 @@ Microsoft Visual C++ 2013 is currently supported. To compile, please open the re
 
 ## Under Linux
 
-Firstly, install SDL library from http://www.libsdl.org/download-1.2.php, then execute command `make` in the folder `/src`, then the file `rt` will be generated in this folder.
+```bash
+sudo apt-get install libsdl1.2-dev
+cd src/
+make
+./rt <demo_id>
+```
 
 # Demos
 
-We currently provide 6 demos for use. 
+We currently provide 6 demos for testing.
 
 The first demo presents two Utah teapots ported from GLUT, with the `material_transparent` to show the reflection & refraction.
 
@@ -28,7 +31,7 @@ The second demo presents the Earth with texture. This is a real-time demo, you c
 
 The third demo presents a quadratic surface.
 
-The forth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the noff file format in `resource/bunny.noff`.
+The fourth demo presents the famous Stanford Bunny (See http://en.wikipedia.org/wiki/Stanford_bunny) stored with the noff file format in `resource/bunny.noff`.
 
 The fifth demo presents a mobius strip.
 
@@ -40,14 +43,11 @@ And the followings are several images rendered by our program.
 
 # References
 
-Ray Tracing from the Ground Up (2007)
-
-Fundamentals of Computer Graphics (2009)
+* Ray Tracing from the Ground Up (2007)
+* Fundamentals of Computer Graphics (2009)
 
 # 3rd-parties
 
-SDL-1.2.15: http://www.libsdl.org
-
-ply-1.1: http://graphics.stanford.edu/pub/zippack/ply-1.1.tar.Z
-
-lodepng: http://lodev.org/lodepng
+* SDL-1.2.15: http://www.libsdl.org
+* ply-1.1: http://graphics.stanford.edu/pub/zippack/ply-1.1.tar.Z
+* lodepng: http://lodev.org/lodepng
