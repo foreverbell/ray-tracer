@@ -15,10 +15,9 @@
 
 using namespace ray_tracer;
 
-const int width = 350, height = 350;
 const int max_thread_count = 4;
 
-void render(world *world, SDL_Surface *screen) {
+void render(int width, int height, world *world, SDL_Surface *screen) {
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
 			throw_exception("couldn't lock the screen.");
@@ -46,12 +45,14 @@ void render(world *world, SDL_Surface *screen) {
 #define SDL_main main 
 
 int main(int argc, char *argv[]) {
-	if (argc != 2) {
-		printf("usage: %s <demo_id>[1-6]\n", argv[0]);
+	if (argc < 2 || argc > 4) {
+		printf("usage: %s <demo_id>[1-6] [width] [height]\ndefault resolution is 350*350.\n", argv[0]);
 		return 0;
 	}
 
 	int demo_id = atoi(argv[1]);
+	int width = argc >= 3 ? atoi(argv[2]) : 350;
+	int height = argc >= 4 ? atoi(argv[3]) : 350;
 
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) { 
 		throw_exception("couldn't not initialize SDL.");
@@ -78,22 +79,8 @@ int main(int argc, char *argv[]) {
 		dm->set_world();
 		printf("Total time consumed to setup world: %ds.\n", tmr.count_s());
 		tmr.start();
-		render(&dm->wld, screen);
+		render(width, height, &dm->wld, screen);
 		printf("Total time comsumed to render scene: %ds.\n", tmr.count_s());
-/*
-		int fps = 0;
-		tmr.start();
-		while (true) {
-			dm->cam->rotate(pi / 50);
-			render(&dm->wld, screen);
-			fps += 1;
-			if (tmr.count_ms() > 1000) {
-				printf("fps: %d.\n", fps);
-				fps = 0;
-				tmr.start();
-			}
-		}
-*/
 	} catch (rt_exception &ex) {
 		printf("%s", ex.what().c_str());
 	}
@@ -124,7 +111,7 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 			if (updated) {
-				render(&dm->wld, screen);
+				render(width, height, &dm->wld, screen);
 			}
 			break;
 		}
