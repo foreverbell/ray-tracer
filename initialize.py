@@ -7,6 +7,7 @@ from os import mkdir, chdir
 resources = [
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/bunny.noff',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/earth_texture.png',
+    'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/spheremapgalaxyasteroid.png',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/landscape_texture.png',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/sunset-skybox/front.png',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/sunset-skybox/back.png',
@@ -14,7 +15,6 @@ resources = [
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/sunset-skybox/bottom.png',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/sunset-skybox/left.png',
     'https://raw.githubusercontent.com/foreverbell/miscellaneous/master/resource/ray-tracer/sunset-skybox/right.png',
-
 ]
 
 mkdir('resource')
